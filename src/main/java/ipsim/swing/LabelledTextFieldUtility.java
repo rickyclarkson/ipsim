@@ -1,19 +1,19 @@
 package ipsim.swing;
 
-import static anylayout.AnyLayout.useAnyLayout;
 import anylayout.LayoutContext;
 import anylayout.SizeCalculator;
 import anylayout.extras.ConstraintUtility;
-import static anylayout.extras.ConstraintUtility.typicalDefaultConstraint;
 import anylayout.extras.RelativeConstraints;
-import fpeas.function.Function;
-import fpeas.function.FunctionUtility;
-import static ipsim.lang.Runnables.throwRuntimeException;
-
+import fj.F;
+import fj.Function;
+import java.awt.Component;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import java.awt.Component;
+
+import static anylayout.AnyLayout.useAnyLayout;
+import static anylayout.extras.ConstraintUtility.typicalDefaultConstraint;
+import static ipsim.lang.Runnables.throwRuntimeException;
 
 public final class LabelledTextFieldUtility
 {
@@ -65,7 +65,7 @@ public final class LabelledTextFieldUtility
 
 		},typicalDefaultConstraint(throwRuntimeException));
 
-		final Function<LayoutContext,Integer> constant=FunctionUtility.constant(0);
+		final F<LayoutContext,Integer> constant= Function.constant(0);
 		panel.add(label,ConstraintUtility.topLeft(constant,constant));
 		panel.add(field,RelativeConstraints.rightOf(label,5));
 

@@ -4,32 +4,26 @@ import anylayout.AnyLayout;
 import anylayout.SizeCalculator;
 import anylayout.extras.ConstraintUtility;
 import anylayout.extras.RelativeConstraints;
+import fj.F;
+import fj.Function;
+import fj.data.Option;
 import fpeas.either.EitherUtility;
-import fpeas.function.Function;
-import fpeas.function.FunctionUtility;
 import fpeas.lazy.Lazy;
-import fpeas.maybe.Maybe;
 import fpeas.maybe.MaybeUtility;
-import static fpeas.maybe.MaybeUtility.just;
 import fpeas.predicate.Predicate;
 import fpeas.sideeffect.SideEffect;
 import fpeas.sideeffect.SideEffectUtility;
 import ipsim.Caster;
 import ipsim.Global;
-import static ipsim.Global.getNetworkContext;
-import static ipsim.Global.global;
 import ipsim.Globals;
 import ipsim.NetworkContext;
 import ipsim.awt.Point;
-import static ipsim.NetworkContext.errors;
 import ipsim.gui.components.initialdialog.InitialDialogUtility;
 import ipsim.gui.event.LogUtility;
 import ipsim.lang.Assertion;
-import static ipsim.lang.Assertion.assertNotNull;
 import ipsim.lang.CheckedIllegalStateException;
 import ipsim.network.Network;
 import ipsim.network.NetworkUtility;
-import static ipsim.network.NetworkUtility.loadFromFile;
 import ipsim.network.Problem;
 import ipsim.network.ProblemBuilder;
 import ipsim.network.ProblemDifficulty;
@@ -56,18 +50,36 @@ import ipsim.util.Collections;
 import ipsim.webinterface.NamedConfiguration;
 import ipsim.webinterface.NoSuchConfigurationException;
 import ipsim.webinterface.WebInterface;
-import org.jetbrains.annotations.NotNull;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import static java.lang.Integer.parseInt;
 import java.util.List;
+import javax.swing.AbstractButton;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import org.jetbrains.annotations.NotNull;
+
+import static fj.data.Option.some;
+import static ipsim.Global.getNetworkContext;
+import static ipsim.Global.global;
+import static ipsim.NetworkContext.errors;
+import static ipsim.lang.Assertion.assertNotNull;
+import static ipsim.network.NetworkUtility.loadFromFile;
+import static java.lang.Integer.parseInt;
 
 public class MenuHandler
 {
@@ -99,28 +111,28 @@ public class MenuHandler
 				tabbedPane.setSelectedComponent(scrollPane);
 				final int selected=tabbedPane.getSelectedIndex();
 
-				networkContext.currentFilename.addPropertyListener(new PropertyListener<Maybe<File>>()
+				networkContext.currentFilename.addPropertyListener(new PropertyListener<Option<File>>()
 				{
 					@Override
-                    public void propertyChanged(final Property<Maybe<File>> property, final Maybe<File> oldValue, final Maybe<File> newValue)
+                    public void propertyChanged(final Property<Option<File>> property, final Option<File> oldValue, final Option<File> newValue)
 					{
 						Assertion.assertNotNull(newValue);
-						tabbedPane.setTitleAt(selected,MaybeUtility.constIfNothing(newValue,"Untitled",new Function<File, String>()
+						tabbedPane.setTitleAt(selected, newValue.map(new F<File, String>()
 						{
 							@Override
                             @NotNull
-							public String run(@NotNull final File file)
+							public String f(@NotNull final File file)
 							{
 								return file.getName();
 							}
-						}));
+						}).orSome("Untitled"));
 					}
 				});
 
 				Global.getNetworkContexts().add(networkContext);
 
 				getNetworkContext().network.problem=null;
-				getNetworkContext().currentFilename.set(MaybeUtility.<File>nothing());
+				getNetworkContext().currentFilename.set(Option.<File>none());
 				global.get().editProblemButton.setText("Edit Problem");
 
 				InitialDialogUtility.createInitialDialog().dialog.setVisible(true);
@@ -172,21 +184,18 @@ public class MenuHandler
 			@Override
             public void run()
 			{
-				MaybeUtility.run(getNetworkContext().currentFilename.get(),new SideEffect<File>()
-				{
-					@Override
-                    public void run(final File file)
-					{
-						try
-						{
-							NetworkUtility.saveToFile(getNetworkContext().network, file);
-						}
-						catch (IOException e)
-						{
-							errors(e.getMessage());
-						}
-					}
-				},fileSaveAs());
+                final Option<File> fileOption = getNetworkContext().currentFilename.get();
+                if (fileOption.isSome())
+                    try
+                    {
+                        NetworkUtility.saveToFile(getNetworkContext().network, fileOption.some());
+                    }
+                    catch (IOException e)
+                    {
+                        errors(e.getMessage());
+                    }
+				else
+                    fileSaveAs().run();
 			}
 		};
 	}
@@ -234,7 +243,7 @@ public class MenuHandler
 						if (filename.getName().startsWith("@"))
 							getNetworkContext().fileChooser.setSelectedFile(null);
 						else
-							getNetworkContext().currentFilename.set(just(filename));
+							getNetworkContext().currentFilename.set(some(filename));
 					}
 
 					return;
@@ -712,8 +721,8 @@ public class MenuHandler
 					}
 				}, null);
 
-				panel.add(connectivityLabel, ConstraintUtility.topLeft(FunctionUtility.constant(padding), FunctionUtility.constant(padding)));
-				panel.add(connectivityButton, ConstraintUtility.topRight(FunctionUtility.constant(padding), FunctionUtility.constant(padding)));
+				panel.add(connectivityLabel, ConstraintUtility.topLeft(Function.constant(padding), Function.constant(padding)));
+				panel.add(connectivityButton, ConstraintUtility.topRight(Function.constant(padding), Function.constant(padding)));
 				panel.add(conformanceLabel, RelativeConstraints.below(connectivityLabel, padding));
 				panel.add(conformanceButton, RelativeConstraints.levelWith(conformanceLabel, connectivityButton));
 

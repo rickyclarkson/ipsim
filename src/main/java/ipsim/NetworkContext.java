@@ -1,10 +1,9 @@
 package ipsim;
 
+import fj.data.Option;
 import fpeas.maybe.Maybe;
 import fpeas.maybe.MaybeUtility;
-import static fpeas.maybe.MaybeUtility.nothing;
 import fpeas.sideeffect.SideEffect;
-import static ipsim.Global.global;
 import ipsim.gui.NetworkView;
 import ipsim.gui.NetworkViewUtility;
 import ipsim.gui.Toggle;
@@ -13,14 +12,17 @@ import ipsim.gui.event.MouseTracker;
 import ipsim.network.Network;
 import ipsim.network.Problem;
 import ipsim.property.Property;
-import static ipsim.property.PropertyUtility.newProperty;
 import ipsim.swing.CustomJOptionPane;
-
-import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.File;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
+import static fpeas.maybe.MaybeUtility.nothing;
+import static ipsim.Global.global;
+import static ipsim.property.PropertyUtility.newProperty;
 
 public final class NetworkContext
 {
@@ -28,7 +30,7 @@ public final class NetworkContext
 	public String emailAddress=null;
 	public final NetworkView networkView=NetworkViewUtility.newNetworkView(this);
 	public final JFileChooser fileChooser;
-	public final Property<Maybe<File>> currentFilename=newProperty(MaybeUtility.<File>nothing());
+	public final Property<Option<File>> currentFilename=newProperty(Option.<File>none());
 	public Network network=new Network();
 
 	public final MouseTracker mouseTracker=new MouseTracker()

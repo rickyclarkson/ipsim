@@ -9,8 +9,8 @@ import anylayout.extras.ConstraintUtility;
 import anylayout.extras.PercentConstraints;
 import anylayout.extras.PercentConstraintsUtility;
 import anylayout.extras.RelativeConstraints;
-import fpeas.function.Function;
-import fpeas.function.FunctionUtility;
+import fj.F;
+import fj.Function;
 import ipsim.Global;
 import ipsim.Globals;
 import ipsim.gui.MenuHandler;
@@ -154,13 +154,13 @@ public class InitialDialogUtility
 		final Constraint introLabelConstraint=ConstraintUtility.topCentre(PADDING);
 		contentPane.add(introLabel, introLabelConstraint);
 
-		final Function<LayoutContext, Integer> paddingFunction=FunctionUtility.constant(PADDING);
+		final F<LayoutContext, Integer> paddingFunction= Function.constant(PADDING);
 
-		final Constraint freeformConstraint=ConstraintBuilder.buildConstraint().setLeft(paddingFunction).setTop(new Function<LayoutContext, Integer>()
+		final Constraint freeformConstraint=ConstraintBuilder.buildConstraint().setLeft(paddingFunction).setTop(new F<LayoutContext, Integer>()
 		{
 			@Override
             @NotNull
-			public Integer run(@NotNull final LayoutContext layoutContext)
+			public Integer f(@NotNull final LayoutContext layoutContext)
 			{
 				return layoutContext.getLayoutInfo(introLabel).getFarOffset()+PADDING*3;
 			}
@@ -174,19 +174,19 @@ public class InitialDialogUtility
 
 		contentPane.add(takeTestRadioButton, RelativeConstraints.below(practiceTestRadioButton, PADDING));
 
-		final Constraint takeTestConstraints=ConstraintBuilder.buildConstraint().setLeft(new Function<LayoutContext, Integer>()
+		final Constraint takeTestConstraints=ConstraintBuilder.buildConstraint().setLeft(new F<LayoutContext, Integer>()
 		{
 			@Override
             @NotNull
-			public Integer run(@NotNull final LayoutContext layoutContext)
+			public Integer f(@NotNull final LayoutContext layoutContext)
 			{
 				return layoutContext.getParentSize()-10-layoutContext.getPreferredSize();
 			}
-		}).setTop(new Function<LayoutContext, Integer>()
+		}).setTop(new F<LayoutContext, Integer>()
 		{
 			@Override
             @NotNull
-			public Integer run(@NotNull final LayoutContext layoutContext)
+			public Integer f(@NotNull final LayoutContext layoutContext)
 			{
 				return layoutContext.getLayoutInfo(practiceTestRadioButton).getOffset();
 			}

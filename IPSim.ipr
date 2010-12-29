@@ -952,15 +952,15 @@
       <JAVADOC />
       <SOURCES />
     </library>
-    <library name="Maven: anylayout:anylayout:ipsim-backup">
+    <library name="Maven: anylayout:anylayout:1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/anylayout/anylayout/ipsim-backup/anylayout-ipsim-backup.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/anylayout/anylayout/1/anylayout-1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/anylayout/anylayout/ipsim-backup/anylayout-ipsim-backup-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/anylayout/anylayout/1/anylayout-1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/anylayout/anylayout/ipsim-backup/anylayout-ipsim-backup-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/anylayout/anylayout/1/anylayout-1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.intellij:annotations:7.0.3">

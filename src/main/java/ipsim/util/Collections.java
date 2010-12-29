@@ -1,14 +1,12 @@
 package ipsim.util;
 
 import com.rickyclarkson.testsuite.UnitTest;
+import fj.F;
 import fpeas.function.Function;
 import fpeas.lazy.Lazy;
 import fpeas.predicate.Predicate;
 import fpeas.sideeffect.SideEffect;
 import ipsim.lang.Stringable;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -19,6 +17,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class Collections
 {
@@ -191,22 +191,22 @@ public class Collections
 		return builder.toString();
 	}
 
-	public static <T> int sum(final Function<T, Integer> function, final T... operands)
+	public static <T> int sum(final F<T, Integer> function, final T... operands)
 	{
 		int result=0;
 
 		for (final T item : operands)
-			result+=function.run(item);
+			result+=function.f(item);
 
 		return result;
 	}
 
-	public static <T> int max(final Function<T, Integer> function, final T... operands)
+	public static <T> int max(final F<T, Integer> function, final T... operands)
 	{
 		int result=0;
 
 		for (final T item : operands)
-			result=Math.max(result, function.run(item));
+			result=Math.max(result, function.f(item));
 
 		return result;
 	}

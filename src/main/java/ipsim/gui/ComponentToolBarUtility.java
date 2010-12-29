@@ -4,14 +4,7 @@ import anylayout.AnyLayout;
 import anylayout.Constraint;
 import anylayout.LayoutContext;
 import anylayout.SizeCalculator;
-import static anylayout.extras.ConstraintBuilder.after;
-import static anylayout.extras.ConstraintBuilder.buildConstraint;
-import static anylayout.extras.ConstraintBuilder.fill;
-import static anylayout.extras.SizeCalculatorUtility.getPreferredHeight;
-import static anylayout.extras.SizeCalculatorUtility.getPreferredWidth;
-import fpeas.function.Function;
-import fpeas.function.FunctionUtility;
-import static ipsim.gui.NetworkComponentIconMouseListenerUtility.createNetworkComponentIconMouseListener;
+import fj.F;
 import ipsim.gui.components.ComputerHandler;
 import ipsim.gui.components.EthernetCableIcon;
 import ipsim.gui.components.EthernetCardHandler;
@@ -19,14 +12,23 @@ import ipsim.gui.components.HubHandler;
 import ipsim.network.connectivity.card.Card;
 import ipsim.network.connectivity.computer.Computer;
 import ipsim.network.connectivity.hub.Hub;
+import java.awt.Component;
+import java.awt.Container;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JToggleButton;
+import javax.swing.event.MouseInputListener;
+import org.jetbrains.annotations.NotNull;
+
+import static anylayout.extras.ConstraintBuilder.after;
+import static anylayout.extras.ConstraintBuilder.buildConstraint;
+import static anylayout.extras.ConstraintBuilder.fill;
+import static anylayout.extras.SizeCalculatorUtility.getPreferredHeight;
+import static anylayout.extras.SizeCalculatorUtility.getPreferredWidth;
+import static ipsim.gui.NetworkComponentIconMouseListenerUtility.createNetworkComponentIconMouseListener;
 import static ipsim.swing.DragNDropIconCreator.newInstance;
 import static ipsim.util.Collections.max;
 import static ipsim.util.Collections.sum;
-import org.jetbrains.annotations.NotNull;
-
-import javax.swing.*;
-import javax.swing.event.MouseInputListener;
-import java.awt.*;
 
 public final class ComponentToolBarUtility
 {
@@ -53,21 +55,21 @@ public final class ComponentToolBarUtility
 			{
 				return max(getPreferredWidth(),label,computer,cable,card,hub);
 			}
-		},new Function<Component,Constraint>()
+		},new F<Component,Constraint>()
 		{
 			@Override
             @NotNull
-			public Constraint run(@NotNull final Component component)
+			public Constraint f(@NotNull final Component component)
 			{
 				throw new IllegalStateException();
 			}
 		});
 
-		final Function<LayoutContext,Integer> maxPreferredHeight=new Function<LayoutContext,Integer>()
+		final F<LayoutContext,Integer> maxPreferredHeight=new F<LayoutContext,Integer>()
 		{
 			@Override
             @NotNull
-			public Integer run(@NotNull final LayoutContext layoutContext)
+			public Integer f(@NotNull final LayoutContext layoutContext)
 			{
 				final Component[] components={label,computer,cable,card,hub};
 
@@ -75,7 +77,7 @@ public final class ComponentToolBarUtility
 			}
 		};
 
-		final Function<LayoutContext,Integer> zero=FunctionUtility.constant(0);
+		final F<LayoutContext,Integer> zero=fj.Function.constant(0);
 
 		panel.add(label,buildConstraint().setLeft(zero).setTop(zero).setWidth(fill()).setHeight(maxPreferredHeight));
 		panel.add(cable,buildConstraint().setLeft(zero).setTop(after(label)).setWidth(fill()).setHeight(maxPreferredHeight));

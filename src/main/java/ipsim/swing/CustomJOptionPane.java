@@ -5,38 +5,14 @@ import anylayout.Constraint;
 import anylayout.LayoutContext;
 import anylayout.SizeCalculator;
 import anylayout.extras.ConstraintBuilder;
-import static anylayout.extras.ConstraintBuilder.buildConstraint;
-import static anylayout.extras.ConstraintBuilder.preferredSize;
 import anylayout.extras.ConstraintUtility;
-import static anylayout.extras.ConstraintUtility.bottomLeft;
-import static anylayout.extras.ConstraintUtility.bottomRight;
-import static anylayout.extras.ConstraintUtility.topLeft;
-import static anylayout.extras.LayoutContextUtility.getFarOffset;
 import anylayout.extras.RelativeConstraints;
-import static anylayout.extras.RelativeConstraints.halfwayBetween;
-import fpeas.function.Function;
-import static fpeas.function.FunctionUtility.add;
-import static fpeas.function.FunctionUtility.constant;
-import fpeas.maybe.Maybe;
-import fpeas.maybe.MaybeUtility;
-import static fpeas.maybe.MaybeUtility.fromNullable;
-import fpeas.sideeffect.SideEffect;
+import fj.F;
+import fj.Function;
+import fj.data.Option;
 import fpeas.predicate.Predicate;
-import static ipsim.Caster.equalT;
-import static ipsim.swing.Dialogs.createDialogWithEscapeKeyToClose;
-
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import static javax.swing.SwingConstants.LEFT;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import static javax.swing.UIManager.getIcon;
-import javax.swing.WindowConstants;
+import fpeas.sideeffect.SideEffect;
+import ipsim.lang.Doubles;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -48,27 +24,48 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.WindowConstants;
 import org.jetbrains.annotations.NotNull;
+
+import static anylayout.extras.ConstraintBuilder.buildConstraint;
+import static anylayout.extras.ConstraintBuilder.preferredSize;
+import static anylayout.extras.ConstraintUtility.bottomLeft;
+import static anylayout.extras.ConstraintUtility.bottomRight;
+import static anylayout.extras.ConstraintUtility.topLeft;
+import static anylayout.extras.LayoutContextUtility.getFarOffset;
+import static anylayout.extras.RelativeConstraints.halfwayBetween;
+import static ipsim.Caster.equalT;
+import static ipsim.swing.Dialogs.createDialogWithEscapeKeyToClose;
+import static javax.swing.SwingConstants.LEFT;
+import static javax.swing.UIManager.getIcon;
 
 public class CustomJOptionPane
 {
 	private static final int PADDING=10;
-	private static final Function<LayoutContext, Integer> paddingFunction=constant(PADDING);
+	private static final F<LayoutContext, Integer> paddingFunction= Function.constant(PADDING);
 
 	public static int showYesNoCancelDialog(final JFrame frame, final String message, final String title)
 	{
-		final Maybe<JDialog> dialog=createDialogWithEscapeKeyToClose(fromNullable(frame), title);
+		final Option<JDialog> dialog=createDialogWithEscapeKeyToClose(Option.fromNull(frame), title);
 
-		return MaybeUtility.constIfNothing(dialog, null, new Function<JDialog, Integer>()
+		return dialog.map(new F<JDialog, Integer>()
 		{
 			@Override
             @NotNull
-			public Integer run(@NotNull final JDialog jDialog)
+			public Integer f(@NotNull final JDialog jDialog)
 			{
 				return impl(frame, jDialog, message);
 			}
-		});
+		}).some();
 	}
 
 	public static int impl(final JFrame frame, final JDialog dialog, final String message)
@@ -232,13 +229,13 @@ public class CustomJOptionPane
 
 		final Constraint messageConstraint=ConstraintUtility.topCentre(PADDING);
 
-		final Constraint confirmationConstraint=buildConstraint().setLeft(paddingFunction).setTop(add(getFarOffset(messageLabel), paddingFunction)).setWidth(preferredSize).setHeight(preferredSize);
+		final Constraint confirmationConstraint=buildConstraint().setLeft(paddingFunction).setTop(Doubles.add(getFarOffset(messageLabel), paddingFunction)).setWidth(preferredSize).setHeight(preferredSize);
 
-		final Constraint firstButtonConstraint=ConstraintBuilder.buildConstraint().setLeft(paddingFunction).setTop(new Function<LayoutContext, Integer>()
+		final Constraint firstButtonConstraint=ConstraintBuilder.buildConstraint().setLeft(paddingFunction).setTop(new F<LayoutContext, Integer>()
 		{
 			@Override
             @NotNull
-			public Integer run(@NotNull final LayoutContext context)
+			public Integer f(@NotNull final LayoutContext context)
 			{
 				return context.getLayoutInfo(confirmationLabel).getFarOffset()+PADDING;
 			}
