@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="tests"/>
+	<classpathentry kind="src" path="webinterface"/>
+	<classpathentry exported="true" kind="lib" path="lib/jsch-0.1.24.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/home/My Documents/pmd-3.7/lib/jakarta-oro-2.0.8.jar"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/home/My Documents/pmd-3.7/lib/jaxen-1.1-beta-7.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Documents and Settings/home/My Documents/pmd-3.7/lib/pmd-3.7.jar"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/home/My Documents/pmd-3.7/lib/xercesImpl-2.6.2.jar"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/home/My Documents/pmd-3.7/lib/xmlParserAPIs-2.6.2.jar"/>
+	<classpathentry kind="lib" path="lib/anylayout.jar" sourcepath="C:/cygwin/home/home/anylayout"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/functionalpeas"/>
+	<classpathentry kind="output" path="build"/>
+</classpath>

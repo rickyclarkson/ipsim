@@ -1,0 +1,132 @@
+I have written a set of routines to make NetSim Internet aware, in order to integrate the "Take an Actual Test"
+There is a PERL script running on my server, and a set of Java methods to interact with this
+(the Java is written in a procedural style, so you may want to change it to your style)
+
+These all work with String arguments, so your "load" and "save" need to be able to deal with these as well as
+(or instead of) files.
+
+They all return a one-line status message (the starting digit tells you what's going on - see netsim.pl for a list).
+Retrieval operations return what they are retrieving on the next line.
+  -->Yes, it's all basically nicked from HTTP!!!
+
+
+1. Exceptions
+=============
+When NetSim generates an exception, it should allow the user to upload the event log and network configuration if they
+are connected to the Internet (i.e. replace the "save" button by a "send" button)
+>>>PutException("text","config")
+
+
+2. Take an actual test
+======================
+GETTING TEST PARAMETERS
+-----------------------
+>>>GetProblem()
+  ->returns NETSIZE, NUMSUBNETS and NUMFAULTS as choices
+(e.g. NETSIZE=17,18,19)
+  ->OR returns "DENY" if "take a test" is not available
+  ->OR warn student if not connected to the Internet
+Ask student for name and computer number, and whether they want to do a "setup" test or a "troubleshooting" test
+(latter not available if NUMFAULTS==0)
+
+FOR A SETUP TEST
+----------------
+  ->NetSim invents problem from returned parameters
+  ->Store details of problem to keep a record that test started
+>>>PutSUProblem("name.computernumber","problem+local time on machine")
+  ->abandon test if can't get connection to the Internet or get DENY back
+
+UPLOAD SETUP TEST SOLUTION (only if have a test-generated problem)
+--------------------------
+  >>>PutSUSolution("name.computernumber","config")
+  ->returns confirmation (leave in "take a test" mode, I don't mind them carrying on and resubmitting within the time limit)
+  ->OR returns "DENY" if solutions can no longer be uploaded
+
+
+3. Troubleshooting - practice and test
+======================================
+A new sort of use of NetSim, where a non-working configuration is provided and the student aims to mend it
+(actually a working configuration is provided and randomly broken before asking the student to mend it!)
+
+TROUBLESHOOTING PRACTICE
+------------------------
+  >>GetTSExample()
+  ->"troubleshooting practice needs internet connection" if can't get connection to the Internet
+  ask user how many faults they want
+  generate n faults, making sure each reduces the connectivity
+	for example...
+	 * turn off hub
+	 * turn off routing on one router
+	 * cable becomes broken
+	 * delete routing table for a computer
+	 * swap cables for a router
+	 * randomly change IP address
+
+FOR A TROUBLESHOOTING TEST
+--------------------------
+>>GetTSTest()
+  ->NetSim generates correct number of faults, checking that each reduces the connectivity
+  ->Store details of what it has done to keep a record that test started
+>>PutTSFaults("name.computernumber","faults")
+  ->abandon test if can't get connection to the Internet
+
+UPLOAD TS TEST SOLUTION (only if have a test-generated problem)
+-----------------------
+>>>PutTSSolution("MACaddress.name.computernumber","config")
+  ->returns confirmation (leave in "take a test" mode, I don't mind them carrying on as before)
+  ->OR returns "DENY" if solutions can no longer be uploaded
+
+
+4. MARKING MODE
+===============
+Have an unpublished key combination to activate marking mode functions
+
+To find out if this is allowed, call
+  >>GetMarkingScheme()
+if returns "DENY" or "connection problem" etc. then ignore the key combination
+
+if returns something else then there are two marking mode functions (2 key combinations???)
+
+Marking Setup Tests
+-------------------
+To get a students solution
+>>GetUnmarkedSUSolution
+   ->Tell me if it returns "Finished"
+   ->or, to start with, just give me a textbox prefilled in with
+	 * students name and computer number
+	 * connectivity and conformance calculations
+	 * a note of obvious problems (duplicate IPs, no IP, hubs off, routers not routing, broken cables, etc)
+	 * the text that was returned by the GetMarkingScheme() function call earlier
+	 * A "submit" button at bottom
+	   -> when clicked
+		>>PutSUFeedback("name.computernumber","feedback")
+
+Marking Troubleshooting Tests
+-----------------------------
+As before, but
+  >>GetUnmarkedTSSolution()
+  >>PutTSFeedback("name.computernumber","feedback")
+
+
+
+5. SOMETHING NEW COMING SOON to think about
+============================
+Something new to drag from the toolbar onto the canvas
+... an ISP
+can connect a cable between a computer and an ISP
+right-click ISP gives "display configuration information" and "delete" only - nothing configurable
+    configuration information to display...
+	ISP network number (make it x.y.z.0/24, but check x,y,z is different to allocated problem)
+	IP of gateway to Core AS=x.y.z.1
+	IP of gateway to student network=x.y.z.2 (they need to put this and 255.255.255.0 in gateway)
+	routing table (explicit:customer's Network number-->x.y.z.2
+                               local-->x.y.z.0/24
+                               default-->x.y.z.1)
+	AS Advertised reachability information (ISP's network number and student's network number)
+ping and traceroute to x.y.z.1 and x.y.z.2 are answered
+ping and traceroute to external networks are answered if x.y.z.1 is reachable
+test connectivity will include a test of all IP addresses pinging an external IP (network number different to ISP and to student problem)
+
+Some issues
+ - what if student doesn't have a problem set?
+ - what if they edit their problem?

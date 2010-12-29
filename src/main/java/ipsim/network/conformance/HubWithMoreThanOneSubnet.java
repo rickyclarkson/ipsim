@@ -1,0 +1,111 @@
+package ipsim.network.conformance;
+
+import com.rickyclarkson.testsuite.UnitTest;
+import fpeas.function.Function;
+import fpeas.predicate.Predicate;
+import static ipsim.Caster.equalT;
+import static ipsim.connectivity.hub.incoming.PacketSourceUtility.asCard;
+import static ipsim.connectivity.hub.incoming.PacketSourceUtility.isHub;
+import ipsim.network.Network;
+import ipsim.network.NetworkUtility;
+import static ipsim.network.NetworkUtility.loadFromFile;
+import ipsim.network.conformance.ConformanceTests.ResultsAndSummaryAndPercent;
+import ipsim.network.connectivity.PacketSource;
+import ipsim.network.connectivity.cable.Cable;
+import ipsim.network.connectivity.card.Card;
+import ipsim.network.connectivity.card.CardDrivers;
+import ipsim.network.connectivity.hub.Hub;
+import static ipsim.network.ethernet.CableUtility.getOtherEnd;
+import ipsim.network.ethernet.CardUtility;
+import ipsim.network.ethernet.NetBlock;
+import ipsim.network.ethernet.OnlyOneEndConnectedException;
+import ipsim.util.Collections;
+import static ipsim.util.Collections.arrayList;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.io.File;
+import java.util.List;
+
+public class HubWithMoreThanOneSubnet implements Function<Network,CheckResult>
+{
+	public static final String errorMessage="Hub with more than one subnet connected to it";
+
+	@Override
+    @NotNull
+	public CheckResult run(@NotNull final Network network)
+	{
+		final List<PacketSource> empty=arrayList();
+		final List<PacketSource> warnings=arrayList();
+
+		for (final Hub hub: NetworkUtility.getAllHubs(network))
+		{
+			NetBlock netBlock=null;
+
+			for (final Cable cable: hub.getCables())
+			{
+				final @Nullable Card maybeCard;
+				try
+				{
+					maybeCard=asCard(getOtherEnd(network,cable,hub));
+				}
+				catch (final OnlyOneEndConnectedException exception)
+				{
+					continue;
+				}
+
+				if (maybeCard==null)
+					continue;
+
+				final @Nullable CardDrivers cardWithDrivers=maybeCard.withDrivers;
+
+				if (cardWithDrivers==null || cardWithDrivers.ipAddress.get().rawValue==0)
+					continue;
+
+				final NetBlock temp=CardUtility.getNetBlock(cardWithDrivers);
+
+				if (netBlock==null)
+					netBlock=temp;
+				else
+					if (!equalT(netBlock,temp))
+						warnings.add(hub);
+			}
+		}
+
+		if (warnings.isEmpty())
+			return CheckResultUtility.fine();
+
+		return new CheckResult(TypicalScores.SEVERE, Collections.asList(errorMessage), warnings, empty);
+	}
+
+	public static UnitTest testFalsePositiveWithZeroIP()
+	{
+		return new UnitTest()
+		{
+			@Override
+            public boolean invoke()
+			{
+				final Network network=new Network();
+				loadFromFile(network,new File("datafiles/unconnected/hubwithmorethanonesubnet-zerotest.ipsim"));
+
+				final ResultsAndSummaryAndPercent allChecks=ConformanceTests.allChecks(network);
+
+				final List<CheckResult> results=allChecks.results;
+
+				return !Collections.any(results,new Predicate<CheckResult>()
+				{
+					@Override
+                    public boolean invoke(final CheckResult checkResult)
+					{
+						return Collections.any(checkResult.withWarnings,isHub);
+					}
+				});
+			}
+
+			public String toString()
+			{
+				return "testFalsePositiveWithZeroIP";
+			}
+		};
+	}
+}

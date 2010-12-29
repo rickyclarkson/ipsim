@@ -1,0 +1,76 @@
+FORM {margin-bottom: 0px; margin-top: 0px;}
+A, A:visited {color: blue;}
+.bgc {background-color: #7694C8;}
+.bgd {background-color: #B6C7E5;}
+.bge {background-color: #EEF3FB;}
+.bgf {background-color: #FFFFFF;}
+.bgg {background-color: #CCCCCC;}
+.tbutton {background-color: #EEF3FB;}
+.mtitle {color: #5671A0;}
+.verd {color: white;}
+.bbar {padding: 4px; background-color: #7694C8;}
+.barlink {border-left: solid 2px #7694C8;}
+.bartext, .bartext A, .bartext A:visited {color: #FFFFFF;}
+.lhtext, .lhtext A, .lhtext A:visited {color: #000000;}
+.dead {color: #999999;}
+.nohover A, .nohover A:visited {text-decoration: none; color: black; !important;}
+.nohover A:hover {text-decoration: underline; color: black;}
+.bhover A, .bhover A:visited {color: #333399;}
+.bhover A:hover {text-decoration: underline; color: blue;}
+.redlink A, .redlink A:visited {color: red;}
+.tabhit, .tabhit A, .tabhit A:visited {color: #1F386A;}
+.tablot, .tablot A, .tablot A:visited {color: #5671A0;}
+.tabhi {background-color: #B6C7E5;} 
+.tablol, .tablor, .tablo {background-color: #EEF3FB;}
+.tabnone {background-color: #FFFFFF;}
+.heada {background-color: #EEF3FB;}
+.headb {background-color: #7694C8; color: #FFFFFF;}
+.headc {background-color: #EEF3FB;}
+.headd {background-color: #EEF3FB;}
+.heade {background-color: #EEEEEE;}
+.bd {background-color: #EEF3FB; border: solid 1px #7694C8;}
+.alerttable {background-color: #EEF3FB; border: solid 2px #B6C7E5;}
+.warntable {background-color: #EEEEEE; border: solid 2px #CCCCCC;}
+.errtable {background-color: #FFDDDD; border: solid 2px #FF3333;}
+.errmsg {color: #CC0000;}
+.errtitle {color: #FF3333;}
+.ftitle {background-color: #EEF3FB;}
+.flo {background-color: #EEF3FB;}
+.fhi {background-color: #FFFFFF;}
+.listhead, .sortcol, .lista, .listb, .listas, .listbs, .msgnew, .msgold, .msgnews, .msgolds {vertical-align: top;}
+.listhead {background-color: #DDDDDD;}
+.sortcol {background-color: #EEF3FB; border-left: solid 1px #B6C7E5; border-right: solid 1px #B6C7E5;}
+.lista {background-color: #FFFFFF;}
+.listb {background-color: #F6F6F6;}
+.listas {background-color: #EEF3FB;}
+.listbs {background-color: #E6EAF2;}
+.msgnew {background-color: #FFFFFF; font-weight: bold}
+.msgold {background-color: #EEEEEE;}
+.msgnews {background-color: #EEF3FB; font-weight: bold}
+.msgolds {background-color: #DEE3EA;}
+.frmt {background-color: #FFFFFF;}
+.frmb {background-color: #EEEEEE;}
+.frme {background-color: #FFDDDD;}
+.frmbg {background-color: #CCFFCC; color: black;}
+.frmbg B {color: green;}
+.frmbg I {color: black; font-weight: normal;}
+.frmbr {background-color: #FFCCCC; color: black;}
+.frmbr B {color: red;}
+.frmbr I {color: black; font-weight: normal;}
+.frmbb {background-color: #CCCCFF; color: black;}
+.frmbb B {color: 0000cd;}
+.frmbb I {color: black; font-weight: normal;}
+.invwya {background-color: #EEF3FB; border: solid 2px #B6C7E5;}
+.mon, .mony, .monn, .mons {text-align: right;}
+.mon, .mony, .monn {background-color: #EEF3FB;}
+.mons {background-color: #FFFFFF;}
+.monn A, .monnA:visited {color: #666666;}
+.mony, .mons {font-weight: bold;}
+.calnone, .calmy, .calguide, .monday, .monmy, .monguide {vertical-align: top;}
+.calnone {background-color: #FFFFFF; border-bottom: solid 2px #EEEEEE;}
+.calmy {background-color: #EEF3FB; border-left: solid 1px #B6C7E5; border-bottom: solid 2px #B6C7E5;}
+.calguide {background-color: #F4F5E1; border-left: solid 1px #CCCCAA; border-bottom: solid 2px #CCCCAA;}
+.monday {padding: 5px;}
+.monmy {background-color: #EEF3FB; border: solid 1px #EEF3FB; border-bottom: solid 1px #B6C7E5; padding: 3px;}
+.monguide {background-color: #F4F5E1; border: solid 1px #F4F5E1; border-bottom: solid 1px #CCCCAA; padding: 3px;}
+.calguide A, .calguide A:visited, .monguide A, .monguide A:visited {color:#996600;}

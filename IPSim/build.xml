@@ -1,0 +1,125 @@
+<project name="IPSim" default="main">
+	<property file="passwords.properties"/>
+	
+	<target name="main" depends="build,unittests"/>
+
+	<target name="build">
+		<mkdir dir="build"/>
+		<antcall target="timestamp"/>
+		<javac
+			destdir="build"
+			debug="true"
+			deprecation="true"
+			classpath="lib/fpeas.jar;lib/anylayout.jar"
+			source="1.5"
+			target="1.5"
+		>
+			<src path="src"/>
+			<src path="tests"/>
+			
+			<compilerarg value="-Xlint:unchecked"/>
+		</javac>
+		
+		<copy todir="build">
+			<fileset dir="." includes="help/**/*"/>
+			<fileset dir="." includes="images/**/*"/>
+			<fileset dir="." includes="xml/**/*"/>
+			<fileset dir="src" includes="**/*."/>
+			<fileset dir="tests" includes="**/*.ipsim"/>
+		</copy>
+	</target>
+
+	<target
+		name="clean"
+		depends="cleanarchives"
+	>
+		<delete dir="build"/>
+		<delete dir="javadocs"/>
+	</target>
+
+	<target name="cleanarchives">
+		<delete file="ipsim.jar"/>
+		<delete file="ipsim.zip"/>
+	</target>
+	
+	<target name="rebuild" depends="clean,build"/>
+
+	<target name="export" depends="build,unittests">
+		<unjar src="lib/anylayout.jar" dest="build/"/>
+		<unjar src="lib/fpeas.jar" dest="build/"/>
+		
+		<jar destfile="ipsim.jar" manifest="Manifest"><fileset dir="build"/></jar>
+		
+		<zip zipfile="ipsim.zip" basedir=".">
+			<include name="ipsim.jar"/>
+			<include name="ipsim.bat"/>
+		</zip>
+	</target>
+
+	<target name="localfpeasupdate">
+		<copy file="../functionalpeas/fpeas.jar" todir="lib/"/>
+	</target>
+	
+	<target name="localanylayoutupdate">
+		<copy file="../anylayout/anylayout.jar" todir="lib/"/>
+	</target>
+		
+	<target name="run" depends="export">
+		<java jar="ipsim.jar" fork="true"/>
+	</target>
+
+	<target name="beanshell" depends="build,export">
+		<java
+			classpath="ipsim.jar:lib/bsh-2.0b4.jar"
+			classname="ipsim.Main"
+			fork="true"
+			/>
+	</target>
+		
+	<target name="unittests" depends="build">
+		<java
+			classpath="build"
+			classname="ipsim.tests.RunTests"
+			fork="true"
+			failonerror="true"
+			dir="."
+		>
+		</java>
+		<echo message="Ending unit tests"/>
+	</target>
+
+	<target name="signjars" depends="export">
+		<signjar jar="ipsim.jar"
+			keystore="myKeystore"
+			alias="myself"
+			storepass="${keystorepassword}"
+		/>
+	</target>
+	
+	<target name="deploy" depends="signjars">
+		<scp
+			todir="ricky:${lavenderpassword}@lavender.cime.net:/home/ricky/public_html/netsim"
+			trust="Yes"
+		>
+			<fileset dir="docs/site"/>
+			<fileset file="ipsim.jar"/>
+			<fileset file="ipsim.zip"/>
+		</scp>
+	
+		<scp
+			todir="ricky:${lavenderpassword}@lavender.cime.net:/home/ricky/public_html/netsim/help"
+			trust="Yes"
+		>
+			<fileset dir="help"/>
+		</scp>
+	</target>
+	
+	<target name="backup" depends="clean">
+		<zip zipfile="backup.zip" basedir="." excludes="passwords.properties"></zip>
+	</target>
+	
+	<target name="timestamp">
+		<tstamp/>
+		<echo message="${DSTAMP}" file="build/timestamp"/>
+	</target>
+</project>

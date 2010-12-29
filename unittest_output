@@ -1,0 +1,13 @@
+java.lang.NullPointerException
+	at ipsim.Caster.equalT(Caster.java:321)
+	at ipsim.gui.PositionManagerUtility$1.getPositions(PositionManagerUtility.java:44)
+	at ipsim.gui.PositionManagerUtility$1.setPosition(PositionManagerUtility.java:88)
+	at ipsim.network.ethernet.ComputerImplementation.<init>(ComputerImplementation.java:73)
+	at ipsim.network.ethernet.ComputerFactoryImplementation.newComputer(ComputerFactoryImplementation.java:28)
+	at ipsim.ethernet.ComputerTest$2.test(ComputerTest.java:93)
+	at com.rickyclarkson.testsuite.UnitTestUtility.runTests(UnitTestUtility.java:27)
+	at ipsim.tests.RunTests$1.run(RunTests.java:52)
+	at ipsim.tests.RunTests.main(RunTests.java:48)
+
+testAngleWithOneCard failed
+0 passed, 1 failed

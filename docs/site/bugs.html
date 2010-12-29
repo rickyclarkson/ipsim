@@ -1,0 +1,230 @@
+<html>
+	<head>
+		<title>IPSim Bugs</title>
+		<link type='text/css' href='page.css' rel='stylesheet'>
+	</head>
+
+	<body>
+		<h1>IPSim Bugs</h1>
+		
+		<h3>Grave Bugs</h3>
+
+		<p>
+			FIXED: 2005-04-14: Some of the menu items don't generate
+			log entries, which makes it difficult to mark the
+			tests.  These menu items are Add Default Route,
+			Add Explicit Route, View/Edit Routing Table,
+			View IP Addresses, Enable/Disable IP Forwarding,
+			possibly among others.
+		</p>
+		
+		<p>
+			FIXED: 2005-03-21: Rik Whittaker discovered that a
+			network of three
+			computers on one hub tends to show 'network
+			unreachable'.  The problem was that an incoming
+			Ethernet packet's MAC address wasn't being examined,
+			so all the computers were replying to one ping,
+			causing strange race conditions.
+		</p>
+
+		<p>
+			FIXED: 2005-06-03: Adding more than one card to a
+			computer seemed to add them all in the same place.
+			A simple problem caused by List.indexOf not being
+			generic.
+		</p>
+		
+		<h3>Normal Bugs</h3>
+
+		<p>
+			FIXED: Viewing the routing table of an uninstalled
+			network	card throws an exception.
+		</p>
+
+		<p>
+			FIXED: 2005-04-15: File->Save Problem still existed,
+			even though there was no way to use the problem.
+		</p>
+		
+		<p>
+			OPEN: 2005-04-15: IPSim will probably crash when the
+			server returns DENY instead of the NETSIZE.  This is
+			best fixed by making WebInterface an interface, so that
+			I can run unit tests that use it, using a local
+			version, rather than manually altering the server code
+			every time I want to test IPSim.
+		</p>
+
+		<p>
+			FIXED: 2005-04-28: IPSim is uploading the problem too
+			late; should be after it has been generated.
+		</p>
+
+		<p>
+			FIXED: 2005-05-13: View Routing Table didn't display
+			a subnet mask for local routes.
+			RoutingTableDialog.routingTableCreated added the IP
+			address then Gateway: *, so I've changed it to add
+			IP address then netmask, then Gateway: *
+		</p>
+
+		<p>
+			FIXED: 2006-06-04: Could not select a cable
+			when it is connected so that it could be deleted.
+			Accidentally, this was fixed, perhaps not ideally
+			though.
+		</p>
+
+		<p>
+			FIXED: 2005-04-22: Some dialogs did not have a title.
+			They all do now.
+		</p>
+
+		<p>
+			FIXED: 2005-05-16: The scrapbook tested all the
+			numbers, including red ones.  Now it is more sensible.
+		</p>
+	
+		<p>
+			FIXED: 2005-04-27: The scrapbook listed the
+			unset networks and IP addresses (blank) when you
+			clicked	on Check Numbers.
+		</p>
+
+		<p>
+			FIXED: 2005-05-17: The user can no longer clear the
+			event log in an assessment.
+		</p>
+
+		<p>
+			FIXED: 2005-04-27: The user can no longer enter an
+			invalid network number in the edit problem dialog.
+		</p>
+		
+		<p>
+			OPEN: 2005-06-03: Cancel doesn't appear unless the
+			YesNoCancelDialog is resized.
+		</p>
+
+		<p>
+			OPEN: 2005-06-03: The event log's Ok button is not
+			tall enough.
+		</p>
+
+		<p>
+			OPEN: 2005-06-04: The default route dialog's ok button
+			is not wide enough.
+		</p>
+		
+		<h3>Minor Bugs</h3>
+
+		<p>
+			OPEN: 2005-04-22: Think about undo facilities.
+		</p>
+
+		<p>
+			FIXED: 2005-05-18: Zoom to fit was a bit too far out.
+		</p>
+
+		<p>
+			FIXED: 2005-05-18: The scrapbook displays 'all numbers
+			are correct' even when some numbers are missing.  This
+			is not a bug.
+		</p>
+
+		<p>
+			OPEN: 2005-04-27: The connectivity test dialog displays
+			each pair twice (each way around).
+		</p>
+
+		<p>
+			FIXED: 2005-05-18: The edit problem dialog was
+			non-central.
+		</p>
+
+		<p>
+			OPEN: 2005-05-20: The icons have white borders on
+			Windows, in Java 1.5.
+		</p>
+
+		<p>
+			OPEN: 2005-06-03: The computer icon's 'territory'
+			extends too far to the right.
+		</p>
+
+		<p>
+			OPEN: 2005-06-03: The scrapbook's Check Numbers button
+			is in a strange white panel.
+		</p>
+
+		<p>
+			OPEN: 2005-06-03: Tab doesn't work in YesNoCancelDialog.
+		</p>
+
+		<p>
+			OPEN: 2005-06-03: The Check Solution button does
+			nothing when the user hasn't got a Problem.
+		</p>
+		
+		<h3>Feature Requests</h3>
+
+		<p>
+			FIXED: 2005-04-28: IPSim should upload any exceptions
+			to the IPSim server, complete with the current user
+			data, and ask the user for their email address.
+			This should use WebInterface.putException
+			("text","config").
+		</p>
+
+		<p>
+			FIXED: 2005-05-18: Ask for the email address instead
+			of roll number.
+		</p>
+
+		<p>
+			OPEN: 2005-04-22: IPSim should have a marking mode,
+			so that computers with the same IP address are flagged
+			to the assessor.  Non-trivial.
+		</p>
+
+		<p>
+			OPEN: 2005-04-22: Ping/traceroute would benefit from
+			a history of recently used IP addresses.
+		</p>
+
+		<p>
+			OPEN: 2005-04-22: Broadcast ping.
+		</p>
+
+		<p>
+			OPEN: Cables should have a property of
+			"straight through",
+			"crossover" or "broken".  Right-clicking the cable will
+			tell you which.
+		</p>
+
+		<p>
+			OPEN: 2005-04-22: Change the name from IPSim to IPSim
+			because of BOSON IPSim, a registered trademark.
+		</p>
+
+		<p>
+			OPEN: 2005-04-22: Automate the version incrementing.
+		</p>
+
+		<p>
+			OPEN: 2005-04-22: Zoom in and out are too grainy - 
+			make it 10% or so.
+		</p>
+
+		<p>
+			OPEN: 2005-04-28: Consider making 127.0.0.1 work.
+		</p>
+
+		<p>
+			FIXED: 2005-05-18: There are now confirmation 
+			dialogs where you delete components.
+		</p>
+	</body>
+</html>
