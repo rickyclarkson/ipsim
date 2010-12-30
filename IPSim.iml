@@ -6,14 +6,17 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: org.functionaljava:fj:3.0-RickyC-2-SNAPSHOT" level="project" />
+    <orderEntry type="module" module-name="fj" />
     <orderEntry type="library" name="Maven: anylayout:anylayout:1" level="project" />
     <orderEntry type="library" name="Maven: functionalpeas:functionalpeas:ipsim-backup" level="project" />
     <orderEntry type="library" name="Maven: com.intellij:annotations:7.0.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.4" level="project" />
   </component>
 </module>
 
