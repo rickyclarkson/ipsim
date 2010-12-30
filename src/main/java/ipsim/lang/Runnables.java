@@ -1,6 +1,6 @@
 package ipsim.lang;
 
-import fpeas.function.Function;
+import fj.F;
 import org.jetbrains.annotations.NotNull;
 
 public class Runnables
@@ -22,13 +22,13 @@ public class Runnables
 		}
 	};
 
-	public static <T extends Exception,R> Function<T,R> wrapAndThrow()
+	public static <T extends Exception,R> F<T,R> wrapAndThrow()
 	{
-		return new Function<T,R>()
+		return new F<T,R>()
 		{
 			@Override
             @NotNull
-			public R run(@NotNull final T input)
+			public R f(@NotNull final T input)
 			{
 				throw new RuntimeException(input);
 			}

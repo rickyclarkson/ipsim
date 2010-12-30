@@ -21,10 +21,10 @@ public class CableTest
             public boolean invoke()
 			{
 				final Network network=new Network();
-				final Card card=network.cardFactory.run(new Point(0, 0));
+				final Card card=network.cardFactory.f(new Point(0, 0));
 				final Hub hub=HubFactory.newHub(network, 100,100);
 				final Cable cable=network.cableFactory.newCable(50, 50, 50+50, 50);
-				final Card card2=network.cardFactory.run(new Point(200, 200));
+				final Card card2=network.cardFactory.f(new Point(200, 200));
 
 				setParent(network,cable,0,hub,0);
 				setParent(network,cable,1,card,0);

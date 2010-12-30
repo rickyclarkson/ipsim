@@ -7,7 +7,6 @@ import anylayout.extras.RelativeConstraints;
 import fj.F;
 import fj.Function;
 import fj.data.Option;
-import fpeas.either.EitherUtility;
 import fpeas.lazy.Lazy;
 import fpeas.maybe.MaybeUtility;
 import fpeas.predicate.Predicate;
@@ -559,7 +558,7 @@ public class MenuHandler
 
 				final ProblemBuilder problemBuilder=new ProblemBuilder();
 
-				final ProblemBuilder.Stage2 problemStage2=EitherUtility.unsafeLeft(problemBuilder.withSubnets(parseInt(chosenSubnetOption)));
+				final ProblemBuilder.Stage2 problemStage2=problemBuilder.withSubnets(parseInt(chosenSubnetOption)).left().value();
 
 				IPAddress generateNetworkNumber;
 
@@ -574,7 +573,7 @@ public class MenuHandler
 
 				final NetMask mask=NetMaskUtility.createNetMaskFromPrefixLength(parseInt(chosenSize));
 
-				final Problem problem=EitherUtility.unsafeLeft(problemStage2.withNetBlock(new NetBlock(generateNetworkNumber, mask)));
+				final Problem problem=problemStage2.withNetBlock(new NetBlock(generateNetworkNumber, mask)).left().value();
 
 				getNetworkContext().network.problem=problem;
 				getNetworkContext().userPermissions=UserPermissions.ACTUAL_TEST;
@@ -855,7 +854,7 @@ public class MenuHandler
 
 				for (final NetworkContext context: contexts)
 				{
-					final Card card=network.cardFactory.run(new Point(100,100));
+					final Card card=network.cardFactory.f(new Point(100,100));
 					PositionUtility.setParent(network,card,0,isp,0);
 					card.installDeviceDrivers(network);
 					context.networkView.visibleComponents.add(card);

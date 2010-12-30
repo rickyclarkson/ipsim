@@ -3,15 +3,8 @@ package ipsim.gui;
 import com.rickyclarkson.testsuite.UnitTest;
 import fpeas.predicate.Predicate;
 import ipsim.Caster;
-import static ipsim.Caster.asNotNull;
-import static ipsim.Caster.equalT;
 import ipsim.awt.Point;
-import static ipsim.gui.PositionUtility.getParent;
-import static ipsim.gui.PositionUtility.getPosition;
-import static ipsim.gui.PositionUtility.setParent;
-import static ipsim.gui.PositionUtility.setPosition;
 import ipsim.lang.Assertion;
-import static ipsim.lang.Assertion.assertTrue;
 import ipsim.network.Network;
 import ipsim.network.NetworkUtility;
 import ipsim.network.connectivity.PacketSource;
@@ -21,6 +14,14 @@ import ipsim.network.connectivity.computer.Computer;
 import ipsim.network.connectivity.computer.ComputerFactory;
 import ipsim.network.connectivity.hub.Hub;
 import ipsim.network.connectivity.hub.HubFactory;
+
+import static ipsim.Caster.asNotNull;
+import static ipsim.Caster.equalT;
+import static ipsim.gui.PositionUtility.getParent;
+import static ipsim.gui.PositionUtility.getPosition;
+import static ipsim.gui.PositionUtility.setParent;
+import static ipsim.gui.PositionUtility.setPosition;
+import static ipsim.lang.Assertion.assertTrue;
 import static ipsim.util.Collections.any;
 import static ipsim.util.Collections.mapWith;
 
@@ -33,7 +34,7 @@ public final class PositionUtilityTest
 		{
 			final Network network=new Network();
 
-			final Card card=network.cardFactory.run(new Point(0, 0));
+			final Card card=network.cardFactory.f(new Point(0, 0));
 
 			final Computer computer=ComputerFactory.newComputer(network, 0, 0);
 			computer.computerID=network.generateComputerID();
@@ -58,9 +59,9 @@ public final class PositionUtilityTest
 
 			final Cable cable=network.cableFactory.newCable(0, 0, 50, 0);
 
-			final Card card1=network.cardFactory.run(new Point(0, 0));
+			final Card card1=network.cardFactory.f(new Point(0, 0));
 
-			final Card card2=network.cardFactory.run(new Point(0, 0));
+			final Card card2=network.cardFactory.f(new Point(0, 0));
 
 			setPosition(network, card1, mapWith(0, new Point((double)200, (double)200)));
 			Assertion.assertTrue(getPosition(network, card1, 0).x==200);
@@ -86,7 +87,7 @@ public final class PositionUtilityTest
         public boolean invoke()
 		{
 			final Network network=new Network();
-			final Card card=network.cardFactory.run(new Point(5, 5));
+			final Card card=network.cardFactory.f(new Point(5, 5));
 			final Hub hub=HubFactory.newHub(network, 10, 10);
 			final Cable cable=network.cableFactory.newCable(20, 20, 40, 40);
 
@@ -109,8 +110,8 @@ public final class PositionUtilityTest
 			final Network network=new Network();
 			final Computer computer1=ComputerFactory.newComputer(network, 50, 50);
 			final Computer computer2=ComputerFactory.newComputer(network, 100, 100);
-			final Card card1=network.cardFactory.run(new Point(25, 25));
-			final Card card2=network.cardFactory.run(new Point(75, 75));
+			final Card card1=network.cardFactory.f(new Point(25, 25));
+			final Card card2=network.cardFactory.f(new Point(75, 75));
 
 			setParent(network, card1, 0, computer1, 0);
 			setParent(network, card2, 0, computer2, 0);
@@ -140,7 +141,7 @@ public final class PositionUtilityTest
 			final Network network=new Network();
 
 			final Cable cable=network.cableFactory.newCable(50, 50, 50+50, 50);
-			final Card card=network.cardFactory.run(new Point(200,200));
+			final Card card=network.cardFactory.f(new Point(200,200));
 
 			setParent(network,cable,0,card,0);
 

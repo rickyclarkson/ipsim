@@ -3,26 +3,31 @@ package ipsim.gui;
 import anylayout.AnyLayout;
 import anylayout.extras.PercentConstraints;
 import anylayout.extras.PercentConstraintsUtility;
-import static anylayout.extras.SizeCalculatorUtility.absoluteSize;
-import fpeas.function.Function;
+import fj.F;
 import fpeas.sideeffect.SideEffect;
 import ipsim.Global;
 import ipsim.awt.ComponentUtility;
 import ipsim.gui.event.CommandUtility;
 import ipsim.lang.StringUtility;
+import ipsim.network.Network;
 import ipsim.network.connectivity.ConnectivityResults;
 import ipsim.network.connectivity.ConnectivityTest;
 import ipsim.network.connectivity.hub.ProgressMonitor;
-import ipsim.network.Network;
-import static ipsim.swing.Buttons.closeButton;
-import static ipsim.swing.Dialogs.createDialogWithEscapeKeyToClose;
 import ipsim.swing.SwingWorker;
 import ipsim.util.Collections;
+import java.awt.Cursor;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 import org.jetbrains.annotations.NotNull;
 
-import javax.swing.*;
+import static anylayout.extras.SizeCalculatorUtility.absoluteSize;
+import static ipsim.swing.Buttons.closeButton;
+import static ipsim.swing.Dialogs.createDialogWithEscapeKeyToClose;
 import static javax.swing.SwingUtilities.invokeLater;
-import java.awt.*;
 
 /**
  * Dialog that shows the results of a connectivity test (menu item Operations-&gt;Test Connectivity).
@@ -74,11 +79,11 @@ public final class ConnectivityTestDialogUtility
 
 					network.log=Collections.add(network.log,CommandUtility.connectivityTested(resultsLabel.getText()));
 
-					problemList.setText(Collections.append(results.getOutputs(), new Function<String, String>()
+					problemList.setText(Collections.append(results.getOutputs(), new F<String, String>()
 					{
 						@Override
                         @NotNull
-						public String run(@NotNull final String item)
+						public String f(@NotNull final String item)
 						{
 							return item+'\n';
 						}

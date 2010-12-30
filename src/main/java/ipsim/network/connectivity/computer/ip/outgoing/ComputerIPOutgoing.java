@@ -1,12 +1,8 @@
 package ipsim.network.connectivity.computer.ip.outgoing;
 
-import static fpeas.maybe.MaybeUtility.asNullable;
 import ipsim.Caster;
-import static ipsim.Caster.asNotNull;
-import static ipsim.Caster.equalT;
 import ipsim.Globals;
 import ipsim.connectivity.hub.incoming.PacketSourceUtility;
-import static ipsim.connectivity.hub.incoming.PacketSourceUtility.asComputer;
 import ipsim.network.Network;
 import ipsim.network.connectivity.IncomingPacketListener;
 import ipsim.network.connectivity.OutgoingPacketListener;
@@ -14,14 +10,11 @@ import ipsim.network.connectivity.Packet;
 import ipsim.network.connectivity.PacketQueue;
 import ipsim.network.connectivity.PacketSource;
 import ipsim.network.connectivity.PacketUtility2;
-import static ipsim.network.connectivity.PacketUtility2.asIPPacket;
 import ipsim.network.connectivity.arp.ArpPacket;
 import ipsim.network.connectivity.card.CardDrivers;
 import ipsim.network.connectivity.computer.Computer;
 import ipsim.network.connectivity.computer.NoSuchRouteException;
 import ipsim.network.connectivity.computer.Route;
-import static ipsim.network.connectivity.computer.RoutingTableUtility.getRouteFor;
-import static ipsim.network.connectivity.computer.RoutingTableUtility.hasRouteFor;
 import ipsim.network.connectivity.ethernet.EthernetPacket;
 import ipsim.network.connectivity.ethernet.MacAddress;
 import ipsim.network.connectivity.icmp.ping.PingData;
@@ -33,10 +26,17 @@ import ipsim.network.connectivity.ip.IPDataVisitor;
 import ipsim.network.connectivity.ip.IPPacket;
 import ipsim.network.connectivity.ip.SourceIPAddress;
 import ipsim.network.ethernet.CardUtility;
-import static ipsim.network.ethernet.ComputerUtility.getCardFor;
 import ipsim.network.ip.IPAddressUtility;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import static ipsim.Caster.asNotNull;
+import static ipsim.Caster.equalT;
+import static ipsim.connectivity.hub.incoming.PacketSourceUtility.asComputer;
+import static ipsim.network.connectivity.PacketUtility2.asIPPacket;
+import static ipsim.network.connectivity.computer.RoutingTableUtility.getRouteFor;
+import static ipsim.network.connectivity.computer.RoutingTableUtility.hasRouteFor;
+import static ipsim.network.ethernet.ComputerUtility.getCardFor;
 
 public final class ComputerIPOutgoing implements OutgoingPacketListener
 {
@@ -53,7 +53,7 @@ public final class ComputerIPOutgoing implements OutgoingPacketListener
 		@NotNull
 		final Computer computer=asNotNull(asComputer(source));
 
-		final IPPacket ipPacket=asNullable(asIPPacket(packet));
+		final IPPacket ipPacket=asIPPacket(packet).toNull();
 
 		final DestIPAddress destinationIPAddress=ipPacket.destinationIPAddress;
 

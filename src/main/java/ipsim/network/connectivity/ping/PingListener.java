@@ -1,10 +1,8 @@
 package ipsim.network.connectivity.ping;
 
-import fpeas.function.Function;
-import fpeas.maybe.Maybe;
-import fpeas.maybe.MaybeUtility;
+import fj.F;
+import fj.data.Option;
 import fpeas.predicate.Predicate;
-import static ipsim.Caster.equalT;
 import ipsim.lang.CheckedIllegalStateException;
 import ipsim.network.connectivity.IncomingPacketListener;
 import ipsim.network.connectivity.Packet;
@@ -12,20 +10,21 @@ import ipsim.network.connectivity.PacketSource;
 import ipsim.network.connectivity.PacketUtility;
 import ipsim.network.connectivity.PacketUtility2;
 import ipsim.network.connectivity.icmp.IcmpData;
+import ipsim.network.connectivity.ip.IPPacket;
+import ipsim.network.connectivity.ip.SourceIPAddress;
+import java.util.List;
+import org.jetbrains.annotations.NotNull;
+
+import static ipsim.Caster.equalT;
 import static ipsim.network.connectivity.icmp.ping.PingData.REPLY;
 import static ipsim.network.connectivity.icmp.ttl.TimeExceededData.TIME_TO_LIVE_EXCEEDED;
 import static ipsim.network.connectivity.icmp.unreachable.UnreachableData.HOST_UNREACHABLE;
 import static ipsim.network.connectivity.icmp.unreachable.UnreachableData.NET_UNREACHABLE;
-import ipsim.network.connectivity.ip.IPPacket;
-import ipsim.network.connectivity.ip.SourceIPAddress;
 import static ipsim.network.connectivity.ping.PingResultsUtility.hostUnreachable;
 import static ipsim.network.connectivity.ping.PingResultsUtility.netUnreachable;
 import static ipsim.network.connectivity.ping.PingResultsUtility.pingReplyReceived;
 import static ipsim.network.connectivity.ping.PingResultsUtility.ttlExpired;
 import static ipsim.util.Collections.arrayList;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 public final class PingListener implements IncomingPacketListener
 {
@@ -68,16 +67,16 @@ public final class PingListener implements IncomingPacketListener
 	@Override
     public boolean canHandle(final Packet packet, final PacketSource source)
 	{
-		final Maybe<IPPacket> maybe=PacketUtility2.asIPPacket(packet);
-		return MaybeUtility.constIfNothing(maybe,false,new Function<IPPacket,Boolean>()
+		final Option<IPPacket> maybe=PacketUtility2.asIPPacket(packet);
+		return maybe.map(new F<IPPacket,Boolean>()
 		{
 			@Override
             @NotNull
-			public Boolean run(@NotNull final IPPacket ipPacket)
+			public Boolean f(@NotNull final IPPacket ipPacket)
 			{
 				return equalT(ipPacket.identifier,identifier);
 			}
-		});
+		}).orSome(false);
 	}
 
 	public List<PingResults> getPingResults() throws CheckedIllegalStateException

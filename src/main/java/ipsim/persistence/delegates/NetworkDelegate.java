@@ -1,10 +1,9 @@
 package ipsim.persistence.delegates;
 
-import fpeas.function.Function;
+import fj.F;
 import ipsim.Caster;
 import ipsim.Globals;
 import ipsim.connectivity.hub.incoming.PacketSourceUtility;
-import static ipsim.gui.PositionUtility.hasParent;
 import ipsim.network.Network;
 import ipsim.network.NetworkUtility;
 import ipsim.network.Problem;
@@ -12,10 +11,11 @@ import ipsim.network.connectivity.PacketSource;
 import ipsim.persistence.SerialisationDelegate;
 import ipsim.persistence.XMLDeserialiser;
 import ipsim.persistence.XMLSerialiser;
+import java.util.List;
 import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Node;
 
-import java.util.List;
+import static ipsim.gui.PositionUtility.hasParent;
 
 public class NetworkDelegate
 {
@@ -57,11 +57,11 @@ public class NetworkDelegate
 					if (name.startsWith("child "))
 						PacketSourceUtility.readFromDeserialiser(deserialiser,node, name,network);
 
-				network.log=deserialiser.readObject(node, "log",LogDelegate.logDelegate(network), new Function<Object, List<? extends String>>()
+				network.log=deserialiser.readObject(node, "log",LogDelegate.logDelegate(network), new F<Object, List<? extends String>>()
 				{
 					@Override
                     @NotNull
-					public List<? extends String> run(@NotNull final Object o)
+					public List<? extends String> f(@NotNull final Object o)
 					{
 						return (List<? extends String>)o;
 					}

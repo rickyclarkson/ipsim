@@ -1,14 +1,15 @@
 package ipsim.swing;
 
-import static fpeas.either.EitherUtility.unsafeLeft;
 import fpeas.lazy.Lazy;
 import ipsim.gui.components.NetBlockTextField;
-import static ipsim.network.ethernet.NetBlockUtility.createNetBlock;
 import ipsim.network.ethernet.NetBlock;
 import ipsim.textmetrics.TextMetrics;
+import java.awt.Color;
+import java.awt.Dimension;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
 
-import javax.swing.*;
-import java.awt.*;
+import static ipsim.network.ethernet.NetBlockUtility.createNetBlock;
 
 public final class NetBlockTextFieldUtility
 {
@@ -33,7 +34,7 @@ public final class NetBlockTextFieldUtility
 			}
 		};
 
-		final NetBlockValidator validator=new NetBlockValidator(unsafeLeft(createNetBlock("0.0.0.0/0")));
+		final NetBlockValidator validator=new NetBlockValidator(createNetBlock("0.0.0.0/0").left().value());
 
 		final ValidatingDocumentListener listener=new ValidatingDocumentListener(textField, UIManager.getColor("TextField.background"), Color.pink, validator);
 

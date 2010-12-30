@@ -4,43 +4,44 @@ import anylayout.AnyLayout;
 import anylayout.extras.ConstraintUtility;
 import anylayout.extras.PercentConstraints;
 import anylayout.extras.PercentConstraintsUtility;
-import fpeas.either.Either;
-import fpeas.either.EitherUtility;
-import static fpeas.either.EitherUtility.runRight;
-import fpeas.function.Function;
-import static fpeas.function.FunctionUtility.identity;
+import fj.F;
+import fj.Function;
+import fj.data.Either;
 import fpeas.maybe.Maybe;
 import fpeas.maybe.MaybeUtility;
-import static fpeas.maybe.MaybeUtility.just;
 import fpeas.sequence.Node;
 import fpeas.sequence.SequenceUtility;
-import static fpeas.sequence.SequenceUtility.cons;
-import static fpeas.sequence.SequenceUtility.empty;
-import static fpeas.sequence.SequenceUtility.reverse;
-import static fpeas.sequence.SequenceUtility.size;
 import fpeas.sideeffect.SideEffect;
 import ipsim.Global;
-import ipsim.util.Collections;
-import static ipsim.NetworkContext.errors;
 import ipsim.awt.ComponentUtility;
 import ipsim.gui.event.CommandUtility;
 import ipsim.lang.Runnables;
-import static ipsim.lang.Stringables.asString;
+import ipsim.network.Network;
 import ipsim.network.connectivity.card.CardDrivers;
 import ipsim.network.connectivity.computer.Computer;
 import ipsim.network.connectivity.computer.Route;
 import ipsim.network.connectivity.computer.RoutingTable;
 import ipsim.network.connectivity.ip.IPAddress;
 import ipsim.network.connectivity.ip.NetMask;
-import static ipsim.network.ethernet.ComputerUtility.getSortedCards;
-import static ipsim.network.ethernet.RouteUtility.asCustomString;
 import ipsim.network.ip.IPAddressUtility;
-import ipsim.network.Network;
-import static ipsim.swing.Dialogs.createDialogWithEscapeKeyToClose;
-
-import javax.swing.*;
+import ipsim.util.Collections;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JList;
+
+import static fpeas.maybe.MaybeUtility.just;
+import static fpeas.sequence.SequenceUtility.cons;
+import static fpeas.sequence.SequenceUtility.empty;
+import static fpeas.sequence.SequenceUtility.reverse;
+import static fpeas.sequence.SequenceUtility.size;
+import static ipsim.NetworkContext.errors;
+import static ipsim.lang.Stringables.asString;
+import static ipsim.network.ethernet.ComputerUtility.getSortedCards;
+import static ipsim.network.ethernet.RouteUtility.asCustomString;
+import static ipsim.swing.Dialogs.createDialogWithEscapeKeyToClose;
 
 public class RoutingTableDialogUtility
 {
@@ -101,21 +102,21 @@ public class RoutingTableDialogUtility
 
 						buffer.append(" Gateway: *");
 
-						final Either<String, Route> either=EitherUtility.left(buffer.toString());
+						final Either<String, Route> either= Either.left(buffer.toString());
 						list=cons(either, list);
 					}
 				}
 
 				for (final Route entry : allRoutes)
 				{
-					final Either<String, Route> either=EitherUtility.right(entry);
+					final Either<String, Route> either=Either.right(entry);
 					list=cons(either, list);
 				}
 
 				list=reverse(list);
 				final String[] array=new String[size(list)];
 
-				final Function<String, String> identity=identity();
+				final F<String, String> identity= Function.identity();
 
 				final int[] a={0};
 
@@ -124,8 +125,8 @@ public class RoutingTableDialogUtility
 					@Override
                     public void run(final Either<String, Route> either)
 					{
-						final Function<Route, String> asString=asString();
-						array[a[0]]=either.visit(identity, asString);
+						final F<Route, String> asString=asString();
+						array[a[0]]=either.either(identity, asString);
 						a[0]++;
 					}
 				});
@@ -153,18 +154,14 @@ public class RoutingTableDialogUtility
 					@Override
                     public void run(final Either<String, Route> either)
 					{
-						EitherUtility.runRight(either, new SideEffect<Route>()
+						for (Route entry: either.right())
 						{
-							@Override
-                            public void run(final Route entry)
-							{
-								final RouteInfo entryInfo=new RouteInfo(entry.block, entry.gateway);
+                            final RouteInfo entryInfo=new RouteInfo(entry.block, entry.gateway);
 
-								final JDialog editDialog=RoutingTableEntryEditDialog.createRoutingTableEntryEditDialog(computer, entryInfo, just(entry), just(thiss)).getDialog();
+                            final JDialog editDialog=RoutingTableEntryEditDialog.createRoutingTableEntryEditDialog(computer, entryInfo, just(entry), just(thiss)).getDialog();
 
-								editDialog.setVisible(true);
-							}
-						});
+                            editDialog.setVisible(true);
+						}
 					}
 				});
 			}
@@ -185,18 +182,13 @@ public class RoutingTableDialogUtility
 					@Override
                     public void run(final Either<String, Route> either)
 					{
-						runRight(either, new SideEffect<Route>()
-						{
-							@Override
-                            public void run(final Route route)
-							{
-								final String previous=asCustomString(route);
+						for (Route route: either.right()) {
+                            final String previous=asCustomString(route);
 
-								computer.routingTable.remove(route);
-								final Network network=Global.getNetworkContext().network;
-								network.log=Collections.add(network.log,CommandUtility.deleteRoute(computer, previous, Global.getNetworkContext().network));
-							}
-						});
+                            computer.routingTable.remove(route);
+                            final Network network=Global.getNetworkContext().network;
+                            network.log=Collections.add(network.log,CommandUtility.deleteRoute(computer, previous, Global.getNetworkContext().network));
+                        }
 					}
 				});
 

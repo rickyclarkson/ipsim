@@ -1,10 +1,9 @@
 package ipsim;
 
-import fpeas.either.Either;
-import fpeas.function.Function;
-import fpeas.function.FunctionUtility;
+import fj.F;
+import fj.Function;
+import fj.data.Either;
 import fpeas.predicate.Predicate;
-import ipsim.ExceptionHandler;
 import ipsim.lang.Runnables;
 import ipsim.network.Problem;
 import ipsim.network.connectivity.cable.CableType;
@@ -12,17 +11,19 @@ import ipsim.network.connectivity.ethernet.MacAddress;
 import ipsim.network.connectivity.ip.IPAddress;
 import ipsim.network.connectivity.ip.NetMask;
 import ipsim.network.ethernet.NetBlock;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-
-import javax.swing.*;
+import java.awt.Container;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import javax.swing.JEditorPane;
+import javax.swing.JScrollPane;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.text.Document;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLFrameHyperlinkEvent;
-import java.awt.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 public class Caster
 {
@@ -90,7 +91,7 @@ public class Caster
 
 	public static <A,B extends Exception> A asFirst(final Either<A,B> either)
 	{
-		return either.visit(FunctionUtility.<A>identity(),Runnables.<B,A>wrapAndThrow());
+		return either.either(Function.<A>identity(),Runnables.<B,A>wrapAndThrow());
 	}
 
 	public static IPAddress asIPAddress(final Object object)
@@ -138,13 +139,13 @@ public class Caster
 		return t==null ? ExceptionHandler.<T>impossible() : t;
 	}
 
-	public static <T> Function<Object, T> asFunction(final Class<T> aClass)
+	public static <T> F<Object, T> asFunction(final Class<T> aClass)
 	{
-		return new Function<Object, T>()
+		return new F<Object, T>()
 		{
 			@Override
             @NotNull
-			public T run(@NotNull final Object o)
+			public T f(@NotNull final Object o)
 			{
 				return aClass.cast(o);
 			}

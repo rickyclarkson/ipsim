@@ -1,41 +1,44 @@
 package ipsim.gui.components;
 
-import static anylayout.AnyLayout.useAnyLayout;
-import static anylayout.extras.ConstraintUtility.typicalDefaultConstraint;
 import anylayout.extras.PercentConstraints;
 import anylayout.extras.PercentConstraintsUtility;
-import fpeas.either.Either;
-import fpeas.either.EitherUtility;
-import fpeas.function.Function;
-import fpeas.function.FunctionUtility;
+import fj.F;
+import fj.Function;
+import fj.data.Either;
 import fpeas.maybe.MaybeUtility;
-import static ipsim.Global.getNetworkContext;
-import static ipsim.Global.global;
-import ipsim.NetworkContext;
 import ipsim.Caster;
-import static ipsim.NetworkContext.errors;
+import ipsim.NetworkContext;
 import ipsim.awt.ComponentUtility;
 import ipsim.lang.Runnables;
-import static ipsim.lang.Runnables.throwRuntimeException;
 import ipsim.network.Problem;
-import static ipsim.network.Problem.MIN_SUBNETS;
 import ipsim.network.ProblemBuilder;
+import ipsim.network.ProblemBuilder.Stage2;
 import ipsim.network.connectivity.ip.IPAddress;
 import ipsim.network.connectivity.ip.NetMask;
 import ipsim.network.ethernet.NetBlock;
-import static ipsim.network.ethernet.NetMaskUtility.getNetMask;
 import ipsim.swing.Buttons;
-import static ipsim.swing.Buttons.closeButton;
-import static ipsim.swing.Dialogs.createDialogWithEscapeKeyToClose;
 import ipsim.swing.IPAddressTextField;
 import ipsim.swing.IPAddressTextFieldUtility;
 import ipsim.swing.SubnetMaskTextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import static anylayout.AnyLayout.useAnyLayout;
+import static anylayout.extras.ConstraintUtility.typicalDefaultConstraint;
+import static ipsim.Global.getNetworkContext;
+import static ipsim.Global.global;
+import static ipsim.NetworkContext.errors;
+import static ipsim.lang.Runnables.throwRuntimeException;
+import static ipsim.network.Problem.MIN_SUBNETS;
+import static ipsim.network.ethernet.NetMaskUtility.getNetMask;
+import static ipsim.swing.Buttons.closeButton;
+import static ipsim.swing.Dialogs.createDialogWithEscapeKeyToClose;
 
 public final class ProblemDialog
 {
@@ -85,45 +88,41 @@ public final class ProblemDialog
 			{
 				final ProblemBuilder builder=new ProblemBuilder();
 
-				final Either<ProblemBuilder.Stage2,String> either=builder.withSubnets(Integer.parseInt(numberOfSubnetsTextField.getText()));
+				final Either<Stage2,String> either=builder.withSubnets(Integer.parseInt(numberOfSubnetsTextField.getText()));
 
-				final Function<ProblemBuilder.Stage2,Runnable> doNothing=FunctionUtility.constant(Runnables.nothing);
-				either.visit(doNothing,new Function<String,Runnable>()
-				{
-					@Override
+				final F<Stage2,Runnable> doNothing= Function.constant(Runnables.nothing);
+				either.either(doNothing, new F<String, Runnable>() {
+                    @Override
                     @NotNull
-					public Runnable run(@NotNull final String failure)
-					{
-						return new Runnable()
-						{
-							@Override
-                            public void run()
-							{
-								final String message="The number of subnets must be a whole number between "+MIN_SUBNETS+" and "+Problem.MAX_SUBNETS;
+                    public Runnable f(@NotNull final String failure) {
+                        return new Runnable() {
+                            @Override
+                            public void run() {
+                                final String message = "The number of subnets must be a whole number between " + MIN_SUBNETS + " and " + Problem.MAX_SUBNETS;
 
-								errors(message);
-							}
-						};
-					}
-				}).run();
+                                errors(message);
+                            }
+                        };
+                    }
+                }).run();
 
-				final Function<ProblemBuilder.Stage2,Boolean> falseConstant=FunctionUtility.constant(false);
-				final Function<String,Boolean> trueConstant=FunctionUtility.constant(true);
+				final F<ProblemBuilder.Stage2,Boolean> falseConstant=Function.constant(false);
+				final F<String,Boolean> trueConstant=Function.constant(true);
 
-				if (either.visit(falseConstant,trueConstant))
+				if (either.either(falseConstant,trueConstant))
 					return;
 
-				final ProblemBuilder.Stage2 stage2=EitherUtility.unsafeLeft(either);
+				final ProblemBuilder.Stage2 stage2=either.left().value();
 
 				final Either<Problem,String> either2=stage2.withNetBlock(new NetBlock(ipAddressTextField.getIPAddress(), subnetMaskTextField.getNetMask()));
 
-				final Function<Problem,Runnable> doNothing2=FunctionUtility.constant(Runnables.nothing);
+				final F<Problem,Runnable> doNothing2=Function.constant(Runnables.nothing);
 
-				either2.visit(doNothing2,new Function<String,Runnable>()
+				either2.either(doNothing2,new F<String,Runnable>()
 				{
 					@Override
                     @NotNull
-					public Runnable run(@NotNull final String failure)
+					public Runnable f(@NotNull final String failure)
 					{
 						return new Runnable()
 						{
@@ -136,10 +135,10 @@ public final class ProblemDialog
 					}
 				}).run();
 
-				if (!EitherUtility.isLeft(either2))
+				if (!either2.isLeft())
 					return;
 
-				final Problem tmpProblem=EitherUtility.unsafeLeft(either2);
+				final Problem tmpProblem=either2.left().value();
 				if (!((tmpProblem.netBlock.networkNumber.rawValue&tmpProblem.netBlock.netMask.rawValue)==tmpProblem.netBlock.networkNumber.rawValue))
 				{
 					NetworkContext.errors("Invalid network number");

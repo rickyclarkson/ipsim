@@ -1,29 +1,15 @@
 package ipsim.network.breakage;
 
-import static ipsim.util.Collections.mapWith;
-import fpeas.function.Function;
+import fj.F;
 import fpeas.maybe.Maybe;
 import fpeas.maybe.MaybeUtility;
-import static fpeas.maybe.MaybeUtility.just;
-import static fpeas.maybe.MaybeUtility.nothing;
 import fpeas.pair.Pair;
-import static fpeas.pair.PairUtility.pair;
 import fpeas.sideeffect.SideEffect;
-import static fpeas.sideeffect.SideEffectUtility.doNothing;
 import ipsim.Global;
-import static ipsim.Global.getNetworkContext;
 import ipsim.NetworkContext;
-import static ipsim.NetworkContext.askUserForNumberOfFaults;
-import static ipsim.NetworkContext.confirm;
-import static ipsim.gui.PositionUtility.getPosition;
-import static ipsim.gui.PositionUtility.setPosition;
 import ipsim.gui.UserMessages;
-import static ipsim.gui.UserPermissions.FREEFORM_WITH_BREAKS;
 import ipsim.network.Network;
 import ipsim.network.NetworkUtility;
-import static ipsim.network.NetworkUtility.getAllCardsWithDrivers;
-import static ipsim.network.NetworkUtility.getAllComputers;
-import static ipsim.network.NetworkUtility.getAllHubs;
 import ipsim.network.conformance.ConformanceTestsUtility;
 import ipsim.network.connectivity.ConnectivityResults;
 import ipsim.network.connectivity.ConnectivityTest;
@@ -37,15 +23,31 @@ import ipsim.network.connectivity.ip.IPAddress;
 import ipsim.network.ethernet.ComputerUtility;
 import ipsim.network.ethernet.NetBlock;
 import ipsim.network.ethernet.NetMaskUtility;
-import static ipsim.network.ip.IPAddressUtility.randomIP;
 import ipsim.swing.SwingWorker;
-import static ipsim.util.Collections.arrayList;
 import ipsim.util.Collections;
-import org.jetbrains.annotations.NotNull;
-
-import javax.swing.*;
 import java.util.Collection;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.ProgressMonitor;
+import javax.swing.SwingUtilities;
+import org.jetbrains.annotations.NotNull;
+
+import static fpeas.maybe.MaybeUtility.just;
+import static fpeas.maybe.MaybeUtility.nothing;
+import static fpeas.pair.PairUtility.pair;
+import static fpeas.sideeffect.SideEffectUtility.doNothing;
+import static ipsim.Global.getNetworkContext;
+import static ipsim.NetworkContext.askUserForNumberOfFaults;
+import static ipsim.NetworkContext.confirm;
+import static ipsim.gui.PositionUtility.getPosition;
+import static ipsim.gui.PositionUtility.setPosition;
+import static ipsim.gui.UserPermissions.FREEFORM_WITH_BREAKS;
+import static ipsim.network.NetworkUtility.getAllCardsWithDrivers;
+import static ipsim.network.NetworkUtility.getAllComputers;
+import static ipsim.network.NetworkUtility.getAllHubs;
+import static ipsim.network.ip.IPAddressUtility.randomIP;
+import static ipsim.util.Collections.arrayList;
+import static ipsim.util.Collections.mapWith;
 
 public class BreakNetwork
 {
@@ -324,11 +326,11 @@ public class BreakNetwork
 			@Override
             public void run()
 			{
-				final Function<Cable,Boolean> connected=new Function<Cable, Boolean>()
+				final F<Cable,Boolean> connected=new F<Cable, Boolean>()
 				{
 					@Override
                     @NotNull
-					public Boolean run(@NotNull final Cable cable)
+					public Boolean f(@NotNull final Cable cable)
 					{
 						return cable.canTransferPackets(network);
 					}
@@ -379,7 +381,7 @@ public class BreakNetwork
 					@Override
                     public void run(final Computer computer)
 					{
-						if (ConformanceTestsUtility.isARouter().run(computer))
+						if (ConformanceTestsUtility.isARouter().f(computer))
 							computer.ipForwardingEnabled=false;
 					}
 				});

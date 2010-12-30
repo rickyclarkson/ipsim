@@ -1,22 +1,21 @@
 package ipsim.network.connectivity.traceroute;
 
 import com.rickyclarkson.testsuite.UnitTest;
-import fpeas.function.Function;
+import fj.F;
 import ipsim.network.Network;
 import ipsim.network.NetworkUtility;
-import static ipsim.network.NetworkUtility.getComputersByIP;
 import ipsim.network.connectivity.computer.Computer;
 import ipsim.network.connectivity.ip.DestIPAddress;
 import ipsim.network.connectivity.ip.IPAddress;
-import static ipsim.network.connectivity.traceroute.Traceroute.trace;
 import ipsim.network.ip.CheckedNumberFormatException;
 import ipsim.network.ip.IPAddressUtility;
+import java.io.File;
+import org.jetbrains.annotations.NotNull;
+
+import static ipsim.network.NetworkUtility.getComputersByIP;
+import static ipsim.network.connectivity.traceroute.Traceroute.trace;
 import static ipsim.network.ip.IPAddressUtility.valueOf;
 import static ipsim.util.Collections.all;
-
-import java.io.File;
-
-import org.jetbrains.annotations.NotNull;
 
 public class TracerouteTest implements UnitTest
 {
@@ -37,11 +36,11 @@ public class TracerouteTest implements UnitTest
 			return false;
 		}
 
-		return all(getComputersByIP(network, ipAddress), new Function<Computer, Boolean>()
+		return all(getComputersByIP(network, ipAddress), new F<Computer, Boolean>()
 		{
 			@Override
             @NotNull
-			public Boolean run(@NotNull final Computer computer)
+			public Boolean f(@NotNull final Computer computer)
 			{
 				final TracerouteResults results;
 				try

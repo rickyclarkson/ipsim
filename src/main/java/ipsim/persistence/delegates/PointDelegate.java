@@ -1,14 +1,14 @@
 package ipsim.persistence.delegates;
 
-import fpeas.function.Function;
-import static fpeas.function.FunctionUtility.compose;
-import static ipsim.Caster.asNotNull;
+import fj.F;
 import ipsim.awt.Point;
 import ipsim.persistence.SerialisationDelegate;
 import ipsim.persistence.XMLDeserialiser;
 import ipsim.persistence.XMLSerialiser;
 import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Node;
+
+import static ipsim.Caster.asNotNull;
 
 public final class PointDelegate
 {
@@ -24,18 +24,18 @@ public final class PointDelegate
 		@Override
         public Point readXML(final XMLDeserialiser deserialiser, final Node node, Point point)
 		{
-			final Function<String, Double> parseDouble=new Function<String, Double>()
+			final F<String, Double> parseDouble=new F<String, Double>()
 			{
 				@Override
                 @NotNull
-				public Double run(@NotNull final String value)
+				public Double f(@NotNull final String value)
 				{
 					return Double.parseDouble(value);
 				}
 			};
 
-			point=compose(parseDouble, point.withX()).run(asNotNull(deserialiser.readAttribute(node, "x")));
-			point=compose(parseDouble, point.withY()).run(asNotNull(deserialiser.readAttribute(node, "y")));
+			point=parseDouble.andThen(point.withX()).f(asNotNull(deserialiser.readAttribute(node, "x")));
+			point=parseDouble.andThen(point.withY()).f(asNotNull(deserialiser.readAttribute(node, "y")));
 
 			return point;
 		}

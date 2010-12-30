@@ -20,7 +20,7 @@ public class CardTests
 			{
 				final Network network=new Network();
 
-				final Card card=network.cardFactory.run(new Point(200, 200));
+				final Card card=network.cardFactory.f(new Point(200, 200));
 				final Computer computer=ComputerFactory.newComputer(network,300,300);
 				setParent(network,card,0,computer,0);
 

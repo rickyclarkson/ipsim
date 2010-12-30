@@ -1,29 +1,30 @@
 package ipsim.network.conformance;
 
-import fpeas.function.Function;
+import fj.F;
 import fpeas.maybe.Maybe;
 import fpeas.maybe.MaybeUtility;
 import ipsim.network.Network;
 import ipsim.network.NetworkUtility;
-import static ipsim.network.conformance.NonsensicalArrangement.customCheck;
-import static ipsim.network.conformance.TypicalScores.USUAL;
 import ipsim.network.connectivity.card.Card;
 import ipsim.network.connectivity.card.CardDrivers;
 import ipsim.network.ethernet.NetMaskUtility;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-class SomeHostsHaveABadNetMask implements Function<Network,CheckResult>
+import static ipsim.network.conformance.NonsensicalArrangement.customCheck;
+import static ipsim.network.conformance.TypicalScores.USUAL;
+
+class SomeHostsHaveABadNetMask extends F<Network,CheckResult>
 {
 	@Override
     @NotNull
-	public CheckResult run(@NotNull final Network network)
+	public CheckResult f(@NotNull final Network network)
 	{
-		final Function<Card, Maybe<String>> warning=new Function<Card, Maybe<String>>()
+		final F<Card, Maybe<String>> warning=new F<Card, Maybe<String>>()
 		{
 			@Override
             @NotNull
-			public Maybe<String> run(@NotNull final Card card)
+			public Maybe<String> f(@NotNull final Card card)
 			{
 				@Nullable
 				final CardDrivers drivers=card.withDrivers;
@@ -31,8 +32,8 @@ class SomeHostsHaveABadNetMask implements Function<Network,CheckResult>
 			}
 		};
 
-		final Function<Card, Maybe<String>> noErrors=NonsensicalArrangement.noErrors();
+		final F<Card, Maybe<String>> noErrors=NonsensicalArrangement.noErrors();
 
-		return customCheck(NetworkUtility.getAllCards,warning,noErrors,USUAL).run(network);
+		return customCheck(NetworkUtility.getAllCards,warning,noErrors,USUAL).f(network);
 	}
 }

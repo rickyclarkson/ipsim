@@ -1,27 +1,27 @@
 package ipsim.network.conformance;
 
-import static ipsim.network.conformance.ConformanceTestsUtility.createNetworkCheck;
-import fpeas.function.Function;
+import fj.F;
 import ipsim.network.Network;
 import ipsim.util.Collections;
-
 import java.util.Collection;
 import java.util.List;
+
+import static ipsim.network.conformance.ConformanceTestsUtility.createNetworkCheck;
 
 public class ConformanceTests
 {
 	public static ResultsAndSummaryAndPercent allChecks(final Network network)
 	{
-		final Collection<Function<Network, CheckResult>> checks=createNetworkCheck();
+		final Collection<F<Network, CheckResult>> checks=createNetworkCheck();
 		final StringBuilder answer=new StringBuilder();
 
 		double totalPercent=100;
 
 		final List<CheckResult> checkResults=Collections.arrayList();
 
-		for (final Function<Network,CheckResult> check: checks)
+		for (final F<Network,CheckResult> check: checks)
 		{
-			final CheckResult result=check.run(network);
+			final CheckResult result=check.f(network);
 
 			final int percent=result.deductions;
 

@@ -1,24 +1,14 @@
 package ipsim.gui.components;
 
-import fpeas.function.Function;
+import fj.F;
 import fpeas.maybe.Maybe;
-import static fpeas.maybe.MaybeUtility.nothing;
 import fpeas.predicate.Predicate;
 import ipsim.Global;
-import static ipsim.Global.getNetworkContext;
 import ipsim.NetworkContext;
-import static ipsim.NetworkContext.errors;
 import ipsim.awt.Point;
 import ipsim.connectivity.hub.incoming.PacketSourceUtility;
-import static ipsim.gui.PositionUtility.getPosition;
-import static ipsim.gui.PositionUtility.numPositions;
-import static ipsim.gui.PositionUtility.removePositions;
-import static ipsim.gui.components.AddDefaultRouteDialogUtility.newInstance;
-import static ipsim.gui.components.ContextMenuUtility.item;
-import static ipsim.gui.components.RoutingTableEntryEditDialog.createRoutingTableEntryEditDialog;
 import ipsim.gui.event.CommandUtility;
 import ipsim.image.ImageLoader;
-import static ipsim.lang.Comparators.fromFunction;
 import ipsim.network.Network;
 import ipsim.network.connectivity.PacketSniffer;
 import ipsim.network.connectivity.PacketSnifferUtility;
@@ -30,22 +20,40 @@ import ipsim.network.connectivity.computer.Route;
 import ipsim.network.connectivity.ip.IPAddress;
 import ipsim.network.connectivity.ip.NetMask;
 import ipsim.network.ethernet.ComputerUtility;
-import static ipsim.network.ethernet.ComputerUtility.getSortedCards;
 import ipsim.network.ethernet.NetBlock;
 import ipsim.network.ethernet.NetBlockUtility;
 import ipsim.network.ethernet.NetMaskUtility;
 import ipsim.network.ip.IPAddressUtility;
-import static ipsim.swing.CustomJOptionPane.showYesNoCancelDialog;
 import ipsim.util.Collections;
-import static ipsim.util.Collections.sort2;
-import org.jetbrains.annotations.NotNull;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
 import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.JMenu;
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
+import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JTextArea;
+import org.jetbrains.annotations.NotNull;
+
+import static fpeas.maybe.MaybeUtility.nothing;
+import static ipsim.Global.getNetworkContext;
+import static ipsim.NetworkContext.errors;
+import static ipsim.gui.PositionUtility.getPosition;
+import static ipsim.gui.PositionUtility.numPositions;
+import static ipsim.gui.PositionUtility.removePositions;
+import static ipsim.gui.components.AddDefaultRouteDialogUtility.newInstance;
+import static ipsim.gui.components.ContextMenuUtility.item;
+import static ipsim.gui.components.RoutingTableEntryEditDialog.createRoutingTableEntryEditDialog;
+import static ipsim.lang.Comparators.fromFunction;
+import static ipsim.network.ethernet.ComputerUtility.getSortedCards;
+import static ipsim.swing.CustomJOptionPane.showYesNoCancelDialog;
+import static ipsim.util.Collections.sort2;
 
 public final class ComputerHandler
 {
@@ -114,11 +122,11 @@ public final class ComputerHandler
 		if (Collections.any(computer.getCards(), hasDeviceDrivers))
 			menu.addSeparator();
 
-		final Function<CardDrivers, Integer> getEthNumber=new Function<CardDrivers, Integer>()
+		final F<CardDrivers, Integer> getEthNumber=new F<CardDrivers, Integer>()
 		{
 			@Override
             @NotNull
-			public Integer run(@NotNull final CardDrivers card)
+			public Integer f(@NotNull final CardDrivers card)
 			{
 				return card.ethNumber;
 			}

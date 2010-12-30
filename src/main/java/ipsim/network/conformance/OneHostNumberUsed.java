@@ -1,6 +1,6 @@
 package ipsim.network.conformance;
 
-import fpeas.function.Function;
+import fj.F;
 import ipsim.network.Network;
 import ipsim.network.NetworkUtility;
 import ipsim.network.connectivity.PacketSource;
@@ -9,17 +9,16 @@ import ipsim.network.connectivity.card.CardDrivers;
 import ipsim.network.connectivity.ip.IPAddress;
 import ipsim.network.connectivity.ip.NetMask;
 import ipsim.util.Collections;
-import static ipsim.util.Collections.arrayList;
+import java.util.List;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
+import static ipsim.util.Collections.arrayList;
 
-class OneHostNumberUsed implements Function<Network,CheckResult>
-{
-	@Override
+class OneHostNumberUsed extends F<Network,CheckResult> {
+    @Override
     @NotNull
-	public CheckResult run(@NotNull final Network network)
+	public CheckResult f(@NotNull final Network network)
 	{
 		final List<PacketSource> empty=arrayList();
 		final List<PacketSource> warnings=arrayList();

@@ -1,32 +1,31 @@
 package ipsim.network.conformance;
 
-import fpeas.function.Function;
+import fj.F;
 import ipsim.network.InvalidNetMaskException;
 import ipsim.network.Network;
 import ipsim.network.NetworkUtility;
 import ipsim.network.Problem;
-import static ipsim.network.conformance.TypicalScores.USUAL;
 import ipsim.network.connectivity.PacketSource;
 import ipsim.network.connectivity.card.CardDrivers;
+import java.util.List;
+import org.jetbrains.annotations.NotNull;
+
+import static ipsim.network.conformance.TypicalScores.USUAL;
 import static ipsim.network.ethernet.NetMaskUtility.getPrefixLength;
 import static ipsim.util.Collections.arrayList;
 import static ipsim.util.Collections.asList;
 
-import java.util.List;
-
-import org.jetbrains.annotations.NotNull;
-
-class OneSubnetMaskUsed implements Function<Network, CheckResult>
+class OneSubnetMaskUsed extends F<Network, CheckResult>
 {
 	@Override
     @NotNull
-	public CheckResult run(@NotNull final Network network)
+	public CheckResult f(@NotNull final Network network)
 	{
-		final Function<Problem, CheckResult> func=new Function<Problem, CheckResult>()
+		final F<Problem, CheckResult> func=new F<Problem, CheckResult>()
 		{
 			@Override
             @NotNull
-			public CheckResult run(@NotNull final Problem problem)
+			public CheckResult f(@NotNull final Problem problem)
 			{
 				final int rawProblemNumber=problem.netBlock.networkNumber.rawValue;
 

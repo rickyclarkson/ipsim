@@ -1,9 +1,8 @@
 package ipsim.network.connectivity.computer;
 
-import fpeas.function.Function;
-import static fpeas.function.FunctionUtility.not;
-import static fpeas.util.Collections.filter;
-import static ipsim.lang.Assertion.assertNotNull;
+import fj.F;
+import fj.data.IterableW;
+import ipsim.lang.FunctionUtility;
 import ipsim.network.connectivity.card.CardDrivers;
 import ipsim.network.connectivity.ip.DestIPAddress;
 import ipsim.network.connectivity.ip.IPAddress;
@@ -13,6 +12,8 @@ import ipsim.network.ethernet.NetBlock;
 import ipsim.network.ethernet.RouteUtility;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import static ipsim.lang.Assertion.assertNotNull;
 
 public class RoutingTableUtility
 {
@@ -70,23 +71,23 @@ public class RoutingTableUtility
 		return new RoutingTable();
 	}
 
-	public static final Function<Route,Boolean> isDefaultRoute=new Function<Route,Boolean>()
+	public static final F<Route,Boolean> isDefaultRoute=new F<Route,Boolean>()
 	{
 		@Override
         @NotNull
-		public Boolean run(@NotNull final Route route)
+		public Boolean f(@NotNull final Route route)
 		{
 			return RouteUtility.isDefaultRoute(route);
-		}
-	};
+        }
+    };
 
 	public static Iterable<Route> getExplicitRoutes(final RoutingTable table)
 	{
-		return filter(table.routes(),not(isDefaultRoute));
+		return IterableW.wrap(table.routes()).filter(FunctionUtility.not(isDefaultRoute));
 	}
 
 	public static Iterable<Route> getDefaultRoutes(final RoutingTable table)
 	{
-		return filter(table.routes(),isDefaultRoute);
+		return IterableW.wrap(table.routes()).filter(isDefaultRoute);
 	}
 }

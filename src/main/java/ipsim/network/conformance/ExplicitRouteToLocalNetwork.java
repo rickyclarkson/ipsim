@@ -1,34 +1,35 @@
 package ipsim.network.conformance;
 
-import fpeas.function.Function;
+import fj.F;
 import fpeas.maybe.Maybe;
 import fpeas.maybe.MaybeUtility;
 import fpeas.predicate.Predicate;
-import static ipsim.Caster.equalT;
 import ipsim.network.Network;
-import static ipsim.network.NetworkUtility.getAllComputers;
-import static ipsim.network.conformance.NonsensicalArrangement.noErrors;
-import static ipsim.network.conformance.TypicalScores.USUAL;
 import ipsim.network.connectivity.card.Card;
 import ipsim.network.connectivity.card.NoDeviceDriversException;
 import ipsim.network.connectivity.computer.Computer;
 import ipsim.network.connectivity.computer.Route;
-import static ipsim.network.connectivity.computer.RoutingTableUtility.getExplicitRoutes;
-import static ipsim.network.ethernet.CardUtility.getNetBlock;
 import ipsim.util.Collections;
 import org.jetbrains.annotations.NotNull;
 
-class ExplicitRouteToLocalNetwork implements Function<Network,CheckResult>
+import static ipsim.Caster.equalT;
+import static ipsim.network.NetworkUtility.getAllComputers;
+import static ipsim.network.conformance.NonsensicalArrangement.noErrors;
+import static ipsim.network.conformance.TypicalScores.USUAL;
+import static ipsim.network.connectivity.computer.RoutingTableUtility.getExplicitRoutes;
+import static ipsim.network.ethernet.CardUtility.getNetBlock;
+
+class ExplicitRouteToLocalNetwork extends F<Network,CheckResult>
 {
 	@Override
     @NotNull
-	public CheckResult run(@NotNull final Network network)
+	public CheckResult f(@NotNull final Network network)
 	{
-		final Function<Computer, Maybe<String>> warning=new Function<Computer, Maybe<String>>()
+		final F<Computer, Maybe<String>> warning=new F<Computer, Maybe<String>>()
 		{
 			@Override
             @NotNull
-			public Maybe<String> run(@NotNull final Computer computer)
+			public Maybe<String> f(@NotNull final Computer computer)
 			{
 				return Collections.any(computer.getCards(),new Predicate<Card>()
 				{
@@ -52,8 +53,8 @@ class ExplicitRouteToLocalNetwork implements Function<Network,CheckResult>
 			}
 		};
 
-		final Function<Computer, Maybe<String>> noErrors=noErrors();
+		final F<Computer, Maybe<String>> noErrors=noErrors();
 
-		return NonsensicalArrangement.customCheck(getAllComputers,warning,noErrors,USUAL).run(network);
+		return NonsensicalArrangement.customCheck(getAllComputers,warning,noErrors,USUAL).f(network);
 	}
 }

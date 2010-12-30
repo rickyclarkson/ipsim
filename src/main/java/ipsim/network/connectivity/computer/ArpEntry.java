@@ -1,6 +1,6 @@
 package ipsim.network.connectivity.computer;
 
-import fpeas.function.Function;
+import fj.F;
 import ipsim.network.connectivity.ethernet.MacAddress;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -12,11 +12,11 @@ public final class ArpEntry
 	@Nullable
 	public final MacAddress macAddress;
 	public final long timeToDie;
-	public static final Function<ArpEntry, String> asString=new Function<ArpEntry, String>()
+	public static final F<ArpEntry, String> asString=new F<ArpEntry, String>()
 	{
 		@Override
         @NotNull
-		public String run(@NotNull final ArpEntry arpEntry)
+		public String f(@NotNull final ArpEntry arpEntry)
 		{
 			return arpEntry.toString();
 		}
@@ -27,11 +27,11 @@ public final class ArpEntry
 	{
 		final String messagePart=dead() ? "expired" : "expires in "+timeToLive()+" seconds";
 
-		return macAddress==null ? "incomplete ARP entry - "+messagePart : new Function<MacAddress, String>()
+		return macAddress==null ? "incomplete ARP entry - "+messagePart : new F<MacAddress, String>()
 		{
 			@Override
             @NotNull
-			public String run(@NotNull final MacAddress macAddress)
+			public String f(@NotNull final MacAddress macAddress)
 			{
 				final StringBuffer buffer=new StringBuffer(Integer.toHexString(macAddress.rawValue));
 				while (buffer.length()<12)
@@ -42,7 +42,7 @@ public final class ArpEntry
 
 				return buffer+"; "+messagePart;
 			}
-		}.run(macAddress);
+		}.f(macAddress);
 	}
 
 	public ArpEntry(@Nullable final MacAddress macAddress, final int timeToLive)

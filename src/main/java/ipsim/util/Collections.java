@@ -2,7 +2,6 @@ package ipsim.util;
 
 import com.rickyclarkson.testsuite.UnitTest;
 import fj.F;
-import fpeas.function.Function;
 import fpeas.lazy.Lazy;
 import fpeas.predicate.Predicate;
 import fpeas.sideeffect.SideEffect;
@@ -100,16 +99,16 @@ public class Collections
 		return builder.toString();
 	}
 
-	public static <K, V> String asString(final Collection<Entry<K, V>> entrySet, final Function<K, String> keyAsString, final Function<V, String> valueAsString, final String betweenKeyAndValue, final String separator)
+	public static <K, V> String asString(final Collection<Entry<K, V>> entrySet, final F<K, String> keyAsString, final F<V, String> valueAsString, final String betweenKeyAndValue, final String separator)
 	{
 		final StringBuilder builder=new StringBuilder();
 		boolean isEmpty=true;
 
 		for (final Entry<K, V> entry : entrySet)
 		{
-			builder.append(keyAsString.run(entry.getKey()));
+			builder.append(keyAsString.f(entry.getKey()));
 			builder.append(betweenKeyAndValue);
-			builder.append(valueAsString.run(entry.getValue()));
+			builder.append(valueAsString.f(entry.getValue()));
 			builder.append(separator);
 			isEmpty=false;
 		}
@@ -140,20 +139,20 @@ public class Collections
 		return false;
 	}
 
-	public static <T, R> Iterable<R> forEach(final Iterable<T> iterable, final Function<T, R> runer)
+	public static <T, R> Iterable<R> forEach(final Iterable<T> iterable, final F<T, R> runer)
 	{
 		final Collection<R> results=arrayList();
 
 		for (final T item : iterable)
-			results.add(runer.run(item));
+			results.add(runer.f(item));
 
 		return results;
 	}
 
-	public static <T> boolean all(final Iterable<T> iterable, final Function<? super T, Boolean> function)
+	public static <T> boolean all(final Iterable<T> iterable, final F<? super T, Boolean> function)
 	{
 		for (final T item : iterable)
-			if (!function.run(item))
+			if (!function.f(item))
 				return false;
 
 		return true;
@@ -181,12 +180,12 @@ public class Collections
 		return results;
 	}
 
-	public static <T> String append(final Iterable<T> iterable, final Function<T, String> runer)
+	public static <T> String append(final Iterable<T> iterable, final F<T, String> runer)
 	{
 		final StringBuilder builder=new StringBuilder();
 
 		for (final T item : iterable)
-			builder.append(runer.run(item));
+			builder.append(runer.f(item));
 
 		return builder.toString();
 	}
@@ -255,7 +254,7 @@ public class Collections
 		return new ArrayList<T>(java.util.Arrays.asList(array));
 	}
 
-	public static <T, R> Iterable<R> map(final Iterable<T> input, final Function<T, R> converter)
+	public static <T, R> Iterable<R> map(final Iterable<T> input, final F<T, R> converter)
 	{
 		final Iterator<T> wrapped=input.iterator();
 
@@ -275,7 +274,7 @@ public class Collections
 					@Override
                     public R next()
 					{
-						return converter.run(wrapped.next());
+						return converter.f(wrapped.next());
 					}
 
 					@Override
@@ -365,9 +364,9 @@ public class Collections
 		return builder.append(')').toString();
 	}
 
-	public static <T,C extends Iterable<? extends T>,D extends Collection<T>> D add(final Function<C,D> clone,final C collection, final T element)
+	public static <T,C extends Iterable<? extends T>,D extends Collection<T>> D add(final F<C,D> clone,final C collection, final T element)
 	{
-		final D result=clone.run(collection);
+		final D result=clone.f(collection);
 		result.add(element);
 		return result;
 	}
@@ -377,7 +376,7 @@ public class Collections
 		@Override
         public boolean invoke()
 		{
-			final Function<List<? extends String>, List<String>> clone=Collections.arrayListCopy();
+			final F<List<? extends String>, List<String>> clone=Collections.arrayListCopy();
 			final List<String> list=arrayList();
 			final Collection<? extends Object> objects=add(clone,add(clone, list, "hello"), "goodbye");
 			return objects.contains("hello") && objects.contains("goodbye");
@@ -389,13 +388,13 @@ public class Collections
 		}
 	};
 
-	public static <T> Function<List<? extends T>, List<T>> arrayListCopy()
+	public static <T> F<List<? extends T>, List<T>> arrayListCopy()
 	{
-		return new Function<List<? extends T>, List<T>>()
+		return new F<List<? extends T>, List<T>>()
 		{
 			@Override
             @NotNull
-			public List<T> run(@NotNull final List<? extends T> ts)
+			public List<T> f(@NotNull final List<? extends T> ts)
 			{
 				return arrayList(ts);
 			}
@@ -439,12 +438,12 @@ public class Collections
 		return result;
 	}
 
-	public static <K,V> Map<? extends K, ? extends V> mapValues(final Map<? extends K, ? extends V> map, final Function<V, V> function)
+	public static <K,V> Map<? extends K, ? extends V> mapValues(final Map<? extends K, ? extends V> map, final F<V, V> function)
 	{
 		final Map<K,V> result=hashMap();
 
 		for (final Entry<? extends K, ? extends V> entry: map.entrySet())
-			result.put(entry.getKey(),function.run(entry.getValue()));
+			result.put(entry.getKey(),function.f(entry.getValue()));
 
 		return result;
 	}

@@ -1,6 +1,6 @@
 package ipsim.network.connectivity;
 
-import fpeas.function.Function;
+import fj.F;
 import fpeas.predicate.Predicate;
 import org.jetbrains.annotations.NotNull;
 
@@ -9,11 +9,11 @@ public class PacketSourceAndIndex
 	public final PacketSource packetSource;
 	public final int index;
 
-	public static final Function<PacketSourceAndIndex, PacketSource> getPacketSource=new Function<PacketSourceAndIndex, PacketSource>()
+	public static final F<PacketSourceAndIndex, PacketSource> getPacketSource=new F<PacketSourceAndIndex, PacketSource>()
 	{
 		@Override
         @NotNull
-		public PacketSource run(@NotNull final PacketSourceAndIndex packetSourceAndIndex)
+		public PacketSource f(@NotNull final PacketSourceAndIndex packetSourceAndIndex)
 		{
 			return packetSourceAndIndex.packetSource;
 		}

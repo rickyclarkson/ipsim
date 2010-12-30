@@ -35,7 +35,7 @@ public final class NetworkComponentUtility
 				component=HubFactory.newHub(context.network, (int)point0.x, (int)point0.y);
 			else
 				if (clazz.equals(Card.class))
-					component=context.network.cardFactory.run(new Point((int)point0.x, (int)point0.y));
+					component=context.network.cardFactory.f(new Point((int)point0.x, (int)point0.y));
 				else
 					if (clazz.equals(Cable.class))
 						component=context.network.cableFactory.newCable((int)point0.x, (int)point0.y, (int)point1.x, (int)point1.y);

@@ -1,7 +1,6 @@
 package ipsim.network;
 
 import com.rickyclarkson.testsuite.UnitTest;
-import fpeas.either.EitherUtility;
 import fpeas.lazy.Lazy;
 import ipsim.lang.AssertionException;
 import ipsim.network.ProblemBuilder.Stage2;
@@ -9,7 +8,6 @@ import ipsim.network.connectivity.ip.IPAddress;
 import ipsim.network.connectivity.ip.NetMask;
 import ipsim.network.ethernet.NetBlock;
 import ipsim.network.ethernet.NetMaskUtility;
-
 import java.util.Random;
 
 public enum ProblemDifficulty implements Lazy<Problem>
@@ -30,8 +28,8 @@ public enum ProblemDifficulty implements Lazy<Problem>
 				final NetBlock block=new NetBlock(address, NetMaskUtility.createNetMaskFromPrefixLength(16));
 				if (ProblemUtility.isValidNetworkNumber(block.networkNumber) && !ProblemUtility.isReservedNetworkNumber(block))
 				{
-					final Stage2 stage2=EitherUtility.unsafeLeft(builder.withSubnets(3));
-					return EitherUtility.unsafeLeft(stage2.withNetBlock(block));
+					final Stage2 stage2=builder.withSubnets(3).left().value();
+					return stage2.withNetBlock(block).left().value();
 				}
 			}
 
@@ -92,8 +90,8 @@ public enum ProblemDifficulty implements Lazy<Problem>
 					final NetBlock netBlock=new NetBlock(networkNumber, netmask);
 					if (ProblemUtility.isValidNetworkNumber(netBlock.networkNumber)&&!ProblemUtility.isReservedNetworkNumber(netBlock))
 					{
-						final Stage2 stage2=EitherUtility.unsafeLeft(builder.withSubnets(numSubnets));
-						return EitherUtility.unsafeLeft(stage2.withNetBlock(netBlock));
+						final Stage2 stage2=builder.withSubnets(numSubnets).left().value();
+						return stage2.withNetBlock(netBlock).left().value();
 					}
 				}
 			}

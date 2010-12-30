@@ -308,13 +308,13 @@ public final class PacketSourceUtility
 			@Override
             public String visit(final Cable cable)
 			{
-				return "Ethernet cable number "+network.cableIDFor.run(cable)+' '+pointsToStringWithoutDelimiters(network, cable);
+				return "Ethernet cable number "+network.cableIDFor.f(cable)+' '+pointsToStringWithoutDelimiters(network, cable);
 			}
 
 			@Override
             public String visit(final Hub hub)
 			{
-				return "Hub number "+network.hubIDFor.run(hub)+" ("+pointsToStringWithoutDelimiters(network, hub)+')';
+				return "Hub number "+network.hubIDFor.f(hub)+" ("+pointsToStringWithoutDelimiters(network, hub)+')';
 			}
 		});
 	}

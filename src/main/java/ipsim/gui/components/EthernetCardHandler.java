@@ -1,32 +1,18 @@
 package ipsim.gui.components;
 
-import static ipsim.util.Collections.mapWith;
-import fpeas.function.Function;
-import fpeas.function.FunctionUtility;
-import static fpeas.function.math.Doubles.abs;
-import static fpeas.function.math.Doubles.lessThan;
-import static fpeas.function.math.Doubles.minus;
-import fpeas.maybe.Maybe;
-import static fpeas.maybe.MaybeUtility.bind2;
-import static fpeas.maybe.MaybeUtility.constIfNothing;
+import fj.F;
+import fj.Function;
+import fj.data.Option;
 import fpeas.predicate.Predicate;
 import ipsim.Caster;
 import ipsim.NetworkContext;
-import static ipsim.NetworkContext.errors;
 import ipsim.awt.Point;
 import ipsim.connectivity.hub.incoming.PacketSourceUtility;
 import ipsim.gui.ObjectRenderer;
 import ipsim.gui.PacketSourceAndPoints;
-import static ipsim.gui.PositionUtility.getParent;
-import static ipsim.gui.PositionUtility.getPosition;
-import static ipsim.gui.PositionUtility.hasParent;
-import static ipsim.gui.PositionUtility.numPositions;
-import static ipsim.gui.PositionUtility.removePositions;
-import static ipsim.gui.PositionUtility.setParent;
-import static ipsim.gui.PositionUtility.setPosition;
-import static ipsim.gui.components.ContextMenuUtility.item;
 import ipsim.gui.event.MouseTracker;
 import ipsim.image.ImageLoader;
+import ipsim.lang.FunctionUtility;
 import ipsim.network.Network;
 import ipsim.network.NetworkUtility;
 import ipsim.network.connectivity.PacketSource;
@@ -36,15 +22,25 @@ import ipsim.textmetrics.HorizontalAlignment;
 import ipsim.textmetrics.TextMetrics;
 import ipsim.textmetrics.VerticalAlignment;
 import ipsim.util.Collections;
-import static ipsim.util.Collections.any;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import javax.swing.ImageIcon;
-import javax.swing.JPopupMenu;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.util.Map;
+import javax.swing.ImageIcon;
+import javax.swing.JPopupMenu;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import static ipsim.NetworkContext.errors;
+import static ipsim.gui.PositionUtility.getParent;
+import static ipsim.gui.PositionUtility.getPosition;
+import static ipsim.gui.PositionUtility.hasParent;
+import static ipsim.gui.PositionUtility.numPositions;
+import static ipsim.gui.PositionUtility.removePositions;
+import static ipsim.gui.PositionUtility.setParent;
+import static ipsim.gui.PositionUtility.setPosition;
+import static ipsim.gui.components.ContextMenuUtility.item;
+import static ipsim.util.Collections.any;
+import static ipsim.util.Collections.mapWith;
 
 public final class EthernetCardHandler
 {
@@ -77,13 +73,13 @@ public final class EthernetCardHandler
 
 		final MouseTracker mouseTracker=context.mouseTracker;
 
-		final Maybe<Double> mouseX=bind2(mouseTracker.getX(),divideBy(context.zoomLevel));
-		final Maybe<Double> mouseY=bind2(mouseTracker.getY(),divideBy(context.zoomLevel));
+		final Option<Double> mouseX=mouseTracker.getX().map(divideBy(context.zoomLevel));
+		final Option<Double> mouseY=mouseTracker.getY().map(divideBy(context.zoomLevel));
 
-		final Function<Double,Double> identity=FunctionUtility.identity();
+		final F<Double,Double> identity= Function.identity();
 
-		boolean mouseIsNear=constIfNothing(mouseX,false,lessThan(abs(minus(identity, position.x)),40));
-		mouseIsNear&=constIfNothing(mouseY,false,lessThan(abs(minus(identity, position.y)),40));
+		boolean mouseIsNear=mouseX.map(FunctionUtility.lessThan(FunctionUtility.abs(FunctionUtility.minus(identity, position.x)),40)).orSome(false);
+		mouseIsNear&=mouseY.map(FunctionUtility.lessThan(FunctionUtility.abs(FunctionUtility.minus(identity, position.y)),40)).orSome(false);
 
 		// look at parent to find out what index card has
 		if (hasParent(context.network,card,0)&& card.hasDeviceDrivers()&&mouseIsNear)
@@ -188,13 +184,13 @@ public final class EthernetCardHandler
 		return menu;
 	}
 
-	public static Function<Integer,Double> divideBy(final double divisor)
+	public static F<Integer,Double> divideBy(final double divisor)
 	{
-		return new Function<Integer,Double>()
+		return new F<Integer,Double>()
 		{
 			@Override
             @NotNull
-			public Double run(@NotNull final Integer divisible)
+			public Double f(@NotNull final Integer divisible)
 			{
 				return divisible/divisor;
 			}

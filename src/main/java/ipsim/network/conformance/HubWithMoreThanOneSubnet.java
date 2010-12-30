@@ -1,39 +1,39 @@
 package ipsim.network.conformance;
 
 import com.rickyclarkson.testsuite.UnitTest;
-import fpeas.function.Function;
+import fj.F;
 import fpeas.predicate.Predicate;
-import static ipsim.Caster.equalT;
-import static ipsim.connectivity.hub.incoming.PacketSourceUtility.asCard;
-import static ipsim.connectivity.hub.incoming.PacketSourceUtility.isHub;
 import ipsim.network.Network;
 import ipsim.network.NetworkUtility;
-import static ipsim.network.NetworkUtility.loadFromFile;
 import ipsim.network.conformance.ConformanceTests.ResultsAndSummaryAndPercent;
 import ipsim.network.connectivity.PacketSource;
 import ipsim.network.connectivity.cable.Cable;
 import ipsim.network.connectivity.card.Card;
 import ipsim.network.connectivity.card.CardDrivers;
 import ipsim.network.connectivity.hub.Hub;
-import static ipsim.network.ethernet.CableUtility.getOtherEnd;
 import ipsim.network.ethernet.CardUtility;
 import ipsim.network.ethernet.NetBlock;
 import ipsim.network.ethernet.OnlyOneEndConnectedException;
 import ipsim.util.Collections;
-import static ipsim.util.Collections.arrayList;
+import java.io.File;
+import java.util.List;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.File;
-import java.util.List;
+import static ipsim.Caster.equalT;
+import static ipsim.connectivity.hub.incoming.PacketSourceUtility.asCard;
+import static ipsim.connectivity.hub.incoming.PacketSourceUtility.isHub;
+import static ipsim.network.NetworkUtility.loadFromFile;
+import static ipsim.network.ethernet.CableUtility.getOtherEnd;
+import static ipsim.util.Collections.arrayList;
 
-public class HubWithMoreThanOneSubnet implements Function<Network,CheckResult>
+public class HubWithMoreThanOneSubnet extends F<Network,CheckResult>
 {
 	public static final String errorMessage="Hub with more than one subnet connected to it";
 
 	@Override
     @NotNull
-	public CheckResult run(@NotNull final Network network)
+	public CheckResult f(@NotNull final Network network)
 	{
 		final List<PacketSource> empty=arrayList();
 		final List<PacketSource> warnings=arrayList();

@@ -1,10 +1,8 @@
 package ipsim.network.connectivity.computer.ethernet.incoming;
 
 import fpeas.maybe.MaybeUtility;
-import static ipsim.Caster.asNotNull;
-import static ipsim.Caster.equalT;
-import ipsim.connectivity.hub.incoming.PacketSourceUtility;
 import ipsim.ExceptionHandler;
+import ipsim.connectivity.hub.incoming.PacketSourceUtility;
 import ipsim.network.Network;
 import ipsim.network.connectivity.IncomingPacketListener;
 import ipsim.network.connectivity.Packet;
@@ -19,6 +17,9 @@ import ipsim.network.connectivity.ip.IPPacket;
 import ipsim.network.ethernet.CardUtility;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import static ipsim.Caster.asNotNull;
+import static ipsim.Caster.equalT;
 
 public final class ComputerEthernetIncoming implements IncomingPacketListener
 {
@@ -61,14 +62,14 @@ public final class ComputerEthernetIncoming implements IncomingPacketListener
 		}
 
 		if (equalT(destinationAddress, card.card.getMacAddress(network)) && PacketUtility2.isIPPacket(ethPacket.data))
-			network.packetQueue.enqueueIncomingPacket(MaybeUtility.asNullable(PacketUtility2.asIPPacket(ethPacket.data)), card.card,destination);
+			network.packetQueue.enqueueIncomingPacket(PacketUtility2.asIPPacket(ethPacket.data).toNull(), card.card,destination);
 
 		if (equalT(destinationAddress, zero) && PacketUtility2.isIPPacket(ethPacket.data))
 		{
-			final IPPacket ipPacket=MaybeUtility.asNullable(PacketUtility2.asIPPacket(ethPacket.data));
+			final IPPacket ipPacket=PacketUtility2.asIPPacket(ethPacket.data).toNull();
 
 			if (equalT(CardUtility.getBroadcastAddress(card), ipPacket.destinationIPAddress.getIPAddress()))
-				network.packetQueue.enqueueIncomingPacket(MaybeUtility.asNullable(PacketUtility2.asIPPacket(ethPacket.data)), card.card, destination);
+				network.packetQueue.enqueueIncomingPacket(PacketUtility2.asIPPacket(ethPacket.data).toNull(), card.card, destination);
 		}
 	}
 

@@ -1,31 +1,31 @@
 package ipsim.network.conformance;
 
-import fpeas.function.Function;
+import fj.F;
 import ipsim.network.Network;
 import ipsim.network.NetworkUtility;
 import ipsim.network.Problem;
-import static ipsim.network.conformance.TypicalScores.NONE;
-import static ipsim.network.conformance.TypicalScores.USUAL;
 import ipsim.network.connectivity.PacketSource;
 import ipsim.util.Collections;
-import static ipsim.util.Collections.asList;
+import java.util.List;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
+import static ipsim.network.conformance.TypicalScores.NONE;
+import static ipsim.network.conformance.TypicalScores.USUAL;
+import static ipsim.util.Collections.asList;
 
-class PercentOfRequiredSubnets implements Function<Network,CheckResult>
+class PercentOfRequiredSubnets extends F<Network,CheckResult>
 {
 	private final List<PacketSource> empty=Collections.arrayList();
 
 	@Override
     @NotNull
-	public CheckResult run(@NotNull final Network network)
+	public CheckResult f(@NotNull final Network network)
 	{
-		final Function<Problem,CheckResult> func=new Function<Problem,CheckResult>()
+		final F<Problem,CheckResult> func=new F<Problem,CheckResult>()
 		{
 			@Override
             @NotNull
-			public CheckResult run(@NotNull final Problem problem)
+			public CheckResult f(@NotNull final Problem problem)
 			{
 				final int ideal=problem.numberOfSubnets;
 				final int actual=NetworkUtility.getNumberOfSubnets(network);

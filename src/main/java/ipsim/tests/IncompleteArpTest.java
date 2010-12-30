@@ -1,21 +1,20 @@
 package ipsim.tests;
 
 import com.rickyclarkson.testsuite.UnitTest;
-import fpeas.function.Function;
-import static ipsim.connectivity.PingTester.testPing;
-import static ipsim.lang.Assertion.assertTrue;
+import fj.F;
 import ipsim.network.Network;
 import ipsim.network.NetworkUtility;
 import ipsim.network.connectivity.hub.Hub;
 import ipsim.network.connectivity.ping.PingResults;
 import ipsim.network.ip.CheckedNumberFormatException;
-import static ipsim.network.ip.IPAddressUtility.valueOf;
-import static ipsim.util.Collections.all;
-
 import java.io.File;
 import java.util.List;
-
 import org.jetbrains.annotations.NotNull;
+
+import static ipsim.connectivity.PingTester.testPing;
+import static ipsim.lang.Assertion.assertTrue;
+import static ipsim.network.ip.IPAddressUtility.valueOf;
+import static ipsim.util.Collections.all;
 
 public class IncompleteArpTest implements UnitTest
 {
@@ -28,11 +27,11 @@ public class IncompleteArpTest implements UnitTest
 
 		try
 		{
-			if (!all(testPing(network,valueOf("146.87.1.1"),valueOf("146.87.1.2")),new Function<List<PingResults>,Boolean>()
+			if (!all(testPing(network,valueOf("146.87.1.1"),valueOf("146.87.1.2")),new F<List<PingResults>,Boolean>()
 			{
 				@Override
                 @NotNull
-				public Boolean run(@NotNull final List<PingResults> results)
+				public Boolean f(@NotNull final List<PingResults> results)
 				{
 					return 1==results.size() && results.iterator().next().hostUnreachable();
 				}

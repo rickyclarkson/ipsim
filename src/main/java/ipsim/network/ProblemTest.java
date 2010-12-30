@@ -1,15 +1,14 @@
 package ipsim.network;
 
 import com.rickyclarkson.testsuite.UnitTest;
-import static fpeas.either.EitherUtility.isRight;
-import static fpeas.either.EitherUtility.unsafeLeft;
-import static ipsim.Caster.equalT;
 import ipsim.network.connectivity.ip.IPAddress;
 import ipsim.network.connectivity.ip.NetMask;
 import ipsim.network.ethernet.NetBlock;
 import ipsim.network.ethernet.NetMaskUtility;
 import ipsim.network.ip.CheckedNumberFormatException;
 import ipsim.network.ip.IPAddressUtility;
+
+import static ipsim.Caster.equalT;
 
 public class ProblemTest
 {
@@ -32,7 +31,7 @@ public class ProblemTest
 			{
 				try
 				{
-					return isRight(unsafeLeft(new ProblemBuilder().run(5)).run(new NetBlock(IPAddressUtility.valueOf("146.87.0.0"),NetMaskUtility.valueOf(mask))));
+					return new ProblemBuilder().f(5).left().value().f(new NetBlock(IPAddressUtility.valueOf("146.87.0.0"),NetMaskUtility.valueOf(mask))).isRight();
 				}
 				catch (final CheckedNumberFormatException exception)
 				{

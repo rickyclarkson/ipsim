@@ -1,21 +1,20 @@
 package ipsim.tests;
 
 import com.rickyclarkson.testsuite.UnitTest;
-import fpeas.function.Function;
+import fj.F;
 import ipsim.Caster;
-import static ipsim.connectivity.PingTester.testPing;
 import ipsim.network.Network;
 import ipsim.network.NetworkUtility;
 import ipsim.network.connectivity.ip.IPAddress;
 import ipsim.network.connectivity.ping.PingResults;
 import ipsim.network.ip.CheckedNumberFormatException;
-import static ipsim.network.ip.IPAddressUtility.valueOf;
-import static ipsim.util.Collections.all;
-
 import java.io.File;
 import java.util.List;
-
 import org.jetbrains.annotations.NotNull;
+
+import static ipsim.connectivity.PingTester.testPing;
+import static ipsim.network.ip.IPAddressUtility.valueOf;
+import static ipsim.util.Collections.all;
 
 public class RemoteBroadcastBug implements UnitTest
 {
@@ -38,11 +37,11 @@ public class RemoteBroadcastBug implements UnitTest
 
 		try
 		{
-			return all(testPing(network,valueOf("146.87.1.1"),valueOf("146.87.4.255")),new Function<List<PingResults>,Boolean>()
+			return all(testPing(network,valueOf("146.87.1.1"),valueOf("146.87.4.255")),new F<List<PingResults>,Boolean>()
 			{
 				@Override
                 @NotNull
-				public Boolean run(@NotNull final List<PingResults> results)
+				public Boolean f(@NotNull final List<PingResults> results)
 				{
 					final PingResults result=results.iterator().next();
 

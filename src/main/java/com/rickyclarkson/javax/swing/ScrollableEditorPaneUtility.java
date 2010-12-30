@@ -1,12 +1,6 @@
 package com.rickyclarkson.javax.swing;
 
-import fpeas.either.Either;
-import fpeas.either.EitherUtility;
-
-import javax.swing.JEditorPane;
-import javax.swing.JScrollPane;
-import javax.swing.JViewport;
-import javax.swing.SwingConstants;
+import fj.data.Either;
 import java.awt.AWTEvent;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
@@ -14,6 +8,10 @@ import java.awt.event.AWTEventListener;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.URL;
+import javax.swing.JEditorPane;
+import javax.swing.JScrollPane;
+import javax.swing.JViewport;
+import javax.swing.SwingConstants;
 
 public final class ScrollableEditorPaneUtility
 {
@@ -26,7 +24,7 @@ public final class ScrollableEditorPaneUtility
 		}
 		catch (IOException exception)
 		{
-			return EitherUtility.right(exception);
+			return Either.right(exception);
 		}
 
 		final Toolkit toolkit=Toolkit.getDefaultToolkit();
@@ -75,6 +73,6 @@ public final class ScrollableEditorPaneUtility
 
 		toolkit.addAWTEventListener(keyHandler, AWTEvent.KEY_EVENT_MASK);
 
-		return EitherUtility.left(editorPane);
+		return Either.left(editorPane);
 	}
 }

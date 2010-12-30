@@ -1,32 +1,32 @@
 package ipsim.network.conformance;
 
-import fpeas.function.Function;
+import fj.F;
 import fpeas.maybe.Maybe;
 import fpeas.maybe.MaybeUtility;
-import static ipsim.Caster.equalT;
 import ipsim.network.Network;
-import static ipsim.network.NetworkUtility.getAllComputers;
-import static ipsim.network.conformance.NonsensicalArrangement.noErrors;
-import static ipsim.network.conformance.TypicalScores.USUAL;
 import ipsim.network.connectivity.computer.Computer;
 import ipsim.network.connectivity.computer.Route;
 import ipsim.network.connectivity.ip.IPAddress;
 import ipsim.util.Collections;
+import java.util.Collection;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Collection;
+import static ipsim.Caster.equalT;
+import static ipsim.network.NetworkUtility.getAllComputers;
+import static ipsim.network.conformance.NonsensicalArrangement.noErrors;
+import static ipsim.network.conformance.TypicalScores.USUAL;
 
-public class MultipleRoutesToTheSameSubnet implements Function<Network,CheckResult>
+public class MultipleRoutesToTheSameSubnet extends F<Network,CheckResult>
 {
 	@Override
     @NotNull
-	public CheckResult run(@NotNull final Network network)
+	public CheckResult f(@NotNull final Network network)
 	{
-		final Function<Computer, Maybe<String>> warning=new Function<Computer, Maybe<String>>()
+		final F<Computer, Maybe<String>> warning=new F<Computer, Maybe<String>>()
 		{
 			@Override
             @NotNull
-			public Maybe<String> run(@NotNull final Computer computer)
+			public Maybe<String> f(@NotNull final Computer computer)
 			{
 				final Collection<IPAddress> subnets=Collections.hashSet();
 
@@ -42,8 +42,8 @@ public class MultipleRoutesToTheSameSubnet implements Function<Network,CheckResu
 			}
 		};
 
-		final Function<Computer, Maybe<String>> noErrors=noErrors();
+		final F<Computer, Maybe<String>> noErrors=noErrors();
 
-		return NonsensicalArrangement.customCheck(getAllComputers,warning,noErrors,USUAL).run(network);
+		return NonsensicalArrangement.customCheck(getAllComputers,warning,noErrors,USUAL).f(network);
 	}
 }

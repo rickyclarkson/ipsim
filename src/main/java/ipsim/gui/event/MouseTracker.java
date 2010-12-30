@@ -1,16 +1,16 @@
 package ipsim.gui.event;
 
+import fj.data.Option;
 import fpeas.maybe.Maybe;
-
 import java.awt.event.MouseEvent;
 
 public interface MouseTracker
 {
 	void mouseEvent(MouseEvent event);
 
-	Maybe<Integer> getX();
+	Option<Integer> getX();
 
-	Maybe<Integer> getY();
+	Option<Integer> getY();
 
-	Maybe<MouseEvent> getLastMousePressedEvent();
+	Option<MouseEvent> getLastMousePressedEvent();
 }

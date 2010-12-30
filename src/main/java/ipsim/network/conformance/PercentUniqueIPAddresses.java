@@ -1,7 +1,6 @@
 package ipsim.network.conformance;
 
-import fpeas.function.Function;
-import static ipsim.Caster.equalT;
+import fj.F;
 import ipsim.network.Network;
 import ipsim.network.NetworkUtility;
 import ipsim.network.connectivity.PacketSource;
@@ -9,18 +8,19 @@ import ipsim.network.connectivity.card.Card;
 import ipsim.network.connectivity.card.CardDrivers;
 import ipsim.network.connectivity.ip.IPAddress;
 import ipsim.util.Collections;
-import static ipsim.util.Collections.arrayList;
-import static ipsim.util.Collections.count;
-import org.jetbrains.annotations.NotNull;
-
 import java.util.List;
 import java.util.Map;
+import org.jetbrains.annotations.NotNull;
 
-class PercentUniqueIPAddresses implements Function<Network, CheckResult>
+import static ipsim.Caster.equalT;
+import static ipsim.util.Collections.arrayList;
+import static ipsim.util.Collections.count;
+
+class PercentUniqueIPAddresses extends F<Network, CheckResult>
 {
 	@Override
     @NotNull
-	public CheckResult run(@NotNull final Network network)
+	public CheckResult f(@NotNull final Network network)
 	{
 		final Map<IPAddress, Integer> count=Collections.hashMap();
 

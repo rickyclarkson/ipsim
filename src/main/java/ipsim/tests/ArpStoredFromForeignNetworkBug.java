@@ -1,20 +1,19 @@
 package ipsim.tests;
 
 import com.rickyclarkson.testsuite.UnitTest;
-import fpeas.function.Function;
+import fj.F;
 import ipsim.connectivity.PingTester;
 import ipsim.network.Network;
 import ipsim.network.NetworkUtility;
-import static ipsim.network.NetworkUtility.getComputersByIP;
 import ipsim.network.connectivity.computer.Computer;
 import ipsim.network.ip.CheckedNumberFormatException;
 import ipsim.network.ip.IPAddressUtility;
+import java.io.File;
+import org.jetbrains.annotations.NotNull;
+
+import static ipsim.network.NetworkUtility.getComputersByIP;
 import static ipsim.network.ip.IPAddressUtility.valueOf;
 import static ipsim.util.Collections.all;
-
-import java.io.File;
-
-import org.jetbrains.annotations.NotNull;
 
 public class ArpStoredFromForeignNetworkBug implements UnitTest
 {
@@ -29,11 +28,11 @@ public class ArpStoredFromForeignNetworkBug implements UnitTest
 		{
 			PingTester.testPing(network,valueOf("146.87.1.1"),valueOf("146.87.2.1"));
 
-			return all(getComputersByIP(network,valueOf("146.87.1.1")),new Function<Computer,Boolean>()
+			return all(getComputersByIP(network,valueOf("146.87.1.1")),new F<Computer,Boolean>()
 			{
 				@Override
                 @NotNull
-				public Boolean run(@NotNull final Computer computer)
+				public Boolean f(@NotNull final Computer computer)
 				{
 					try
 					{

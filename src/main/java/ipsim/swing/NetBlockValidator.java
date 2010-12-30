@@ -1,13 +1,11 @@
 package ipsim.swing;
 
-import fpeas.either.Either;
-import fpeas.either.EitherUtility;
-import fpeas.function.Function;
-import static fpeas.function.FunctionUtility.constant;
+import fj.F;
+import fj.Function;
+import fj.data.Either;
 import ipsim.network.ethernet.NetBlock;
 import ipsim.network.ethernet.NetBlockUtility;
 import ipsim.network.ethernet.NetBlockUtility.ParseFailure;
-
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
@@ -35,12 +33,12 @@ public final class NetBlockValidator implements DocumentValidator
 		}
 
 		final Either<NetBlock,ParseFailure> either=NetBlockUtility.createNetBlock(string);
-		final Function<NetBlock,Boolean> constant=constant(true);
-		final Function<ParseFailure,Boolean> constant2=constant(false);
-		final boolean result=either.visit(constant,constant2);
+		final F<NetBlock,Boolean> constant= Function.constant(true);
+		final F<ParseFailure,Boolean> constant2=Function.constant(false);
+		final boolean result=either.either(constant, constant2);
 
 		if (result)
-			block=EitherUtility.unsafeLeft(either);
+			block=either.left().value();
 
 		return result;
 	}

@@ -1,35 +1,36 @@
 package ipsim.network.conformance;
 
-import fpeas.function.Function;
+import fj.F;
 import fpeas.maybe.Maybe;
 import fpeas.maybe.MaybeUtility;
-import static ipsim.connectivity.hub.incoming.PacketSourceUtility.asCard;
 import ipsim.gui.PositionUtility;
 import ipsim.network.Network;
-import static ipsim.network.NetworkUtility.getAllHubs;
-import static ipsim.network.conformance.NonsensicalArrangement.customCheck;
-import static ipsim.network.conformance.NonsensicalArrangement.noErrors;
-import static ipsim.network.conformance.TypicalScores.USUAL;
 import ipsim.network.connectivity.PacketSource;
 import ipsim.network.connectivity.cable.Cable;
 import ipsim.network.connectivity.card.Card;
 import ipsim.network.connectivity.hub.Hub;
-import static ipsim.network.ethernet.CableUtility.getOtherEnd;
 import ipsim.network.ethernet.OnlyOneEndConnectedException;
-import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-class SomeHubsHaveNoStandaloneHost implements Function<Network,CheckResult>
+import static ipsim.connectivity.hub.incoming.PacketSourceUtility.asCard;
+import static ipsim.network.NetworkUtility.getAllHubs;
+import static ipsim.network.conformance.NonsensicalArrangement.customCheck;
+import static ipsim.network.conformance.NonsensicalArrangement.noErrors;
+import static ipsim.network.conformance.TypicalScores.USUAL;
+import static ipsim.network.ethernet.CableUtility.getOtherEnd;
+
+class SomeHubsHaveNoStandaloneHost extends F<Network,CheckResult>
 {
 	@Override
     @NotNull
-	public CheckResult run(@NotNull final Network network)
+	public CheckResult f(@NotNull final Network network)
 	{
-		final Function<Hub, Maybe<String>> warning=new Function<Hub, Maybe<String>>()
+		final F<Hub, Maybe<String>> warning=new F<Hub, Maybe<String>>()
 		{
 			@Override
             @NotNull
-			public Maybe<String> run(@NotNull final Hub hub)
+			public Maybe<String> f(@NotNull final Hub hub)
 			{
 				boolean foundOne=false;
 
@@ -55,8 +56,8 @@ class SomeHubsHaveNoStandaloneHost implements Function<Network,CheckResult>
 
 		};
 
-		final Function<Hub, Maybe<String>> noErrors=noErrors();
+		final F<Hub, Maybe<String>> noErrors=noErrors();
 
-		return customCheck(getAllHubs,warning,noErrors,USUAL).run(network);
+		return customCheck(getAllHubs,warning,noErrors,USUAL).f(network);
 	}
 }

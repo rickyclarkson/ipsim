@@ -1,17 +1,17 @@
 package ipsim.lang;
 
-import fpeas.function.Function;
+import fj.F;
 import org.jetbrains.annotations.NotNull;
 
 public class Stringables
 {
-	public static <T extends Stringable> Function<T,String> asString()
+	public static <T extends Stringable> F<T,String> asString()
 	{
-		return new Function<T,String>()
+		return new F<T,String>()
 		{
 			@Override
             @NotNull
-			public String run(@NotNull final T stringable)
+			public String f(@NotNull final T stringable)
 			{
 				return stringable.asString();
 			}

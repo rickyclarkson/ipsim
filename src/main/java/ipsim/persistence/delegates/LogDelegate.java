@@ -1,18 +1,18 @@
 package ipsim.persistence.delegates;
 
-import static ipsim.Caster.asFunction;
-import fpeas.function.Function;
+import fj.F;
 import ipsim.Caster;
 import ipsim.network.Network;
 import ipsim.persistence.SerialisationDelegate;
 import ipsim.persistence.XMLDeserialiser;
 import ipsim.persistence.XMLSerialiser;
-import static ipsim.persistence.delegates.DefaultCommandDelegate.defaultCommandDelegate;
 import ipsim.util.Collections;
-import static ipsim.util.Collections.arrayListCopy;
+import java.util.List;
 import org.w3c.dom.Node;
 
-import java.util.List;
+import static ipsim.Caster.asFunction;
+import static ipsim.persistence.delegates.DefaultCommandDelegate.defaultCommandDelegate;
+import static ipsim.util.Collections.arrayListCopy;
 
 public final class LogDelegate
 {
@@ -42,7 +42,7 @@ public final class LogDelegate
 				for (final String name : names)
 					if (name.startsWith("entry "))
 					{
-						final Function<List<? extends String>, List<String>> clone=arrayListCopy();
+						final F<List<? extends String>, List<String>> clone=arrayListCopy();
 						log=Collections.add(clone,log,Caster.asNotNull(deserialiser.readObject(node, name,DefaultCommandDelegate.defaultCommandDelegate, asFunction(StringBuffer.class))).toString());
 					}
 

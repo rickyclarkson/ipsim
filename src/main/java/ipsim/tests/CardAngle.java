@@ -1,13 +1,14 @@
 package ipsim.tests;
 
 import com.rickyclarkson.testsuite.UnitTest;
-import static ipsim.gui.GetChildOffset.getChildOffset;
-import static ipsim.gui.PositionUtility.setParent;
+import ipsim.awt.Point;
 import ipsim.network.Network;
 import ipsim.network.connectivity.card.Card;
 import ipsim.network.connectivity.computer.Computer;
 import ipsim.network.connectivity.computer.ComputerFactory;
-import ipsim.awt.Point;
+
+import static ipsim.gui.GetChildOffset.getChildOffset;
+import static ipsim.gui.PositionUtility.setParent;
 
 public class CardAngle
 {
@@ -21,8 +22,8 @@ public class CardAngle
 				final Network network=new Network();
 
 				final Computer computer=ComputerFactory.newComputer(network, 100,100);
-				final Card card1=network.cardFactory.run(new Point(150, 100));
-				final Card card2=network.cardFactory.run(new Point(100, 150));
+				final Card card1=network.cardFactory.f(new Point(150, 100));
+				final Card card2=network.cardFactory.f(new Point(100, 150));
 
 				setParent(network,card1,0,computer,0);
 				setParent(network,card2,0,computer,0);

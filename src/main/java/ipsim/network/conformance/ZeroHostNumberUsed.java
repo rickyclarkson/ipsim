@@ -1,29 +1,30 @@
 package ipsim.network.conformance;
 
-import static fpeas.maybe.MaybeUtility.nothing;
-import fpeas.function.Function;
+import fj.F;
 import fpeas.maybe.Maybe;
 import fpeas.maybe.MaybeUtility;
 import ipsim.network.Network;
-import static ipsim.network.NetworkUtility.getAllCards;
-import static ipsim.network.conformance.TypicalScores.USUAL;
 import ipsim.network.connectivity.card.Card;
 import ipsim.network.connectivity.card.CardDrivers;
 import ipsim.network.connectivity.ip.IPAddress;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-class ZeroHostNumberUsed implements Function<Network,CheckResult>
+import static fpeas.maybe.MaybeUtility.nothing;
+import static ipsim.network.NetworkUtility.getAllCards;
+import static ipsim.network.conformance.TypicalScores.USUAL;
+
+class ZeroHostNumberUsed extends F<Network,CheckResult>
 {
 	@Override
     @NotNull
-	public CheckResult run(@NotNull final Network network)
+	public CheckResult f(@NotNull final Network network)
 	{
-		return NonsensicalArrangement.customCheck(getAllCards,new Function<Card, Maybe<String>>()
+		return NonsensicalArrangement.customCheck(getAllCards,new F<Card, Maybe<String>>()
 		{
 			@Override
             @NotNull
-			public Maybe<String> run(@NotNull final Card card)
+			public Maybe<String> f(@NotNull final Card card)
 			{
 				@Nullable
 				final CardDrivers cardWithDrivers=card.withDrivers;
@@ -40,6 +41,6 @@ class ZeroHostNumberUsed implements Function<Network,CheckResult>
 
 				return nothing();
 			}
-		},NonsensicalArrangement.<Card>noErrors(),USUAL).run(network);
+		},NonsensicalArrangement.<Card>noErrors(),USUAL).f(network);
 	}
 }

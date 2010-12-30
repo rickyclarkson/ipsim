@@ -29,7 +29,7 @@ public class ComputerArpIncomingTest implements UnitTest
 	{
 		final Network network=new Network();
 
-		final Card card=network.cardFactory.run(new Point(0, 0));
+		final Card card=network.cardFactory.f(new Point(0, 0));
 
 		final Computer computer=ComputerFactory.newComputer(network, 0, 0);
 		computer.computerID=network.generateComputerID();

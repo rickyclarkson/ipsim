@@ -1,24 +1,29 @@
 package ipsim.gui.components;
 
-import fpeas.function.Function;
+import fj.F;
+import fj.data.Option;
 import fpeas.maybe.Maybe;
 import fpeas.maybe.MaybeUtility;
 import fpeas.sideeffect.SideEffect;
 import ipsim.Global;
-import ipsim.lang.Assertion;
-import static ipsim.Global.getNetworkContext;
 import ipsim.awt.Point;
 import ipsim.gui.PositionUtility;
+import ipsim.lang.Assertion;
 import ipsim.network.connectivity.PacketSource;
 import ipsim.network.connectivity.cable.Cable;
-import org.jetbrains.annotations.NotNull;
-
-import javax.swing.*;
-import javax.swing.event.MouseInputAdapter;
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import javax.swing.JComponent;
+import javax.swing.JToggleButton;
+import javax.swing.SwingConstants;
+import javax.swing.event.MouseInputAdapter;
+import org.jetbrains.annotations.NotNull;
+
+import static ipsim.Global.getNetworkContext;
 
 public final class EthernetCableIcon
 {
@@ -122,17 +127,17 @@ public final class EthernetCableIcon
 
 				final MouseEvent event=zoomMouseEvent(originalEvent);
 
-				final Maybe<MouseEvent> maybeMousePressedEvent=getNetworkContext().mouseTracker.getLastMousePressedEvent();
+				final Option<MouseEvent> maybeMousePressedEvent=getNetworkContext().mouseTracker.getLastMousePressedEvent();
 
-				final boolean mouseDragOccurred=MaybeUtility.constIfNothing(maybeMousePressedEvent, false, new Function<MouseEvent, Boolean>()
+				final boolean mouseDragOccurred=maybeMousePressedEvent.map(new F<MouseEvent, Boolean>()
 				{
 					@Override
                     @NotNull
-					public Boolean run(@NotNull final MouseEvent mousePressedEvent)
+					public Boolean f(@NotNull final MouseEvent mousePressedEvent)
 					{
 						return !(mousePressedEvent.getX()==event.getX()) || !(mousePressedEvent.getY()==event.getY());
 					}
-				});
+				}).orSome(false);
 
 				getNetworkContext().mouseTracker.mouseEvent(event);
 

@@ -1,34 +1,33 @@
 package ipsim.network.conformance;
 
-import fpeas.function.Function;
+import fj.F;
 import fpeas.maybe.Maybe;
 import fpeas.maybe.MaybeUtility;
 import fpeas.predicate.Predicate;
 import ipsim.network.Network;
+import ipsim.network.connectivity.computer.Computer;
+import ipsim.network.connectivity.computer.Route;
+import java.util.Collection;
+import org.jetbrains.annotations.NotNull;
+
 import static ipsim.network.NetworkUtility.getAllComputers;
 import static ipsim.network.NetworkUtility.getComputersByIP;
 import static ipsim.network.conformance.NonsensicalArrangement.customCheck;
 import static ipsim.network.conformance.NonsensicalArrangement.noErrors;
 import static ipsim.network.conformance.TypicalScores.USUAL;
-import ipsim.network.connectivity.computer.Computer;
-import ipsim.network.connectivity.computer.Route;
 import static ipsim.util.Collections.any;
 
-import java.util.Collection;
-
-import org.jetbrains.annotations.NotNull;
-
-class SomeRoutesToNonGateways implements Function<Network,CheckResult>
+class SomeRoutesToNonGateways extends F<Network,CheckResult>
 {
 	@Override
     @NotNull
-	public CheckResult run(@NotNull final Network network)
+	public CheckResult f(@NotNull final Network network)
 	{
-		final Function<Computer, Maybe<String>> warning=new Function<Computer, Maybe<String>>()
+		final F<Computer, Maybe<String>> warning=new F<Computer, Maybe<String>>()
 		{
 			@Override
             @NotNull
-			public Maybe<String> run(@NotNull final Computer computer)
+			public Maybe<String> f(@NotNull final Computer computer)
 			{
 				for (final Route route: computer.routingTable.routes())
 				{
@@ -42,7 +41,7 @@ class SomeRoutesToNonGateways implements Function<Network,CheckResult>
 						@Override
                         public boolean invoke(final Computer aComputer)
 						{
-							return ConformanceTestsUtility.isARouter().run(aComputer);
+							return ConformanceTestsUtility.isARouter().f(aComputer);
 						}
 					}))
 						return MaybeUtility.just("Computer with a route to a computer that is not a gateway");
@@ -53,8 +52,8 @@ class SomeRoutesToNonGateways implements Function<Network,CheckResult>
 
 		};
 
-		final Function<Computer, Maybe<String>> noErrors=noErrors();
+		final F<Computer, Maybe<String>> noErrors=noErrors();
 
-		return customCheck(getAllComputers,warning,noErrors,USUAL).run(network);
+		return customCheck(getAllComputers,warning,noErrors,USUAL).f(network);
 	}
 }

@@ -1,6 +1,6 @@
 package ipsim.network.conformance;
 
-import fpeas.function.Function;
+import fj.F;
 import ipsim.network.Network;
 import ipsim.network.NetworkUtility;
 import ipsim.network.Problem;
@@ -8,23 +8,23 @@ import ipsim.network.connectivity.PacketSource;
 import ipsim.network.connectivity.card.CardDrivers;
 import ipsim.network.ethernet.NetBlock;
 import ipsim.util.Collections;
-import static ipsim.util.Collections.arrayList;
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Collection;
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
-class PercentOfIPsMatchingProblem implements Function<Network,CheckResult>
+import static ipsim.util.Collections.arrayList;
+
+class PercentOfIPsMatchingProblem extends F<Network,CheckResult>
 {
 	@Override
     @NotNull
-	public CheckResult run(@NotNull final Network network)
+	public CheckResult f(@NotNull final Network network)
 	{
-		final Function<Problem,CheckResult> func=new Function<Problem,CheckResult>()
+		final F<Problem,CheckResult> func=new F<Problem,CheckResult>()
 		{
 			@Override
             @NotNull
-			public CheckResult run(@NotNull final Problem problem)
+			public CheckResult f(@NotNull final Problem problem)
 			{
 				final NetBlock block=new NetBlock(problem.netBlock.networkNumber, problem.netBlock.netMask);
 

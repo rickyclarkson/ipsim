@@ -2,7 +2,6 @@ package ipsim;
 
 import fj.data.Option;
 import fpeas.maybe.Maybe;
-import fpeas.maybe.MaybeUtility;
 import fpeas.sideeffect.SideEffect;
 import ipsim.gui.NetworkView;
 import ipsim.gui.NetworkViewUtility;
@@ -20,7 +19,8 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-import static fpeas.maybe.MaybeUtility.nothing;
+import static fj.data.Option.none;
+import static fj.data.Option.some;
 import static ipsim.Global.global;
 import static ipsim.property.PropertyUtility.newProperty;
 
@@ -35,34 +35,34 @@ public final class NetworkContext
 
 	public final MouseTracker mouseTracker=new MouseTracker()
 	{
-		public Maybe<Integer> x=nothing();
-		public Maybe<Integer> y=nothing();
-		public Maybe<MouseEvent> lastMousePressedEvent=nothing();
+		public Option<Integer> x= none();
+		public Option<Integer> y=none();
+		public Option<MouseEvent> lastMousePressedEvent=none();
 
 		@Override
         public void mouseEvent(final MouseEvent event)
 		{
-			x=MaybeUtility.just(event.getX());
-			y=MaybeUtility.just(event.getY());
+			x= some(event.getX());
+			y=some(event.getY());
 
 			if (MouseEvent.MOUSE_PRESSED==event.getID())
-				lastMousePressedEvent=MaybeUtility.just(event);
+				lastMousePressedEvent=some(event);
 		}
 
 		@Override
-        public Maybe<Integer> getX()
+        public Option<Integer> getX()
 		{
 			return x;
 		}
 
 		@Override
-        public Maybe<Integer> getY()
+        public Option<Integer> getY()
 		{
 			return y;
 		}
 
 		@Override
-        public Maybe<MouseEvent> getLastMousePressedEvent()
+        public Option<MouseEvent> getLastMousePressedEvent()
 		{
 			return lastMousePressedEvent;
 		}

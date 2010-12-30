@@ -2,7 +2,7 @@ package ipsim.network;
 
 import com.rickyclarkson.testsuite.UnitTest;
 import com.rickyclarkson.xml.DOMSimple;
-import fpeas.function.Function;
+import fj.F;
 import fpeas.predicate.Predicate;
 import ipsim.Caster;
 import ipsim.ExceptionHandler;
@@ -19,18 +19,18 @@ import ipsim.network.connectivity.card.incoming.CardIncoming;
 import ipsim.network.connectivity.card.outgoing.CardOutgoing;
 import ipsim.network.connectivity.hub.Hub;
 import ipsim.util.Collections;
-import static ipsim.util.Collections.any;
-import static ipsim.util.Collections.arrayList;
-import static ipsim.util.Collections.hashMap;
-import static ipsim.util.Collections.only;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.w3c.dom.Element;
-
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.w3c.dom.Element;
+
+import static ipsim.util.Collections.any;
+import static ipsim.util.Collections.arrayList;
+import static ipsim.util.Collections.hashMap;
+import static ipsim.util.Collections.only;
 
 public final class Network
 {
@@ -49,11 +49,11 @@ public final class Network
 
 	public boolean modified=false;
 
-	public final Function<Point, Card> cardFactory=new Function<Point, Card>()
+	public final F<Point, Card> cardFactory=new F<Point, Card>()
 	{
 		@Override
         @NotNull
-		public Card run(@NotNull final Point point)
+		public Card f(@NotNull final Point point)
 		{
 			final Card card=EthernetCardHandler.create(Network.this, (int)point.x, (int)point.y);
 
@@ -65,15 +65,15 @@ public final class Network
 	};
 	public DOMSimple domSimple=new DOMSimple(ExceptionHandler.<String>impossibleRef(),ExceptionHandler.<Element>impossibleRef());
 
-	public static <T> Function<T, Integer> idFactory()
+	public static <T> F<T, Integer> idFactory()
 	{
-		return new Function<T, Integer>()
+		return new F<T, Integer>()
 		{
 			public final Map<Integer, T> ids=hashMap();
 
 			@Override
             @NotNull
-			public Integer run(@NotNull final T t)
+			public Integer f(@NotNull final T t)
 			{
 				for (final Map.Entry<Integer, T> entry : ids.entrySet())
 					if (Caster.equalT(entry.getValue(), t))
@@ -89,8 +89,8 @@ public final class Network
 		};
 	}
 
-	public final Function<Cable, Integer> cableIDFor=idFactory();
-	public final Function<Hub, Integer> hubIDFor=idFactory();
+	public final F<Cable, Integer> cableIDFor=idFactory();
+	public final F<Hub, Integer> hubIDFor=idFactory();
 
 	public final TopLevelComponents topLevelComponents=new TopLevelComponents()
 	{
@@ -214,8 +214,8 @@ public final class Network
 		{
 			final Network one=new Network();
 			final Network two=new Network();
-			one.cardFactory.run(new Point(50,50));
-			two.cardFactory.run(new Point(100,100));
+			one.cardFactory.f(new Point(50,50));
+			two.cardFactory.f(new Point(100,100));
 			final Network three=merge(one,two);
 			return three.topLevelComponents.size()==2;
 		}

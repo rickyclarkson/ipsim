@@ -1,9 +1,7 @@
 package ipsim.network.connectivity;
 
+import fj.data.Option;
 import fpeas.maybe.Maybe;
-import static fpeas.maybe.MaybeUtility.isJust;
-import static fpeas.maybe.MaybeUtility.just;
-import static fpeas.maybe.MaybeUtility.nothing;
 import ipsim.network.connectivity.arp.ArpPacket;
 import ipsim.network.connectivity.arp.ArpPacketUtility;
 import ipsim.network.connectivity.ethernet.EthernetPacket;
@@ -12,33 +10,39 @@ import ipsim.network.ip.IPAddressUtility;
 import ipsim.util.Printf;
 import org.jetbrains.annotations.Nullable;
 
+import static fj.data.Option.none;
+import static fj.data.Option.some;
+import static fpeas.maybe.MaybeUtility.isJust;
+import static fpeas.maybe.MaybeUtility.just;
+import static fpeas.maybe.MaybeUtility.nothing;
+
 public final class PacketUtility2
 {
 	public static boolean isIPPacket(final Packet packet)
 	{
-		return isJust(asIPPacket(packet));
+		return asIPPacket(packet).isSome();
 	}
 
-	public static Maybe<IPPacket> asIPPacket(final Packet packet)
+	public static Option<IPPacket> asIPPacket(final Packet packet)
 	{
-		return packet.accept(new PacketVisitor2<Maybe<IPPacket>>()
+		return packet.accept(new PacketVisitor2<Option<IPPacket>>()
 		{
 			@Override
-            public Maybe<IPPacket> visit(final IPPacket packet1)
+            public Option<IPPacket> visit(final IPPacket packet1)
 			{
-				return just(packet1);
+				return some(packet1);
 			}
 
 			@Override
-            public Maybe<IPPacket> visit(final ArpPacket packet1)
+            public Option<IPPacket> visit(final ArpPacket packet1)
 			{
-				return nothing();
+				return none();
 			}
 
 			@Override
-            public Maybe<IPPacket> visit(final EthernetPacket packet1)
+            public Option<IPPacket> visit(final EthernetPacket packet1)
 			{
-				return nothing();
+				return none();
 			}
 		});
 	}

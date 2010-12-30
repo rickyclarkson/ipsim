@@ -1,15 +1,17 @@
 package ipsim.gui;
 
 import com.rickyclarkson.javax.swing.ScrollableEditorPaneUtility;
-import fpeas.either.Either;
-import fpeas.function.Function;
-import static fpeas.function.FunctionUtility.constant;
+import fj.F;
+import fj.Function;
+import fj.data.Either;
 import fpeas.sideeffect.SideEffect;
 import ipsim.Caster;
-import static ipsim.Caster.equalT;
-import static ipsim.lang.Runnables.nothing;
-import static ipsim.swing.Buttons.newButton;
-
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.FlowLayout;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Stack;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,14 +20,11 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLFrameHyperlinkEvent;
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.FlowLayout;
-import java.io.IOException;
-import java.net.URL;
-import java.util.Stack;
-
 import org.jetbrains.annotations.NotNull;
+
+import static ipsim.Caster.equalT;
+import static ipsim.lang.Runnables.nothing;
+import static ipsim.swing.Buttons.newButton;
 
 public final class HelpFrameUtility
 {
@@ -41,33 +40,29 @@ public final class HelpFrameUtility
 
 		final Either<JEditorPane,IOException> htmlPane=ScrollableEditorPaneUtility.createScrollableEditorPane(pane,helpRoot);
 
-		final Function<IOException,Runnable> doNothing=constant(nothing);
+		final F<IOException,Runnable> doNothing= Function.constant(nothing);
 
-		htmlPane.visit(new Function<JEditorPane,Runnable>()
-		{
-			@Override
+		htmlPane.either(new F<JEditorPane, Runnable>() {
+            @Override
             @NotNull
-			public Runnable run(@NotNull final JEditorPane pane2)
-			{
-				return new Runnable()
-				{
-					@Override
-                    public void run()
-					{
-						pane2.setEditable(false);
-						pane2.setCaretPosition(0);
-						final Hyperactive hyperactive=new Hyperactive(pane2,helpRoot);
-						pane2.addHyperlinkListener(hyperactive);
-						pane2.setAutoscrolls(true);
-						pane.getViewport().add(pane2);
+            public Runnable f(@NotNull final JEditorPane pane2) {
+                return new Runnable() {
+                    @Override
+                    public void run() {
+                        pane2.setEditable(false);
+                        pane2.setCaretPosition(0);
+                        final Hyperactive hyperactive = new Hyperactive(pane2, helpRoot);
+                        pane2.addHyperlinkListener(hyperactive);
+                        pane2.setAutoscrolls(true);
+                        pane.getViewport().add(pane2);
 
-						frame.add(pane,BorderLayout.CENTER);
+                        frame.add(pane, BorderLayout.CENTER);
 
-						doStuff(hyperactive, frame);
-					}
-				};
-			}
-		},doNothing).run();
+                        doStuff(hyperactive, frame);
+                    }
+                };
+            }
+        }, doNothing).run();
 
 		return frame;
 	}
@@ -107,13 +102,13 @@ public final class HelpFrameUtility
 
 			final Either<JEditorPane,IOException> htmlPane=ScrollableEditorPaneUtility.createScrollableEditorPane(pane,helpRoot);
 
-			final Function<IOException,Runnable> doNothing=constant(nothing);
+			final F<IOException,Runnable> doNothing=Function.constant(nothing);
 
-			htmlPane.visit(new Function<JEditorPane,Runnable>()
+			htmlPane.either(new F<JEditorPane,Runnable>()
 			{
 				@Override
                 @NotNull
-				public Runnable run(@NotNull final JEditorPane pane2)
+				public Runnable f(@NotNull final JEditorPane pane2)
 				{
 					return new Runnable()
 					{

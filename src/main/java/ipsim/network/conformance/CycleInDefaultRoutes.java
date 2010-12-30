@@ -1,45 +1,45 @@
 package ipsim.network.conformance;
 
-import fpeas.function.Function;
-import fpeas.function.FunctionUtility;
+import fj.F;
+import fj.Function;
 import fpeas.predicate.Predicate;
-import static ipsim.Caster.equalT;
 import ipsim.network.Network;
+import ipsim.network.connectivity.PacketSource;
+import ipsim.network.connectivity.computer.Computer;
+import ipsim.network.connectivity.computer.Route;
+import ipsim.util.Collections;
+import java.util.List;
+import org.jetbrains.annotations.NotNull;
+
+import static ipsim.Caster.equalT;
 import static ipsim.network.NetworkUtility.getAllComputers;
 import static ipsim.network.NetworkUtility.getComputersByIP;
 import static ipsim.network.conformance.CheckResultUtility.fine;
 import static ipsim.network.conformance.TypicalScores.USUAL;
-import ipsim.network.connectivity.PacketSource;
-import ipsim.network.connectivity.computer.Computer;
-import ipsim.network.connectivity.computer.Route;
 import static ipsim.network.connectivity.computer.RoutingTableUtility.getDefaultRoutes;
 import static ipsim.network.ethernet.RouteUtility.isDefaultRoute;
 import static ipsim.network.ethernet.RouteUtility.isRouteToSelf;
-import ipsim.util.Collections;
 import static ipsim.util.Collections.any;
 import static ipsim.util.Collections.arrayList;
-import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
-class CycleInDefaultRoutes implements Function<Network,CheckResult>
+class CycleInDefaultRoutes extends F<Network,CheckResult>
 {
 	@Override
     @NotNull
-	public CheckResult run(@NotNull final Network network)
+	public CheckResult f(@NotNull final Network network)
 	{
 		final List<PacketSource> empty=arrayList();
 
 		for (final Computer computer: getAllComputers(network))
 			for (final Route route: computer.routingTable.routes())
 				if (isDefaultRoute(route)&&!getComputersByIP(network, route.gateway).contains(computer))
-					if (detectCycle(network, FunctionUtility.<Computer,Boolean>constant(false),computer,route))
+					if (detectCycle(network, Function.<Computer, Boolean>constant(false),computer,route))
 						return new CheckResult(USUAL, Collections.asList("Cycle in default routes"), empty, empty);
 
 		return fine();
 	}
 
-	public static boolean detectCycle(final Network network,final Function<Computer,Boolean> containsComputer,final Computer computer,final Route route)
+	public static boolean detectCycle(final Network network,final F<Computer,Boolean> containsComputer,final Computer computer,final Route route)
 	{
 		if (isRouteToSelf(computer,route))
 			return false;
@@ -49,7 +49,7 @@ class CycleInDefaultRoutes implements Function<Network,CheckResult>
 			@Override
             public boolean invoke(final Computer computer1)
 			{
-				if (containsComputer.run(computer1))
+				if (containsComputer.f(computer1))
 					return true;
 
 				return any(getDefaultRoutes(computer1.routingTable),new Predicate<Route>()
@@ -57,13 +57,13 @@ class CycleInDefaultRoutes implements Function<Network,CheckResult>
 					@Override
                     public boolean invoke(final Route route2)
 					{
-						return detectCycle(network,new Function<Computer,Boolean>()
+						return detectCycle(network,new F<Computer,Boolean>()
 						{
 							@Override
                             @NotNull
-							public Boolean run(@NotNull final Computer aComputer)
+							public Boolean f(@NotNull final Computer aComputer)
 							{
-								return equalT(aComputer,computer1)||containsComputer.run(aComputer);
+								return equalT(aComputer,computer1)||containsComputer.f(aComputer);
 							}
 						},computer,route2);
 					}

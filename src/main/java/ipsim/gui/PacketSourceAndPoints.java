@@ -1,13 +1,13 @@
 package ipsim.gui;
 
-import fpeas.function.Function;
+import fj.F;
 import ipsim.awt.Point;
 import ipsim.network.connectivity.PacketSource;
 import ipsim.util.Collections;
+import java.util.Map;
+
 import static ipsim.util.Collections.mapValues;
 import static ipsim.util.Collections.mapWith;
-
-import java.util.Map;
 
 public final class PacketSourceAndPoints
 {
@@ -40,7 +40,7 @@ public final class PacketSourceAndPoints
 		return mapWith(points,index,position);
 	}
 
-	public Map<? extends Integer, ? extends Point> pointsMapValues(final Function<Point, Point> function)
+	public Map<? extends Integer, ? extends Point> pointsMapValues(final F<Point, Point> function)
 	{
 		return mapValues(points,function);
 	}

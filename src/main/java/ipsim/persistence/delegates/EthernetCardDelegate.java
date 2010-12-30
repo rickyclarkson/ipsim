@@ -87,7 +87,7 @@ public final class EthernetCardDelegate
 			@Override
             public Card construct()
 			{
-				return network.cardFactory.run(PointUtility.origin);
+				return network.cardFactory.f(PointUtility.origin);
 			}
 
 			public boolean canHandle(final Object object)

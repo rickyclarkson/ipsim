@@ -1,25 +1,16 @@
 package ipsim.network.connectivity.computer.ip.incoming;
 
-import fpeas.maybe.MaybeUtility;
-import static ipsim.Caster.equalT;
-import static ipsim.Globals.DEFAULT_TIME_TO_LIVE;
-import static ipsim.connectivity.hub.incoming.PacketSourceUtility.asCard;
-import static ipsim.connectivity.hub.incoming.PacketSourceUtility.asComputer;
-import static ipsim.connectivity.hub.incoming.PacketSourceUtility.isCard;
 import ipsim.ExceptionHandler;
 import ipsim.network.Network;
 import ipsim.network.connectivity.IncomingPacketListener;
 import ipsim.network.connectivity.Packet;
 import ipsim.network.connectivity.PacketSource;
 import ipsim.network.connectivity.PacketUtility2;
-import static ipsim.network.connectivity.PacketUtility2.isIPPacket;
 import ipsim.network.connectivity.card.Card;
 import ipsim.network.connectivity.card.CardDrivers;
 import ipsim.network.connectivity.computer.Computer;
-import static ipsim.network.connectivity.computer.RoutingTableUtility.hasRouteFor;
 import ipsim.network.connectivity.icmp.IcmpData;
 import ipsim.network.connectivity.icmp.ping.PingData;
-import static ipsim.network.connectivity.icmp.ping.PingData.REPLY;
 import ipsim.network.connectivity.icmp.ttl.TimeExceededData;
 import ipsim.network.connectivity.icmp.unreachable.UnreachableData;
 import ipsim.network.connectivity.ip.DestIPAddress;
@@ -27,15 +18,23 @@ import ipsim.network.connectivity.ip.IPAddress;
 import ipsim.network.connectivity.ip.IPPacket;
 import ipsim.network.connectivity.ip.SourceIPAddress;
 import ipsim.network.ethernet.CardUtility;
-import static ipsim.network.ethernet.ComputerUtility.cardsWithDrivers;
 import ipsim.network.ethernet.NetBlock;
-import static ipsim.network.ethernet.NetBlockUtility.getBroadcastAddress;
-import static ipsim.network.ip.IPAddressUtility.sourceToDest;
 import ipsim.util.Collections;
+import java.util.List;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
+import static ipsim.Caster.equalT;
+import static ipsim.Globals.DEFAULT_TIME_TO_LIVE;
+import static ipsim.connectivity.hub.incoming.PacketSourceUtility.asCard;
+import static ipsim.connectivity.hub.incoming.PacketSourceUtility.asComputer;
+import static ipsim.connectivity.hub.incoming.PacketSourceUtility.isCard;
+import static ipsim.network.connectivity.PacketUtility2.isIPPacket;
+import static ipsim.network.connectivity.computer.RoutingTableUtility.hasRouteFor;
+import static ipsim.network.connectivity.icmp.ping.PingData.REPLY;
+import static ipsim.network.ethernet.ComputerUtility.cardsWithDrivers;
+import static ipsim.network.ethernet.NetBlockUtility.getBroadcastAddress;
+import static ipsim.network.ip.IPAddressUtility.sourceToDest;
 
 public final class ComputerIPIncoming implements IncomingPacketListener
 {
@@ -49,7 +48,7 @@ public final class ComputerIPIncoming implements IncomingPacketListener
 	@Override
     public void packetIncoming(final Packet packet, final PacketSource source, final PacketSource destination)
 	{
-		final IPPacket ipPacket=MaybeUtility.asNullable(PacketUtility2.asIPPacket(packet));
+		final IPPacket ipPacket= PacketUtility2.asIPPacket(packet).toNull();
 
 		@Nullable
 		final Computer computer=asComputer(destination);

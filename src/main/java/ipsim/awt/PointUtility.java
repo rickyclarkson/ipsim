@@ -1,6 +1,6 @@
 package ipsim.awt;
 
-import fpeas.function.Function;
+import fj.F;
 import org.jetbrains.annotations.NotNull;
 
 public final class PointUtility
@@ -22,13 +22,13 @@ public final class PointUtility
 		return div(add(one,two),2);
 	}
 
-	public static Function<Point,Point> add(final Point toAdd)
+	public static F<Point,Point> add(final Point toAdd)
 	{
-		return new Function<Point, Point>()
+		return new F<Point, Point>()
 		{
 			@Override
             @NotNull
-			public Point run(@NotNull final Point point)
+			public Point f(@NotNull final Point point)
 			{
 				return add(point,toAdd);
 			}

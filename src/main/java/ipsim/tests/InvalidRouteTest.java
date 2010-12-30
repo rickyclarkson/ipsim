@@ -1,9 +1,8 @@
 package ipsim.tests;
 
 import com.rickyclarkson.testsuite.UnitTest;
-import static fpeas.maybe.MaybeUtility.just;
 import fpeas.sideeffect.SideEffect;
-import static ipsim.gui.PositionUtility.setParent;
+import ipsim.awt.Point;
 import ipsim.network.Network;
 import ipsim.network.connectivity.card.Card;
 import ipsim.network.connectivity.card.CardDrivers;
@@ -17,7 +16,9 @@ import ipsim.network.ethernet.NetMaskUtility;
 import ipsim.network.ip.CheckedNumberFormatException;
 import ipsim.network.ip.IPAddressUtility;
 import ipsim.util.Collections;
-import ipsim.awt.Point;
+
+import static fpeas.maybe.MaybeUtility.just;
+import static ipsim.gui.PositionUtility.setParent;
 
 public class InvalidRouteTest implements UnitTest
 {
@@ -60,7 +61,7 @@ public class InvalidRouteTest implements UnitTest
 		final Network network=new Network();
 		final Computer computer=ComputerFactory.newComputer(network, 200,200);
 		computer.computerID=network.generateComputerID();
-		final Card card=network.cardFactory.run(new Point(300, 300));
+		final Card card=network.cardFactory.f(new Point(300, 300));
 		setParent(network,card,0,computer,0);
 		card.installDeviceDrivers(network);
 		final CardDrivers withDrivers=card.withDrivers;

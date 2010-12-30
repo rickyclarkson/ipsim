@@ -1,24 +1,24 @@
 package ipsim.ethernet;
 
 import com.rickyclarkson.testsuite.UnitTest;
-import fpeas.function.Function;
-import static ipsim.gui.PositionUtility.setParent;
+import fj.F;
+import ipsim.awt.Point;
 import ipsim.network.Network;
 import ipsim.network.NetworkUtility;
-import static ipsim.network.NetworkUtility.getComputersByIP;
 import ipsim.network.connectivity.card.Card;
 import ipsim.network.connectivity.card.CardDrivers;
 import ipsim.network.connectivity.computer.Computer;
 import ipsim.network.connectivity.computer.ComputerFactory;
 import ipsim.network.connectivity.ip.IPAddress;
-import static ipsim.network.ethernet.ComputerUtility.getEth;
 import ipsim.network.ip.CheckedNumberFormatException;
 import ipsim.network.ip.IPAddressUtility;
-import static ipsim.util.Collections.all;
-import ipsim.awt.Point;
+import java.io.File;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
+import static ipsim.gui.PositionUtility.setParent;
+import static ipsim.network.NetworkUtility.getComputersByIP;
+import static ipsim.network.ethernet.ComputerUtility.getEth;
+import static ipsim.util.Collections.all;
 
 public final class ComputerTest
 {
@@ -32,9 +32,9 @@ public final class ComputerTest
 			final Computer computer=ComputerFactory.newComputer(network, 0, 0);
 			computer.computerID=network.generateComputerID();
 
-			final Card card0=network.cardFactory.run(new Point(0, 0));
+			final Card card0=network.cardFactory.f(new Point(0, 0));
 
-			final Card card1=network.cardFactory.run(new Point(0, 0));
+			final Card card1=network.cardFactory.f(new Point(0, 0));
 
 			setParent(network, card0, 0, computer, 0);
 			setParent(network, card1, 0, computer, 0);
@@ -71,11 +71,11 @@ public final class ComputerTest
 				return false;
 			}
 
-			return all(getComputersByIP(network, ipAddress), new Function<Computer, Boolean>()
+			return all(getComputersByIP(network, ipAddress), new F<Computer, Boolean>()
 			{
 				@Override
                 @NotNull
-				public Boolean run(@NotNull final Computer computer)
+				public Boolean f(@NotNull final Computer computer)
 				{
 					return getEth(computer, 1)!=null;
 				}

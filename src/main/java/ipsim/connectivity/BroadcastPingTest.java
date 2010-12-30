@@ -1,19 +1,18 @@
 package ipsim.connectivity;
 
 import com.rickyclarkson.testsuite.UnitTest;
-import fpeas.function.Function;
-import static ipsim.connectivity.PingTester.testPing;
+import fj.F;
 import ipsim.network.Network;
-import static ipsim.network.NetworkUtility.loadFromFile;
 import ipsim.network.connectivity.ping.PingResults;
 import ipsim.network.ip.CheckedNumberFormatException;
-import static ipsim.network.ip.IPAddressUtility.valueOf;
 import ipsim.util.Collections;
-
 import java.io.File;
 import java.util.List;
-
 import org.jetbrains.annotations.NotNull;
+
+import static ipsim.connectivity.PingTester.testPing;
+import static ipsim.network.NetworkUtility.loadFromFile;
+import static ipsim.network.ip.IPAddressUtility.valueOf;
 
 public class BroadcastPingTest implements UnitTest
 {
@@ -25,11 +24,11 @@ public class BroadcastPingTest implements UnitTest
 
 		try
 		{
-			return Collections.all(testPing(network,valueOf("146.87.1.1"),valueOf("146.87.1.255")),new Function<List<PingResults>,Boolean>()
+			return Collections.all(testPing(network,valueOf("146.87.1.1"),valueOf("146.87.1.255")),new F<List<PingResults>,Boolean>()
 			{
 				@Override
                 @NotNull
-				public Boolean run(@NotNull final List<PingResults> results)
+				public Boolean f(@NotNull final List<PingResults> results)
 				{
 					if (!(2==results.size()))
 						throw new RuntimeException(String.valueOf(results.size()));

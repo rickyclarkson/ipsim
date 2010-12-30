@@ -1,18 +1,11 @@
 package ipsim.network.conformance;
 
-import fpeas.function.Function;
-import static fpeas.function.FunctionUtility.constant;
+import fj.F;
+import fj.Function;
 import fpeas.maybe.Maybe;
 import fpeas.maybe.MaybeUtility;
 import fpeas.sideeffect.SideEffect;
-import static ipsim.Caster.equalT;
 import ipsim.network.Network;
-import static ipsim.network.NetworkUtility.getAllCables;
-import static ipsim.network.NetworkUtility.getAllCards;
-import static ipsim.network.NetworkUtility.getAllComputers;
-import static ipsim.network.NetworkUtility.getAllHubs;
-import static ipsim.network.conformance.TypicalScores.NONE;
-import static ipsim.network.conformance.TypicalScores.USUAL;
 import ipsim.network.connectivity.PacketSource;
 import ipsim.network.connectivity.cable.Cable;
 import ipsim.network.connectivity.card.Card;
@@ -20,66 +13,73 @@ import ipsim.network.connectivity.card.CardDrivers;
 import ipsim.network.connectivity.computer.Computer;
 import ipsim.network.connectivity.hub.Hub;
 import ipsim.network.ip.IPAddressUtility;
-import static ipsim.util.Collections.arrayList;
+import java.util.List;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
+import static ipsim.Caster.equalT;
+import static ipsim.network.NetworkUtility.getAllCables;
+import static ipsim.network.NetworkUtility.getAllCards;
+import static ipsim.network.NetworkUtility.getAllComputers;
+import static ipsim.network.NetworkUtility.getAllHubs;
+import static ipsim.network.conformance.TypicalScores.NONE;
+import static ipsim.network.conformance.TypicalScores.USUAL;
+import static ipsim.util.Collections.arrayList;
 
 class NonsensicalArrangement
 {
-	static <T> Function<T, Maybe<String>> noErrors()
+	static <T> F<T, Maybe<String>> noErrors()
 	{
-		return constant(MaybeUtility.<String>nothing());
+		return Function.constant(MaybeUtility.<String>nothing());
 	}
 
-	public static Function<Network, CheckResult> computerWithoutNetworkCard()
+	public static F<Network, CheckResult> computerWithoutNetworkCard()
 	{
-		final Function<Computer, Maybe<String>> hasCard=new Function<Computer, Maybe<String>>()
+		final F<Computer, Maybe<String>> hasCard=new F<Computer, Maybe<String>>()
 		{
 			@Override
             @NotNull
-			public Maybe<String> run(@NotNull final Computer computer)
+			public Maybe<String> f(@NotNull final Computer computer)
 			{
 				return computer.getCards().isEmpty() ? MaybeUtility.just("A computer without a network card") : MaybeUtility.<String>nothing();
 			}
 		};
 
-		final Function<Computer, Maybe<String>> noErrors=noErrors();
+		final F<Computer, Maybe<String>> noErrors=noErrors();
 		return customCheck(getAllComputers,hasCard,noErrors,USUAL);
 	}
 
-	public static Function<Network, CheckResult> cardWithoutCable()
+	public static F<Network, CheckResult> cardWithoutCable()
 	{
-		final Function<Card, Maybe<String>> hasCable=new Function<Card, Maybe<String>>()
+		final F<Card, Maybe<String>> hasCable=new F<Card, Maybe<String>>()
 		{
 			@Override
             @NotNull
-			public Maybe<String> run(@NotNull final Card card)
+			public Maybe<String> f(@NotNull final Card card)
 			{
 				return card.hasCable() ? MaybeUtility.<String>nothing() : MaybeUtility.just("Card without a cable");
 			}
 		};
 
-		final Function<Card, Maybe<String>> noErrors=noErrors();
+		final F<Card, Maybe<String>> noErrors=noErrors();
 
 		return customCheck(getAllCards,hasCable,noErrors,USUAL);
 	}
 
-	public static <T extends PacketSource> Function<Network,CheckResult> customCheck(final Function<Network,Iterable<T>> getCollection,final Function<T, Maybe<String>> warning,final Function<T,Maybe<String>> error,final int deductionsIfFound)
+	public static <T extends PacketSource> F<Network,CheckResult> customCheck(final F<Network,Iterable<T>> getCollection,final F<T, Maybe<String>> warning,final F<T,Maybe<String>> error,final int deductionsIfFound)
 	{
-		return new Function<Network,CheckResult>()
+		return new F<Network,CheckResult>()
 		{
 			@Override
             @NotNull
-			public CheckResult run(@NotNull final Network network)
+			public CheckResult f(@NotNull final Network network)
 			{
 				final List<PacketSource> withWarnings=arrayList(),withErrors=arrayList();
 
 				final List<String> warningSummary=arrayList(),errorSummary=arrayList();
 
-				for (final T component: getCollection.run(network))
+				for (final T component: getCollection.f(network))
 				{
-					MaybeUtility.run(warning.run(component),new SideEffect<String>()
+					MaybeUtility.run(warning.f(component),new SideEffect<String>()
 					{
 						@Override
                         public void run(final String s)
@@ -89,7 +89,7 @@ class NonsensicalArrangement
 						}
 					});
 
-					MaybeUtility.run(error.run(component),new SideEffect<String>()
+					MaybeUtility.run(error.f(component),new SideEffect<String>()
 					{
 						@Override
                         public void run(final String s)
@@ -110,13 +110,13 @@ class NonsensicalArrangement
 		};
 	}
 
-	public static Function<Network, CheckResult> cardWithZeroIP()
+	public static F<Network, CheckResult> cardWithZeroIP()
 	{
-		final Function<Card,Maybe<String>> zeroIPTest=new Function<Card,Maybe<String>>()
+		final F<Card,Maybe<String>> zeroIPTest=new F<Card,Maybe<String>>()
 		{
 			@Override
             @NotNull
-			public Maybe<String> run(@NotNull final Card card)
+			public Maybe<String> f(@NotNull final Card card)
 			{
 				final CardDrivers cardWithDrivers=card.withDrivers;
 
@@ -127,65 +127,65 @@ class NonsensicalArrangement
 			}
 		};
 
-		final Function<Card, Maybe<String>> noErrors=noErrors();
+		final F<Card, Maybe<String>> noErrors=noErrors();
 
 		return customCheck(getAllCards,zeroIPTest,noErrors,USUAL);
 	}
 
-	public static Function<Network, CheckResult> cardWithoutDeviceDrivers()
+	public static F<Network, CheckResult> cardWithoutDeviceDrivers()
 	{
-		final Function<Card, Maybe<String>> deviceDriverTest=new Function<Card, Maybe<String>>()
+		final F<Card, Maybe<String>> deviceDriverTest=new F<Card, Maybe<String>>()
 		{
 			@Override
             @NotNull
-			public Maybe<String> run(@NotNull final Card card)
+			public Maybe<String> f(@NotNull final Card card)
 			{
 				return card.hasDeviceDrivers() ? MaybeUtility.<String>nothing() : MaybeUtility.just("Card with no device drivers");
 			}
 		};
 
-		final Function<Card, Maybe<String>> noErrors=noErrors();
+		final F<Card, Maybe<String>> noErrors=noErrors();
 		return customCheck(getAllCards,deviceDriverTest,noErrors,USUAL);
 	}
 
-	public static Function<Network, CheckResult> cableWithEndsDisconnected()
+	public static F<Network, CheckResult> cableWithEndsDisconnected()
 	{
-		return new Function<Network, CheckResult>()
+		return new F<Network, CheckResult>()
 		{
 			@Override
             @NotNull
-			public CheckResult run(@NotNull final Network network)
+			public CheckResult f(@NotNull final Network network)
 			{
-				final Function<Cable, Maybe<String>> testCableEnds=new Function<Cable, Maybe<String>>()
+				final F<Cable, Maybe<String>> testCableEnds=new F<Cable, Maybe<String>>()
 				{
 					@Override
                     @NotNull
-					public Maybe<String> run(@NotNull final Cable cable)
+					public Maybe<String> f(@NotNull final Cable cable)
 					{
 						return cable.getEnds(network).size()==2 ? MaybeUtility.<String>nothing() : MaybeUtility.just("A cable that has not got both ends connected to components");
 					}
 				};
 
-				final Function<Cable, Maybe<String>> noErrors=noErrors();
+				final F<Cable, Maybe<String>> noErrors=noErrors();
 
-				return customCheck(getAllCables(),testCableEnds,noErrors,USUAL).run(network);
+				return customCheck(getAllCables(),testCableEnds,noErrors,USUAL).f(network);
 			}
 		};
 	}
 
-	public static Function<Network, CheckResult> hubWithNoCables()
+	public static F<Network, CheckResult> hubWithNoCables()
 	{
-		final Function<Hub, Maybe<String>> testHub=new Function<Hub, Maybe<String>>()
+		final F<Hub, Maybe<String>> testHub=new F<Hub, Maybe<String>>()
 		{
 			@Override
             @NotNull
-			public Maybe<String> run(@NotNull final Hub hub)
+			public Maybe<String> f(@NotNull final Hub hub)
 			{
 				return hub.getCables().isEmpty() ? MaybeUtility.just("A hub that has no cables") : MaybeUtility.<String>nothing();
 			}
 		};
 
-		final Function<Hub, Maybe<String>> noErrors=noErrors();
+		final F<Hub, Maybe<String>> noErrors=noErrors();
 
 		return customCheck(getAllHubs,testHub,noErrors,USUAL);
 	}

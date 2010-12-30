@@ -1,6 +1,6 @@
 package ipsim.awt;
 
-import fpeas.function.Function;
+import fj.F;
 import org.jetbrains.annotations.NotNull;
 
 public class Point
@@ -20,26 +20,26 @@ public class Point
 		return x+","+y;
 	}
 
-	public Function<Double,Point> withX()
+	public F<Double,Point> withX()
 	{
-		return new Function<Double,Point>()
+		return new F<Double,Point>()
 		{
 			@Override
             @NotNull
-			public Point run(@NotNull final Double newX)
+			public Point f(@NotNull final Double newX)
 			{
 				return new Point(newX, y);
 			}
 		};
 	}
 
-	public Function<Double, Point> withY()
+	public F<Double, Point> withY()
 	{
-		return new Function<Double,Point>()
+		return new F<Double,Point>()
 		{
 			@Override
             @NotNull
-			public Point run(@NotNull final Double newY)
+			public Point f(@NotNull final Double newY)
 			{
 				return new Point(x, newY);
 			}

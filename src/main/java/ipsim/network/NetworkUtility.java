@@ -1,17 +1,13 @@
 package ipsim.network;
 
-import fpeas.function.Function;
-import static fpeas.function.FunctionUtility.constant;
+import fj.F;
+import fj.Function;
 import fpeas.sideeffect.SideEffect;
 import fpeas.sideeffect.SideEffectUtility;
-import static ipsim.Caster.equalT;
+import ipsim.Caster;
 import ipsim.Global;
 import ipsim.NetworkContext;
-import ipsim.Caster;
 import ipsim.connectivity.hub.incoming.PacketSourceUtility;
-import static ipsim.connectivity.hub.incoming.PacketSourceUtility.asCable;
-import static ipsim.connectivity.hub.incoming.PacketSourceUtility.asCard;
-import static ipsim.connectivity.hub.incoming.PacketSourceUtility.asComputer;
 import ipsim.gui.PositionUtility;
 import ipsim.io.IOUtility;
 import ipsim.lang.Assertion;
@@ -23,20 +19,13 @@ import ipsim.network.connectivity.card.CardDrivers;
 import ipsim.network.connectivity.computer.Computer;
 import ipsim.network.connectivity.hub.Hub;
 import ipsim.network.connectivity.ip.IPAddress;
-import static ipsim.network.ethernet.ComputerUtility.cardsWithDrivers;
 import ipsim.persistence.SerialisationDelegate;
 import ipsim.persistence.XMLDeserialiser;
 import ipsim.persistence.XMLDeserialiserUtility;
 import ipsim.persistence.XMLSerialiser;
-import static ipsim.persistence.delegates.NetworkDelegate.networkDelegate;
 import ipsim.tree.Trees;
 import ipsim.util.Collections;
-import static ipsim.util.Collections.add;
-import static ipsim.util.Collections.hashSet;
 import ipsim.webinterface.WebInterface;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -48,6 +37,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import static ipsim.Caster.equalT;
+import static ipsim.connectivity.hub.incoming.PacketSourceUtility.asCable;
+import static ipsim.connectivity.hub.incoming.PacketSourceUtility.asCard;
+import static ipsim.connectivity.hub.incoming.PacketSourceUtility.asComputer;
+import static ipsim.network.ethernet.ComputerUtility.cardsWithDrivers;
+import static ipsim.persistence.delegates.NetworkDelegate.networkDelegate;
+import static ipsim.util.Collections.add;
+import static ipsim.util.Collections.hashSet;
 
 public class NetworkUtility
 {
@@ -175,11 +175,11 @@ public class NetworkUtility
 		return computers;
 	}
 
-	public static final Function<Network, Iterable<Hub>> getAllHubs=new Function<Network, Iterable<Hub>>()
+	public static final F<Network, Iterable<Hub>> getAllHubs=new F<Network, Iterable<Hub>>()
 	{
 		@Override
         @NotNull
-		public Iterable<Hub> run(@NotNull final Network network)
+		public Iterable<Hub> f(@NotNull final Network network)
 		{
 			return getAllHubs(network);
 		}
@@ -206,11 +206,11 @@ public class NetworkUtility
 	{
 		try
 		{
-			IOUtility.readWholeResource(file.toURI().toURL()).visit(new Function<String, Runnable>()
+			IOUtility.readWholeResource(file.toURI().toURL()).either(new F<String, Runnable>()
 			{
 				@Override
                 @NotNull
-				public Runnable run(@NotNull final String input)
+				public Runnable f(@NotNull final String input)
 				{
 					return new Runnable()
 					{
@@ -221,11 +221,11 @@ public class NetworkUtility
 						}
 					};
 				}
-			}, new Function<IOException, Runnable>()
+			}, new F<IOException, Runnable>()
 			{
 				@Override
                 @NotNull
-				public Runnable run(@NotNull final IOException exception)
+				public Runnable f(@NotNull final IOException exception)
 				{
 					return new Runnable()
 					{
@@ -244,17 +244,17 @@ public class NetworkUtility
 		}
 	}
 
-	public static final Function<Network, Iterable<Computer>> getAllComputers=new Function<Network, Iterable<Computer>>()
+	public static final F<Network, Iterable<Computer>> getAllComputers=new F<Network, Iterable<Computer>>()
 	{
 		@Override
         @NotNull
-		public Iterable<Computer> run(@NotNull final Network network)
+		public Iterable<Computer> f(@NotNull final Network network)
 		{
 			return getAllComputers(network);
 		}
 	};
 
-	public static Collection<Computer> getAllComputers(final Network network, final Function<Computer, Boolean> condition)
+	public static Collection<Computer> getAllComputers(final Network network, final F<Computer, Boolean> condition)
 	{
 		final Iterable<PacketSource> allComponents=getDepthFirstIterable(network);
 
@@ -265,18 +265,18 @@ public class NetworkUtility
 			@Nullable
 			final Computer computer=asComputer(component);
 
-			if (computer!=null && condition.run(computer))
+			if (computer!=null && condition.f(computer))
 				computers.add(computer);
 		}
 
 		return computers;
 	}
 
-	public static final Function<Network, Iterable<Card>> getAllCards=new Function<Network, Iterable<Card>>()
+	public static final F<Network, Iterable<Card>> getAllCards=new F<Network, Iterable<Card>>()
 	{
 		@Override
         @NotNull
-		public Iterable<Card> run(@NotNull final Network context)
+		public Iterable<Card> f(@NotNull final Network context)
 		{
 			return getAllCards(context);
 		}
@@ -322,13 +322,13 @@ public class NetworkUtility
 		return cards;
 	}
 
-	public static Function<Network, Iterable<Cable>> getAllCables()
+	public static F<Network, Iterable<Cable>> getAllCables()
 	{
-		return new Function<Network, Iterable<Cable>>()
+		return new F<Network, Iterable<Cable>>()
 		{
 			@Override
             @NotNull
-			public Iterable<Cable> run(@NotNull final Network context)
+			public Iterable<Cable> f(@NotNull final Network context)
 			{
 				return getAllCables(context);
 			}
@@ -337,11 +337,11 @@ public class NetworkUtility
 
 	public static Collection<Cable> getAllCables(final Network network)
 	{
-		final Function<Cable, Boolean> filter=constant(true);
+		final F<Cable, Boolean> filter= Function.constant(true);
 		return getAllCables(network, filter);
 	}
 
-	public static Collection<Cable> getAllCables(final Network network, final Function<Cable, Boolean> filter)
+	public static Collection<Cable> getAllCables(final Network network, final F<Cable, Boolean> filter)
 	{
 		final Iterable<PacketSource> allComponents=getDepthFirstIterable(network);
 
@@ -351,7 +351,7 @@ public class NetworkUtility
 		{
 			@Nullable final Cable cable=asCable(component);
 
-			if (cable!=null && filter.run(cable))
+			if (cable!=null && filter.f(cable))
 				cables.add(cable);
 		}
 
@@ -369,7 +369,7 @@ public class NetworkUtility
 
 	public static Collection<Computer> getAllComputers(final Network network)
 	{
-		final Function<Computer, Boolean> condition=constant(true);
+		final F<Computer, Boolean> condition=Function.constant(true);
 		return getAllComputers(network, condition);
 	}
 }

@@ -1,24 +1,25 @@
 package ipsim.gui;
 
-import fpeas.function.Function;
-import fpeas.maybe.Maybe;
-import static fpeas.maybe.MaybeUtility.constIfNothing;
+import fj.F;
+import fj.data.Option;
 import ipsim.NetworkContext;
-import ipsim.util.Collections;
 import ipsim.awt.Point;
 import ipsim.gui.NetworkViewUtility.PointRecordDead;
-import static ipsim.gui.PositionUtility.setPosition;
-import static ipsim.gui.PositionUtility.translateAllWhenNecessary;
 import ipsim.gui.components.ComponentMoved;
-import static ipsim.gui.components.CreateContextMenu.createContextMenu;
 import ipsim.gui.components.InvokeContextMenu;
 import ipsim.network.connectivity.PacketSource;
+import ipsim.util.Collections;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
+import javax.swing.JComponent;
+import javax.swing.event.MouseInputListener;
 import org.jetbrains.annotations.NotNull;
 
-import javax.swing.*;
-import javax.swing.event.MouseInputListener;
-import java.awt.*;
-import java.awt.event.MouseEvent;
+import static ipsim.gui.PositionUtility.setPosition;
+import static ipsim.gui.PositionUtility.translateAllWhenNecessary;
+import static ipsim.gui.components.CreateContextMenu.createContextMenu;
 
 public final class NetworkViewMouseListenerUtility
 {
@@ -147,17 +148,17 @@ public final class NetworkViewMouseListenerUtility
 					return;
 				}
 
-				final Maybe<MouseEvent> maybeMousePressedEvent=context.mouseTracker.getLastMousePressedEvent();
+				final Option<MouseEvent> maybeMousePressedEvent=context.mouseTracker.getLastMousePressedEvent();
 
-				final boolean mouseDragOccurred=constIfNothing(maybeMousePressedEvent,false,new Function<MouseEvent,Boolean>()
+				final boolean mouseDragOccurred=maybeMousePressedEvent.map(new F<MouseEvent,Boolean>()
 				{
 					@Override
                     @NotNull
-					public Boolean run(@NotNull final MouseEvent mousePressedEvent)
+					public Boolean f(@NotNull final MouseEvent mousePressedEvent)
 					{
 						return !(mousePressedEvent.getX()==event.getX()) ||!(mousePressedEvent.getY()==event.getY());
 					}
-				});
+				}).orSome(false);
 
 				context.mouseTracker.mouseEvent(event);
 

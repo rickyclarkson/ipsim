@@ -4,8 +4,6 @@ import com.rickyclarkson.testsuite.UnitTest;
 import ipsim.awt.Point;
 import ipsim.awt.PointUtility;
 import ipsim.connectivity.hub.incoming.PacketSourceUtility;
-import static ipsim.gui.PositionUtility.getPosition;
-import static ipsim.gui.PositionUtility.setParent;
 import ipsim.lang.Assertion;
 import ipsim.network.Network;
 import ipsim.network.connectivity.PacketSource;
@@ -15,8 +13,10 @@ import ipsim.network.connectivity.card.Card;
 import ipsim.network.connectivity.computer.Computer;
 import ipsim.network.connectivity.computer.ComputerFactory;
 import ipsim.network.connectivity.hub.Hub;
-
 import java.util.List;
+
+import static ipsim.gui.PositionUtility.getPosition;
+import static ipsim.gui.PositionUtility.setParent;
 
 public class GetChildOffset
 {
@@ -27,7 +27,7 @@ public class GetChildOffset
 		{
 			final Network context=new Network();
 			final Computer computer=ComputerFactory.newComputer(context, 100, 100);
-			final Card card=context.cardFactory.run(new Point(40, 40));
+			final Card card=context.cardFactory.f(new Point(40, 40));
 
 			setParent(context,card, 0, computer, 0);
 

@@ -1,21 +1,22 @@
 package ipsim.network.conformance;
 
-import fpeas.function.Function;
+import fj.F;
 import ipsim.network.Network;
-import static ipsim.network.conformance.ConformanceTestsUtility.someHostsHaveThisManyCards;
 import org.jetbrains.annotations.NotNull;
 
-final class SomeHostsHaveMoreThanThreeCards implements Function<Network,CheckResult>
+import static ipsim.network.conformance.ConformanceTestsUtility.someHostsHaveThisManyCards;
+
+final class SomeHostsHaveMoreThanThreeCards extends F<Network,CheckResult>
 {
 	@Override
     @NotNull
-	public CheckResult run(@NotNull final Network network)
+	public CheckResult f(@NotNull final Network network)
 	{
-		final Function<Integer,Boolean> check1=new Function<Integer,Boolean>()
+		final F<Integer,Boolean> check1=new F<Integer,Boolean>()
 		{
 			@Override
             @NotNull
-			public Boolean run(@NotNull final Integer value)
+			public Boolean f(@NotNull final Integer value)
 			{
 				return value>3;
 			}

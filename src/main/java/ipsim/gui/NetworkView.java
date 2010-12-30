@@ -14,12 +14,13 @@ import ipsim.property.Property;
 import ipsim.property.PropertyListener;
 import ipsim.property.PropertyUtility;
 import ipsim.util.Collections;
-import static ipsim.util.Collections.arrayList;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.util.Collection;
+import javax.swing.JPanel;
+
+import static ipsim.util.Collections.arrayList;
 
 public class NetworkView extends JPanel
 {
@@ -119,7 +120,7 @@ public class NetworkView extends JPanel
 
 	public Card newCard(final Point point)
 	{
-		final Card card=context.network.cardFactory.run(point);
+		final Card card=context.network.cardFactory.f(point);
 		visibleComponents.add(card);
 		return card;
 	}

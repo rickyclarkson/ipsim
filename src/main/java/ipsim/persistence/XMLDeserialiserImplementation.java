@@ -1,18 +1,18 @@
 package ipsim.persistence;
 
 import com.rickyclarkson.xml.DOMSimple;
-import static com.rickyclarkson.xml.DOMSimple.getChildNodes;
 import com.rickyclarkson.xml.XMLUtility;
-import fpeas.function.Function;
+import fj.F;
 import ipsim.Caster;
 import ipsim.ExceptionHandler;
 import ipsim.util.Collections;
+import java.util.Collection;
+import java.util.Map;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.w3c.dom.Node;
 
-import java.util.Collection;
-import java.util.Map;
+import static com.rickyclarkson.xml.DOMSimple.getChildNodes;
 
 public final class XMLDeserialiserImplementation implements XMLDeserialiser
 {
@@ -28,27 +28,27 @@ public final class XMLDeserialiserImplementation implements XMLDeserialiser
 	}
 
 	@Override
-    public <T> T readObject(final SerialisationDelegate<T> delegate, final Function<Object, T> caster)
+    public <T> T readObject(final SerialisationDelegate<T> delegate, final F<Object, T> caster)
 	{
 		return readObject(domSimple.getChildElementNode(XMLUtility.xmlToDom(input),"object"),delegate,caster);
 	}
 
-	private <T> T readObject(final Node node, final SerialisationDelegate<T> delegate, final Function<Object,T> caster)
+	private <T> T readObject(final Node node, final SerialisationDelegate<T> delegate, final F<Object,T> caster)
 	{
 		final String idString=domSimple.getAttribute(node,"id");
 
-		final Function<String,T> function=new Function<String,T>()
+		final F<String,T> function=new F<String,T>()
 		{
 			@Override
             @NotNull
-			public T run(@NotNull final String idString2)
+			public T f(@NotNull final String idString2)
 			{
 				final int id=Integer.parseInt(idString2);
 
 				final Object result=objectsRead.get(id);
 
 				if (result!=null)
-					return caster.run(result);
+					return caster.f(result);
 
 				T object=delegate.construct();
 
@@ -60,7 +60,7 @@ public final class XMLDeserialiserImplementation implements XMLDeserialiser
 			}
 		};
 
-		return function.run(idString);
+		return function.f(idString);
 	}
 
 	@Override
@@ -110,7 +110,7 @@ public final class XMLDeserialiserImplementation implements XMLDeserialiser
 
 	@Override
     @Nullable
-	public <T> T readObject(final Node node,final String name,final SerialisationDelegate<T> delegate, final Function<Object,T> caster)
+	public <T> T readObject(final Node node,final String name,final SerialisationDelegate<T> delegate, final F<Object,T> caster)
 	{
 		final Node[] nodes=getChildNodes(node,"object");
 
