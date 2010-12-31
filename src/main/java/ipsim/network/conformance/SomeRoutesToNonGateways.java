@@ -1,8 +1,7 @@
 package ipsim.network.conformance;
 
 import fj.F;
-import fpeas.maybe.Maybe;
-import fpeas.maybe.MaybeUtility;
+import fj.data.Option;
 import fpeas.predicate.Predicate;
 import ipsim.network.Network;
 import ipsim.network.connectivity.computer.Computer;
@@ -23,18 +22,18 @@ class SomeRoutesToNonGateways extends F<Network,CheckResult>
     @NotNull
 	public CheckResult f(@NotNull final Network network)
 	{
-		final F<Computer, Maybe<String>> warning=new F<Computer, Maybe<String>>()
+		final F<Computer, Option<String>> warning=new F<Computer, Option<String>>()
 		{
 			@Override
             @NotNull
-			public Maybe<String> f(@NotNull final Computer computer)
+			public Option<String> f(@NotNull final Computer computer)
 			{
 				for (final Route route: computer.routingTable.routes())
 				{
 					final Collection<Computer> gateways=getComputersByIP(network, route.gateway);
 
 					if (gateways.isEmpty())
-						return MaybeUtility.just("Computer with a route to a non-existent gateway");
+						return Option.some("Computer with a route to a non-existent gateway");
 
 					if (!any(gateways,new Predicate<Computer>()
 					{
@@ -44,15 +43,15 @@ class SomeRoutesToNonGateways extends F<Network,CheckResult>
 							return ConformanceTestsUtility.isARouter().f(aComputer);
 						}
 					}))
-						return MaybeUtility.just("Computer with a route to a computer that is not a gateway");
+						return Option.some("Computer with a route to a computer that is not a gateway");
 				}
 
-				return MaybeUtility.nothing();
+				return Option.none();
 			}
 
 		};
 
-		final F<Computer, Maybe<String>> noErrors=noErrors();
+		final F<Computer, Option<String>> noErrors=noErrors();
 
 		return customCheck(getAllComputers,warning,noErrors,USUAL).f(network);
 	}

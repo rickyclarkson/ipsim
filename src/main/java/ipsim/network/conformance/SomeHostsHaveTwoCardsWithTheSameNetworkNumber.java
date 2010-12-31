@@ -4,8 +4,7 @@
 package ipsim.network.conformance;
 
 import fj.F;
-import fpeas.maybe.Maybe;
-import fpeas.maybe.MaybeUtility;
+import fj.data.Option;
 import ipsim.network.Network;
 import ipsim.network.connectivity.card.CardDrivers;
 import ipsim.network.connectivity.computer.Computer;
@@ -25,11 +24,11 @@ class SomeHostsHaveTwoCardsWithTheSameNetworkNumber extends F<Network,CheckResul
     @NotNull
 	public CheckResult f(@NotNull final Network network)
 	{
-		return NonsensicalArrangement.customCheck(getAllComputers,new F<Computer, Maybe<String>>()
+		return NonsensicalArrangement.customCheck(getAllComputers,new F<Computer, Option<String>>()
 		{
 			@Override
             @NotNull
-			public Maybe<String> f(@NotNull final Computer computer)
+			public Option<String> f(@NotNull final Computer computer)
 			{
 				final Collection<IPAddress> netNumbers=hashSet();
 
@@ -38,12 +37,12 @@ class SomeHostsHaveTwoCardsWithTheSameNetworkNumber extends F<Network,CheckResul
 					final IPAddress netNum=CardUtility.getNetBlock(card).networkNumber;
 
 					if (netNumbers.contains(netNum))
-						return MaybeUtility.just("Computer that has multiple cards with the same subnet number");
+						return Option.some("Computer that has multiple cards with the same subnet number");
 
 					netNumbers.add(netNum);
 				}
 
-				return MaybeUtility.nothing();
+				return Option.none();
 			}
 		},NonsensicalArrangement.<Computer>noErrors(),USUAL).f(network);
 	}

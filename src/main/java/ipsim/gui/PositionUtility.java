@@ -1,28 +1,17 @@
 package ipsim.gui;
 
 import com.rickyclarkson.testsuite.UnitTest;
-import fpeas.maybe.Maybe;
-import static fpeas.maybe.MaybeUtility.asJust;
-import static fpeas.maybe.MaybeUtility.isJust;
+import fj.data.Option;
 import fpeas.pair.Pair;
-import static fpeas.pair.PairUtility.pair;
-import static fpeas.predicate.PredicateUtility.and;
-import static ipsim.Caster.equalT;
 import ipsim.NetworkContext;
-import static ipsim.NetworkContext.errors;
 import ipsim.awt.Point;
 import ipsim.awt.PointUtility;
-import static ipsim.awt.PointUtility.add;
 import ipsim.connectivity.hub.incoming.PacketSourceUtility;
-import static ipsim.gui.GetChildOffset.getChildOffset;
 import ipsim.lang.Assertion;
 import ipsim.network.Network;
 import ipsim.network.NetworkUtility;
-import static ipsim.network.connectivity.ConnectingTo.connectingTo;
 import ipsim.network.connectivity.PacketSource;
 import ipsim.network.connectivity.PacketSourceAndIndex;
-import static ipsim.network.connectivity.PacketSourceAndIndex.indexIs;
-import static ipsim.network.connectivity.PacketSourceAndIndex.packetSourceIs;
 import ipsim.network.connectivity.PacketSourceVisitor;
 import ipsim.network.connectivity.cable.Cable;
 import ipsim.network.connectivity.card.Card;
@@ -30,18 +19,27 @@ import ipsim.network.connectivity.computer.Computer;
 import ipsim.network.connectivity.hub.Hub;
 import ipsim.network.connectivity.hub.HubFactory;
 import ipsim.util.Collections;
-import static ipsim.util.Collections.arrayList;
-import static ipsim.util.Collections.hashMap;
-import static ipsim.util.Collections.mapWith;
-import static ipsim.util.Collections.removeIf;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.awt.*;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import static fpeas.pair.PairUtility.pair;
+import static fpeas.predicate.PredicateUtility.and;
+import static ipsim.Caster.equalT;
+import static ipsim.NetworkContext.errors;
+import static ipsim.awt.PointUtility.add;
+import static ipsim.gui.GetChildOffset.getChildOffset;
+import static ipsim.network.connectivity.ConnectingTo.connectingTo;
+import static ipsim.network.connectivity.PacketSourceAndIndex.indexIs;
+import static ipsim.network.connectivity.PacketSourceAndIndex.packetSourceIs;
+import static ipsim.util.Collections.arrayList;
+import static ipsim.util.Collections.hashMap;
+import static ipsim.util.Collections.mapWith;
+import static ipsim.util.Collections.removeIf;
 
 public final class PositionUtility
 {
@@ -170,18 +168,18 @@ public final class PositionUtility
 		if (hasParent(network, component, index))
 			setPosition(network, component, mapWith(index, getPosition(network, component, index)));
 
-		Maybe<String> possibleProblem=connectingTo(network, component, index, parent, index2);
-		if (isJust(possibleProblem))
+		Option<String> possibleProblem=connectingTo(network, component, index, parent, index2);
+		if (possibleProblem.isSome())
 		{
-			errors(asJust(possibleProblem));
+			errors(possibleProblem.some());
 			return;
 		}
 
 		possibleProblem=connectingTo(network, parent, index2, component, index);
 
-		if (isJust(possibleProblem))
+		if (possibleProblem.isSome())
 		{
-			errors(asJust(possibleProblem));
+			errors(possibleProblem.some());
 			return;
 		}
 

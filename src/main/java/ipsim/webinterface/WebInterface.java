@@ -1,6 +1,6 @@
 package ipsim.webinterface;
 
-import fpeas.maybe.Maybe;
+import fj.data.Option;
 import fpeas.sideeffect.SideEffect;
 import ipsim.Global;
 import ipsim.gui.UserMessages;
@@ -8,8 +8,6 @@ import ipsim.lang.CheckedIllegalStateException;
 import java.io.IOException;
 import javax.swing.JOptionPane;
 
-import static fpeas.maybe.MaybeUtility.just;
-import static fpeas.maybe.MaybeUtility.nothing;
 import static ipsim.NetworkContext.errors;
 import static ipsim.lang.Assertion.assertNotNull;
 import static ipsim.webinterface.Web.webInteraction;
@@ -49,7 +47,7 @@ public class WebInterface
 		JOptionPane.showMessageDialog(Global.global.get().frame, "Problem accessing network", "Error", JOptionPane.ERROR_MESSAGE);
 	}
 
-	public static Maybe<String> getProblem(final String testNumber)
+	public static Option<String> getProblem(final String testNumber)
 	{
 		try
 		{
@@ -59,23 +57,23 @@ public class WebInterface
 			{
 				JOptionPane.showMessageDialog(Global.global.get().frame, "The test cannot be done at this time", "Error", JOptionPane.ERROR_MESSAGE);
 
-				return nothing();
+				return Option.none();
 			}
 
 			if (!returnCode.startsWith("101"))
 			{
 				JOptionPane.showMessageDialog(Global.global.get().frame, "Problem Accessing Network", "Error", JOptionPane.ERROR_MESSAGE);
 
-				return nothing();
+				return Option.none();
 			}
 
-			return just(returnCode);
+			return Option.some(returnCode);
 		}
 		catch (final IOException exception)
 		{
 			JOptionPane.showMessageDialog(Global.global.get().frame, "Problem Accessing Network", "Error", JOptionPane.ERROR_MESSAGE);
 
-			return nothing();
+			return Option.none();
 		}
 	}
 

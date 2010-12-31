@@ -1,8 +1,7 @@
 package ipsim.network.conformance;
 
 import fj.F;
-import fpeas.maybe.Maybe;
-import fpeas.maybe.MaybeUtility;
+import fj.data.Option;
 import ipsim.network.Network;
 import ipsim.network.connectivity.computer.Computer;
 import org.jetbrains.annotations.NotNull;
@@ -18,13 +17,13 @@ final class PacketForwardingEnabledOnNonGateway extends F<Network,CheckResult>
     @NotNull
 	public CheckResult f(@NotNull final Network network)
 	{
-		final F<Computer, Maybe<String>> noErrors=noErrors(),warning=new F<Computer, Maybe<String>>()
+		final F<Computer, Option<String>> noErrors=noErrors(),warning=new F<Computer, Option<String>>()
 		{
 			@Override
             @NotNull
-			public Maybe<String> f(@NotNull final Computer computer)
+			public Option<String> f(@NotNull final Computer computer)
 			{
-				return !isARouter().f(computer)&& computer.ipForwardingEnabled ? MaybeUtility.just("Computer that is not a gateway but has packet forwarding enabled") : MaybeUtility.<String>nothing();
+				return !isARouter().f(computer)&& computer.ipForwardingEnabled ? Option.some("Computer that is not a gateway but has packet forwarding enabled") : Option.<String>none();
 			}
 		};
 

@@ -5,7 +5,7 @@ import anylayout.extras.PercentConstraintsUtility;
 import fj.F;
 import fj.Function;
 import fj.data.Either;
-import fpeas.maybe.MaybeUtility;
+import fj.data.Option;
 import ipsim.Caster;
 import ipsim.NetworkContext;
 import ipsim.awt.ComponentUtility;
@@ -146,7 +146,7 @@ public final class ProblemDialog
 					return;
 				}
 
-				getNetworkContext().network.problem=Caster.asProblem(MaybeUtility.just(tmpProblem));
+				getNetworkContext().network.problem=Caster.asProblem(Option.some(tmpProblem));
 
 				dialog.setVisible(false);
 				dialog.dispose();

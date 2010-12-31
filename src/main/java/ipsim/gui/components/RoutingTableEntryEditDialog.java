@@ -1,37 +1,37 @@
 package ipsim.gui.components;
 
-import static anylayout.AnyLayout.useAnyLayout;
-import static anylayout.extras.ConstraintUtility.typicalDefaultConstraint;
 import anylayout.extras.PercentConstraints;
 import anylayout.extras.PercentConstraintsUtility;
 import anylayout.extras.SizeCalculatorUtility;
-import fpeas.maybe.Maybe;
-import fpeas.maybe.MaybeUtility;
-import fpeas.sideeffect.SideEffect;
+import fj.data.Option;
 import fpeas.sideeffect.SideEffectUtility;
 import ipsim.Global;
-import ipsim.util.Collections;
 import ipsim.gui.event.CommandUtility;
-import static ipsim.lang.Runnables.throwRuntimeException;
 import ipsim.network.Network;
 import ipsim.network.connectivity.computer.Computer;
 import ipsim.network.connectivity.computer.Route;
 import ipsim.network.connectivity.ip.IPAddress;
 import ipsim.network.connectivity.ip.NetMask;
 import ipsim.network.ethernet.NetBlock;
-import static ipsim.swing.Buttons.closeButton;
-import static ipsim.swing.Dialogs.createDialogWithEscapeKeyToClose;
 import ipsim.swing.IPAddressTextField;
 import ipsim.swing.IPAddressTextFieldUtility;
 import ipsim.swing.SubnetMaskTextField;
-
-import javax.swing.*;
+import ipsim.util.Collections;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+
+import static anylayout.AnyLayout.useAnyLayout;
+import static anylayout.extras.ConstraintUtility.typicalDefaultConstraint;
+import static ipsim.lang.Runnables.throwRuntimeException;
+import static ipsim.swing.Buttons.closeButton;
+import static ipsim.swing.Dialogs.createDialogWithEscapeKeyToClose;
 
 public final class RoutingTableEntryEditDialog
 {
-	public static RouteEditDialog createRoutingTableEntryEditDialog(final Computer computer,final RouteInfo entry,final Maybe<Route> maybeRealRoute,final Maybe<RoutingTableDialog> maybeParent)
+	public static RouteEditDialog createRoutingTableEntryEditDialog(final Computer computer,final RouteInfo entry,final Option<Route> maybeRealRoute,final Option<RoutingTableDialog> maybeParent)
 	{
 		final JDialog dialog=createDialogWithEscapeKeyToClose(Global.global.get().frame,"Edit Route");
 
@@ -41,7 +41,7 @@ public final class RoutingTableEntryEditDialog
 		return createRouteEditor(dialog, Global.getNetworkContext().network,computer,entry,maybeRealRoute,maybeParent);
 	}
 
-	public static RouteEditDialog createRouteEditor(final JDialog dialog,final Network network,final Computer computer,final RouteInfo entry,final Maybe<Route> maybeRealRoute,final Maybe<RoutingTableDialog> maybeParent)
+	public static RouteEditDialog createRouteEditor(final JDialog dialog,final Network network,final Computer computer,final RouteInfo entry,final Option<Route> maybeRealRoute,final Option<RoutingTableDialog> maybeParent)
 	{
 		final PercentConstraints constraints=PercentConstraintsUtility.newInstance(dialog.getContentPane());
 		useAnyLayout(dialog.getContentPane(),0.5f,0.5f,SizeCalculatorUtility.absoluteSize(400,200),typicalDefaultConstraint(throwRuntimeException));
@@ -84,27 +84,20 @@ public final class RoutingTableEntryEditDialog
 
 				final Route realEntry=new Route(newEntry.destination, newEntry.gateway);
 
-				MaybeUtility.run(maybeRealRoute,new SideEffect<Route>()
-				{
-					@Override
-                    public void run(final Route route)
-					{
-						final RouteInfo previous=new RouteInfo(route.block, route.gateway);
+                if (maybeRealRoute.isSome()) {
+                    Route route = maybeRealRoute.some();
+                    final RouteInfo previous=new RouteInfo(route.block, route.gateway);
 
-						computer.routingTable.replace(route,new Route(newEntry.destination,newEntry.gateway));
-						network.log=Collections.add(network.log,CommandUtility.changedRoute(computer,newEntry,previous,network));
-					}
-				},new Runnable()
-				{
-					@Override
-                    public void run()
-					{
-						computer.routingTable.add(MaybeUtility.just(computer),realEntry, SideEffectUtility.<IPAddress>throwRuntimeException());
-						network.log=Collections.add(network.log,CommandUtility.addExplicitRoute(computer, entry1.destination, entry1.gateway,network));
-					}
-				});
+                    computer.routingTable.replace(route,new Route(newEntry.destination,newEntry.gateway));
+                    network.log=Collections.add(network.log,CommandUtility.changedRoute(computer,newEntry,previous,network));
 
-				MaybeUtility.run(maybeParent, RoutingTableDialogUtility.populateElements);
+				} else {
+                    computer.routingTable.add(Option.some(computer),realEntry, SideEffectUtility.<IPAddress>throwRuntimeException());
+                    network.log=Collections.add(network.log,CommandUtility.addExplicitRoute(computer, entry1.destination, entry1.gateway,network));
+				}
+
+				for (RoutingTableDialog parent: maybeParent)
+                     RoutingTableDialogUtility.populateElements.e(parent);
 
 				dialog.setVisible(false);
 				dialog.dispose();

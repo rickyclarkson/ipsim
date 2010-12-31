@@ -1,10 +1,11 @@
 package ipsim.network;
 
-import fpeas.maybe.Maybe;
-import static ipsim.network.ProblemUtility.createProblem;
+import fj.data.Option;
 import ipsim.network.ethernet.NetBlock;
 import ipsim.network.ethernet.NetMaskUtility;
 import ipsim.network.ip.IPAddressUtility;
+
+import static ipsim.network.ProblemUtility.createProblem;
 
 public class Problem
 {
@@ -30,12 +31,12 @@ public class Problem
 		}
 	}
 
-	public Maybe<Problem> withNetBlock(final NetBlock newNetBlock)
+	public Option<Problem> withNetBlock(final NetBlock newNetBlock)
 	{
 		return createProblem(newNetBlock, numberOfSubnets);
 	}
 
-	public Maybe<Problem> withSubnets(final int newSubnets)
+	public Option<Problem> withSubnets(final int newSubnets)
 	{
 		return createProblem(netBlock, newSubnets);
 	}

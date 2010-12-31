@@ -1,6 +1,7 @@
 package ipsim.tests;
 
 import com.rickyclarkson.testsuite.UnitTest;
+import fj.data.Option;
 import fpeas.sideeffect.SideEffect;
 import ipsim.awt.Point;
 import ipsim.network.Network;
@@ -17,7 +18,6 @@ import ipsim.network.ip.CheckedNumberFormatException;
 import ipsim.network.ip.IPAddressUtility;
 import ipsim.util.Collections;
 
-import static fpeas.maybe.MaybeUtility.just;
 import static ipsim.gui.PositionUtility.setParent;
 
 public class InvalidRouteTest implements UnitTest
@@ -44,7 +44,7 @@ public class InvalidRouteTest implements UnitTest
 
 		final boolean[] passed={false};
 
-		computer.routingTable.add(just(computer),route,new SideEffect<IPAddress>()
+		computer.routingTable.add(Option.some(computer),route,new SideEffect<IPAddress>()
 		{
 			@Override
             public void run(final IPAddress input)
@@ -71,7 +71,7 @@ public class InvalidRouteTest implements UnitTest
 
 		final boolean[] passed={true};
 
-		computer.routingTable.add(just(computer),route,new SideEffect<IPAddress>()
+		computer.routingTable.add(Option.some(computer),route,new SideEffect<IPAddress>()
 		{
 			@Override
             public void run(final IPAddress input)

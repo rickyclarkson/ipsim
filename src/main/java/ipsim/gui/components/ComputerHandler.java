@@ -1,7 +1,7 @@
 package ipsim.gui.components;
 
 import fj.F;
-import fpeas.maybe.Maybe;
+import fj.data.Option;
 import fpeas.predicate.Predicate;
 import ipsim.Global;
 import ipsim.NetworkContext;
@@ -41,7 +41,6 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JTextArea;
 import org.jetbrains.annotations.NotNull;
 
-import static fpeas.maybe.MaybeUtility.nothing;
 import static ipsim.Global.getNetworkContext;
 import static ipsim.NetworkContext.errors;
 import static ipsim.gui.PositionUtility.getPosition;
@@ -193,8 +192,8 @@ public final class ComputerHandler
 
 				final RouteInfo entry=new RouteInfo(zero, IPAddressUtility.zero);
 
-				final Maybe<Route> route=nothing();
-				final Maybe<RoutingTableDialog> dialog=nothing();
+				final Option<Route> route= Option.none();
+				final Option<RoutingTableDialog> dialog=Option.none();
 
 				final JDialog dialog2=createRoutingTableEntryEditDialog(computer, entry, route, dialog).getDialog();
 				dialog2.setLocationRelativeTo(Global.global.get().frame);

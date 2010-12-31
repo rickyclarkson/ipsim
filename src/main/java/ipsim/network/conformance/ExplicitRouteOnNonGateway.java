@@ -1,8 +1,7 @@
 package ipsim.network.conformance;
 
 import fj.F;
-import fpeas.maybe.Maybe;
-import fpeas.maybe.MaybeUtility;
+import fj.data.Option;
 import ipsim.network.Network;
 import ipsim.network.connectivity.computer.Computer;
 import org.jetbrains.annotations.NotNull;
@@ -18,18 +17,18 @@ class ExplicitRouteOnNonGateway extends F<Network,CheckResult>
     @NotNull
 	public CheckResult f(@NotNull final Network network)
 	{
-		final F<Computer, Maybe<String>> warning=new F<Computer, Maybe<String>>()
+		final F<Computer, Option<String>> warning=new F<Computer, Option<String>>()
 		{
 			@Override
             @NotNull
-			public Maybe<String> f(@NotNull final Computer computer)
+			public Option<String> f(@NotNull final Computer computer)
 			{
-				return getExplicitRoutes(computer.routingTable).iterator().hasNext()&&!isARouter().f(computer) ? MaybeUtility.just("An explicit route on a computer that is not a gateway") : MaybeUtility.<String>nothing();
+				return getExplicitRoutes(computer.routingTable).iterator().hasNext()&&!isARouter().f(computer) ? Option.some("An explicit route on a computer that is not a gateway") : Option.<String>none();
 			}
 
 		};
 
-		final F<Computer, Maybe<String>> noErrors=NonsensicalArrangement.noErrors();
+		final F<Computer, Option<String>> noErrors=NonsensicalArrangement.noErrors();
 		return NonsensicalArrangement.customCheck(getAllComputers,warning,noErrors,USUAL).f(network);
 	}
 }

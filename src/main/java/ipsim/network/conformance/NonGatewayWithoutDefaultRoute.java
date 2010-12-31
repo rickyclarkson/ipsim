@@ -1,8 +1,7 @@
 package ipsim.network.conformance;
 
 import fj.F;
-import fpeas.maybe.Maybe;
-import fpeas.maybe.MaybeUtility;
+import fj.data.Option;
 import ipsim.network.Network;
 import ipsim.network.connectivity.computer.Computer;
 import org.jetbrains.annotations.NotNull;
@@ -20,17 +19,17 @@ class NonGatewayWithoutDefaultRoute extends F<Network,CheckResult>
     @NotNull
 	public CheckResult f(@NotNull final Network network)
 	{
-		final F<Computer, Maybe<String>> isARouter=new F<Computer, Maybe<String>>()
+		final F<Computer, Option<String>> isARouter=new F<Computer, Option<String>>()
 		{
 			@Override
             @NotNull
-			public Maybe<String> f(@NotNull final Computer computer)
+			public Option<String> f(@NotNull final Computer computer)
 			{
-				return ConformanceTestsUtility.isARouter().f(computer)||!(0==size(getDefaultRoutes(computer.routingTable))) ? MaybeUtility.<String>nothing() : MaybeUtility.just("Non-gateway computer without a default route");
+				return ConformanceTestsUtility.isARouter().f(computer)||!(0==size(getDefaultRoutes(computer.routingTable))) ? Option.<String>none() : Option.some("Non-gateway computer without a default route");
 			}
 		};
 
-		final F<Computer, Maybe<String>> noErrors=noErrors();
+		final F<Computer, Option<String>> noErrors=noErrors();
 
 		return customCheck(getAllComputers,isARouter,noErrors,USUAL).f(network);
 	}

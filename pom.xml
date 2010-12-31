@@ -37,7 +37,7 @@
         <dependency>
             <groupId>anylayout</groupId>
             <artifactId>anylayout</artifactId>
-            <version>1</version>
+            <version>3-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>functionalpeas</groupId>

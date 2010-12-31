@@ -1,8 +1,7 @@
 package ipsim.network.conformance;
 
 import fj.F;
-import fpeas.maybe.Maybe;
-import fpeas.maybe.MaybeUtility;
+import fj.data.Option;
 import ipsim.gui.PositionUtility;
 import ipsim.network.Network;
 import ipsim.network.connectivity.PacketSource;
@@ -26,11 +25,11 @@ class SomeHubsHaveNoStandaloneHost extends F<Network,CheckResult>
     @NotNull
 	public CheckResult f(@NotNull final Network network)
 	{
-		final F<Hub, Maybe<String>> warning=new F<Hub, Maybe<String>>()
+		final F<Hub, Option<String>> warning=new F<Hub, Option<String>>()
 		{
 			@Override
             @NotNull
-			public Maybe<String> f(@NotNull final Hub hub)
+			public Option<String> f(@NotNull final Hub hub)
 			{
 				boolean foundOne=false;
 
@@ -51,12 +50,12 @@ class SomeHubsHaveNoStandaloneHost extends F<Network,CheckResult>
 					{
 					}
 
-				return foundOne ? MaybeUtility.<String>nothing() : MaybeUtility.just("Hub with no standalone (non-gateway) computer");
+				return foundOne ? Option.<String>none() : Option.some("Hub with no standalone (non-gateway) computer");
 			}
 
 		};
 
-		final F<Hub, Maybe<String>> noErrors=noErrors();
+		final F<Hub, Option<String>> noErrors=noErrors();
 
 		return customCheck(getAllHubs,warning,noErrors,USUAL).f(network);
 	}

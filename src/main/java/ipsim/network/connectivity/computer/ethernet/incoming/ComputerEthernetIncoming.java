@@ -1,6 +1,5 @@
 package ipsim.network.connectivity.computer.ethernet.incoming;
 
-import fpeas.maybe.MaybeUtility;
 import ipsim.ExceptionHandler;
 import ipsim.connectivity.hub.incoming.PacketSourceUtility;
 import ipsim.network.Network;
@@ -56,7 +55,7 @@ public final class ComputerEthernetIncoming implements IncomingPacketListener
 
 		if ((equalT(destinationAddress, card.card.getMacAddress(network)) || equalT(destinationAddress, zero))&& PacketUtility2.isArpPacket(ethPacket.data) && !equalT(ethPacket.sourceAddress, card.card.getMacAddress(network)))
 		{
-			final ArpPacket arpPacket=MaybeUtility.asNullable(PacketUtility2.asArpPacket(ethPacket.data));
+			final ArpPacket arpPacket=PacketUtility2.asArpPacket(ethPacket.data).toNull();
 
 			network.packetQueue.enqueueIncomingPacket(arpPacket, card.card,destination);
 		}

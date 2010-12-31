@@ -1,7 +1,6 @@
 package ipsim;
 
 import fj.data.Option;
-import fpeas.maybe.Maybe;
 import fpeas.sideeffect.SideEffect;
 import ipsim.gui.NetworkView;
 import ipsim.gui.NetworkViewUtility;
@@ -134,7 +133,7 @@ public final class NetworkContext
 			}
 	}
 
-	public static void whenProblemChanges(final Maybe<Problem> maybe)
+	public static void whenProblemChanges(final Option<Problem> maybe)
 	{
 
 	}

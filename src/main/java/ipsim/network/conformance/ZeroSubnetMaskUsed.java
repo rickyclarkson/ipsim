@@ -1,8 +1,7 @@
 package ipsim.network.conformance;
 
 import fj.F;
-import fpeas.maybe.Maybe;
-import fpeas.maybe.MaybeUtility;
+import fj.data.Option;
 import ipsim.network.InvalidNetMaskException;
 import ipsim.network.Network;
 import ipsim.network.NetworkUtility;
@@ -39,15 +38,15 @@ class ZeroSubnetMaskUsed extends F<Network,CheckResult>
 					throw new RuntimeException("A problem has an invalid netmask, should be impossible - netmask is "+NetMask.asString(problem.netBlock.netMask.rawValue),exception);
 				}
 
-				return NonsensicalArrangement.customCheck(NetworkUtility.getAllCards,new F<Card, Maybe<String>>()
+				return NonsensicalArrangement.customCheck(NetworkUtility.getAllCards,new F<Card, Option<String>>()
 				{
 					@Override
                     @NotNull
-					public Maybe<String> f(@NotNull final Card card)
+					public Option<String> f(@NotNull final Card card)
 					{
 						final CardDrivers cardWithDrivers=card.withDrivers;
 						if (cardWithDrivers==null)
-							return MaybeUtility.nothing();
+							return Option.none();
 
 						try
 						{
@@ -57,19 +56,19 @@ class ZeroSubnetMaskUsed extends F<Network,CheckResult>
 							final boolean equalNumbers=rawNetworkNumber==rawProblemNumber;
 
 							if (equalNumbers&&problemMaskPrefix<cardNetMaskPrefix)
-								return MaybeUtility.just("A subnet that uses an all-0s subnet number");
+								return Option.some("A subnet that uses an all-0s subnet number");
 
 							if (problemMaskPrefix>=cardNetMaskPrefix)
-								return MaybeUtility.just("A subnet mask that is equal to or shorter than the problem's netmask");
+								return Option.some("A subnet mask that is equal to or shorter than the problem's netmask");
 
 							if (equalNumbers)
-								return MaybeUtility.just("No subnetting attempted");
+								return Option.some("No subnetting attempted");
 
-							return MaybeUtility.nothing();
+							return Option.none();
 						}
 						catch (InvalidNetMaskException exception)
 						{
-							return MaybeUtility.nothing();
+							return Option.none();
 						}
 					}
 				},NonsensicalArrangement.<Card>noErrors(),USUAL).f(network);

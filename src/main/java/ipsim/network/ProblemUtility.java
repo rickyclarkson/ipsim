@@ -1,40 +1,38 @@
 package ipsim.network;
 
-import fpeas.maybe.Maybe;
-import static fpeas.maybe.MaybeUtility.just;
-import static fpeas.maybe.MaybeUtility.nothing;
+import fj.data.Option;
 import ipsim.Global;
-import static ipsim.network.Problem.MAX_SUBNETS;
-import static ipsim.network.Problem.MIN_SUBNETS;
 import ipsim.network.connectivity.ip.IPAddress;
 import ipsim.network.ethernet.NetBlock;
-import static ipsim.network.ethernet.NetBlockUtility.createNetBlockOrThrowRuntimeException;
 import ipsim.network.ethernet.NetMaskUtility;
-import static ipsim.network.ethernet.NetMaskUtility.createNetMaskFromPrefixLength;
 import ipsim.util.Collections;
-
-import javax.swing.*;
 import java.util.List;
 import java.util.Random;
+import javax.swing.JOptionPane;
+
+import static ipsim.network.Problem.MAX_SUBNETS;
+import static ipsim.network.Problem.MIN_SUBNETS;
+import static ipsim.network.ethernet.NetBlockUtility.createNetBlockOrThrowRuntimeException;
+import static ipsim.network.ethernet.NetMaskUtility.createNetMaskFromPrefixLength;
 
 public final class ProblemUtility
 {
-	public static Maybe<Problem> createProblem(final NetBlock startingNetBlock,final int startingNumberOfSubnets)
+	public static Option<Problem> createProblem(final NetBlock startingNetBlock,final int startingNumberOfSubnets)
 	{
 		if (startingNumberOfSubnets<MIN_SUBNETS||startingNumberOfSubnets>MAX_SUBNETS)
-			return nothing();
+			return Option.none();
 
 		if (isValidNetworkNumber(startingNetBlock.networkNumber))
 		{
 			if (!NetMaskUtility.isValid(startingNetBlock.netMask))
-				return nothing();
+				return Option.none();
 		}
 		else
-			return nothing();
+			return Option.none();
 
 		final Problem problem=new Problem(startingNetBlock, startingNumberOfSubnets);
 
-		return just(problem);
+		return Option.some(problem);
 	}
 
 	private static final List<NetBlock> reservedNetBlocks=Collections.asList(createNetBlockOrThrowRuntimeException("10.0.0.0/8"),createNetBlockOrThrowRuntimeException("192.168.0.0/16"),createNetBlockOrThrowRuntimeException("172.16.0.0/12"));

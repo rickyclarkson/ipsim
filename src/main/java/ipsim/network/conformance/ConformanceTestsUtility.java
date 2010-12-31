@@ -1,8 +1,7 @@
 package ipsim.network.conformance;
 
 import fj.F;
-import fpeas.maybe.Maybe;
-import fpeas.maybe.MaybeUtility;
+import fj.data.Option;
 import ipsim.network.Network;
 import ipsim.network.connectivity.computer.Computer;
 import ipsim.network.ethernet.ComputerUtility;
@@ -78,17 +77,17 @@ public class ConformanceTestsUtility
 
 	public static CheckResult someHostsHaveThisManyCards(final Network network, final String string, final F<Integer, Boolean> thisMany)
 	{
-		final F<Computer, Maybe<String>> haveThisMany=new F<Computer, Maybe<String>>()
+		final F<Computer, Option<String>> haveThisMany=new F<Computer, Option<String>>()
 		{
 			@Override
             @NotNull
-			public Maybe<String> f(@NotNull final Computer computer)
+			public Option<String> f(@NotNull final Computer computer)
 			{
-				return thisMany.f(computer.getCards().size()) ? MaybeUtility.just("A computer with "+string+" cards") : MaybeUtility.<String>nothing();
+				return thisMany.f(computer.getCards().size()) ? Option.some("A computer with " + string + " cards") : Option.<String>none();
 			}
 		};
 
-		final F<Computer, Maybe<String>> noErrors=noErrors();
+		final F<Computer, Option<String>> noErrors=noErrors();
 
 		return customCheck(getAllComputers, haveThisMany, noErrors, USUAL).f(network);
 	}

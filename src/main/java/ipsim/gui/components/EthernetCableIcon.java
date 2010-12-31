@@ -2,9 +2,6 @@ package ipsim.gui.components;
 
 import fj.F;
 import fj.data.Option;
-import fpeas.maybe.Maybe;
-import fpeas.maybe.MaybeUtility;
-import fpeas.sideeffect.SideEffect;
 import ipsim.Global;
 import ipsim.awt.Point;
 import ipsim.gui.PositionUtility;
@@ -33,7 +30,7 @@ public final class EthernetCableIcon
 
 		final MouseInputAdapter listener=new MouseInputAdapter()
 		{
-			public Maybe<Point> startDrag=MaybeUtility.nothing();
+			public Option<Point> startDrag=Option.none();
 
 			public MouseEvent zoomMouseEvent(final MouseEvent event)
 			{
@@ -59,8 +56,8 @@ public final class EthernetCableIcon
 
 				view.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
 
-				if (!MaybeUtility.isJust(startDrag))
-					startDrag=MaybeUtility.just(new Point((double)event.getX(), (double)event.getY()));
+				if (!startDrag.isSome())
+					startDrag=Option.some(new Point((double)event.getX(), (double)event.getY()));
 
 				final Rectangle visibleRect=view.getVisibleRect();
 
@@ -113,7 +110,7 @@ public final class EthernetCableIcon
 				final Point point=new Point((double)event.getX(), (double)event.getY());
 
 				if (event.getButton()==MouseEvent.BUTTON1)
-					startDrag=MaybeUtility.just(point);
+					startDrag=Option.some(point);
 			}
 
 			/**
@@ -142,28 +139,23 @@ public final class EthernetCableIcon
 				getNetworkContext().mouseTracker.mouseEvent(event);
 
 				if (mouseDragOccurred)
-					MaybeUtility.run(startDrag, new SideEffect<Point>()
-					{
-						@Override
-                        public void run(final Point point)
-						{
-							getNetworkContext().network.modified=true;
+					for (Point point: startDrag) {
+                        getNetworkContext().network.modified=true;
 
-							final PacketSource cable=NetworkComponentUtility.create(getNetworkContext(), Cable.class, point, new Point((double)event.getX(), (double)event.getY()));
+                        final PacketSource cable=NetworkComponentUtility.create(getNetworkContext(), Cable.class, point, new Point((double)event.getX(), (double)event.getY()));
 
-							Assertion.assertNotNull(PositionUtility.getPosition(getNetworkContext().network,cable,1));
-							
-							button.doClick();
+                        Assertion.assertNotNull(PositionUtility.getPosition(getNetworkContext().network,cable,1));
 
-							ComponentMoved.componentMoved(getNetworkContext().network, cable, 0, 1);
+                        button.doClick();
 
-							getNetworkContext().networkView.invalidate();
-							getNetworkContext().networkView.validate();
-							getNetworkContext().networkView.repaint();
-						}
-					});
+                        ComponentMoved.componentMoved(getNetworkContext().network, cable, 0, 1);
 
-				startDrag=MaybeUtility.nothing();
+                        getNetworkContext().networkView.invalidate();
+                        getNetworkContext().networkView.validate();
+                        getNetworkContext().networkView.repaint();
+					}
+
+				startDrag=Option.none();
 			}
 		};
 

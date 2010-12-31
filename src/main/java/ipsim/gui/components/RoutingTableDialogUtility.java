@@ -4,9 +4,11 @@ import anylayout.AnyLayout;
 import anylayout.extras.ConstraintUtility;
 import anylayout.extras.PercentConstraints;
 import anylayout.extras.PercentConstraintsUtility;
+import fj.Effect;
 import fj.F;
 import fj.Function;
 import fj.data.Either;
+import fj.data.Option;
 import fpeas.maybe.Maybe;
 import fpeas.maybe.MaybeUtility;
 import fpeas.sequence.Node;
@@ -32,7 +34,6 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
 
-import static fpeas.maybe.MaybeUtility.just;
 import static fpeas.sequence.SequenceUtility.cons;
 import static fpeas.sequence.SequenceUtility.empty;
 import static fpeas.sequence.SequenceUtility.reverse;
@@ -158,7 +159,7 @@ public class RoutingTableDialogUtility
 						{
                             final RouteInfo entryInfo=new RouteInfo(entry.block, entry.gateway);
 
-                            final JDialog editDialog=RoutingTableEntryEditDialog.createRoutingTableEntryEditDialog(computer, entryInfo, just(entry), just(thiss)).getDialog();
+                            final JDialog editDialog=RoutingTableEntryEditDialog.createRoutingTableEntryEditDialog(computer, entryInfo, Option.some(entry), Option.some(thiss)).getDialog();
 
                             editDialog.setVisible(true);
 						}
@@ -259,10 +260,10 @@ public class RoutingTableDialogUtility
 		return routingTableDialog;
 	}
 
-	public static final SideEffect<RoutingTableDialog> populateElements=new SideEffect<RoutingTableDialog>()
+	public static final Effect<RoutingTableDialog> populateElements=new Effect<RoutingTableDialog>()
 	{
 		@Override
-        public void run(final RoutingTableDialog routingTableDialog)
+        public void e(final RoutingTableDialog routingTableDialog)
 		{
 			routingTableDialog.populateElements();
 		}

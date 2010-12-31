@@ -2,7 +2,6 @@ package ipsim.network;
 
 import fj.F;
 import fj.data.Either;
-import fpeas.maybe.MaybeUtility;
 import ipsim.network.ProblemBuilder.Stage2;
 import ipsim.network.connectivity.ip.IPAddress;
 import ipsim.network.ethernet.NetBlock;
@@ -54,7 +53,7 @@ public class ProblemBuilder extends F<Integer,Either<Stage2,String>>
 			{
 				final int rawMask=netBlock.netMask.rawValue;
 				if (NetMaskUtility.isValid(netBlock.netMask)&&(rawNetworkNumber&rawMask)==rawNetworkNumber)
-					return Either.left(MaybeUtility.asJust(createProblem(netBlock, subnets)));
+					return Either.left(createProblem(netBlock, subnets).some());
 
 				return Either.right("Invalid netMask " + netBlock.netMask.toString());
 			}

@@ -2,10 +2,9 @@ package ipsim.persistence.delegates;
 
 import com.rickyclarkson.testsuite.UnitTest;
 import com.rickyclarkson.xml.DOMSimple;
-import fpeas.maybe.MaybeUtility;
+import fj.data.Option;
 import fpeas.sideeffect.SideEffectUtility;
 import ipsim.Caster;
-import static ipsim.Caster.asFunction;
 import ipsim.ExceptionHandler;
 import ipsim.awt.Point;
 import ipsim.gui.PositionUtility;
@@ -20,12 +19,13 @@ import ipsim.persistence.SerialisationDelegate;
 import ipsim.persistence.XMLDeserialiser;
 import ipsim.persistence.XMLDeserialiserUtility;
 import ipsim.persistence.XMLSerialiser;
-import static ipsim.util.Collections.mapWith;
+import java.io.StringWriter;
 import org.jetbrains.annotations.Nullable;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import java.io.StringWriter;
+import static ipsim.Caster.asFunction;
+import static ipsim.util.Collections.mapWith;
 
 public class ComputerDelegate
 {
@@ -92,7 +92,7 @@ public class ComputerDelegate
 				final RoutingTable originalRoutingTable=computer.routingTable;
 
 				for (final Route route : routingTable.routes())
-					originalRoutingTable.add(MaybeUtility.<Computer>nothing(), route, SideEffectUtility.<IPAddress>throwRuntimeException());
+					originalRoutingTable.add(Option.<Computer>none(), route, SideEffectUtility.<IPAddress>throwRuntimeException());
 
 				return computer;
 			}

@@ -1,33 +1,34 @@
 package ipsim.ethernet;
 
-import static ipsim.Caster.asNotNull;
 import com.rickyclarkson.testsuite.UnitTest;
-import static fpeas.maybe.MaybeUtility.just;
+import fj.data.Option;
 import fpeas.pair.Pair;
-import static fpeas.pair.PairUtility.pair;
 import fpeas.sideeffect.SideEffectUtility;
 import ipsim.Caster;
-import static ipsim.Caster.equalT;
 import ipsim.network.Network;
 import ipsim.network.connectivity.card.Card;
-import ipsim.network.connectivity.card.CardFactory;
 import ipsim.network.connectivity.card.CardDrivers;
+import ipsim.network.connectivity.card.CardFactory;
 import ipsim.network.connectivity.computer.Computer;
 import ipsim.network.connectivity.computer.ComputerFactory;
 import ipsim.network.connectivity.computer.NoSuchRouteException;
 import ipsim.network.connectivity.computer.Route;
 import ipsim.network.connectivity.computer.RoutingTable;
-import static ipsim.network.connectivity.computer.RoutingTableUtility.createRoutingTable;
-import static ipsim.network.connectivity.computer.RoutingTableUtility.getDefaultRoutes;
-import static ipsim.network.connectivity.computer.RoutingTableUtility.getRouteFor;
 import ipsim.network.connectivity.ip.DestIPAddress;
 import ipsim.network.connectivity.ip.IPAddress;
-import static ipsim.network.ethernet.ComputerUtility.getCardFor;
 import ipsim.network.ethernet.NetBlockUtility;
-import static ipsim.network.ethernet.NetBlockUtility.getBroadcastAddress;
 import ipsim.network.ethernet.NetMaskUtility;
 import ipsim.network.ip.CheckedNumberFormatException;
 import ipsim.network.ip.IPAddressUtility;
+
+import static fpeas.pair.PairUtility.pair;
+import static ipsim.Caster.asNotNull;
+import static ipsim.Caster.equalT;
+import static ipsim.network.connectivity.computer.RoutingTableUtility.createRoutingTable;
+import static ipsim.network.connectivity.computer.RoutingTableUtility.getDefaultRoutes;
+import static ipsim.network.connectivity.computer.RoutingTableUtility.getRouteFor;
+import static ipsim.network.ethernet.ComputerUtility.getCardFor;
+import static ipsim.network.ethernet.NetBlockUtility.getBroadcastAddress;
 import static ipsim.network.ip.IPAddressUtility.valueOf;
 
 public final class RoutingTableTest
@@ -60,7 +61,7 @@ public final class RoutingTableTest
 				return false;
 			}
 
-			table.add(just(computer), route, SideEffectUtility.<IPAddress>throwRuntimeException());
+			table.add(Option.some(computer), route, SideEffectUtility.<IPAddress>throwRuntimeException());
 
 			return Caster.equalT(getDefaultRoutes(table).iterator().next(), route);
 		}

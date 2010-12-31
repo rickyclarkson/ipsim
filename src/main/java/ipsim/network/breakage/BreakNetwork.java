@@ -1,8 +1,7 @@
 package ipsim.network.breakage;
 
 import fj.F;
-import fpeas.maybe.Maybe;
-import fpeas.maybe.MaybeUtility;
+import fj.data.Option;
 import fpeas.pair.Pair;
 import fpeas.sideeffect.SideEffect;
 import ipsim.Global;
@@ -32,8 +31,6 @@ import javax.swing.ProgressMonitor;
 import javax.swing.SwingUtilities;
 import org.jetbrains.annotations.NotNull;
 
-import static fpeas.maybe.MaybeUtility.just;
-import static fpeas.maybe.MaybeUtility.nothing;
 import static fpeas.pair.PairUtility.pair;
 import static fpeas.sideeffect.SideEffectUtility.doNothing;
 import static ipsim.Global.getNetworkContext;
@@ -184,23 +181,11 @@ public class BreakNetwork
 			@Override
             public void run()
 			{
-				MaybeUtility.run(randomOneOf(getAllComputers(network)),new SideEffect<Computer>()
-				{
-					@Override
-                    public void run(final Computer computer)
-					{
-						final RoutingTable table=computer.routingTable;
-						MaybeUtility.run(randomOneOf(table.routes()),new SideEffect<Route>()
-						{
-							@Override
-                            public void run(final Route route)
-							{
-								table.remove(route);
-							}
-						});
-
-					}
-				});
+				for (Computer computer: randomOneOf(getAllComputers(network))) {
+                    final RoutingTable table=computer.routingTable;
+                    for (final Route route: table.routes())
+                        table.remove(route);
+				}
 			}
 		};
 	}
@@ -212,23 +197,12 @@ public class BreakNetwork
 			@Override
             public void run()
 			{
-				MaybeUtility.run(randomOneOf(getAllComputers(context)),new SideEffect<Computer>()
-				{
-					@Override
-                    public void run(final Computer computer)
-					{
-						final RoutingTable table=computer.routingTable;
+				for (Computer computer: randomOneOf(getAllComputers(context))) {
+                    final RoutingTable table=computer.routingTable;
 
-						MaybeUtility.run(randomOneOf(table.routes()),new SideEffect<Route>()
-						{
-							@Override
-                            public void run(final Route route)
-							{
-								computer.routingTable.replace(route,breakRoute(route));
-							}
-						});
-					}
-				});
+                    for (Route route: randomOneOf(table.routes()))
+                        computer.routingTable.replace(route,breakRoute(route));
+				}
 			}
 		};
 	}
@@ -251,14 +225,8 @@ public class BreakNetwork
 			@Override
             public void run()
 			{
-				MaybeUtility.run(randomOneOf(getAllCardsWithDrivers(network)),new SideEffect<CardDrivers>()
-				{
-					@Override
-                    public void run(final CardDrivers card)
-					{
-						card.netMask.set(NetMaskUtility.randomNetMask());
-					}
-				});
+				for (CardDrivers cardDrivers: getAllCardsWithDrivers(network))
+				    cardDrivers.netMask.set(NetMaskUtility.randomNetMask());
 			}
 		};
 	}
@@ -270,14 +238,8 @@ public class BreakNetwork
 			@Override
             public void run()
 			{
-				MaybeUtility.run(randomOneOf(getAllCardsWithDrivers(network)),new SideEffect<CardDrivers>()
-				{
-					@Override
-                    public void run(final CardDrivers card)
-					{
-						card.ipAddress.set(randomIP());
-					}
-				});
+				for (CardDrivers card: randomOneOf(getAllCardsWithDrivers(network)))
+				    card.ipAddress.set(randomIP());
 			}
 		};
 	}
@@ -289,20 +251,15 @@ public class BreakNetwork
 			@Override
             public void run()
 			{
-				MaybeUtility.run(randomOneOf(getAllComputers(network, ConformanceTestsUtility.isARouter())),new SideEffect<Computer>()
-				{
-					@Override
-                    public void run(final Computer computer)
-					{
-						final List<CardDrivers> cards=ComputerUtility.cardsWithDrivers(computer);
+				for (Computer computer: randomOneOf(getAllComputers(network, ConformanceTestsUtility.isARouter()))) {
+                    final List<CardDrivers> cards=ComputerUtility.cardsWithDrivers(computer);
 
-						final Pair<CardDrivers, CardDrivers> pair=randomTwoOf(cards);
+                    final Pair<CardDrivers, CardDrivers> pair=randomTwoOf(cards);
 
-						final IPAddress tmp=pair.first().ipAddress.get();
-						pair.first().ipAddress.set(pair.second().ipAddress.get());
-						pair.second().ipAddress.set(tmp);
-					}
-				});
+                    final IPAddress tmp=pair.first().ipAddress.get();
+                    pair.first().ipAddress.set(pair.second().ipAddress.get());
+                    pair.second().ipAddress.set(tmp);
+                }
 			}
 		};
 	}
@@ -336,15 +293,10 @@ public class BreakNetwork
 					}
 				};
 
-				MaybeUtility.run(randomOneOf(NetworkUtility.getAllCables(network,connected)),new SideEffect<Cable>()
-				{
-					@Override
-                    public void run(final Cable cable)
-					{
-						final int end=(int)(Math.random()*2.0);
-						setPosition(network,cable, mapWith(end, getPosition(network,cable,end)));
-					}
-				});
+				for (Cable cable: randomOneOf(NetworkUtility.getAllCables(network,connected))) {
+                    final int end=(int)(Math.random()*2.0);
+                    setPosition(network,cable, mapWith(end, getPosition(network,cable,end)));
+				}
 			}
 		};
 	}
@@ -356,14 +308,8 @@ public class BreakNetwork
 			@Override
             public void run()
 			{
-				MaybeUtility.run(randomOneOf(NetworkUtility.getAllCables(network)),new SideEffect<Cable>()
-				{
-					@Override
-                    public void run(final Cable cable)
-					{
-						cable.setCableType(cable.getCableType().another());
-					}
-				});
+				for (Cable cable: randomOneOf(NetworkUtility.getAllCables(network)))
+                    cable.setCableType(cable.getCableType().another());
 			}
 		};
 	}
@@ -375,16 +321,9 @@ public class BreakNetwork
 			@Override
             public void run()
 			{
-
-				MaybeUtility.run(randomOneOf(getAllComputers(network)),new SideEffect<Computer>()
-				{
-					@Override
-                    public void run(final Computer computer)
-					{
-						if (ConformanceTestsUtility.isARouter().f(computer))
-							computer.ipForwardingEnabled=false;
-					}
-				});
+				for (Computer computer: randomOneOf(getAllComputers(network)))
+                    if (ConformanceTestsUtility.isARouter().f(computer))
+                        computer.ipForwardingEnabled=false;
 			}
 		};
 	}
@@ -396,28 +335,22 @@ public class BreakNetwork
 			@Override
             public void run()
 			{
-				MaybeUtility.run(randomOneOf(getAllHubs(network)),new SideEffect<Hub>()
-				{
-					@Override
-                    public void run(final Hub hub)
-					{
-						if (hub.isPowerOn())
-							hub.setPower(false);
-					}
-				});
+				for (Hub hub: randomOneOf(getAllHubs(network)))
+                    if (hub.isPowerOn())
+                        hub.setPower(false);
 			}
 		};
 	}
 
-	private static <T> Maybe<T> randomOneOf(final List<T> list)
+	private static <T> Option<T> randomOneOf(final List<T> list)
 	{
 		if (list.isEmpty())
-			return nothing();
+			return Option.none();
 
-		return just(list.get((int)(Math.random()*list.size())));
+		return Option.some(list.get((int)(Math.random()*list.size())));
 	}
 
-	private static <T> Maybe<T> randomOneOf(final Collection<T> collection)
+	private static <T> Option<T> randomOneOf(final Collection<T> collection)
 	{
 		return randomOneOf(arrayList(collection));
 	}

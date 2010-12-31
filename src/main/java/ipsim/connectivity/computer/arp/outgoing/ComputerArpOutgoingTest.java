@@ -1,7 +1,6 @@
 package ipsim.connectivity.computer.arp.outgoing;
 
 import com.rickyclarkson.testsuite.UnitTest;
-import fpeas.maybe.MaybeUtility;
 import ipsim.Caster;
 import ipsim.connectivity.hub.incoming.PacketSourceUtility;
 import ipsim.lang.CheckedIllegalStateException;
@@ -10,7 +9,6 @@ import ipsim.network.connectivity.OutgoingPacketListener;
 import ipsim.network.connectivity.Packet;
 import ipsim.network.connectivity.PacketQueue;
 import ipsim.network.connectivity.PacketSource;
-import static ipsim.network.connectivity.PacketUtility.asEthernetPacket;
 import ipsim.network.connectivity.PacketUtility2;
 import ipsim.network.connectivity.arp.ArpPacket;
 import ipsim.network.connectivity.computer.Computer;
@@ -18,6 +16,8 @@ import ipsim.network.connectivity.computer.ComputerFactory;
 import ipsim.network.connectivity.ethernet.EthernetPacket;
 import ipsim.network.connectivity.ethernet.MacAddress;
 import ipsim.network.connectivity.ip.IPAddress;
+
+import static ipsim.network.connectivity.PacketUtility.asEthernetPacket;
 
 public class ComputerArpOutgoingTest implements UnitTest
 {
@@ -51,7 +51,7 @@ public class ComputerArpOutgoingTest implements UnitTest
 						throw new RuntimeException(exception);
 					}
 
-					if (PacketUtility2.isArpPacket(ethPacket.data) &&null!=MaybeUtility.asNullable(PacketUtility2.asArpPacket(ethPacket.data)))
+					if (PacketUtility2.isArpPacket(ethPacket.data) &&null!=PacketUtility2.asArpPacket(ethPacket.data).toNull())
 						answer.append("Pass");
 				}
 			}

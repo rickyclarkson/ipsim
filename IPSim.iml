@@ -13,7 +13,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: org.functionaljava:fj:3.0-RickyC-2-SNAPSHOT" level="project" />
     <orderEntry type="module" module-name="fj" />
-    <orderEntry type="library" name="Maven: anylayout:anylayout:1" level="project" />
+    <orderEntry type="module" module-name="anylayout" />
     <orderEntry type="library" name="Maven: functionalpeas:functionalpeas:ipsim-backup" level="project" />
     <orderEntry type="library" name="Maven: com.intellij:annotations:7.0.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.4" level="project" />

@@ -1,6 +1,7 @@
 package ipsim.gui;
 
 import anylayout.AnyLayout;
+import anylayout.LayoutContext;
 import anylayout.SizeCalculator;
 import anylayout.extras.ConstraintUtility;
 import anylayout.extras.RelativeConstraints;
@@ -8,7 +9,6 @@ import fj.F;
 import fj.Function;
 import fj.data.Option;
 import fpeas.lazy.Lazy;
-import fpeas.maybe.MaybeUtility;
 import fpeas.predicate.Predicate;
 import fpeas.sideeffect.SideEffect;
 import fpeas.sideeffect.SideEffectUtility;
@@ -539,70 +539,64 @@ public class MenuHandler
 
 		getNetworkContext().testNumber=testNumber;
 
-		MaybeUtility.run(WebInterface.getProblem(getNetworkContext().testNumber), new SideEffect<String>()
-		{
-			@Override
-            public void run(final String string)
-			{
-				final String[] strings=string.split("\n");
+		for (String string: WebInterface.getProblem(getNetworkContext().testNumber)) {
+            final String[] strings=string.split("\n");
 
-				final String netSizesString=strings[1].split("=")[1];
-				final String[] netSizes=netSizesString.split(",");
+            final String netSizesString=strings[1].split("=")[1];
+            final String[] netSizes=netSizesString.split(",");
 
-				final String chosenSize=netSizes[(int)(Math.random()*(double)netSizes.length)];
+            final String chosenSize=netSizes[(int)(Math.random()*(double)netSizes.length)];
 
-				final String subnetOptionString=strings[2].split("=")[1];
-				final String[] subnetOptions=subnetOptionString.split(",");
+            final String subnetOptionString=strings[2].split("=")[1];
+            final String[] subnetOptions=subnetOptionString.split(",");
 
-				final String chosenSubnetOption=subnetOptions[(int)(Math.random()*(double)subnetOptions.length)];
+            final String chosenSubnetOption=subnetOptions[(int)(Math.random()*(double)subnetOptions.length)];
 
-				final ProblemBuilder problemBuilder=new ProblemBuilder();
+            final ProblemBuilder problemBuilder=new ProblemBuilder();
 
-				final ProblemBuilder.Stage2 problemStage2=problemBuilder.withSubnets(parseInt(chosenSubnetOption)).left().value();
+            final ProblemBuilder.Stage2 problemStage2=problemBuilder.withSubnets(parseInt(chosenSubnetOption)).left().value();
 
-				IPAddress generateNetworkNumber;
+            IPAddress generateNetworkNumber;
 
-				int giveUp=0;
+            int giveUp=0;
 
-				do
-				{
-					giveUp++;
-					generateNetworkNumber=ProblemUtility.generateNetworkNumber(parseInt(chosenSize));
-				}
-				while (giveUp<100 && 0==(generateNetworkNumber.rawValue&0xFF00));
+            do
+            {
+                giveUp++;
+                generateNetworkNumber=ProblemUtility.generateNetworkNumber(parseInt(chosenSize));
+            }
+            while (giveUp<100 && 0==(generateNetworkNumber.rawValue&0xFF00));
 
-				final NetMask mask=NetMaskUtility.createNetMaskFromPrefixLength(parseInt(chosenSize));
+            final NetMask mask=NetMaskUtility.createNetMaskFromPrefixLength(parseInt(chosenSize));
 
-				final Problem problem=problemStage2.withNetBlock(new NetBlock(generateNetworkNumber, mask)).left().value();
+            final Problem problem=problemStage2.withNetBlock(new NetBlock(generateNetworkNumber, mask)).left().value();
 
-				getNetworkContext().network.problem=problem;
-				getNetworkContext().userPermissions=UserPermissions.ACTUAL_TEST;
-				JOptionPaneUtility.showMessageDialog(global.get().frame, problem.asString());
+            getNetworkContext().network.problem=problem;
+            getNetworkContext().userPermissions=UserPermissions.ACTUAL_TEST;
+            JOptionPaneUtility.showMessageDialog(global.get().frame, problem.asString());
 
-				boolean set=false;
+            boolean set=false;
 
-				do
-				{
-					final String userName=JOptionPane.showInputDialog(global.get().frame, "Please enter your University email address, e.g., "+"N.Other@student.salford.ac.uk");
+            do
+            {
+                final String userName=JOptionPane.showInputDialog(global.get().frame, "Please enter your University email address, e.g., "+"N.Other@student.salford.ac.uk");
 
-					if (userName!=null && !(0==userName.length()))
-					{
-						getNetworkContext().emailAddress=userName;
-						try
-						{
-							WebInterface.putSUProblem(userName, problem.asString());
-						}
-						catch (final IOException exception)
-						{
-							JOptionPane.showMessageDialog(global.get().frame, exception.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-						}
-						set=true;
-					}
-				}
-				while (!set);
-			}
-		});
-
+                if (userName!=null && !(0==userName.length()))
+                {
+                    getNetworkContext().emailAddress=userName;
+                    try
+                    {
+                        WebInterface.putSUProblem(userName, problem.asString());
+                    }
+                    catch (final IOException exception)
+                    {
+                        JOptionPane.showMessageDialog(global.get().frame, exception.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    set=true;
+                }
+            }
+            while (!set);
+		}
 	}
 
 	public static Runnable testConformance()
@@ -720,7 +714,8 @@ public class MenuHandler
 					}
 				}, null);
 
-				panel.add(connectivityLabel, ConstraintUtility.topLeft(Function.constant(padding), Function.constant(padding)));
+                final F<LayoutContext, Integer> constantPadding = Function.constant(padding);
+                panel.add(connectivityLabel, ConstraintUtility.topLeft(constantPadding, constantPadding));
 				panel.add(connectivityButton, ConstraintUtility.topRight(Function.constant(padding), Function.constant(padding)));
 				panel.add(conformanceLabel, RelativeConstraints.below(connectivityLabel, padding));
 				panel.add(conformanceButton, RelativeConstraints.levelWith(conformanceLabel, connectivityButton));

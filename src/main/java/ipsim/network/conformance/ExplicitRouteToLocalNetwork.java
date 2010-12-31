@@ -1,8 +1,7 @@
 package ipsim.network.conformance;
 
 import fj.F;
-import fpeas.maybe.Maybe;
-import fpeas.maybe.MaybeUtility;
+import fj.data.Option;
 import fpeas.predicate.Predicate;
 import ipsim.network.Network;
 import ipsim.network.connectivity.card.Card;
@@ -25,11 +24,11 @@ class ExplicitRouteToLocalNetwork extends F<Network,CheckResult>
     @NotNull
 	public CheckResult f(@NotNull final Network network)
 	{
-		final F<Computer, Maybe<String>> warning=new F<Computer, Maybe<String>>()
+		final F<Computer, Option<String>> warning=new F<Computer, Option<String>>()
 		{
 			@Override
             @NotNull
-			public Maybe<String> f(@NotNull final Computer computer)
+			public Option<String> f(@NotNull final Computer computer)
 			{
 				return Collections.any(computer.getCards(),new Predicate<Card>()
 				{
@@ -49,11 +48,11 @@ class ExplicitRouteToLocalNetwork extends F<Network,CheckResult>
 						return false;
 					}
 
-				}) ? MaybeUtility.just("Computer with an explicit route that points to one of its local networks") : MaybeUtility.<String>nothing();
+				}) ? Option.some("Computer with an explicit route that points to one of its local networks") : Option.<String>none();
 			}
 		};
 
-		final F<Computer, Maybe<String>> noErrors=noErrors();
+		final F<Computer, Option<String>> noErrors=noErrors();
 
 		return NonsensicalArrangement.customCheck(getAllComputers,warning,noErrors,USUAL).f(network);
 	}
