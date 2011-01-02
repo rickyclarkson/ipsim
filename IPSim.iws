@@ -34,9 +34,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d56e3007-4b96-4c66-a9f5-eabf360af09f" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\Documents and Settings\Craig\ipsim\src\main\java\ipsim\swing\JFileChooserUtility.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IPSim.iws" afterPath="$PROJECT_DIR$/IPSim.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/MenuHandler.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/MenuHandler.java" />
     </list>
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -207,8 +205,9 @@
       <file leaf-file-name="MenuHandler.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/MenuHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="43" column="0" selection-start="1554" selection-end="1554" vertical-scroll-proportion="0.36465323">
+            <state line="600" column="71" selection-start="24563" selection-end="24563" vertical-scroll-proportion="0.33333334">
               <folding>
+                <element signature="imports" expanded="true" />
                 <element signature="docComment;method#networkNew#0;class#MenuHandler#0" expanded="true" />
                 <element signature="method#networkNew#0;class#MenuHandler#0" expanded="true" />
                 <element signature="docComment;method#fileOpen#0;class#MenuHandler#0" expanded="true" />
@@ -234,7 +233,6 @@
                 <element signature="method#networkModifiedDialog#0;class#MenuHandler#0" expanded="true" />
                 <element signature="method#loadAssessmentProblem#0;class#MenuHandler#0" expanded="true" />
                 <element signature="method#testConformance#0;class#MenuHandler#0" expanded="true" />
-                <element signature="method#operationsCheckSolution#0;class#MenuHandler#0" expanded="true" />
                 <element signature="method#getWidth#0;class#23487:24388" expanded="true" />
                 <element signature="method#downloadConfiguration#0;class#MenuHandler#0" expanded="true" />
                 <element signature="method#freeform#0;class#MenuHandler#0" expanded="true" />
@@ -756,9 +754,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="-4" width="1448" height="874" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32827586" sideWeight="0.5" order="17" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32827586" sideWeight="0.5" order="17" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4386207" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5040431" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -816,7 +814,7 @@
     <option name="CHANGED_ON_SERVER_INTERVAL" value="60" />
     <option name="SHOW_ONLY_CHANGED_IN_SELECTION_DIFF" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removing some irrelevant documentation." />
+    <option name="LAST_COMMIT_MESSAGE" value="Inlined JFileChooserUtility." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -840,6 +838,7 @@
     <MESSAGE value="Removing indirect casts and instanceofs." />
     <MESSAGE value="#2 - Removed a spurious call to paint." />
     <MESSAGE value="Removing some irrelevant documentation." />
+    <MESSAGE value="Inlined JFileChooserUtility." />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -1040,8 +1039,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/MenuHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="0" selection-start="1554" selection-end="1554" vertical-scroll-proportion="0.36465323">
+        <state line="600" column="71" selection-start="24563" selection-end="24563" vertical-scroll-proportion="0.33333334">
           <folding>
+            <element signature="imports" expanded="true" />
             <element signature="docComment;method#networkNew#0;class#MenuHandler#0" expanded="true" />
             <element signature="method#networkNew#0;class#MenuHandler#0" expanded="true" />
             <element signature="docComment;method#fileOpen#0;class#MenuHandler#0" expanded="true" />
@@ -1067,7 +1067,6 @@
             <element signature="method#networkModifiedDialog#0;class#MenuHandler#0" expanded="true" />
             <element signature="method#loadAssessmentProblem#0;class#MenuHandler#0" expanded="true" />
             <element signature="method#testConformance#0;class#MenuHandler#0" expanded="true" />
-            <element signature="method#operationsCheckSolution#0;class#MenuHandler#0" expanded="true" />
             <element signature="method#getWidth#0;class#23487:24388" expanded="true" />
             <element signature="method#downloadConfiguration#0;class#MenuHandler#0" expanded="true" />
             <element signature="method#freeform#0;class#MenuHandler#0" expanded="true" />
