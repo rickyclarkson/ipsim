@@ -53,10 +53,6 @@ public class Caster {
         return (JScrollPane) container;
     }
 
-    public static Problem asProblem(final Object o) {
-        return (Problem) o;
-    }
-
     public static NetBlock asNetBlock(final Object other) {
         return (NetBlock) other;
     }
