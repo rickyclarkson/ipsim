@@ -10,7 +10,7 @@ import java.awt.Dimension;
 import javax.swing.JTextField;
 
 public final class SubnetMaskTextField extends JTextField {
-    private transient final IPAddressValidator validator;
+    private final transient IPAddressValidator validator;
 
     public SubnetMaskTextField() {
         validator = new IPAddressValidator(IPAddressUtility.zero);

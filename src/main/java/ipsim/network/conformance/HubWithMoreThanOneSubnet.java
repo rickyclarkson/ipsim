@@ -39,7 +39,7 @@ public class HubWithMoreThanOneSubnet extends F<Network, CheckResult> {
             NetBlock netBlock = null;
 
             for (final Cable cable : hub.getCables()) {
-                final @Nullable Card maybeCard;
+                @Nullable final Card maybeCard;
                 try {
                     maybeCard = asCard(getOtherEnd(network, cable, hub));
                 } catch (final OnlyOneEndConnectedException exception) {
@@ -49,7 +49,7 @@ public class HubWithMoreThanOneSubnet extends F<Network, CheckResult> {
                 if (maybeCard == null)
                     continue;
 
-                final @Nullable CardDrivers cardWithDrivers = maybeCard.withDrivers;
+                @Nullable final CardDrivers cardWithDrivers = maybeCard.withDrivers;
 
                 if (cardWithDrivers == null || cardWithDrivers.ipAddress.get().rawValue == 0)
                     continue;

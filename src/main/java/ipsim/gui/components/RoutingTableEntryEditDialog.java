@@ -80,7 +80,7 @@ public final class RoutingTableEntryEditDialog {
                 final Route realEntry = new Route(newEntry.destination, newEntry.gateway);
 
                 if (maybeRealRoute.isSome()) {
-                    Route route = maybeRealRoute.some();
+                    final Route route = maybeRealRoute.some();
                     final RouteInfo previous = new RouteInfo(route.block, route.gateway);
 
                     computer.routingTable.replace(route, new Route(newEntry.destination, newEntry.gateway));

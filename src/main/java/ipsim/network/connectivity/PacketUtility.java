@@ -19,8 +19,8 @@ public final class PacketUtility {
         return identifier;
     }
 
-    public static
     @Nullable
+    public static
     EthernetPacket asEthernetPacket(final Packet packet) throws CheckedIllegalStateException {
         return identifier(packet).asEthernetPacket();
     }

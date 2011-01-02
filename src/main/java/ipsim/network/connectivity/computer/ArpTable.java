@@ -15,8 +15,8 @@ public class ArpTable {
         map.put(ipAddress, new ArpEntry(macAddress, network.arpCacheTimeout));
     }
 
-    public
     @Nullable
+    public
     MacAddress getMacAddress(final IPAddress gatewayIP) {
         final ArpEntry result = map.get(gatewayIP);
 

@@ -85,8 +85,8 @@ public final class PacketSourceUtility {
         });
     }
 
-    public static
     @Nullable
+    public static
     Hub asHub(final PacketSource source) {
         return source.accept(new PacketSourceVisitor<Hub>() {
             @Override
@@ -111,8 +111,8 @@ public final class PacketSourceUtility {
         });
     }
 
-    public static
     @Nullable
+    public static
     Cable asCable(final PacketSource source) {
         return source.accept(new PacketSourceVisitor<Cable>() {
             @Override

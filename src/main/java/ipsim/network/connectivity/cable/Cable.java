@@ -28,7 +28,7 @@ public final class Cable implements PacketSource {
         final List<PacketSource> ends = Collections.arrayList();
 
         for (int end = 0; end < 2; end++) {
-            final @Nullable PacketSource parent = getParent(network, this, end);
+            @Nullable final PacketSource parent = getParent(network, this, end);
             if (parent != null)
                 ends.add(parent);
         }

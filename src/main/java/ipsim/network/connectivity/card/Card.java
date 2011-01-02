@@ -60,8 +60,8 @@ public final class Card implements PacketSource {
         }
     }
 
-    public
     @Nullable
+    public
     Cable getCable() {
         if (children.isEmpty())
             return null;

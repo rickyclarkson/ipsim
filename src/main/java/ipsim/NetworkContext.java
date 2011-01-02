@@ -112,7 +112,7 @@ public final class NetworkContext {
         while (true)
             try {
                 return Integer.valueOf(JOptionPane.showInputDialog(global.get().frame, "How many faults? (1 to 5)"));
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException ignored) {
             }
     }
 

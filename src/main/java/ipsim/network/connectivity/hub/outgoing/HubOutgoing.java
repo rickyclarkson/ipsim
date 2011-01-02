@@ -25,7 +25,7 @@ public class HubOutgoing implements OutgoingPacketListener {
         packetOutgoingImpl(asNotNull(asEthernetPacket(packet)), asNotNull(asHub(source)));
     }
 
-    private void packetOutgoingImpl(final @NotNull EthernetPacket packet, final @NotNull Hub source) {
+    private void packetOutgoingImpl(@NotNull final EthernetPacket packet, @NotNull final Hub source) {
         for (final Cable cable : source.getCables())
             queue.enqueueIncomingPacket(packet, source, cable);
     }

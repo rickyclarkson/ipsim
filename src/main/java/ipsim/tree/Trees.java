@@ -33,7 +33,7 @@ public final class Trees {
 
             @Override
             public String asString() {
-                return "NetworkNode[" + PacketSourceUtility.asString(network, component) + "]";
+                return "NetworkNode[" + PacketSourceUtility.asString(network, component) + ']';
             }
 
             @Override

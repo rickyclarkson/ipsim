@@ -31,15 +31,15 @@ class SomeHubsHaveNoStandaloneHost extends F<Network, CheckResult> {
 
                 for (final Cable cable : hub.getCables())
                     try {
-                        final @Nullable Card card = asCard(getOtherEnd(network, cable, hub));
+                        @Nullable final Card card = asCard(getOtherEnd(network, cable, hub));
 
                         if (card != null) {
-                            final @Nullable PacketSource computer = PositionUtility.getParent(network, card, 0);
+                            @Nullable final PacketSource computer = PositionUtility.getParent(network, card, 0);
 
                             if (computer != null && 1 == computer.children().size())
                                 foundOne = true;
                         }
-                    } catch (OnlyOneEndConnectedException exception) {
+                    } catch (OnlyOneEndConnectedException ignored) {
                     }
 
                 return foundOne ? Option.<String>none() : Option.some("Hub with no standalone (non-gateway) computer");

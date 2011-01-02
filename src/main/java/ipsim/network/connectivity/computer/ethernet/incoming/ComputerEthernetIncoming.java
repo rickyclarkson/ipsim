@@ -29,16 +29,16 @@ public final class ComputerEthernetIncoming implements IncomingPacketListener {
 
     @Override
     public void packetIncoming(final Packet packet, final PacketSource source, final PacketSource destination) {
-        final @Nullable Card maybeCard = PacketSourceUtility.asCard(source);
+        @Nullable final Card maybeCard = PacketSourceUtility.asCard(source);
 
         if (maybeCard == null) {
             ExceptionHandler.impossible();
             return;
         }
 
-        final @Nullable CardDrivers card = maybeCard.withDrivers;
+        @Nullable final CardDrivers card = maybeCard.withDrivers;
 
-        final @Nullable EthernetPacket maybePacket = PacketUtility2.asEthernetPacket(packet);
+        @Nullable final EthernetPacket maybePacket = PacketUtility2.asEthernetPacket(packet);
 
         packetIncomingImpl(network, asNotNull(card), asNotNull(maybePacket), destination);
     }

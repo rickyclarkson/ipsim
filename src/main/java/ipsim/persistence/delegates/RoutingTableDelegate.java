@@ -21,7 +21,7 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.sort;
 
 public final class RoutingTableDelegate {
-    public static SerialisationDelegate<RoutingTable> routingTableDelegate = new SerialisationDelegate<RoutingTable>() {
+    public static final SerialisationDelegate<RoutingTable> routingTableDelegate = new SerialisationDelegate<RoutingTable>() {
         @Override
         public void writeXML(final XMLSerialiser serialiser, final RoutingTable table) {
             int a = 0;

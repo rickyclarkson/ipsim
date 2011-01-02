@@ -110,9 +110,9 @@ public class Caster {
         return (CableType) o;
     }
 
-    public static
     @NotNull
-    <T> T asNotNull(final @Nullable T t) {
+    public static
+    <T> T asNotNull(@Nullable final T t) {
         return t == null ? ExceptionHandler.<T>impossible() : t;
     }
 

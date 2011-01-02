@@ -24,7 +24,7 @@ public final class CardOutgoing implements OutgoingPacketListener {
     public void packetOutgoing(final Packet packet, final PacketSource source) {
         assertTrue(canHandle(packet, source));
 
-        final @Nullable Card card = PacketSourceUtility.asCard(source);
+        @Nullable final Card card = PacketSourceUtility.asCard(source);
 
         if (card == null) {
             ExceptionHandler.impossible();
@@ -47,7 +47,7 @@ public final class CardOutgoing implements OutgoingPacketListener {
 
     @Override
     public boolean canHandle(final Packet packet, final PacketSource source) {
-        final @Nullable Card maybeCard = PacketSourceUtility.asCard(source);
+        @Nullable final Card maybeCard = PacketSourceUtility.asCard(source);
 
         if (maybeCard == null)
             return ExceptionHandler.<Boolean>impossible();

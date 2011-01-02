@@ -28,7 +28,7 @@ public class HubIncoming implements IncomingPacketListener {
         packetIncomingImpl(asNotNull(asEthernetPacket(packet)), asNotNull(asCable(source)), asNotNull(asHub(destination)));
     }
 
-    private void packetIncomingImpl(final @NotNull EthernetPacket packet, final @NotNull Cable source, final @NotNull Hub hub) {
+    private void packetIncomingImpl(@NotNull final EthernetPacket packet, @NotNull final Cable source, @NotNull final Hub hub) {
         if (!hub.isPowerOn())
             return;
 

@@ -27,7 +27,7 @@ public final class CardIncoming implements IncomingPacketListener {
         packetIncomingImpl(network, asNotNull(asEthernetPacket(packet)), asNotNull(asCable(source)), asNotNull(asCard(destination)));
     }
 
-    public static void packetIncomingImpl(final Network network, final @NotNull EthernetPacket packet, final @NotNull PacketSource source, final @NotNull Card destination) {
+    public static void packetIncomingImpl(final Network network, @NotNull final EthernetPacket packet, @NotNull final PacketSource source, @NotNull final Card destination) {
         assertNotNull(packet, source, destination);
 
         if (destination.hasDeviceDrivers())

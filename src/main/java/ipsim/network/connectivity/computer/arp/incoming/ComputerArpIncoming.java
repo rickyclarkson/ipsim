@@ -35,7 +35,7 @@ public final class ComputerArpIncoming implements IncomingPacketListener {
         @Nullable
         final Computer computer;
         final ArpPacket arpPacket;
-        final @Nullable Card card;
+        @Nullable final Card card;
 
         try {
             arpPacket = PacketUtility.asArpPacket(packet);

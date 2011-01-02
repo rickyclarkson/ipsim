@@ -32,7 +32,7 @@ class ExplicitRouteToLocalNetwork extends F<Network, CheckResult> {
                             try {
                                 if (equalT(route.block, getNetBlock(card)))
                                     return true;
-                            } catch (NoDeviceDriversException exception) {
+                            } catch (NoDeviceDriversException ignored) {
                             }
 
                         return false;

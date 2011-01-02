@@ -11,7 +11,7 @@ import ipsim.persistence.XMLSerialiser;
 import org.w3c.dom.Node;
 
 public final class NetBlockDelegate {
-    public static SerialisationDelegate<NetBlock> netBlockDelegate = new SerialisationDelegate<NetBlock>() {
+    public static final SerialisationDelegate<NetBlock> netBlockDelegate = new SerialisationDelegate<NetBlock>() {
         @Override
         public void writeXML(final XMLSerialiser serialiser, final NetBlock object) {
             serialiser.writeAttribute("netmask", NetMask.asString(object.netMask.rawValue));

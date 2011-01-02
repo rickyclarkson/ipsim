@@ -124,7 +124,7 @@ public final class EthernetCardHandler {
         menu.add(item("Disconnect cable from card", 'C', new Runnable() {
             @Override
             public void run() {
-                final @Nullable Cable cable = card.getCable();
+                @Nullable final Cable cable = card.getCable();
 
                 if (cable == null) {
                     errors("There is no cable to disconnect");

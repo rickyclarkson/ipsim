@@ -70,7 +70,7 @@ public final class ComputerIPOutgoing implements OutgoingPacketListener {
             throw new RuntimeException(exception);
         }
 
-        final @Nullable CardDrivers card = getCardFor(computer, route);
+        @Nullable final CardDrivers card = getCardFor(computer, route);
 
         if (card == null) {
             dropPacket(computer, destinationIPAddress, sourceIPAddress);

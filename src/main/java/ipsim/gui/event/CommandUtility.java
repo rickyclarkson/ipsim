@@ -36,7 +36,7 @@ public final class CommandUtility {
     }
 
     public static String createComponent(final PacketSource component, final Network network) {
-        return "Created " + PacketSourceUtility.asString(network, component) + ".";
+        return "Created " + PacketSourceUtility.asString(network, component) + '.';
     }
 
     public static String deleteComputer(final Computer computer, final Network network) {
@@ -66,9 +66,9 @@ public final class CommandUtility {
         final String afterNetmask = NetMask.asString(card.netMask.get().rawValue);
 
         if (0 == beforeIp.rawValue)
-            return "Assigned IP address " + after + " and subnet mask " + afterNetmask + " to " + cardBefore + ".";
+            return "Assigned IP address " + after + " and subnet mask " + afterNetmask + " to " + cardBefore + '.';
 
-        return "Changed the IP address of " + PacketSourceUtility.asString(network, card.card) + " from " + IPAddressUtility.toString(beforeIp.rawValue) + " to " + after + " and the netmask from " + NetMask.asString(beforeNetmask.rawValue) + " to " + afterNetmask + ".";
+        return "Changed the IP address of " + PacketSourceUtility.asString(network, card.card) + " from " + IPAddressUtility.toString(beforeIp.rawValue) + " to " + after + " and the netmask from " + NetMask.asString(beforeNetmask.rawValue) + " to " + afterNetmask + '.';
     }
 
     public static String listIps(final Computer computer, final Network network) {

@@ -236,7 +236,7 @@ public final class PositionUtility {
     }
 
     public static String getPositionOrParentAsString(final Network network, final PacketSource component, final int index) {
-        final @Nullable PacketSource parent = getParent(network, component, index);
+        @Nullable final PacketSource parent = getParent(network, component, index);
 
         if (parent != null)
             return PacketSourceUtility.asString(network, parent);

@@ -66,7 +66,7 @@ public final class NetMaskUtility {
         try {
             return getNetMask(IPAddressUtility.valueOf(text).rawValue);
         } catch (final CheckedNumberFormatException exception) {
-            throw new CheckedNumberFormatException(text + " is not a valid netmask");
+            throw new CheckedNumberFormatException(text + " is not a valid netmask", exception);
         }
     }
 

@@ -29,10 +29,10 @@ public final class ArpEntry {
             public String f(@NotNull final MacAddress macAddress) {
                 final StringBuffer buffer = new StringBuffer(Integer.toHexString(macAddress.rawValue));
                 while (buffer.length() < 12)
-                    buffer.insert(0, "0");
+                    buffer.insert(0, '0');
 
                 for (int a = 2; a < buffer.length(); a += 3)
-                    buffer.insert(a, "-");
+                    buffer.insert(a, '-');
 
                 return buffer + "; " + messagePart;
             }
@@ -41,7 +41,7 @@ public final class ArpEntry {
 
     public ArpEntry(@Nullable final MacAddress macAddress, final int timeToLive) {
         this.macAddress = macAddress;
-        timeToDie = currentTimeMillis() + 1000 * timeToLive;
+        timeToDie = currentTimeMillis() + 1000L * timeToLive;
     }
 
     public boolean dead() {

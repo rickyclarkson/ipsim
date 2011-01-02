@@ -631,8 +631,8 @@ public class MenuHandler {
 
                     NetworkUtility.loadFromString(getNetworkContext().network, namedConfig.configuration);
                     global.get().frame.setTitle("IPSim - " + namedConfig.name);
-                } catch (final CheckedIllegalStateException exception1) {
-                } catch (final NoSuchConfigurationException exception) {
+                } catch (final CheckedIllegalStateException ignored) {
+                } catch (final NoSuchConfigurationException ignored) {
                 }
             }
         };
@@ -681,7 +681,7 @@ public class MenuHandler {
                     final int time = parseInt(JOptionPane.showInputDialog(getNetworkContext().networkView, "How long do you want the ARP cache to live for, in seconds?"));
                     if (time > 0)
                         getNetworkContext().network.arpCacheTimeout = time;
-                } catch (NumberFormatException e) {
+                } catch (NumberFormatException ignored) {
                 }
             }
         };

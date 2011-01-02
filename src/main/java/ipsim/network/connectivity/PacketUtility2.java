@@ -40,8 +40,8 @@ public final class PacketUtility2 {
         return asEthernetPacket(packet) != null;
     }
 
-    public static
     @Nullable
+    public static
     EthernetPacket asEthernetPacket(final Packet packet) {
         return packet.accept(new PacketVisitor2<EthernetPacket>() {
             @Override

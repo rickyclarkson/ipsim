@@ -325,7 +325,7 @@ public class Collections {
         public boolean invoke() {
             final F<List<? extends String>, List<String>> clone = Collections.arrayListCopy();
             final List<String> list = arrayList();
-            final Collection<? extends Object> objects = add(clone, add(clone, list, "hello"), "goodbye");
+            final Collection<?> objects = add(clone, add(clone, list, "hello"), "goodbye");
             return objects.contains("hello") && objects.contains("goodbye");
         }
 

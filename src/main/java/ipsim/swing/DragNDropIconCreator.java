@@ -14,7 +14,7 @@ public final class DragNDropIconCreator {
         button.setHorizontalTextPosition(SwingConstants.CENTER);
         final String an = text.startsWith("E") ? "n" : "";
 
-        button.setToolTipText("<html><center>&nbsp;Drag from this button&nbsp;<br>&nbsp;to create a" + an + " " + text + "&nbsp;</center></html>");
+        button.setToolTipText("<html><center>&nbsp;Drag from this button&nbsp;<br>&nbsp;to create a" + an + ' ' + text + "&nbsp;</center></html>");
         button.setFocusable(false);
         button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
