@@ -7,10 +7,6 @@ import ipsim.network.connectivity.ip.NetMask;
 import ipsim.network.ip.CheckedNumberFormatException;
 import ipsim.network.ip.IPAddressUtility;
 
-import static fpeas.either.EitherUtility.left;
-import static fpeas.either.EitherUtility.right;
-import static fpeas.either.EitherUtility.unsafeLeft;
-
 public final class NetBlockUtility
 {
 	public static NetBlock getZero()

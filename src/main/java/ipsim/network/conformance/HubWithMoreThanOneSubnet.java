@@ -2,7 +2,6 @@ package ipsim.network.conformance;
 
 import com.rickyclarkson.testsuite.UnitTest;
 import fj.F;
-import fpeas.predicate.Predicate;
 import ipsim.network.Network;
 import ipsim.network.NetworkUtility;
 import ipsim.network.conformance.ConformanceTests.ResultsAndSummaryAndPercent;
@@ -92,10 +91,10 @@ public class HubWithMoreThanOneSubnet extends F<Network,CheckResult>
 
 				final List<CheckResult> results=allChecks.results;
 
-				return !Collections.any(results,new Predicate<CheckResult>()
+				return !Collections.any(results,new F<CheckResult, Boolean>()
 				{
 					@Override
-                    public boolean invoke(final CheckResult checkResult)
+                    public Boolean f(final CheckResult checkResult)
 					{
 						return Collections.any(checkResult.withWarnings,isHub);
 					}

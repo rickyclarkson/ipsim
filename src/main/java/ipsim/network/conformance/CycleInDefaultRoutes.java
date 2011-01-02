@@ -2,7 +2,6 @@ package ipsim.network.conformance;
 
 import fj.F;
 import fj.Function;
-import fpeas.predicate.Predicate;
 import ipsim.network.Network;
 import ipsim.network.connectivity.PacketSource;
 import ipsim.network.connectivity.computer.Computer;
@@ -44,18 +43,18 @@ class CycleInDefaultRoutes extends F<Network,CheckResult>
 		if (isRouteToSelf(computer,route))
 			return false;
 
-		return any(getComputersByIP(network, route.gateway),new Predicate<Computer>()
+		return any(getComputersByIP(network, route.gateway),new F<Computer, Boolean>()
 		{
 			@Override
-            public boolean invoke(final Computer computer1)
+            public Boolean f(final Computer computer1)
 			{
 				if (containsComputer.f(computer1))
 					return true;
 
-				return any(getDefaultRoutes(computer1.routingTable),new Predicate<Route>()
+				return any(getDefaultRoutes(computer1.routingTable),new F<Route, Boolean>()
 				{
 					@Override
-                    public boolean invoke(final Route route2)
+                    public Boolean f(final Route route2)
 					{
 						return detectCycle(network,new F<Computer,Boolean>()
 						{

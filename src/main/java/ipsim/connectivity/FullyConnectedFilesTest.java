@@ -1,13 +1,11 @@
 package ipsim.connectivity;
 
 import com.rickyclarkson.testsuite.UnitTest;
-import fpeas.sideeffect.SideEffect;
-import static fpeas.sideeffect.SideEffectUtility.doNothing;
+import fj.Effect;
 import ipsim.network.Network;
 import ipsim.network.NetworkUtility;
 import ipsim.network.connectivity.ConnectivityResults;
 import ipsim.network.connectivity.ConnectivityTest;
-
 import java.io.File;
 
 public class FullyConnectedFilesTest implements UnitTest
@@ -23,8 +21,8 @@ public class FullyConnectedFilesTest implements UnitTest
 
 			NetworkUtility.loadFromFile(network,file);
 
-			final SideEffect<String> log=doNothing();
-			final SideEffect<Integer> progress=doNothing();
+			final Effect<String> log=Effect.doNothing();
+			final Effect<Integer> progress=Effect.doNothing();
 			final ConnectivityResults results=ConnectivityTest.testConnectivity(network, log, progress);
 
 			if (!(100==results.getPercentConnected()))

@@ -1,14 +1,13 @@
 package ipsim.network.connectivity;
 
-import fpeas.sideeffect.SideEffect;
+import fj.Effect;
 import ipsim.lang.Assertion;
 import ipsim.util.Collections;
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import org.jetbrains.annotations.NotNull;
 
 public class PacketQueue
 {
@@ -26,10 +25,10 @@ public class PacketQueue
 	{
 		Assertion.assertNotNull(packet);
 		final Listeners<OutgoingPacketListener> listeners=source.getOutgoingPacketListeners();
-		listeners.visitAll(new SideEffect<OutgoingPacketListener>()
+		listeners.visitAll(new Effect<OutgoingPacketListener>()
 		{
 			@Override
-            public void run(final OutgoingPacketListener listener)
+            public void e(final OutgoingPacketListener listener)
 			{
 				pendingRequests.add(new Runnable()
 				{
@@ -50,10 +49,10 @@ public class PacketQueue
 
 	public void enqueueIncomingPacket(@NotNull final Packet packet, @NotNull final PacketSource source, @NotNull final PacketSource destination)
 	{
-		destination.getIncomingPacketListeners().visitAll(new SideEffect<IncomingPacketListener>()
+		destination.getIncomingPacketListeners().visitAll(new Effect<IncomingPacketListener>()
 		{
 			@Override
-            public void run(final IncomingPacketListener listener)
+            public void e(final IncomingPacketListener listener)
 			{
 				pendingRequests.add(new Runnable()
 				{

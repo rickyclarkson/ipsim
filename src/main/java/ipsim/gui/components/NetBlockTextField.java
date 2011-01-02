@@ -1,13 +1,12 @@
 package ipsim.gui.components;
 
-import fpeas.lazy.Lazy;
+import fj.P1;
 import ipsim.network.ethernet.NetBlock;
-
-import javax.swing.*;
+import javax.swing.JTextField;
 
 public interface NetBlockTextField
 {
-	Lazy<NetBlock> netBlock();
+	P1<NetBlock> netBlock();
 	boolean isValid();
 
 	JTextField getComponent();

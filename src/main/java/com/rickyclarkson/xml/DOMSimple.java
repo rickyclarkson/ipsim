@@ -1,22 +1,22 @@
 package com.rickyclarkson.xml;
 
-import fpeas.lazy.Lazy;
-import static ipsim.Caster.asElement;
-import static ipsim.Caster.equalT;
-import static ipsim.Caster.isElement;
+import fj.P1;
+import java.util.ArrayList;
+import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import java.util.ArrayList;
-import java.util.List;
+import static ipsim.Caster.asElement;
+import static ipsim.Caster.equalT;
+import static ipsim.Caster.isElement;
 
 public final class DOMSimple
 {
-	private final Lazy<Element> expectElement;
-	private final Lazy<String> expectString;
+	private final P1<Element> expectElement;
+	private final P1<String> expectString;
 
-	public DOMSimple(final Lazy<String> expectString,final Lazy<Element> expectElement)
+	public DOMSimple(final P1<String> expectString,final P1<Element> expectElement)
 	{
 		this.expectString=expectString;
 		this.expectElement=expectElement;
@@ -55,7 +55,7 @@ public final class DOMSimple
 				return asElement(node);
 		}
 
-		return expectElement.invoke();
+		return expectElement._1();
 	}
 
 	public String getAttribute(final Node node,final String name)
@@ -66,7 +66,7 @@ public final class DOMSimple
 		final Node item=node.getAttributes().getNamedItem(name);
 
 		if (item==null)
-			return expectString.invoke();
+			return expectString._1();
 
 		return item.getNodeValue();
 	}

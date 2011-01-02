@@ -1,8 +1,8 @@
 package ipsim.tests;
 
 import com.rickyclarkson.testsuite.UnitTest;
+import fj.Effect;
 import fj.data.Option;
-import fpeas.sideeffect.SideEffect;
 import ipsim.awt.Point;
 import ipsim.network.Network;
 import ipsim.network.connectivity.card.Card;
@@ -44,10 +44,10 @@ public class InvalidRouteTest implements UnitTest
 
 		final boolean[] passed={false};
 
-		computer.routingTable.add(Option.some(computer),route,new SideEffect<IPAddress>()
+		computer.routingTable.add(Option.some(computer),route,new Effect<IPAddress>()
 		{
 			@Override
-            public void run(final IPAddress input)
+            public void e(final IPAddress input)
 			{
 				passed[0]=true;
 			}
@@ -71,10 +71,10 @@ public class InvalidRouteTest implements UnitTest
 
 		final boolean[] passed={true};
 
-		computer.routingTable.add(Option.some(computer),route,new SideEffect<IPAddress>()
+		computer.routingTable.add(Option.some(computer),route,new Effect<IPAddress>()
 		{
 			@Override
-            public void run(final IPAddress input)
+            public void e(final IPAddress input)
 			{
 				passed[0]=false;
 			}

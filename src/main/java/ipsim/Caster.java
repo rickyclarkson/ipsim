@@ -3,7 +3,6 @@ package ipsim;
 import fj.F;
 import fj.Function;
 import fj.data.Either;
-import fpeas.predicate.Predicate;
 import ipsim.lang.Runnables;
 import ipsim.network.Problem;
 import ipsim.network.connectivity.cable.CableType;
@@ -77,12 +76,12 @@ public class Caster
 		return node instanceof Element;
 	}
 
-	public static <T> Predicate<T> equalT(@NotNull final T first)
+	public static <T> F<T, Boolean> equalT(@NotNull final T first)
 	{
-		return new Predicate<T>()
+		return new F<T, Boolean>()
 		{
 			@Override
-            public boolean invoke(final T second)
+            public Boolean f(final T second)
 			{
 				return first.equals(second);
 			}

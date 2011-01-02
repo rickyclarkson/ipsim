@@ -1,18 +1,19 @@
 package ipsim.network.connectivity.computer.ethernet.outgoing;
 
-import static ipsim.Caster.asNotNull;
 import ipsim.Caster;
-import static ipsim.connectivity.hub.incoming.PacketSourceUtility.asComputer;
 import ipsim.network.Network;
 import ipsim.network.connectivity.OutgoingPacketListener;
 import ipsim.network.connectivity.Packet;
 import ipsim.network.connectivity.PacketSource;
 import ipsim.network.connectivity.PacketUtility2;
-import static ipsim.network.connectivity.PacketUtility2.asEthernetPacket;
 import ipsim.network.connectivity.card.Card;
 import ipsim.network.connectivity.computer.Computer;
 import ipsim.network.connectivity.ethernet.EthernetPacket;
 import org.jetbrains.annotations.NotNull;
+
+import static ipsim.Caster.asNotNull;
+import static ipsim.connectivity.hub.incoming.PacketSourceUtility.asComputer;
+import static ipsim.network.connectivity.PacketUtility2.asEthernetPacket;
 
 public final class ComputerEthernetOutgoing implements OutgoingPacketListener
 {
@@ -35,7 +36,7 @@ public final class ComputerEthernetOutgoing implements OutgoingPacketListener
 
 		for (final Card card: computer.getCards())
 		{
-			if (Caster.equalT(card.getMacAddress(network)).invoke(packet.sourceAddress))
+			if (Caster.equalT(card.getMacAddress(network)).f(packet.sourceAddress))
 				if (sane[0])
 				{
 					network.packetQueue.enqueueOutgoingPacket(packet,card);

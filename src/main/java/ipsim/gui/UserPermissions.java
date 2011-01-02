@@ -1,7 +1,7 @@
 package ipsim.gui;
 
-import fpeas.pair.Pair;
-import static fpeas.pair.PairUtility.pair;
+import fj.P;
+import fj.P2;
 
 public enum UserPermissions
 {
@@ -26,9 +26,9 @@ public enum UserPermissions
 				}
 
 				@Override
-				public Pair<Boolean, String> allowFullTests()
+				public P2<Boolean, String> allowFullTests()
 				{
-					return pair(true, "");
+					return P.p(true, "");
 				}
 
 				@Override
@@ -53,9 +53,9 @@ public enum UserPermissions
 				}
 
 				@Override
-				public Pair<Boolean, String> allowFullTests()
+				public P2<Boolean, String> allowFullTests()
 				{
-					return pair(false, "Not allowed when 'Break Network' has been used");
+					return P.p(false, "Not allowed when 'Break Network' has been used");
 				}
 
 				@Override
@@ -91,9 +91,9 @@ public enum UserPermissions
 				}
 
 				@Override
-				public Pair<Boolean, String> allowFullTests()
+				public P2<Boolean, String> allowFullTests()
 				{
-					return pair(true, "");
+					return P.p(true, "");
 				}
 
 				@Override
@@ -123,9 +123,9 @@ public enum UserPermissions
 				}
 
 				@Override
-				public Pair<Boolean, String> allowFullTests()
+				public P2<Boolean, String> allowFullTests()
 				{
-					return pair(false, "Not allowed during a practice test (duplicating test conditions)");
+					return P.p(false, "Not allowed during a practice test (duplicating test conditions)");
 				}
 
 				@Override
@@ -155,9 +155,9 @@ public enum UserPermissions
 				}
 
 				@Override
-				public Pair<Boolean, String> allowFullTests()
+				public P2<Boolean, String> allowFullTests()
 				{
-					return pair(false, "Not allowed during a test");
+					return P.p(false, "Not allowed during a test");
 				}
 
 				@Override
@@ -171,7 +171,7 @@ public enum UserPermissions
 
 	public abstract boolean allowDownloadingNewConfig();
 
-	public abstract Pair<Boolean, String> allowFullTests();
+	public abstract P2<Boolean, String> allowFullTests();
 
 	public abstract boolean allowBreakingNetwork();
 

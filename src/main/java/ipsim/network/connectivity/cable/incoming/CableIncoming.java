@@ -1,18 +1,19 @@
 package ipsim.network.connectivity.cable.incoming;
 
-import fpeas.predicate.PredicateUtility;
-import static ipsim.Caster.asNotNull;
-import static ipsim.Caster.equalT;
-import static ipsim.connectivity.hub.incoming.PacketSourceUtility.asCable;
+import ipsim.lang.FunctionUtility;
 import ipsim.network.Network;
 import ipsim.network.connectivity.IncomingPacketListener;
 import ipsim.network.connectivity.Packet;
 import ipsim.network.connectivity.PacketSource;
-import static ipsim.network.connectivity.PacketUtility2.asEthernetPacket;
 import ipsim.network.connectivity.cable.Cable;
 import ipsim.network.connectivity.ethernet.EthernetPacket;
 import ipsim.util.Collections;
 import org.jetbrains.annotations.NotNull;
+
+import static ipsim.Caster.asNotNull;
+import static ipsim.Caster.equalT;
+import static ipsim.connectivity.hub.incoming.PacketSourceUtility.asCable;
+import static ipsim.network.connectivity.PacketUtility2.asEthernetPacket;
 
 public class CableIncoming implements IncomingPacketListener
 {
@@ -36,7 +37,7 @@ public class CableIncoming implements IncomingPacketListener
 		if (!canTransferPackets)
 			return;
 
-		final Iterable<PacketSource> ends=Collections.only(destination.getEnds(network), PredicateUtility.not(equalT(source)));
+		final Iterable<PacketSource> ends=Collections.only(destination.getEnds(network), FunctionUtility.not(equalT(source)));
 
 		network.packetQueue.enqueueIncomingPacket(packet,destination, ends.iterator().next());
 	}

@@ -1,13 +1,15 @@
 package ipsim.gui;
 
 import com.rickyclarkson.testsuite.UnitTest;
+import fj.P;
+import fj.P2;
 import fj.data.Option;
-import fpeas.pair.Pair;
 import ipsim.NetworkContext;
 import ipsim.awt.Point;
 import ipsim.awt.PointUtility;
 import ipsim.connectivity.hub.incoming.PacketSourceUtility;
 import ipsim.lang.Assertion;
+import ipsim.lang.FunctionUtility;
 import ipsim.network.Network;
 import ipsim.network.NetworkUtility;
 import ipsim.network.connectivity.PacketSource;
@@ -27,8 +29,6 @@ import java.util.Map;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import static fpeas.pair.PairUtility.pair;
-import static fpeas.predicate.PredicateUtility.and;
 import static ipsim.Caster.equalT;
 import static ipsim.NetworkContext.errors;
 import static ipsim.awt.PointUtility.add;
@@ -100,18 +100,18 @@ public final class PositionUtility
 			else
 				new Object()
 				{
-					public void run(final Pair<List<PacketSourceAndIndex>, PacketSource> pair)
+					public void run(final P2<List<PacketSourceAndIndex>, PacketSource> pair)
 					{
-						for (final PacketSourceAndIndex child : pair.first())
-							run(pair(child.packetSource.children(), pair.second()));
+						for (final PacketSourceAndIndex child : pair._1())
+							run(P.p(child.packetSource.children(), pair._2()));
 
-						final Iterator<PacketSourceAndIndex> iterator=pair.first().iterator();
+						final Iterator<PacketSourceAndIndex> iterator=pair._1().iterator();
 
 						while (iterator.hasNext())
 							if (iterator.next().packetSource.equals(component))
 								iterator.remove();
 					}
-				}.run(pair(p.packetSource.children(), component));
+				}.run(P.p(p.packetSource.children(), component));
 
 		network.topLevelComponents.removeAll(toRemove);
 
@@ -131,7 +131,7 @@ public final class PositionUtility
 			PacketSource parent=getParent(network, object, entry.getKey());
 
 			if (parent!=null)
-				removeIf(parent.children(), and(packetSourceIs(object), indexIs(entry.getKey())));
+				removeIf(parent.children(), FunctionUtility.and(packetSourceIs(object), indexIs(entry.getKey())));
 
 			for (final PacketSourceAndPoints p : network.topLevelComponents)
 				if (equalT(p.packetSource, object))

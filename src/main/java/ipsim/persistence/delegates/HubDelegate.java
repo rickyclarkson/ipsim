@@ -1,7 +1,6 @@
 package ipsim.persistence.delegates;
 
-import fpeas.predicate.Predicate;
-import static ipsim.Caster.equalT;
+import fj.F;
 import ipsim.network.Network;
 import ipsim.network.connectivity.hub.Hub;
 import ipsim.network.connectivity.hub.HubFactory;
@@ -10,6 +9,8 @@ import ipsim.persistence.XMLDeserialiser;
 import ipsim.persistence.XMLSerialiser;
 import org.jetbrains.annotations.Nullable;
 import org.w3c.dom.Node;
+
+import static ipsim.Caster.equalT;
 
 public final class HubDelegate
 {
@@ -31,8 +32,8 @@ public final class HubDelegate
 				@Nullable
 				final String power=deserialiser.readAttribute(node, "isPowerOn");
 
-				final Predicate<String> equalT=equalT(power);
-				final Boolean equal=equalT.invoke("true");
+				final F<String, Boolean> equalT=equalT(power);
+				final Boolean equal=equalT.f("true");
 				hub.setPower(equal);
 
 				DelegateHelper.readPositions(network, deserialiser, node, hub);

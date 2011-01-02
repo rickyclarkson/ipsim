@@ -2,7 +2,6 @@ package ipsim.gui.components;
 
 import fj.F;
 import fj.data.Option;
-import fpeas.predicate.Predicate;
 import ipsim.Global;
 import ipsim.NetworkContext;
 import ipsim.awt.Point;
@@ -109,10 +108,10 @@ public final class ComputerHandler
 			}
 		}));
 
-		final Predicate<Card> hasDeviceDrivers=new Predicate<Card>()
+		final F<Card, Boolean> hasDeviceDrivers=new F<Card, Boolean>()
 		{
 			@Override
-            public boolean invoke(final Card card)
+            public Boolean f(final Card card)
 			{
 				return card.hasDeviceDrivers();
 			}

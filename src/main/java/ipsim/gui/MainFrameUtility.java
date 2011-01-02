@@ -5,8 +5,42 @@ import anylayout.extras.ConstraintUtility;
 import anylayout.extras.PercentConstraints;
 import anylayout.extras.PercentConstraintsUtility;
 import anylayout.extras.SizeCalculatorUtility;
-import fpeas.sideeffect.SideEffect;
+import fj.Effect;
 import ipsim.Global;
+import ipsim.gui.components.ProblemDialog;
+import ipsim.gui.components.ScrapbookDialogUtility;
+import ipsim.image.ImageLoader;
+import ipsim.lang.Assertion;
+import ipsim.lang.Runnables;
+import ipsim.network.NetworkUtility;
+import ipsim.network.connectivity.hub.ProgressMonitor;
+import ipsim.swing.CustomJOptionPane;
+import ipsim.swing.SwingWorker;
+import ipsim.webinterface.WebInterface;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Cursor;
+import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.io.IOException;
+import java.io.StringWriter;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.KeyStroke;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
+
 import static ipsim.NetworkContext.errors;
 import static ipsim.gui.MenuHandler.zoomIn;
 import static ipsim.gui.MenuHandler.zoomOneToOne;
@@ -16,29 +50,9 @@ import static ipsim.gui.StandardToolBarUtility.createStandardToolBar;
 import static ipsim.gui.UserPermissions.ACTUAL_TEST;
 import static ipsim.gui.UserPermissions.PRACTICE_TEST_SIMULATING_ACTUAL_TEST;
 import static ipsim.gui.components.ContextMenuUtility.item;
-import ipsim.gui.components.ProblemDialog;
-import ipsim.gui.components.ScrapbookDialogUtility;
-import ipsim.image.ImageLoader;
-import ipsim.lang.Assertion;
-import ipsim.lang.Runnables;
-import ipsim.network.NetworkUtility;
-import ipsim.network.connectivity.hub.ProgressMonitor;
 import static ipsim.swing.Buttons.newButton;
-import ipsim.swing.CustomJOptionPane;
-import ipsim.swing.SwingWorker;
-import ipsim.webinterface.WebInterface;
-
-import javax.swing.*;
-import java.awt.*;
 import static java.awt.Cursor.WAIT_CURSOR;
 import static java.awt.Cursor.getPredefinedCursor;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.io.IOException;
-import java.io.StringWriter;
 import static java.lang.System.setProperty;
 
 public class MainFrameUtility
@@ -84,7 +98,7 @@ public class MainFrameUtility
 				rootPanel.add(componentsBar, BorderLayout.WEST);
 
 				final JPanel helpPanel=new JPanel();
-				HelpFrameUtility.createPane.run(helpPanel);
+				HelpFrameUtility.createPane.e(helpPanel);
 				final JPanel scrapbook=ScrapbookDialogUtility.createScrapbook();
 				scrapbook.setOpaque(false);
 				//context.tabbedPane.addTab("Scrapbook", scrapbook);
@@ -143,14 +157,14 @@ public class MainFrameUtility
 
 				panel.add(Global.global.get().statusBar, BorderLayout.CENTER);
 
-				final SideEffect<JFrame> sideEffect=new SideEffect<JFrame>()
+				final Effect<JFrame> sideEffect=new Effect<JFrame>()
 				{
 					@Override
-                    public void run(final JFrame realFrame)
+                    public void e(final JFrame realFrame)
 					{
 						final Cursor original=realFrame.getCursor();
 
-						if (!Global.getNetworkContext().userPermissions.allowFullTests().first())
+						if (!Global.getNetworkContext().userPermissions.allowFullTests()._1())
 						{
 							MenuHandler.testConnectivity().run();
 							return;
@@ -175,7 +189,7 @@ public class MainFrameUtility
 
 									try
 									{
-										MenuHandler.operationsCheckSolution().run(monitor);
+										MenuHandler.operationsCheckSolution().e(monitor);
 									}
 									finally
 									{
@@ -205,7 +219,7 @@ public class MainFrameUtility
 					@Override
                     public void run()
 					{
-						sideEffect.run(Global.global.get().frame);
+						sideEffect.e(Global.global.get().frame);
 					}
 				};
 

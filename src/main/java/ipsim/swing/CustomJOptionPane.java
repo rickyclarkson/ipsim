@@ -7,11 +7,10 @@ import anylayout.SizeCalculator;
 import anylayout.extras.ConstraintBuilder;
 import anylayout.extras.ConstraintUtility;
 import anylayout.extras.RelativeConstraints;
+import fj.Effect;
 import fj.F;
 import fj.Function;
 import fj.data.Option;
-import fpeas.predicate.Predicate;
-import fpeas.sideeffect.SideEffect;
 import ipsim.lang.Doubles;
 import java.awt.Component;
 import java.awt.Container;
@@ -89,12 +88,12 @@ public class CustomJOptionPane
 			@Override
             public void keyTyped(final KeyEvent e)
 			{
-				final Predicate<Character> equal=equalT(e.getKeyChar());
-				if (equal.invoke('y'))
+				final F<Character, Boolean> equal=equalT(e.getKeyChar());
+				if (equal.f('y'))
 					yesButton.doClick(100);
-				if (equal.invoke('n'))
+				if (equal.f('n'))
 					noButton.doClick(100);
-				if (equal.invoke('c'))
+				if (equal.f('c'))
 					cancelButton.doClick(100);
 			}
 
@@ -176,14 +175,14 @@ public class CustomJOptionPane
 		return returnValue[0];
 	}
 
-	public static CustomJOptionPaneResult showLabelsAndConfirmation(final JFrame frame, final String title, final String message, final String[] choices, final int theDefault, final String toConfirm, final SideEffect<JDialog> sideEffect)
+	public static CustomJOptionPaneResult showLabelsAndConfirmation(final JFrame frame, final String title, final String message, final String[] choices, final int theDefault, final String toConfirm, final Effect<JDialog> sideEffect)
 	{
 		final JDialog dialog=createDialogWithEscapeKeyToClose(frame, title);
 
 		return impl2(frame, dialog, message, choices, theDefault, toConfirm, sideEffect);
 	}
 
-	public static CustomJOptionPaneResult impl2(final JFrame frame, final JDialog dialog, final String message, final String[] choices, final int theDefault, final String toConfirm, final SideEffect<JDialog> sideEffect)
+	public static CustomJOptionPaneResult impl2(final JFrame frame, final JDialog dialog, final String message, final String[] choices, final int theDefault, final String toConfirm, final Effect<JDialog> sideEffect)
 	{
 		final List<JButton> buttons=new ArrayList<JButton>();
 
@@ -280,7 +279,7 @@ public class CustomJOptionPane
 			@Override
             public void run()
 			{
-				sideEffect.run(dialog);
+				sideEffect.e(dialog);
 			}
 		});
 

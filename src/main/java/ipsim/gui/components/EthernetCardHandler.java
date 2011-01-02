@@ -3,7 +3,6 @@ package ipsim.gui.components;
 import fj.F;
 import fj.Function;
 import fj.data.Option;
-import fpeas.predicate.Predicate;
 import ipsim.Caster;
 import ipsim.NetworkContext;
 import ipsim.awt.Point;
@@ -171,7 +170,7 @@ public final class EthernetCardHandler
 
 					removePositions(network,card,context.networkView);
 
-					final Predicate<PacketSource> equalT=Caster.<PacketSource>equalT(card);
+					final F<PacketSource, Boolean> equalT=Caster.<PacketSource>equalT(card);
 
 					if (any(NetworkUtility.getDepthFirstIterable(network), equalT))
 						removePositions(network,card,context.networkView);

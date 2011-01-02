@@ -1,14 +1,8 @@
 package ipsim.connectivity.hub.incoming;
 
-import fpeas.predicate.Predicate;
-import static ipsim.Caster.asFunction;
-import static ipsim.Caster.equalT;
-import ipsim.awt.Point;
+import fj.F;
 import ipsim.ExceptionHandler;
-import static ipsim.gui.PositionUtility.getParent;
-import static ipsim.gui.PositionUtility.getPosition;
-import static ipsim.gui.PositionUtility.numPositions;
-import static ipsim.gui.components.NetworkComponentUtility.pointsToStringWithoutDelimiters;
+import ipsim.awt.Point;
 import ipsim.gui.components.PacketSourceVisitor2;
 import ipsim.network.InvalidNetMaskException;
 import ipsim.network.Network;
@@ -24,20 +18,27 @@ import ipsim.network.ethernet.ComputerUtility;
 import ipsim.network.ethernet.NetMaskUtility;
 import ipsim.persistence.XMLDeserialiser;
 import ipsim.persistence.XMLSerialiser;
-import static ipsim.persistence.delegates.ComputerDelegate.computerDelegate;
-import static ipsim.persistence.delegates.EthernetCableDelegate.cableDelegate;
-import static ipsim.persistence.delegates.EthernetCardDelegate.cardDelegate;
-import static ipsim.persistence.delegates.HubDelegate.hubDelegate;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.w3c.dom.Node;
 
+import static ipsim.Caster.asFunction;
+import static ipsim.Caster.equalT;
+import static ipsim.gui.PositionUtility.getParent;
+import static ipsim.gui.PositionUtility.getPosition;
+import static ipsim.gui.PositionUtility.numPositions;
+import static ipsim.gui.components.NetworkComponentUtility.pointsToStringWithoutDelimiters;
+import static ipsim.persistence.delegates.ComputerDelegate.computerDelegate;
+import static ipsim.persistence.delegates.EthernetCableDelegate.cableDelegate;
+import static ipsim.persistence.delegates.EthernetCardDelegate.cardDelegate;
+import static ipsim.persistence.delegates.HubDelegate.hubDelegate;
+
 public final class PacketSourceUtility
 {
-	public static final Predicate<PacketSource> isHub=new Predicate<PacketSource>()
+	public static final F<PacketSource, Boolean> isHub=new F<PacketSource, Boolean>()
 	{
 		@Override
-        public boolean invoke(final PacketSource source)
+        public Boolean f(final PacketSource source)
 		{
 			return source.accept(new PacketSourceVisitor<Boolean>()
 			{

@@ -3,17 +3,10 @@ package ipsim.gui.components;
 import ipsim.Caster;
 import ipsim.Global;
 import ipsim.NetworkContext;
-import static ipsim.NetworkContext.confirm;
 import ipsim.awt.Point;
 import ipsim.connectivity.hub.incoming.PacketSourceUtility;
 import ipsim.gui.JOptionPaneUtility;
-import static ipsim.gui.ObjectRenderer.isNear;
-import static ipsim.gui.PositionUtility.getPosition;
-import static ipsim.gui.PositionUtility.numPositions;
-import static ipsim.gui.PositionUtility.removePositions;
-import static ipsim.gui.PositionUtility.setParent;
 import ipsim.gui.UserMessages;
-import static ipsim.gui.components.ContextMenuUtility.item;
 import ipsim.image.ImageLoader;
 import ipsim.network.Network;
 import ipsim.network.NetworkUtility;
@@ -21,11 +14,24 @@ import ipsim.network.connectivity.PacketSource;
 import ipsim.network.connectivity.cable.Cable;
 import ipsim.network.connectivity.cable.CableType;
 import ipsim.util.Collections;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Stroke;
 import java.util.Arrays;
 import java.util.Vector;
+import javax.swing.ImageIcon;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
+
+import static ipsim.NetworkContext.confirm;
+import static ipsim.gui.ObjectRenderer.isNear;
+import static ipsim.gui.PositionUtility.getPosition;
+import static ipsim.gui.PositionUtility.numPositions;
+import static ipsim.gui.PositionUtility.removePositions;
+import static ipsim.gui.PositionUtility.setParent;
+import static ipsim.gui.components.ContextMenuUtility.item;
 
 public class EthernetCableHandler
 {
@@ -54,7 +60,7 @@ public class EthernetCableHandler
 		for (final int pointIndex : points)
 			for (final PacketSource next : NetworkUtility.getDepthFirstIterable(network))
 			{
-				if (!(PacketSourceUtility.isCard(next) || PacketSourceUtility.isHub.invoke(next)))
+				if (!(PacketSourceUtility.isCard(next) || PacketSourceUtility.isHub.f(next)))
 					continue;
 
 				// iterate through all points of component2

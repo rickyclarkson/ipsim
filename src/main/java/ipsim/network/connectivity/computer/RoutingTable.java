@@ -1,9 +1,9 @@
 package ipsim.network.connectivity.computer;
 
+import fj.Effect;
 import fj.data.Option;
-import fpeas.predicate.PredicateUtility;
-import fpeas.sideeffect.SideEffect;
 import ipsim.Caster;
+import ipsim.lang.FunctionUtility;
 import ipsim.lang.Stringable;
 import ipsim.lang.Stringables;
 import ipsim.network.connectivity.ip.IPAddress;
@@ -24,13 +24,13 @@ public final class RoutingTable implements Stringable
 {
 	private List<Route> routes=Collections.arrayList();
 
-	public void add(final Option<Computer> maybeComputer, final Route route, final SideEffect<IPAddress> ifUnreachableGateway)
+	public void add(final Option<Computer> maybeComputer, final Route route, final Effect<IPAddress> ifUnreachableGateway)
 	{
         if (maybeComputer.isSome())
             if (ComputerUtility.isLocallyReachable(maybeComputer.some(), route.gateway))
                 routes.add(route);
             else
-                ifUnreachableGateway.run(route.gateway);
+                ifUnreachableGateway.e(route.gateway);
 		else
             routes.add(route);
 	}
@@ -40,7 +40,7 @@ public final class RoutingTable implements Stringable
 		assertNotNull(route);
 
 		assertTrue(routes.contains(route));
-		routes=Collections.only(Collections.<Route>arrayListRef(),routes, PredicateUtility.not(Caster.equalT(route)));
+		routes=Collections.only(Collections.<Route>arrayListRef(),routes, FunctionUtility.not(Caster.equalT(route)));
 	}
 
 	@Override

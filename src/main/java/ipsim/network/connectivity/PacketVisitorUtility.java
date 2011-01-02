@@ -1,10 +1,10 @@
 package ipsim.network.connectivity;
 
-import ipsim.network.connectivity.ip.IPPacket;
+import fj.Effect;
 import ipsim.network.connectivity.arp.ArpPacket;
 import ipsim.network.connectivity.ethernet.EthernetPacket;
+import ipsim.network.connectivity.ip.IPPacket;
 import org.jetbrains.annotations.NotNull;
-import fpeas.sideeffect.SideEffect;
 
 public class PacketVisitorUtility
 {
@@ -26,14 +26,14 @@ public class PacketVisitorUtility
 		}
 	};
 
-	public static PacketVisitor visitIPPacket(final PacketVisitor base,final SideEffect<IPPacket> effect)
+	public static PacketVisitor visitIPPacket(final PacketVisitor base,final Effect<IPPacket> effect)
 	{
 		return new PacketVisitor()
 		{
 			@Override
             public void visit(@NotNull final IPPacket packet)
 			{
-				effect.run(packet);
+				effect.e(packet);
 			}
 
 			@Override
@@ -50,7 +50,7 @@ public class PacketVisitorUtility
 		};
 	}
 
-	public static PacketVisitor visitArpPacket(final PacketVisitor base, final SideEffect<ArpPacket> effect)
+	public static PacketVisitor visitArpPacket(final PacketVisitor base, final Effect<ArpPacket> effect)
 	{
 		return new PacketVisitor()
 		{
@@ -63,7 +63,7 @@ public class PacketVisitorUtility
 			@Override
             public void visit(@NotNull final ArpPacket packet)
 			{
-				effect.run(packet);
+				effect.e(packet);
 			}
 
 			@Override
@@ -74,7 +74,7 @@ public class PacketVisitorUtility
 		};
 	}
 
-	public static PacketVisitor visitEthernetPacket(final PacketVisitor base,final SideEffect<EthernetPacket> effect)
+	public static PacketVisitor visitEthernetPacket(final PacketVisitor base,final Effect<EthernetPacket> effect)
 	{
 		return new PacketVisitor()
 		{
@@ -93,7 +93,7 @@ public class PacketVisitorUtility
 			@Override
             public void visit(@NotNull final EthernetPacket packet)
 			{
-				effect.run(packet);
+				effect.e(packet);
 			}
 		};
 	}

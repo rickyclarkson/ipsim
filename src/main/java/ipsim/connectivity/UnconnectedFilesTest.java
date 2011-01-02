@@ -1,13 +1,13 @@
 package ipsim.connectivity;
 
 import com.rickyclarkson.testsuite.UnitTest;
-import fpeas.sideeffect.SideEffectUtility;
+import fj.Effect;
 import ipsim.network.Network;
-import static ipsim.network.NetworkUtility.loadFromFile;
 import ipsim.network.connectivity.ConnectivityResults;
-import static ipsim.network.connectivity.ConnectivityTest.testConnectivity;
-
 import java.io.File;
+
+import static ipsim.network.NetworkUtility.loadFromFile;
+import static ipsim.network.connectivity.ConnectivityTest.testConnectivity;
 
 public class UnconnectedFilesTest implements UnitTest
 {
@@ -22,7 +22,7 @@ public class UnconnectedFilesTest implements UnitTest
 
 			loadFromFile(network,file);
 
-			final ConnectivityResults results=testConnectivity(network, SideEffectUtility.<String>doNothing(), SideEffectUtility.<Integer>doNothing());
+			final ConnectivityResults results=testConnectivity(network, Effect.<String>doNothing(), Effect.<Integer>doNothing());
 			final boolean isOneHundred=100==results.getPercentConnected();
 
 			if (isOneHundred)

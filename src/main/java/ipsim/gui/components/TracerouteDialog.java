@@ -1,18 +1,15 @@
 package ipsim.gui.components;
 
 import anylayout.AnyLayout;
-import static anylayout.extras.ConstraintUtility.typicalDefaultConstraint;
 import anylayout.extras.PercentConstraints;
 import anylayout.extras.PercentConstraintsUtility;
 import anylayout.extras.SizeCalculatorUtility;
-import fpeas.sideeffect.SideEffect;
+import fj.Effect;
 import ipsim.Global;
-import static ipsim.Global.getNetworkContext;
 import ipsim.NetworkContext;
-import ipsim.util.Collections;
 import ipsim.gui.event.CommandUtility;
 import ipsim.io.IOUtility;
-import static ipsim.lang.Runnables.throwRuntimeException;
+import ipsim.network.Network;
 import ipsim.network.connectivity.computer.Computer;
 import ipsim.network.connectivity.ip.DestIPAddress;
 import ipsim.network.connectivity.ip.IPAddress;
@@ -20,17 +17,27 @@ import ipsim.network.connectivity.traceroute.Traceroute;
 import ipsim.network.connectivity.traceroute.TracerouteResults;
 import ipsim.network.ip.CheckedNumberFormatException;
 import ipsim.network.ip.IPAddressUtility;
-import ipsim.network.Network;
-import static ipsim.swing.Buttons.closeButton;
-import static ipsim.swing.Dialogs.createDialogWithEscapeKeyToClose;
 import ipsim.swing.IPAddressTextField;
 import ipsim.swing.IPAddressTextFieldUtility;
-
-import javax.swing.*;
-import java.awt.*;
+import ipsim.util.Collections;
+import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.PrintWriter;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.WindowConstants;
+
+import static anylayout.extras.ConstraintUtility.typicalDefaultConstraint;
+import static ipsim.Global.getNetworkContext;
+import static ipsim.lang.Runnables.throwRuntimeException;
+import static ipsim.swing.Buttons.closeButton;
+import static ipsim.swing.Dialogs.createDialogWithEscapeKeyToClose;
 
 public final class TracerouteDialog
 {
@@ -98,10 +105,10 @@ public final class TracerouteDialog
 
 				final TracerouteResults results=Traceroute.trace(getNetworkContext().network,computer, new DestIPAddress(address),30);
 
-				IOUtility.withPrintWriter(DocumentWriter.documentWriter(outputArea.getDocument()),new SideEffect<PrintWriter>()
+				IOUtility.withPrintWriter(DocumentWriter.documentWriter(outputArea.getDocument()),new Effect<PrintWriter>()
 				{
 					@Override
-                    public void run(final PrintWriter printWriter)
+                    public void e(final PrintWriter printWriter)
 					{
 						printWriter.println(results.asString());
 					}

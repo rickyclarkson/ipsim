@@ -40,4 +40,13 @@ public class FunctionUtility {
             }
         };
     }
+
+    public static <T> F<T,Boolean> and(final F<T, Boolean> one, final F<T, Boolean> two) {
+        return new F<T, Boolean>() {
+            @Override
+            public Boolean f(T t) {
+                return one.f(t) && two.f(t);
+            }
+        };
+    }
 }

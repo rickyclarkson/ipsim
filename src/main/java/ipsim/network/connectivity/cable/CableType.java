@@ -32,7 +32,7 @@ public enum CableType implements Stringable
 		@Override
 		public boolean canTransferPackets(final PacketSource oneEnd, final PacketSource other)
 		{
-			return isHub.invoke(oneEnd) && isHub.invoke(other) || isCard(oneEnd) && isCard(other);
+			return isHub.f(oneEnd) && isHub.f(other) || isCard(oneEnd) && isCard(other);
 		}
 	},BROKEN
 	{
@@ -82,12 +82,12 @@ public enum CableType implements Stringable
 		@Override
 		public boolean canTransferPackets(final PacketSource oneEnd, final PacketSource other)
 		{
-			return isCard(oneEnd) && isHub.invoke(other) || isCard(other) && isHub.invoke(oneEnd);
+			return isCard(oneEnd) && isHub.f(other) || isCard(other) && isHub.f(oneEnd);
 		}
 	};
 
 	public abstract CableType another();
-    //public abstract String asString();
+    public abstract String asString();
     
 	public abstract boolean canTransferPackets(final PacketSource oneEnd, final PacketSource other);
 }

@@ -1,7 +1,7 @@
 package ipsim.gui;
 
 import com.rickyclarkson.testsuite.UnitTest;
-import fpeas.predicate.Predicate;
+import fj.F;
 import ipsim.Caster;
 import ipsim.awt.Point;
 import ipsim.lang.Assertion;
@@ -121,7 +121,7 @@ public final class PositionUtilityTest
 			setParent(network, cable, 0, card1, 0);
 			setParent(network, cable, 1, card2, 0);
 
-			final Predicate<PacketSource> equalT=Caster.<PacketSource>equalT(cable);
+			final F<PacketSource, Boolean> equalT=Caster.<PacketSource>equalT(cable);
 
 			assertTrue(any(NetworkUtility.getDepthFirstIterable(network), equalT));
 			return equalT(asNotNull(getParent(network, cable, 0)), card1) && equalT(asNotNull(getParent(network, cable, 1)), card2);

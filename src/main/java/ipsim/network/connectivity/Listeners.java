@@ -1,8 +1,7 @@
 package ipsim.network.connectivity;
 
-import fpeas.sideeffect.SideEffect;
+import fj.Effect;
 import ipsim.util.Collections;
-
 import java.util.List;
 
 public class Listeners<T>
@@ -19,10 +18,10 @@ public class Listeners<T>
 		wrapped.remove(listener);
 	}
 
-	public void visitAll(final SideEffect<T> sideEffect)
+	public void visitAll(final Effect<T> sideEffect)
 	{
 		for (final T t: wrapped)
-			sideEffect.run(t);
+			sideEffect.e(t);
 	}
 
 	public boolean contains(final T listener)

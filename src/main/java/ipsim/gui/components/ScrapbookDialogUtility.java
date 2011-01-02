@@ -1,39 +1,46 @@
 package ipsim.gui.components;
 
 import anylayout.AnyLayout;
-import static anylayout.extras.ConstraintUtility.typicalDefaultConstraint;
 import anylayout.extras.PercentConstraints;
 import anylayout.extras.PercentConstraintsUtility;
-import fpeas.pair.Pair;
-import static fpeas.pair.PairUtility.pair;
-import static ipsim.Caster.equalT;
-import static ipsim.Global.getNetworkContext;
-import static ipsim.Global.global;
+import fj.P;
+import fj.P2;
 import ipsim.gui.UserMessages;
 import ipsim.gui.event.CommandUtility;
-import static ipsim.lang.Runnables.throwRuntimeException;
 import ipsim.network.InvalidNetMaskException;
 import ipsim.network.Network;
 import ipsim.network.connectivity.ip.IPAddress;
 import ipsim.network.connectivity.ip.NetMask;
 import ipsim.network.ethernet.NetBlock;
 import ipsim.network.ethernet.NetBlockUtility;
-import static ipsim.network.ethernet.NetMaskUtility.createNetMaskFromPrefixLength;
-import static ipsim.network.ethernet.NetMaskUtility.getPrefixLength;
-import ipsim.swing.IPAddressTextField;
-import static ipsim.swing.NetBlockTextFieldUtility.createNetBlockTextField;
-import ipsim.swing.SubnetMaskTextField;
 import ipsim.swing.CustomJOptionPane;
-import static ipsim.util.Collections.arrayList;
-import static ipsim.util.Printf.sprintf;
+import ipsim.swing.IPAddressTextField;
+import ipsim.swing.SubnetMaskTextField;
 import ipsim.util.Collections;
-
-import javax.swing.*;
-import javax.swing.border.BevelBorder;
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.FocusTraversalPolicy;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
+
+import static anylayout.extras.ConstraintUtility.typicalDefaultConstraint;
+import static ipsim.Caster.equalT;
+import static ipsim.Global.getNetworkContext;
+import static ipsim.Global.global;
+import static ipsim.lang.Runnables.throwRuntimeException;
+import static ipsim.network.ethernet.NetMaskUtility.createNetMaskFromPrefixLength;
+import static ipsim.network.ethernet.NetMaskUtility.getPrefixLength;
+import static ipsim.swing.NetBlockTextFieldUtility.createNetBlockTextField;
+import static ipsim.util.Collections.arrayList;
+import static ipsim.util.Printf.sprintf;
 
 public final class ScrapbookDialogUtility
 {
@@ -91,20 +98,20 @@ public final class ScrapbookDialogUtility
 
 		checkNumbers.addActionListener(new ActionListener()
 		{
-			public Pair<String,String> checkNumbers()
+			public P2<String,String> checkNumbers()
 			{
 				final StringBuilder description=new StringBuilder();
 				int checked=0;
 				int errors=0;
 
-				final Pair<String,String> errorMessage=pair("one or more fields have invalid data.","One or more fields have invalid data.");
+				final P2<String,String> errorMessage= P.p("one or more fields have invalid data.", "One or more fields have invalid data.");
 
 				if (!(0==networkNumberField.getComponent().getText().length()))
 				{
 					if (!networkNumberField.isValid())
 						return errorMessage;
 
-					final NetBlock block=networkNumberField.netBlock().invoke();
+					final NetBlock block=networkNumberField.netBlock()._1();
 
 					if (!(0==netMaskField.getText().length()))
 						if (netMaskField.isValidText())
@@ -134,7 +141,7 @@ public final class ScrapbookDialogUtility
 						if (!subnetTextField.isValid())
 							return errorMessage;
 
-						final NetBlock subnet=subnetTextField.netBlock().invoke();
+						final NetBlock subnet=subnetTextField.netBlock()._1();
 
 						final IPAddress netNum=new IPAddress(subnet.networkNumber.rawValue&subnet.netMask.rawValue);
 
@@ -172,7 +179,7 @@ public final class ScrapbookDialogUtility
 					if (!subnetTextField.isValid())
 						return errorMessage;
 
-					final NetBlock subnet=subnetTextField.netBlock().invoke();
+					final NetBlock subnet=subnetTextField.netBlock()._1();
 
 					description.append(checkScrapbookIPs(subnet,element.getIPAddressTextFields()));
 
@@ -203,21 +210,21 @@ public final class ScrapbookDialogUtility
 					if (0==element1.getSubnetTextField().getComponent().getText().length())
 						continue;
 
-					final NetBlock netblock1=element1.getSubnetTextField().netBlock().invoke();
+					final NetBlock netblock1=element1.getSubnetTextField().netBlock()._1();
 
 					for (final ScrapbookElement element2: elements)
 					{
 						if (0==element2.getSubnetTextField().getComponent().getText().length())
 							continue;
 
-						final NetBlock netblock2=element2.getSubnetTextField().netBlock().invoke();
+						final NetBlock netblock2=element2.getSubnetTextField().netBlock()._1();
 
 						if (equalT(element1,element2))
 							continue;
 
 						checked++;
 
-						if (element1.getSubnetTextField().netBlock().invoke().networkContains(element2.getSubnetTextField().netBlock().invoke().networkNumber))
+						if (element1.getSubnetTextField().netBlock()._1().networkContains(element2.getSubnetTextField().netBlock()._1().networkNumber))
 						{
 							errors++;
 
@@ -239,7 +246,7 @@ public final class ScrapbookDialogUtility
 				if (0==description.length())
 					description.append("All the numbers are ok");
 
-				return pair("checked "+checked+" numbers, "+errors+" errors found",description.toString());
+				return P.p("checked "+checked+" numbers, "+errors+" errors found",description.toString());
 			}
 
 			public String checkScrapbookIPs(final NetBlock netBlock,final Iterable<IPAddressTextField> fields)
@@ -284,10 +291,10 @@ public final class ScrapbookDialogUtility
 			@Override
             public void actionPerformed(final ActionEvent event)
 			{
-				final Pair<String,String> results=checkNumbers();
+				final P2<String,String> results=checkNumbers();
 				final Network network=getNetworkContext().network;
-				network.log=Collections.add(network.log,CommandUtility.scrapbookChecked(results.first()));
-				UserMessages.message(results.second());
+				network.log=Collections.add(network.log,CommandUtility.scrapbookChecked(results._1()));
+				UserMessages.message(results._2());
 			}
 		});
 

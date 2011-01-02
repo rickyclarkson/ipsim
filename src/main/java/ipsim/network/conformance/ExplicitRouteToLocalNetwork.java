@@ -2,7 +2,6 @@ package ipsim.network.conformance;
 
 import fj.F;
 import fj.data.Option;
-import fpeas.predicate.Predicate;
 import ipsim.network.Network;
 import ipsim.network.connectivity.card.Card;
 import ipsim.network.connectivity.card.NoDeviceDriversException;
@@ -30,10 +29,10 @@ class ExplicitRouteToLocalNetwork extends F<Network,CheckResult>
             @NotNull
 			public Option<String> f(@NotNull final Computer computer)
 			{
-				return Collections.any(computer.getCards(),new Predicate<Card>()
+				return Collections.any(computer.getCards(),new F<Card, Boolean>()
 				{
 					@Override
-                    public boolean invoke(final Card card)
+                    public Boolean f(final Card card)
 					{
 						for (final Route route: getExplicitRoutes(computer.routingTable))
 							try

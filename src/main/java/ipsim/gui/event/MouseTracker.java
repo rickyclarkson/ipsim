@@ -1,7 +1,6 @@
 package ipsim.gui.event;
 
 import fj.data.Option;
-import fpeas.maybe.Maybe;
 import java.awt.event.MouseEvent;
 
 public interface MouseTracker

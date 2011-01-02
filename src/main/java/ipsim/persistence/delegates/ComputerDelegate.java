@@ -2,8 +2,8 @@ package ipsim.persistence.delegates;
 
 import com.rickyclarkson.testsuite.UnitTest;
 import com.rickyclarkson.xml.DOMSimple;
+import fj.Effect;
 import fj.data.Option;
-import fpeas.sideeffect.SideEffectUtility;
 import ipsim.Caster;
 import ipsim.ExceptionHandler;
 import ipsim.awt.Point;
@@ -92,7 +92,7 @@ public class ComputerDelegate
 				final RoutingTable originalRoutingTable=computer.routingTable;
 
 				for (final Route route : routingTable.routes())
-					originalRoutingTable.add(Option.<Computer>none(), route, SideEffectUtility.<IPAddress>throwRuntimeException());
+					originalRoutingTable.add(Option.<Computer>none(), route, Effect.<IPAddress>throwRuntimeException());
 
 				return computer;
 			}

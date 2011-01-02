@@ -1,8 +1,6 @@
 package ipsim.network.connectivity;
 
-import fpeas.sideeffect.SideEffect;
-import static ipsim.Caster.asNotNull;
-import static ipsim.Caster.equalT;
+import fj.Effect;
 import ipsim.Globals;
 import ipsim.lang.Assertion;
 import ipsim.network.Network;
@@ -15,15 +13,17 @@ import ipsim.network.connectivity.ip.SourceIPAddress;
 import ipsim.network.connectivity.ping.PingResults;
 import ipsim.network.connectivity.ping.PingResultsUtility;
 import ipsim.network.connectivity.ping.Pinger;
-import static ipsim.network.ethernet.CardUtility.getNetBlock;
 import ipsim.network.ethernet.ComputerUtility;
+import java.util.Collection;
+import java.util.List;
+import org.jetbrains.annotations.Nullable;
+
+import static ipsim.Caster.asNotNull;
+import static ipsim.Caster.equalT;
+import static ipsim.network.ethernet.CardUtility.getNetBlock;
 import static ipsim.network.ethernet.ComputerUtility.getTheFirstIPAddressYouCanFind;
 import static ipsim.network.ethernet.NetBlockUtility.getBroadcastAddress;
 import static ipsim.util.Collections.arrayList;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.Collection;
-import java.util.List;
 
 public final class ConnectivityTest
 {
@@ -31,7 +31,7 @@ public final class ConnectivityTest
 	{
 	}
 
-	public static ConnectivityResults testConnectivity(final Network network,final SideEffect<String> log, final SideEffect<Integer> progress)
+	public static ConnectivityResults testConnectivity(final Network network,final Effect<String> log, final Effect<Integer> progress)
 	{
 		final Collection<Computer> computers=NetworkUtility.getAllComputers(network);
 
@@ -70,7 +70,7 @@ public final class ConnectivityTest
 					for (final Computer anotherComputer: computers)
 						anotherComputer.arpTable.clear();
 
-					log.run("Pinging "+ipAddress.asString()+" from "+asNotNull(getTheFirstIPAddressYouCanFind(computer)).asString());
+					log.e("Pinging "+ipAddress.asString()+" from "+asNotNull(getTheFirstIPAddressYouCanFind(computer)).asString());
 
 					final List<PingResults> tempPingResult=Pinger.ping(network,computer, new DestIPAddress(ipAddress), Globals.DEFAULT_TIME_TO_LIVE);
 					pingResults.addAll(tempPingResult);
@@ -87,7 +87,7 @@ public final class ConnectivityTest
 				}
 			}
 
-			progress.run(currentComputer*100/computers.size());
+			progress.e(currentComputer*100/computers.size());
 			currentComputer++;
 		}
 

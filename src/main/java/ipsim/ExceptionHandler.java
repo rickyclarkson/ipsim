@@ -1,15 +1,14 @@
 package ipsim;
 
 import com.rickyclarkson.java.lang.Throwables;
-import fpeas.lazy.Lazy;
+import fj.P1;
 import ipsim.gui.ExceptionReportDialogUtility;
 import ipsim.lang.AssertionException;
 import ipsim.lang.DynamicVariable;
 import ipsim.network.connectivity.ip.NetMask;
+import java.lang.Thread.UncaughtExceptionHandler;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
-import java.lang.Thread.UncaughtExceptionHandler;
 
 public class ExceptionHandler
 {
@@ -38,13 +37,13 @@ public class ExceptionHandler
 
 	public static String expectString()
 	{
-		return expectString.get().invoke();
+		return expectString.get()._1();
 	}
 
-	public static final DynamicVariable<Lazy<String>> expectString=new DynamicVariable<Lazy<String>>(new Lazy<String>()
+	public static final DynamicVariable<P1<String>> expectString=new DynamicVariable<P1<String>>(new P1<String>()
 	{
 		@Override
-        public String invoke()
+        public String _1()
 		{
 			throw new RuntimeException("A string was expected, but none available");
 		}
@@ -66,12 +65,12 @@ public class ExceptionHandler
 		throw new UnsupportedOperationException();
 	}
 
-	public static <T> Lazy<T> impossibleRef()
+	public static <T> P1<T> impossibleRef()
 	{
-		return new Lazy<T>()
+		return new P1<T>()
 		{
 			@Override
-            public T invoke()
+            public T _1()
 			{
 				return ExceptionHandler.<T>impossible();
 			}

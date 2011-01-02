@@ -3,8 +3,8 @@ package ipsim.gui.components;
 import anylayout.extras.PercentConstraints;
 import anylayout.extras.PercentConstraintsUtility;
 import anylayout.extras.SizeCalculatorUtility;
+import fj.Effect;
 import fj.data.Option;
-import fpeas.sideeffect.SideEffectUtility;
 import ipsim.Global;
 import ipsim.gui.event.CommandUtility;
 import ipsim.network.Network;
@@ -92,7 +92,7 @@ public final class RoutingTableEntryEditDialog
                     network.log=Collections.add(network.log,CommandUtility.changedRoute(computer,newEntry,previous,network));
 
 				} else {
-                    computer.routingTable.add(Option.some(computer),realEntry, SideEffectUtility.<IPAddress>throwRuntimeException());
+                    computer.routingTable.add(Option.some(computer),realEntry, Effect.<IPAddress>throwRuntimeException());
                     network.log=Collections.add(network.log,CommandUtility.addExplicitRoute(computer, entry1.destination, entry1.gateway,network));
 				}
 

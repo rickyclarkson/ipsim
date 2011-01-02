@@ -1,7 +1,7 @@
 package ipsim.io;
 
+import fj.Effect;
 import fj.data.Either;
-import fpeas.sideeffect.SideEffect;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -75,12 +75,12 @@ public final class IOUtility
 		}
 	}
 
-	public static void withPrintWriter(final Writer writer, final SideEffect<PrintWriter> sideEffect)
+	public static void withPrintWriter(final Writer writer, final Effect<PrintWriter> sideEffect)
 	{
 		final PrintWriter pw=new PrintWriter(writer);
 		try
 		{
-			sideEffect.run(pw);
+			sideEffect.e(pw);
 		}
 		finally
 		{

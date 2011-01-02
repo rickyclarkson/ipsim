@@ -1,8 +1,8 @@
 package ipsim.connectivity;
 
 import com.rickyclarkson.testsuite.UnitTest;
+import fj.Effect;
 import fj.F;
-import fpeas.sideeffect.SideEffectUtility;
 import ipsim.Globals;
 import ipsim.network.Network;
 import ipsim.network.NetworkUtility;
@@ -29,7 +29,7 @@ public class PingerTest implements UnitTest
 	{
 		final Network network=new Network();
 
-		NetworkUtility.loadFromFile(network,new File("datafiles/unconnected/pingertest1.ipsim"), SideEffectUtility.<IOException>throwRuntimeException());
+		NetworkUtility.loadFromFile(network,new File("datafiles/unconnected/pingertest1.ipsim"), Effect.<IOException>throwRuntimeException());
 
 		try
 		{

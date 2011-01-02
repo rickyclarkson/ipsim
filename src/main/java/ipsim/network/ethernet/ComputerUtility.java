@@ -1,6 +1,6 @@
 package ipsim.network.ethernet;
 
-import fpeas.predicate.Predicate;
+import fj.F;
 import ipsim.lang.Stringable;
 import ipsim.network.connectivity.card.Card;
 import ipsim.network.connectivity.card.CardDrivers;
@@ -9,18 +9,18 @@ import ipsim.network.connectivity.computer.Computer;
 import ipsim.network.connectivity.computer.Route;
 import ipsim.network.connectivity.ip.IPAddress;
 import ipsim.network.connectivity.ip.NetMask;
-import static ipsim.network.ethernet.CardUtility.getNetBlock;
 import ipsim.util.Collections;
-import static ipsim.util.Collections.arrayList;
-import static ipsim.util.Collections.asString;
-import org.jetbrains.annotations.Nullable;
-
 import java.util.ArrayList;
 import java.util.Collection;
-import static java.util.Collections.sort;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import org.jetbrains.annotations.Nullable;
+
+import static ipsim.network.ethernet.CardUtility.getNetBlock;
+import static ipsim.util.Collections.arrayList;
+import static ipsim.util.Collections.asString;
+import static java.util.Collections.sort;
 
 public final class ComputerUtility
 {
@@ -30,10 +30,10 @@ public final class ComputerUtility
 	@Nullable
 	public static CardDrivers getCardFor(final Computer computer, final Route route)
 	{
-		final Iterable<CardDrivers> result=Collections.only(cardsWithDrivers(computer), new Predicate<CardDrivers>()
+		final Iterable<CardDrivers> result=Collections.only(cardsWithDrivers(computer), new F<CardDrivers, Boolean>()
 		{
 			@Override
-            public boolean invoke(final CardDrivers card)
+            public Boolean f(final CardDrivers card)
 			{
 				final NetBlock netBlock=CardUtility.getNetBlock(card);
 
@@ -98,10 +98,10 @@ public final class ComputerUtility
 
 	public static boolean isLocallyReachable(final Computer computer, final IPAddress ipAddress)
 	{
-		return Collections.any(computer.getCards(), new Predicate<Card>()
+		return Collections.any(computer.getCards(), new F<Card, Boolean>()
 		{
 			@Override
-            public boolean invoke(final Card card)
+            public Boolean f(final Card card)
 			{
 				try
 				{

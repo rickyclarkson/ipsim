@@ -1,9 +1,8 @@
 package ipsim.network;
 
+import fj.Effect;
 import fj.F;
 import fj.Function;
-import fpeas.sideeffect.SideEffect;
-import fpeas.sideeffect.SideEffectUtility;
 import ipsim.Caster;
 import ipsim.Global;
 import ipsim.NetworkContext;
@@ -53,7 +52,7 @@ public class NetworkUtility
 {
 	public static void loadFromFile(final Network network, final File file)
 	{
-		loadFromFile(network, file, SideEffectUtility.<IOException>throwRuntimeException());
+		loadFromFile(network, file, Effect.<IOException>throwRuntimeException());
 	}
 
 	public static void loadFromString(final Network network, final String xmlString)
@@ -202,7 +201,7 @@ public class NetworkUtility
 		return hubs;
 	}
 
-	public static void loadFromFile(final Network network, final File file, final SideEffect<IOException> ioException)
+	public static void loadFromFile(final Network network, final File file, final Effect<IOException> ioException)
 	{
 		try
 		{
@@ -232,7 +231,7 @@ public class NetworkUtility
 						@Override
                         public void run()
 						{
-							ioException.run(exception);
+							ioException.e(exception);
 						}
 					};
 				}
@@ -315,7 +314,7 @@ public class NetworkUtility
 				final CardDrivers withDrivers=card.withDrivers;
 
 				if (withDrivers!=null)
-					add(cards).run(withDrivers);
+					add(cards).e(withDrivers);
 			}
 		}
 

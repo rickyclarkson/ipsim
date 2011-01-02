@@ -1,13 +1,13 @@
 package ipsim.gui;
 
 import com.rickyclarkson.testsuite.UnitTest;
-import fpeas.predicate.Predicate;
-import fpeas.predicate.PredicateUtility;
-import fpeas.sideeffect.SideEffect;
+import fj.Effect;
+import fj.F;
 import ipsim.Caster;
 import ipsim.NetworkContext;
 import ipsim.awt.Point;
 import ipsim.connectivity.hub.incoming.PacketSourceUtility;
+import ipsim.lang.FunctionUtility;
 import ipsim.network.connectivity.PacketSource;
 import ipsim.network.connectivity.card.Card;
 import ipsim.property.Property;
@@ -43,10 +43,10 @@ public class NetworkView extends JPanel
 			}
 		});
 
-		paintComponent=new SideEffect<Graphics>()
+		paintComponent=new Effect<Graphics>()
 		{
 			@Override
-            public void run(final Graphics originalGraphics)
+            public void e(final Graphics originalGraphics)
 			{
 				if (ignorePaints.get())
 					return;
@@ -64,10 +64,10 @@ public class NetworkView extends JPanel
 				 * EthernetCables get drawn first, and hence do not appear above the cards and hubs that they are connected to.
 				*/
 
-				final Predicate<PacketSource> cables=new Predicate<PacketSource>()
+				final F<PacketSource, Boolean> cables=new F<PacketSource, Boolean>()
 				{
 					@Override
-                    public boolean invoke(final PacketSource component1)
+                    public Boolean f(final PacketSource component1)
 					{
 						return PacketSourceUtility.isCable(component1);
 					}
@@ -76,25 +76,25 @@ public class NetworkView extends JPanel
 				for (final PacketSource next : Collections.only(visibleComponents, cables))
 					ObjectRenderer.render(context, next, g2d);
 
-				final Predicate<PacketSource> cards=new Predicate<PacketSource>()
+				final F<PacketSource, Boolean> cards=new F<PacketSource, Boolean>()
 				{
 					@Override
-                    public boolean invoke(final PacketSource component1)
+                    public Boolean f(final PacketSource component1)
 					{
 						return PacketSourceUtility.isCard(component1);
 					}
 				};
 
-				final Predicate<PacketSource> cablesOrCards=new Predicate<PacketSource>()
+				final F<PacketSource, Boolean> cablesOrCards=new F<PacketSource, Boolean>()
 				{
 					@Override
-                    public boolean invoke(final PacketSource component1)
+                    public Boolean f(final PacketSource component1)
 					{
 						return PacketSourceUtility.isCard(component1) || PacketSourceUtility.isCable(component1);
 					}
 				};
 
-				for (final PacketSource next : Collections.only(visibleComponents, PredicateUtility.not(cablesOrCards)))
+				for (final PacketSource next : Collections.only(visibleComponents, FunctionUtility.not(cablesOrCards)))
 					ObjectRenderer.render(context, next, g2d);
 
 				for (final PacketSource next : Collections.only(visibleComponents, cards))
@@ -113,10 +113,10 @@ public class NetworkView extends JPanel
 	{
 		super.paintComponent(originalGraphics);
 
-		paintComponent.run(originalGraphics);
+		paintComponent.e(originalGraphics);
 	}
 
-	public final SideEffect<Graphics> paintComponent;
+	public final Effect<Graphics> paintComponent;
 
 	public Card newCard(final Point point)
 	{

@@ -3,8 +3,8 @@ package ipsim.gui;
 import anylayout.AnyLayout;
 import anylayout.extras.PercentConstraints;
 import anylayout.extras.PercentConstraintsUtility;
+import fj.Effect;
 import fj.F;
-import fpeas.sideeffect.SideEffect;
 import ipsim.Global;
 import ipsim.awt.ComponentUtility;
 import ipsim.gui.event.CommandUtility;
@@ -34,7 +34,7 @@ import static javax.swing.SwingUtilities.invokeLater;
  */
 public final class ConnectivityTestDialogUtility
 {
-	public static void createConnectivityTestDialog(final SideEffect<JDialog> doOnCompletion)
+	public static void createConnectivityTestDialog(final Effect<JDialog> doOnCompletion)
 	{
 		final JFrame realFrame=Global.global.get().frame;
 		final JDialog dialog=createDialogWithEscapeKeyToClose(realFrame, "Connectivity Test");
@@ -97,7 +97,7 @@ public final class ConnectivityTestDialogUtility
 							monitor.setProgress(100);
 							monitor.close();
 							dialog.setVisible(true);
-							doOnCompletion.run(dialog);
+							doOnCompletion.e(dialog);
 						}
 					});
 				}

@@ -1,13 +1,14 @@
 package ipsim.network.ethernet;
 
-import fpeas.predicate.Predicate;
-import static ipsim.Caster.equalT;
+import fj.F;
 import ipsim.network.connectivity.card.CardDrivers;
 import ipsim.network.connectivity.computer.Computer;
 import ipsim.network.connectivity.computer.Route;
 import ipsim.network.connectivity.ip.IPAddress;
-import static ipsim.network.ethernet.ComputerUtility.cardsWithDrivers;
 import ipsim.util.Collections;
+
+import static ipsim.Caster.equalT;
+import static ipsim.network.ethernet.ComputerUtility.cardsWithDrivers;
 
 public class RouteUtility
 {
@@ -18,10 +19,10 @@ public class RouteUtility
 
 	public static boolean isRouteToSelf(final Computer computer, final Route route)
 	{
-		return Collections.any(cardsWithDrivers(computer),new Predicate<CardDrivers>()
+		return Collections.any(cardsWithDrivers(computer),new F<CardDrivers, Boolean>()
 		{
 			@Override
-            public boolean invoke(final CardDrivers card)
+            public Boolean f(final CardDrivers card)
 			{
 				return equalT(card.ipAddress.get(), route.gateway);
 			}

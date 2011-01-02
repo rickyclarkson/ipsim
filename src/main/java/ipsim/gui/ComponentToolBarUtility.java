@@ -12,6 +12,7 @@ import ipsim.gui.components.HubHandler;
 import ipsim.network.connectivity.card.Card;
 import ipsim.network.connectivity.computer.Computer;
 import ipsim.network.connectivity.hub.Hub;
+import ipsim.util.Collections;
 import java.awt.Component;
 import java.awt.Container;
 import javax.swing.JLabel;
@@ -28,7 +29,6 @@ import static anylayout.extras.SizeCalculatorUtility.getPreferredWidth;
 import static ipsim.gui.NetworkComponentIconMouseListenerUtility.createNetworkComponentIconMouseListener;
 import static ipsim.swing.DragNDropIconCreator.newInstance;
 import static ipsim.util.Collections.max;
-import static ipsim.util.Collections.sum;
 
 public final class ComponentToolBarUtility
 {
@@ -47,7 +47,7 @@ public final class ComponentToolBarUtility
 			@Override
             public int getHeight()
 			{
-				return sum(getPreferredHeight(),label,computer,cable,card,hub);
+                return Collections.<Component>sum(getPreferredHeight(), (Component)label, (Component)computer, (Component)cable, (Component)card, (Component)hub);
 			}
 
 			@Override

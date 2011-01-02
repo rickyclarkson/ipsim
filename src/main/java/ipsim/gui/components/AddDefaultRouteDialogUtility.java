@@ -3,8 +3,8 @@ package ipsim.gui.components;
 import anylayout.extras.ConstraintUtility;
 import anylayout.extras.PercentConstraints;
 import anylayout.extras.PercentConstraintsUtility;
+import fj.Effect;
 import fj.data.Option;
-import fpeas.sideeffect.SideEffectUtility;
 import ipsim.Global;
 import ipsim.awt.ComponentUtility;
 import ipsim.lang.Runnables;
@@ -67,7 +67,7 @@ public class AddDefaultRouteDialogUtility
 				{
 					final Route route=new Route(zero, ipAddress);
 
-					computer.routingTable.add(Option.some(computer), route, SideEffectUtility.<IPAddress>throwRuntimeException());
+					computer.routingTable.add(Option.some(computer), route, Effect.<IPAddress>throwRuntimeException());
 
 					final Network network=Global.getNetworkContext().network;
 					network.log=Collections.add(network.log,addDefaultRoute(computer, ipAddress, network));

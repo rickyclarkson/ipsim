@@ -2,7 +2,6 @@ package ipsim.network.conformance;
 
 import fj.F;
 import fj.data.Option;
-import fpeas.predicate.Predicate;
 import ipsim.network.Network;
 import ipsim.network.connectivity.computer.Computer;
 import ipsim.network.connectivity.computer.Route;
@@ -35,10 +34,10 @@ class SomeRoutesToNonGateways extends F<Network,CheckResult>
 					if (gateways.isEmpty())
 						return Option.some("Computer with a route to a non-existent gateway");
 
-					if (!any(gateways,new Predicate<Computer>()
+					if (!any(gateways,new F<Computer, Boolean>()
 					{
 						@Override
-                        public boolean invoke(final Computer aComputer)
+                        public Boolean f(final Computer aComputer)
 						{
 							return ConformanceTestsUtility.isARouter().f(aComputer);
 						}

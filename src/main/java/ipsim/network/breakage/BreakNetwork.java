@@ -1,9 +1,10 @@
 package ipsim.network.breakage;
 
+import fj.Effect;
 import fj.F;
+import fj.P;
+import fj.P2;
 import fj.data.Option;
-import fpeas.pair.Pair;
-import fpeas.sideeffect.SideEffect;
 import ipsim.Global;
 import ipsim.NetworkContext;
 import ipsim.gui.UserMessages;
@@ -31,8 +32,6 @@ import javax.swing.ProgressMonitor;
 import javax.swing.SwingUtilities;
 import org.jetbrains.annotations.NotNull;
 
-import static fpeas.pair.PairUtility.pair;
-import static fpeas.sideeffect.SideEffectUtility.doNothing;
 import static ipsim.Global.getNetworkContext;
 import static ipsim.NetworkContext.askUserForNumberOfFaults;
 import static ipsim.NetworkContext.confirm;
@@ -85,17 +84,17 @@ public class BreakNetwork
 
 				monitor[0].setNote("Testing connectivity");
 
-				final ConnectivityResults results=ConnectivityTest.testConnectivity(Global.getNetworkContext().network,new SideEffect<String>()
+				final ConnectivityResults results=ConnectivityTest.testConnectivity(Global.getNetworkContext().network,new Effect<String>()
 				{
 					@Override
-                    public void run(final String s)
+                    public void e(final String s)
 					{
 						monitor[0].setNote(s);
 					}
-				},new SideEffect<Integer>()
+				},new Effect<Integer>()
 				{
 					@Override
-                    public void run(final Integer integer)
+                    public void e(final Integer integer)
 					{
 						monitor[0].setProgress(integer);
 					}
@@ -136,8 +135,8 @@ public class BreakNetwork
 				for (int a=0;a<numberOfFaultsVar && totalFailures<50;a++)
 				{
 					monitor[0].setNote("Breaking network (try "+(totalFailures+1)+"/50)");
-					final SideEffect<String> noLog=doNothing();
-					final SideEffect<Integer> noProgress=doNothing();
+					final Effect<String> noLog=Effect.doNothing();
+					final Effect<Integer> noProgress=Effect.doNothing();
 					final int connectivityBefore=ConnectivityTest.testConnectivity(Global.getNetworkContext().network, noLog, noProgress).getPercentConnected();
 
 					oneRandomBreakage(getNetworkContext().network);
@@ -254,17 +253,17 @@ public class BreakNetwork
 				for (Computer computer: randomOneOf(getAllComputers(network, ConformanceTestsUtility.isARouter()))) {
                     final List<CardDrivers> cards=ComputerUtility.cardsWithDrivers(computer);
 
-                    final Pair<CardDrivers, CardDrivers> pair=randomTwoOf(cards);
+                    final P2<CardDrivers, CardDrivers> pair=randomTwoOf(cards);
 
-                    final IPAddress tmp=pair.first().ipAddress.get();
-                    pair.first().ipAddress.set(pair.second().ipAddress.get());
-                    pair.second().ipAddress.set(tmp);
+                    final IPAddress tmp=pair._1().ipAddress.get();
+                    pair._1().ipAddress.set(pair._2().ipAddress.get());
+                    pair._2().ipAddress.set(tmp);
                 }
 			}
 		};
 	}
 
-	private static <T> Pair<T,T> randomTwoOf(final List<T> list)
+	private static <T> P2<T,T> randomTwoOf(final List<T> list)
 	{
 		final int first=(int)(Math.random()*(double)list.size());
 
@@ -273,7 +272,7 @@ public class BreakNetwork
 		if (second>=first)
 			second++;
 
-		return pair(list.get(first),list.get(second));
+		return P.p(list.get(first), list.get(second));
 	}
 
 	private static Runnable disconnectCable(final Network network)

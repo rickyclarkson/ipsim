@@ -3,7 +3,6 @@ package ipsim.network;
 import com.rickyclarkson.testsuite.UnitTest;
 import com.rickyclarkson.xml.DOMSimple;
 import fj.F;
-import fpeas.predicate.Predicate;
 import ipsim.Caster;
 import ipsim.ExceptionHandler;
 import ipsim.awt.Point;
@@ -123,10 +122,10 @@ public final class Network
 		@Override
         public boolean contains(final PacketSource source)
 		{
-			return any(allComponents,new Predicate<PacketSourceAndPoints>()
+			return any(allComponents,new F<PacketSourceAndPoints, Boolean>()
 			{
 				@Override
-                public boolean invoke(final PacketSourceAndPoints packetSourceAndPoints)
+                public Boolean f(final PacketSourceAndPoints packetSourceAndPoints)
 				{
 					return Caster.equalT(packetSourceAndPoints.packetSource,source);
 				}
@@ -142,10 +141,10 @@ public final class Network
 		@Override
         public Iterator<PacketSourceAndPoints> iterator()
 		{
-			return only(allComponents, new Predicate<PacketSourceAndPoints>()
+			return only(allComponents, new F<PacketSourceAndPoints, Boolean>()
 			{
 				@Override
-                public boolean invoke(final PacketSourceAndPoints packetSourceAndPoints)
+                public Boolean f(final PacketSourceAndPoints packetSourceAndPoints)
 				{
 					return !packetSourceAndPoints.pointsIsEmpty();
 				}

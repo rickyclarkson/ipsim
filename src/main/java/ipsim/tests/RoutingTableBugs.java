@@ -1,7 +1,7 @@
 package ipsim.tests;
 
 import com.rickyclarkson.testsuite.UnitTest;
-import fpeas.predicate.Predicate;
+import fj.F;
 import ipsim.Caster;
 import ipsim.network.Network;
 import ipsim.network.NetworkUtility;
@@ -14,7 +14,6 @@ import ipsim.network.ethernet.NetMaskUtility;
 import ipsim.network.ip.CheckedNumberFormatException;
 import ipsim.network.ip.IPAddressUtility;
 import ipsim.util.Collections;
-
 import java.io.File;
 import java.util.Collection;
 import java.util.List;
@@ -46,10 +45,10 @@ public class RoutingTableBugs
 					final Collection<Computer> computers=NetworkUtility.getComputersByIP(network,IPAddressUtility.valueOf("10.0.0.1"));
 					for (final Computer computer: computers)
 					{
-						final List<CardDrivers> possibleCards=Collections.only(Collections.<CardDrivers>arrayListRef(),ComputerUtility.cardsWithDrivers(computer),new Predicate<CardDrivers>()
+						final List<CardDrivers> possibleCards=Collections.only(Collections.<CardDrivers>arrayListRef(),ComputerUtility.cardsWithDrivers(computer),new F<CardDrivers, Boolean>()
 						{
 							@Override
-                            public boolean invoke(final CardDrivers card)
+                            public Boolean f(final CardDrivers card)
 							{
 								return Caster.equalT(card.netMask.get(),netMask);
 							}

@@ -1,7 +1,7 @@
 package ipsim.lang;
 
 import com.rickyclarkson.testsuite.UnitTest;
-import fpeas.lazy.Lazy;
+import fj.P1;
 
 public class DynamicVariable<T>
 {
@@ -17,13 +17,13 @@ public class DynamicVariable<T>
 		return t;
 	}
 
-	public <R> R withValue(final T newT, final Lazy<R> lazy)
+	public <R> R withValue(final T newT, final P1<R> lazy)
 	{
 		final T before=t;
 		t=newT;
 		try
 		{
-			return lazy.invoke();
+			return lazy._1();
 		}
 		finally
 		{
@@ -38,10 +38,10 @@ public class DynamicVariable<T>
 		{
 			final DynamicVariable<String> var=new DynamicVariable<String>("hello");
 
-			return var.withValue("goodbye",new Lazy<Boolean>()
+			return var.withValue("goodbye",new P1<Boolean>()
 			{
 				@Override
-                public Boolean invoke()
+                public Boolean _1()
 				{
 					return var.get().equals("goodbye");
 				}

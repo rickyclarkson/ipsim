@@ -1,9 +1,10 @@
 package ipsim.ethernet;
 
 import com.rickyclarkson.testsuite.UnitTest;
+import fj.Effect;
+import fj.P;
+import fj.P2;
 import fj.data.Option;
-import fpeas.pair.Pair;
-import fpeas.sideeffect.SideEffectUtility;
 import ipsim.Caster;
 import ipsim.network.Network;
 import ipsim.network.connectivity.card.Card;
@@ -21,7 +22,6 @@ import ipsim.network.ethernet.NetMaskUtility;
 import ipsim.network.ip.CheckedNumberFormatException;
 import ipsim.network.ip.IPAddressUtility;
 
-import static fpeas.pair.PairUtility.pair;
 import static ipsim.Caster.asNotNull;
 import static ipsim.Caster.equalT;
 import static ipsim.network.connectivity.computer.RoutingTableUtility.createRoutingTable;
@@ -61,7 +61,7 @@ public final class RoutingTableTest
 				return false;
 			}
 
-			table.add(Option.some(computer), route, SideEffectUtility.<IPAddress>throwRuntimeException());
+			table.add(Option.some(computer), route, Effect.<IPAddress>throwRuntimeException());
 
 			return Caster.equalT(getDefaultRoutes(table).iterator().next(), route);
 		}
@@ -77,23 +77,23 @@ public final class RoutingTableTest
 		@Override
         public boolean invoke()
 		{
-			final Pair<Computer, Pair<Network, CardDrivers>> setup=oneInstalledCardOnOneComputer();
+			final P2<Computer, P2<Network, CardDrivers>> setup=oneInstalledCardOnOneComputer();
 
 			try
 			{
-				setup.second().second().ipAddress.set(IPAddressUtility.valueOf("146.87.1.1"));
+				setup._2()._2().ipAddress.set(IPAddressUtility.valueOf("146.87.1.1"));
 			}
 			catch (final CheckedNumberFormatException exception1)
 			{
 				return false;
 			}
 
-			setup.second().second().netMask.set(NetMaskUtility.createNetMaskFromPrefixLength(24));
+			setup._2()._2().netMask.set(NetMaskUtility.createNetMaskFromPrefixLength(24));
 
 			final Route route;
 			try
 			{
-				route=getRouteFor(setup.first(), new DestIPAddress(valueOf("146.87.1.255")));
+				route=getRouteFor(setup._1(), new DestIPAddress(valueOf("146.87.1.255")));
 			}
 			catch (final CheckedNumberFormatException exception)
 			{
@@ -104,9 +104,9 @@ public final class RoutingTableTest
 				throw new RuntimeException(exception);
 			}
 
-			final CardDrivers card2=asNotNull(getCardFor(setup.first(), route));
+			final CardDrivers card2=asNotNull(getCardFor(setup._1(), route));
 
-			if (!equalT(setup.second().second().card, card2.card))
+			if (!equalT(setup._2()._2().card, card2.card))
 				return false;
 
 			final IPAddress broadcastAddress=getBroadcastAddress(route.block);
@@ -127,12 +127,12 @@ public final class RoutingTableTest
 		}
 	};
 
-	public static Pair<Computer, Pair<Network, CardDrivers>> oneInstalledCardOnOneComputer()
+	public static P2<Computer, P2<Network, CardDrivers>> oneInstalledCardOnOneComputer()
 	{
 		final Network network=new Network();
 		final Computer computer=ComputerFactory.newComputerWithID(network, 100, 200);
 		final Card card=CardFactory.newCardConnectedTo(network, computer, 300, 200);
 		card.installDeviceDrivers(network);
-		return pair(computer, pair(network, card.withDrivers));
+		return P.p(computer, P.p(network, card.withDrivers));
 	}
 }

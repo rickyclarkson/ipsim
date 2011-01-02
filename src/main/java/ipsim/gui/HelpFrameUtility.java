@@ -1,10 +1,10 @@
 package ipsim.gui;
 
 import com.rickyclarkson.javax.swing.ScrollableEditorPaneUtility;
+import fj.Effect;
 import fj.F;
 import fj.Function;
 import fj.data.Either;
-import fpeas.sideeffect.SideEffect;
 import ipsim.Caster;
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -92,10 +92,10 @@ public final class HelpFrameUtility
 		parent.add(panel,BorderLayout.NORTH);
 	}
 
-	public static final SideEffect<Container> createPane=new SideEffect<Container>()
+	public static final Effect<Container> createPane=new Effect<Container>()
 	{
 		@Override
-        public void run(final Container parent)
+        public void e(final Container parent)
 		{
 			parent.setLayout(new BorderLayout());
 			final JScrollPane pane=new JScrollPane();

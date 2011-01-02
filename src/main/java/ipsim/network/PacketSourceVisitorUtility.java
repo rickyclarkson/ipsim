@@ -1,13 +1,14 @@
 package ipsim.network;
 
-import fpeas.sideeffect.SideEffect;
-import static ipsim.ExceptionHandler.impossible;
+import fj.Effect;
 import ipsim.gui.components.PacketSourceVisitor2;
 import ipsim.network.connectivity.cable.Cable;
 import ipsim.network.connectivity.card.Card;
 import ipsim.network.connectivity.computer.Computer;
 import ipsim.network.connectivity.hub.Hub;
 import org.jetbrains.annotations.NotNull;
+
+import static ipsim.ExceptionHandler.impossible;
 
 public class PacketSourceVisitorUtility
 {
@@ -38,14 +39,14 @@ public class PacketSourceVisitorUtility
 		}
 	};
 
-	public static PacketSourceVisitor2 visitCard(final PacketSourceVisitor2 base, final SideEffect<Card> effect)
+	public static PacketSourceVisitor2 visitCard(final PacketSourceVisitor2 base, final Effect<Card> effect)
 	{
 		return new PacketSourceVisitor2()
 		{
 			@Override
             public void visit(@NotNull final Card card)
 			{
-				effect.run(card);
+				effect.e(card);
 			}
 
 			@Override

@@ -1,7 +1,7 @@
 package ipsim.webinterface;
 
+import fj.Effect;
 import fj.data.Option;
-import fpeas.sideeffect.SideEffect;
 import ipsim.Global;
 import ipsim.gui.UserMessages;
 import ipsim.lang.CheckedIllegalStateException;
@@ -83,7 +83,7 @@ public class WebInterface
 	 *                 if something went wrong, but the user will have been notified.
 	 * @throws NoSuchConfigurationException
 	 */
-	public static NamedConfiguration getNamedConfiguration(final SideEffect<String> errors,final String configurationName) throws CheckedIllegalStateException,NoSuchConfigurationException
+	public static NamedConfiguration getNamedConfiguration(final Effect<String> errors,final String configurationName) throws CheckedIllegalStateException,NoSuchConfigurationException
 	{
 		assertNotNull(configurationName);
 
@@ -99,7 +99,7 @@ public class WebInterface
 
 			if (input.startsWith("407"))
 			{
-				errors.run("Cannot download configuration "+configurationName);
+				errors.e("Cannot download configuration "+configurationName);
 				throw new NoSuchConfigurationException(input);
 			}
 
@@ -107,7 +107,7 @@ public class WebInterface
 		}
 		catch (final IOException exception)
 		{
-			errors.run("Problem Accessing Network");
+			errors.e("Problem Accessing Network");
 
 			throw new CheckedIllegalStateException(exception);
 		}

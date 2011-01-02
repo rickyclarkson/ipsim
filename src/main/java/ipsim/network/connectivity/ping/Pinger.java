@@ -1,7 +1,6 @@
 package ipsim.network.connectivity.ping;
 
 import ipsim.Caster;
-import static ipsim.lang.Assertion.assertFalse;
 import ipsim.lang.CheckedIllegalStateException;
 import ipsim.network.Network;
 import ipsim.network.connectivity.PacketQueue;
@@ -9,24 +8,25 @@ import ipsim.network.connectivity.card.CardDrivers;
 import ipsim.network.connectivity.computer.Computer;
 import ipsim.network.connectivity.computer.NoSuchRouteException;
 import ipsim.network.connectivity.computer.Route;
-import static ipsim.network.connectivity.computer.RoutingTableUtility.getRouteFor;
-import static ipsim.network.connectivity.computer.RoutingTableUtility.hasRouteFor;
 import ipsim.network.connectivity.icmp.ping.PingData;
 import ipsim.network.connectivity.ip.DestIPAddress;
 import ipsim.network.connectivity.ip.IPAddress;
 import ipsim.network.connectivity.ip.IPPacket;
 import ipsim.network.connectivity.ip.SourceIPAddress;
+import ipsim.network.ip.CheckedNumberFormatException;
+import ipsim.network.ip.IPAddressUtility;
+import ipsim.util.Collections;
+import java.util.List;
+import org.jetbrains.annotations.Nullable;
+
+import static ipsim.lang.Assertion.assertFalse;
+import static ipsim.network.connectivity.computer.RoutingTableUtility.getRouteFor;
+import static ipsim.network.connectivity.computer.RoutingTableUtility.hasRouteFor;
 import static ipsim.network.connectivity.ping.PingResultsUtility.hostUnreachable;
 import static ipsim.network.connectivity.ping.PingResultsUtility.netUnreachable;
 import static ipsim.network.ethernet.ComputerUtility.getCardFor;
 import static ipsim.network.ethernet.ComputerUtility.getTheFirstIPAddressYouCanFind;
-import ipsim.network.ip.CheckedNumberFormatException;
-import ipsim.network.ip.IPAddressUtility;
-import ipsim.util.Collections;
-import org.jetbrains.annotations.Nullable;
-
 import static java.util.Collections.singletonList;
-import java.util.List;
 
 public final class Pinger
 {
@@ -109,7 +109,7 @@ public final class Pinger
 			{
 				final PingResults result=pingResults.get(a);
 
-				if (result.timedOut()&& Caster.equalT(route.gateway).invoke(card.ipAddress.get()))
+				if (result.timedOut()&& Caster.equalT(route.gateway).f(card.ipAddress.get()))
 					pingResults.set(a,hostUnreachable(result.getReplyingHost()));
 			}
 

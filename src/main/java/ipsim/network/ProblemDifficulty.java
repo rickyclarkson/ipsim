@@ -1,7 +1,6 @@
 package ipsim.network;
 
 import com.rickyclarkson.testsuite.UnitTest;
-import fpeas.lazy.Lazy;
 import ipsim.lang.AssertionException;
 import ipsim.network.ProblemBuilder.Stage2;
 import ipsim.network.connectivity.ip.IPAddress;
@@ -10,7 +9,7 @@ import ipsim.network.ethernet.NetBlock;
 import ipsim.network.ethernet.NetMaskUtility;
 import java.util.Random;
 
-public enum ProblemDifficulty implements Lazy<Problem>
+public enum ProblemDifficulty
 {
 	EASY
 	{
@@ -53,6 +52,8 @@ public enum ProblemDifficulty implements Lazy<Problem>
 		}
 	};
 
+    public abstract Problem invoke();
+    
 	public static final UnitTest testGeneration=new UnitTest()
 	{
 		@Override

@@ -1,7 +1,7 @@
 package ipsim.persistence.delegates;
 
+import fj.Effect;
 import fj.data.Option;
-import fpeas.sideeffect.SideEffectUtility;
 import ipsim.Caster;
 import ipsim.network.connectivity.computer.Computer;
 import ipsim.network.connectivity.computer.Route;
@@ -50,7 +50,7 @@ public final class RoutingTableDelegate
 			final Option<Computer> nothing=Option.none();
 
 			for (final String name : names)
-				table.add(nothing, deserialiser.readObject(node, name, routeDelegate, Caster.asFunction(Route.class)), SideEffectUtility.<IPAddress>throwRuntimeException());
+				table.add(nothing, deserialiser.readObject(node, name, routeDelegate, Caster.asFunction(Route.class)), Effect.<IPAddress>throwRuntimeException());
 
 			return table;
 		}

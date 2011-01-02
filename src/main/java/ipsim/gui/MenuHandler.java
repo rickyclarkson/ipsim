@@ -5,13 +5,11 @@ import anylayout.LayoutContext;
 import anylayout.SizeCalculator;
 import anylayout.extras.ConstraintUtility;
 import anylayout.extras.RelativeConstraints;
+import fj.Effect;
 import fj.F;
 import fj.Function;
+import fj.P1;
 import fj.data.Option;
-import fpeas.lazy.Lazy;
-import fpeas.predicate.Predicate;
-import fpeas.sideeffect.SideEffect;
-import fpeas.sideeffect.SideEffectUtility;
 import ipsim.Caster;
 import ipsim.Global;
 import ipsim.Globals;
@@ -92,10 +90,10 @@ public class MenuHandler
 			@Override
             public void run()
 			{
-				if (!Collections.all(Global.getNetworkContexts(),new Predicate<NetworkContext>()
+				if (!Collections.all(Global.getNetworkContexts(),new F<NetworkContext, Boolean>()
 				{
 					@Override
-                    public boolean invoke(final NetworkContext networkContext)
+                    public Boolean f(final NetworkContext networkContext)
 					{
 						return networkContext.userPermissions.allowMultipleNetworks();
 					}
@@ -160,10 +158,10 @@ public class MenuHandler
 				{
 					final File filename=getNetworkContext().fileChooser.getSelectedFile();
 
-					loadFromFile(getNetworkContext().network, filename, new SideEffect<IOException>()
+					loadFromFile(getNetworkContext().network, filename, new Effect<IOException>()
 					{
 						@Override
-                        public void run(final IOException input)
+                        public void e(final IOException input)
 						{
 							JOptionPane.showMessageDialog(global.get().frame, filename+" is not a valid IPSim datafile ("+input.getMessage()+')', "Error", JOptionPane.ERROR_MESSAGE);
 						}
@@ -204,10 +202,10 @@ public class MenuHandler
 	 */
 	public static Runnable fileSaveAs()
 	{
-		final SideEffect<JFrame> sideEffect=new SideEffect<JFrame>()
+		final Effect<JFrame> sideEffect=new Effect<JFrame>()
 		{
 			@Override
-            public void run(final JFrame realFrame)
+            public void e(final JFrame realFrame)
 			{
 				for (;;)
 				{
@@ -255,7 +253,7 @@ public class MenuHandler
 			@Override
             public void run()
 			{
-				sideEffect.run(global.get().frame);
+				sideEffect.e(global.get().frame);
 			}
 		};
 	}
@@ -434,10 +432,10 @@ public class MenuHandler
             public void run()
 			{
 				final String[] choices=new String[]{"Easy","Medium","Hard"};
-				final CustomJOptionPaneResult result=CustomJOptionPane.showLabelsAndConfirmation(global.get().frame, "Select a difficulty level", "Select a difficulty level", choices, 1, "Duplicate Test Conditions", new SideEffect<JDialog>()
+				final CustomJOptionPaneResult result=CustomJOptionPane.showLabelsAndConfirmation(global.get().frame, "Select a difficulty level", "Select a difficulty level", choices, 1, "Duplicate Test Conditions", new Effect<JDialog>()
 				{
 					@Override
-                    public void run(final JDialog aDialog)
+                    public void e(final JDialog aDialog)
 					{
 					}
 				});
@@ -450,7 +448,7 @@ public class MenuHandler
 					return;
 				}
 
-				final Lazy<Problem> difficulty;
+				final ProblemDifficulty difficulty;
 				if (Caster.equalT(choice, "Easy"))
 					difficulty=ProblemDifficulty.EASY;
 				else
@@ -480,7 +478,7 @@ public class MenuHandler
 			@Override
             public void run()
 			{
-				ConnectivityTestDialogUtility.createConnectivityTestDialog(SideEffectUtility.<JDialog>doNothing());
+				ConnectivityTestDialogUtility.createConnectivityTestDialog(Effect.<JDialog>doNothing());
 			}
 		};
 	}
@@ -606,9 +604,9 @@ public class MenuHandler
 			@Override
             public void run()
 			{
-				if (!getNetworkContext().userPermissions.allowFullTests().first())
+				if (!getNetworkContext().userPermissions.allowFullTests()._1())
 				{
-					NetworkContext.errors(getNetworkContext().userPermissions.allowFullTests().second());
+					NetworkContext.errors(getNetworkContext().userPermissions.allowFullTests()._2());
 					return;
 				}
 
@@ -624,25 +622,25 @@ public class MenuHandler
 		};
 	}
 
-	public static SideEffect<ProgressMonitor> operationsCheckSolution()
+	public static Effect<ProgressMonitor> operationsCheckSolution()
 	{
-		return new SideEffect<ProgressMonitor>()
+		return new Effect<ProgressMonitor>()
 		{
 			@Override
-            public void run(final ProgressMonitor monitor)
+            public void e(final ProgressMonitor monitor)
 			{
 				final Network network=getNetworkContext().network;
-				final ConnectivityResults connectivityResults=ConnectivityTest.testConnectivity(network,new SideEffect<String>()
+				final ConnectivityResults connectivityResults=ConnectivityTest.testConnectivity(network,new Effect<String>()
 				{
 					@Override
-                    public void run(final String s)
+                    public void e(final String s)
 					{
 						monitor.setNote(s);
 					}
-				},new SideEffect<Integer>()
+				},new Effect<Integer>()
 				{
 					@Override
-                    public void run(final Integer integer)
+                    public void e(final Integer integer)
 					{
 						monitor.setProgress(integer);
 					}

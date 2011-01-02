@@ -2,7 +2,6 @@ package ipsim.network.connectivity.ping;
 
 import fj.F;
 import fj.data.Option;
-import fpeas.predicate.Predicate;
 import ipsim.lang.CheckedIllegalStateException;
 import ipsim.network.connectivity.IncomingPacketListener;
 import ipsim.network.connectivity.Packet;
@@ -49,18 +48,18 @@ public final class PingListener implements IncomingPacketListener
 			throw new RuntimeException(exception);
 		}
 
-		final Predicate<IcmpData> equalT=equalT(ipPacket.data);
+		final F<IcmpData, Boolean> equalT=equalT(ipPacket.data);
 
-		if (equalT.invoke(TIME_TO_LIVE_EXCEEDED))
+		if (equalT.f(TIME_TO_LIVE_EXCEEDED))
 			pingResults.add(ttlExpired(ipPacket.sourceIPAddress));
 
-		if (equalT.invoke(REPLY))
+		if (equalT.f(REPLY))
 			pingResults.add(pingReplyReceived(ipPacket.sourceIPAddress));
 
-		if (equalT.invoke(NET_UNREACHABLE))
+		if (equalT.f(NET_UNREACHABLE))
 			pingResults.add(netUnreachable(ipPacket.sourceIPAddress));
 
-		if (equalT.invoke(HOST_UNREACHABLE))
+		if (equalT.f(HOST_UNREACHABLE))
 			pingResults.add(hostUnreachable(ipPacket.sourceIPAddress));
 	}
 

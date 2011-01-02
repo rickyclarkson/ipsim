@@ -1,10 +1,9 @@
 package ipsim.util;
 
 import com.rickyclarkson.testsuite.UnitTest;
+import fj.Effect;
 import fj.F;
-import fpeas.lazy.Lazy;
-import fpeas.predicate.Predicate;
-import fpeas.sideeffect.SideEffect;
+import fj.P1;
 import ipsim.lang.Stringable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -119,21 +118,21 @@ public class Collections
 		return builder.toString();
 	}
 
-	public static <T> int count(final Iterable<T> iterable, final Predicate<T> matcher)
+	public static <T> int count(final Iterable<T> iterable, final F<T, Boolean> matcher)
 	{
 		int total=0;
 
 		for (final T t : iterable)
-			if (matcher.invoke(t))
+			if (matcher.f(t))
 				total++;
 
 		return total;
 	}
 
-	public static <T> boolean any(final Iterable<? extends T> iterable, final Predicate<T> matcher)
+	public static <T> boolean any(final Iterable<? extends T> iterable, final F<T, Boolean> matcher)
 	{
 		for (final T item : iterable)
-			if (matcher.invoke(item))
+			if (matcher.f(item))
 				return true;
 
 		return false;
@@ -158,23 +157,23 @@ public class Collections
 		return true;
 	}
 
-	public static <T,C extends Collection<T>> C only(final Lazy<C> construct,final Iterable<T> iterable,final Predicate<T> filter)
+	public static <T,C extends Collection<T>> C only(final P1<C> construct,final Iterable<T> iterable,final F<T, Boolean> filter)
 	{
-		final C results=construct.invoke();
+		final C results=construct._1();
 
 		for (final T t: iterable)
-			if (filter.invoke(t))
+			if (filter.f(t))
 				results.add(t);
 
 		return results;
 	}
 
-	public static <T> Iterable<T> only(final Iterable<? extends T> iterable, final Predicate<T> filter)
+	public static <T> Iterable<T> only(final Iterable<? extends T> iterable, final F<T, Boolean> filter)
 	{
 		final Collection<T> results=arrayList();
 
 		for (final T item : iterable)
-			if (filter.invoke(item))
+			if (filter.f(item))
 				results.add(item);
 
 		return results;
@@ -232,12 +231,12 @@ public class Collections
 		return count;
 	}
 
-	public static <T> SideEffect<T> add(final Collection<T> add)
+	public static <T> Effect<T> add(final Collection<T> add)
 	{
-		return new SideEffect<T>()
+		return new Effect<T>()
 		{
 			@Override
-            public void run(final T t)
+            public void e(final T t)
 			{
 				add.add(t);
 			}
@@ -287,20 +286,20 @@ public class Collections
 		};
 	}
 
-	public static <T> void removeIf(final Iterable<T> iterable, final Predicate<T> predicate)
+	public static <T> void removeIf(final Iterable<T> iterable, final F<T, Boolean> predicate)
 	{
 		final Iterator<T> iterator=iterable.iterator();
 		while (iterator.hasNext())
-			if (predicate.invoke(iterator.next()))
+			if (predicate.f(iterator.next()))
 				iterator.remove();
 	}
 
-	public static <T> boolean all(final Iterable<T> iterable, final Predicate<T> predicate, final boolean defaultValue)
+	public static <T> boolean all(final Iterable<T> iterable, final F<T, Boolean> predicate, final boolean defaultValue)
 	{
 		boolean result=defaultValue;
 
 		for (final T t: iterable)
-			if (!predicate.invoke(t))
+			if (!predicate.f(t))
 				return false;
 			else
 				result=true;
@@ -308,30 +307,30 @@ public class Collections
 		return result;
 	}
 
-	public static <T> void forEach(final Iterable<T> iterable, final SideEffect<T> effect)
+	public static <T> void forEach(final Iterable<T> iterable, final Effect<T> effect)
 	{
 		for (final T t: iterable)
-			effect.run(t);
+			effect.e(t);
 	}
 
-	public static <T> Lazy<List<T>> arrayListRef()
+	public static <T> P1<List<T>> arrayListRef()
 	{
-		return new Lazy<List<T>>()
+		return new P1<List<T>>()
 		{
 			@Override
-            public List<T> invoke()
+            public List<T> _1()
 			{
 				return arrayList();
 			}
 		};
 	}
 
-	public static <T,C extends Collection<T>> C except(final Lazy<C> constructor,final Iterable<T> iterable,final Predicate<T> predicate)
+	public static <T,C extends Collection<T>> C except(final P1<C> constructor,final Iterable<T> iterable,final F<T, Boolean> predicate)
 	{
-		final C c=constructor.invoke();
+		final C c=constructor._1();
 
 		for (final T t: iterable)
-			if (!predicate.invoke(t))
+			if (!predicate.f(t))
 				c.add(t);
 
 		return c;
@@ -428,9 +427,9 @@ public class Collections
 			return "testMapWith";
 		}
 	};
-	public static <T,C extends Collection<T>> C copyOf(final Iterable<? extends T> iterable,final Lazy<C> constructor)
+	public static <T,C extends Collection<T>> C copyOf(final Iterable<? extends T> iterable,final P1<C> constructor)
 	{
-		final C result=constructor.invoke();
+		final C result=constructor._1();
 
 		for (final T item: iterable)
 			result.add(item);
@@ -475,10 +474,10 @@ public class Collections
 	}
 
 	@Nullable
-	public static <T> T findIf(final Iterable<? extends T> iterable, final Predicate<T> predicate)
+	public static <T> T findIf(final Iterable<? extends T> iterable, final F<T, Boolean> predicate)
 	{
 		for (final T t: iterable)
-			if (predicate.invoke(t))
+			if (predicate.f(t))
 				return t;
 
 		return null;

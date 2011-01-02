@@ -1,6 +1,6 @@
 package ipsim.swing;
 
-import fpeas.lazy.Lazy;
+import fj.P1;
 import ipsim.gui.components.NetBlockTextField;
 import ipsim.network.ethernet.NetBlock;
 import ipsim.textmetrics.TextMetrics;
@@ -47,10 +47,10 @@ public final class NetBlockTextFieldUtility
 	{
 		return new NetBlockTextField()
 		{
-			public final Lazy<NetBlock> netBlock=new Lazy<NetBlock>()
+			public final P1<NetBlock> netBlock=new P1<NetBlock>()
 			{
 				@Override
-                public NetBlock invoke()
+                public NetBlock _1()
 				{
 					return validator.getNetBlock();
 				}
@@ -58,7 +58,7 @@ public final class NetBlockTextFieldUtility
 			};
 
 			@Override
-            public Lazy<NetBlock> netBlock()
+            public P1<NetBlock> netBlock()
 			{
 				return netBlock;
 			}

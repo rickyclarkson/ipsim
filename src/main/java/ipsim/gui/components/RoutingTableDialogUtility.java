@@ -9,11 +9,6 @@ import fj.F;
 import fj.Function;
 import fj.data.Either;
 import fj.data.Option;
-import fpeas.maybe.Maybe;
-import fpeas.maybe.MaybeUtility;
-import fpeas.sequence.Node;
-import fpeas.sequence.SequenceUtility;
-import fpeas.sideeffect.SideEffect;
 import ipsim.Global;
 import ipsim.awt.ComponentUtility;
 import ipsim.gui.event.CommandUtility;
@@ -27,6 +22,8 @@ import ipsim.network.connectivity.ip.IPAddress;
 import ipsim.network.connectivity.ip.NetMask;
 import ipsim.network.ip.IPAddressUtility;
 import ipsim.util.Collections;
+import ipsim.util.Node;
+import ipsim.util.SequenceUtility;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -34,15 +31,15 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
 
-import static fpeas.sequence.SequenceUtility.cons;
-import static fpeas.sequence.SequenceUtility.empty;
-import static fpeas.sequence.SequenceUtility.reverse;
-import static fpeas.sequence.SequenceUtility.size;
 import static ipsim.NetworkContext.errors;
 import static ipsim.lang.Stringables.asString;
 import static ipsim.network.ethernet.ComputerUtility.getSortedCards;
 import static ipsim.network.ethernet.RouteUtility.asCustomString;
 import static ipsim.swing.Dialogs.createDialogWithEscapeKeyToClose;
+import static ipsim.util.SequenceUtility.cons;
+import static ipsim.util.SequenceUtility.empty;
+import static ipsim.util.SequenceUtility.reverse;
+import static ipsim.util.SequenceUtility.size;
 
 public class RoutingTableDialogUtility
 {
@@ -58,7 +55,7 @@ public class RoutingTableDialogUtility
 		{
 			public final RoutingTableDialog thiss=this;
 
-			public Maybe<Node<Either<String, Route>>> list=empty();
+			public Option<Node<Either<String, Route>>> list=empty();
 
 			@Override
             public Runnable populateElements()
@@ -121,16 +118,11 @@ public class RoutingTableDialogUtility
 
 				final int[] a={0};
 
-				SequenceUtility.forEach(list, new SideEffect<Either<String, Route>>()
-				{
-					@Override
-                    public void run(final Either<String, Route> either)
-					{
-						final F<Route, String> asString=asString();
-						array[a[0]]=either.either(identity, asString);
-						a[0]++;
-					}
-				});
+				for (Either<String, Route> either: SequenceUtility.iterable(list)) {
+                    final F<Route, String> asString = asString();
+                    array[a[0]] = either.either(identity, asString);
+                    a[0]++;
+                }
 
 				entries.setListData(array);
 
@@ -150,21 +142,13 @@ public class RoutingTableDialogUtility
 					return;
 				}
 
-				MaybeUtility.run(SequenceUtility.get(list, entries.getSelectedIndex()), new SideEffect<Either<String, Route>>()
-				{
-					@Override
-                    public void run(final Either<String, Route> either)
-					{
-						for (Route entry: either.right())
-						{
-                            final RouteInfo entryInfo=new RouteInfo(entry.block, entry.gateway);
+				for (Route entry: SequenceUtility.get(list, entries.getSelectedIndex()).right()) {
+                    final RouteInfo entryInfo=new RouteInfo(entry.block, entry.gateway);
 
-                            final JDialog editDialog=RoutingTableEntryEditDialog.createRoutingTableEntryEditDialog(computer, entryInfo, Option.some(entry), Option.some(thiss)).getDialog();
+                    final JDialog editDialog=RoutingTableEntryEditDialog.createRoutingTableEntryEditDialog(computer, entryInfo, Option.some(entry), Option.some(thiss)).getDialog();
 
-                            editDialog.setVisible(true);
-						}
-					}
-				});
+                    editDialog.setVisible(true);
+                }
 			}
 
 			@Override
@@ -178,20 +162,13 @@ public class RoutingTableDialogUtility
 					return;
 				}
 
-				MaybeUtility.run(SequenceUtility.get(list, entries.getSelectedIndex()), new SideEffect<Either<String, Route>>()
-				{
-					@Override
-                    public void run(final Either<String, Route> either)
-					{
-						for (Route route: either.right()) {
-                            final String previous=asCustomString(route);
+				for (Route route: SequenceUtility.get(list, entries.getSelectedIndex()).right()) {
+                    final String previous=asCustomString(route);
 
-                            computer.routingTable.remove(route);
-                            final Network network=Global.getNetworkContext().network;
-                            network.log=Collections.add(network.log,CommandUtility.deleteRoute(computer, previous, Global.getNetworkContext().network));
-                        }
-					}
-				});
+                    computer.routingTable.remove(route);
+                    final Network network=Global.getNetworkContext().network;
+                    network.log=Collections.add(network.log,CommandUtility.deleteRoute(computer, previous, Global.getNetworkContext().network));
+                }
 
 				populateElements();
 			}

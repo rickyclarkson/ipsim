@@ -1,7 +1,7 @@
 package ipsim;
 
+import fj.Effect;
 import fj.data.Option;
-import fpeas.sideeffect.SideEffect;
 import ipsim.gui.NetworkView;
 import ipsim.gui.NetworkViewUtility;
 import ipsim.gui.Toggle;
@@ -67,10 +67,10 @@ public final class NetworkContext
 		}
 	};
 
-	public final SideEffect<String> errors=new SideEffect<String>()
+	public final Effect<String> errors=new Effect<String>()
 	{
 		@Override
-        public void run(final String s)
+        public void e(final String s)
 		{
 			errors(s);
 		}

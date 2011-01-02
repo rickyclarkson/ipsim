@@ -1,10 +1,8 @@
 package ipsim.property;
 
-import fpeas.sideeffect.SideEffect;
+import fj.Effect;
 import ipsim.util.Collections;
-
 import java.util.List;
-
 import org.jetbrains.annotations.NotNull;
 
 public class PropertyUtility
@@ -32,12 +30,12 @@ public class PropertyUtility
 				Collections.forEach(listeners, update(oldValue, value));
 			}
 
-			private SideEffect<PropertyListener<T>> update(final T oldValue, final T value)
+			private Effect<PropertyListener<T>> update(final T oldValue, final T value)
 			{
-				return new SideEffect<PropertyListener<T>>()
+				return new Effect<PropertyListener<T>>()
 				{
 					@Override
-                    public void run(final PropertyListener<T> propertyListener)
+                    public void e(final PropertyListener<T> propertyListener)
 					{
 						propertyListener.propertyChanged(thiz, oldValue, value);
 					}

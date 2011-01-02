@@ -1,8 +1,8 @@
 package ipsim.connectivity;
 
 import com.rickyclarkson.testsuite.UnitTest;
+import fj.Effect;
 import fj.F;
-import fpeas.sideeffect.SideEffectUtility;
 import ipsim.Globals;
 import ipsim.network.Network;
 import ipsim.network.NetworkUtility;
@@ -28,7 +28,7 @@ public class RoutingLoopTest implements UnitTest
 	{
 		final Network context=new Network();
 
-		NetworkUtility.loadFromFile(context,new File("datafiles/fullyconnected/routingloop1.ipsim"),SideEffectUtility.<IOException>throwRuntimeException());
+		NetworkUtility.loadFromFile(context,new File("datafiles/fullyconnected/routingloop1.ipsim"), Effect.<IOException>throwRuntimeException());
 
 		try
 		{
