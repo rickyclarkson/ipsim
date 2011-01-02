@@ -13,7 +13,6 @@ import ipsim.network.Network;
 import ipsim.network.connectivity.ConnectivityResults;
 import ipsim.network.connectivity.ConnectivityTest;
 import ipsim.network.connectivity.hub.ProgressMonitor;
-import ipsim.swing.SwingWorker;
 import ipsim.util.Collections;
 import java.awt.Cursor;
 import javax.swing.JDialog;
@@ -22,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import org.jetbrains.annotations.NotNull;
 
 import static anylayout.extras.SizeCalculatorUtility.absoluteSize;

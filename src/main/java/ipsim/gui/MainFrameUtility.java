@@ -15,7 +15,6 @@ import ipsim.lang.Runnables;
 import ipsim.network.NetworkUtility;
 import ipsim.network.connectivity.hub.ProgressMonitor;
 import ipsim.swing.CustomJOptionPane;
-import ipsim.swing.SwingWorker;
 import ipsim.webinterface.WebInterface;
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -39,6 +38,7 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import javax.swing.WindowConstants;
 
 import static ipsim.NetworkContext.errors;

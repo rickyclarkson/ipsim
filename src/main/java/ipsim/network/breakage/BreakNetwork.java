@@ -23,13 +23,13 @@ import ipsim.network.connectivity.ip.IPAddress;
 import ipsim.network.ethernet.ComputerUtility;
 import ipsim.network.ethernet.NetBlock;
 import ipsim.network.ethernet.NetMaskUtility;
-import ipsim.swing.SwingWorker;
 import ipsim.util.Collections;
 import java.util.Collection;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.ProgressMonitor;
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import org.jetbrains.annotations.NotNull;
 
 import static ipsim.Global.getNetworkContext;
