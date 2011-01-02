@@ -4,10 +4,10 @@ import fj.P1;
 import ipsim.network.ethernet.NetBlock;
 import javax.swing.JTextField;
 
-public interface NetBlockTextField
-{
-	P1<NetBlock> netBlock();
-	boolean isValid();
+public interface NetBlockTextField {
+    P1<NetBlock> netBlock();
 
-	JTextField getComponent();
+    boolean isValid();
+
+    JTextField getComponent();
 }

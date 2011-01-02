@@ -17,42 +17,33 @@ import static ipsim.network.conformance.TypicalScores.USUAL;
 import static ipsim.network.connectivity.computer.RoutingTableUtility.getExplicitRoutes;
 import static ipsim.network.ethernet.CardUtility.getNetBlock;
 
-class ExplicitRouteToLocalNetwork extends F<Network,CheckResult>
-{
-	@Override
+class ExplicitRouteToLocalNetwork extends F<Network, CheckResult> {
+    @Override
     @NotNull
-	public CheckResult f(@NotNull final Network network)
-	{
-		final F<Computer, Option<String>> warning=new F<Computer, Option<String>>()
-		{
-			@Override
+    public CheckResult f(@NotNull final Network network) {
+        final F<Computer, Option<String>> warning = new F<Computer, Option<String>>() {
+            @Override
             @NotNull
-			public Option<String> f(@NotNull final Computer computer)
-			{
-				return Collections.any(computer.getCards(),new F<Card, Boolean>()
-				{
-					@Override
-                    public Boolean f(final Card card)
-					{
-						for (final Route route: getExplicitRoutes(computer.routingTable))
-							try
-							{
-								if (equalT(route.block,getNetBlock(card)))
-									return true;
-							}
-							catch (NoDeviceDriversException exception)
-							{
-							}
+            public Option<String> f(@NotNull final Computer computer) {
+                return Collections.any(computer.getCards(), new F<Card, Boolean>() {
+                    @Override
+                    public Boolean f(final Card card) {
+                        for (final Route route : getExplicitRoutes(computer.routingTable))
+                            try {
+                                if (equalT(route.block, getNetBlock(card)))
+                                    return true;
+                            } catch (NoDeviceDriversException exception) {
+                            }
 
-						return false;
-					}
+                        return false;
+                    }
 
-				}) ? Option.some("Computer with an explicit route that points to one of its local networks") : Option.<String>none();
-			}
-		};
+                }) ? Option.some("Computer with an explicit route that points to one of its local networks") : Option.<String>none();
+            }
+        };
 
-		final F<Computer, Option<String>> noErrors=noErrors();
+        final F<Computer, Option<String>> noErrors = noErrors();
 
-		return NonsensicalArrangement.customCheck(getAllComputers,warning,noErrors,USUAL).f(network);
-	}
+        return NonsensicalArrangement.customCheck(getAllComputers, warning, noErrors, USUAL).f(network);
+    }
 }

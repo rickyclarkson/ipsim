@@ -31,63 +31,56 @@ import static ipsim.network.ethernet.ComputerUtility.isLocallyReachable;
 import static ipsim.swing.Buttons.closeButton;
 import static ipsim.swing.Dialogs.createDialogWithEscapeKeyToClose;
 
-public class AddDefaultRouteDialogUtility
-{
-	public static JDialog newInstance(final Computer computer)
-	{
-		final JDialog dialog=createDialogWithEscapeKeyToClose(Global.global.get().frame, "Add a Default Route");
+public class AddDefaultRouteDialogUtility {
+    public static JDialog newInstance(final Computer computer) {
+        final JDialog dialog = createDialogWithEscapeKeyToClose(Global.global.get().frame, "Add a Default Route");
 
-		dialog.setSize(400, 200);
+        dialog.setSize(400, 200);
 
-		ComponentUtility.centreOnParent(dialog, Global.global.get().frame);
+        ComponentUtility.centreOnParent(dialog, Global.global.get().frame);
 
-		final Container pane=dialog.getContentPane();
+        final Container pane = dialog.getContentPane();
 
-		final PercentConstraints constraints=PercentConstraintsUtility.newInstance(pane);
-		useAnyLayout(pane, 0.5f, 0.5f, constraints.getSizeCalculator(), ConstraintUtility.typicalDefaultConstraint(Runnables.throwRuntimeException));
+        final PercentConstraints constraints = PercentConstraintsUtility.newInstance(pane);
+        useAnyLayout(pane, 0.5f, 0.5f, constraints.getSizeCalculator(), ConstraintUtility.typicalDefaultConstraint(Runnables.throwRuntimeException));
 
-		constraints.add(new JLabel("IP Address"), 10, 10, 25, 15, false, false);
+        constraints.add(new JLabel("IP Address"), 10, 10, 25, 15, false, false);
 
-		final IPAddressTextField ipAddressTextField=IPAddressTextFieldUtility.newInstance();
+        final IPAddressTextField ipAddressTextField = IPAddressTextFieldUtility.newInstance();
 
-		constraints.add(ipAddressTextField.textField, 40, 10, 25, 15, false, false);
-		final JButton okButton=new JButton("OK");
-		constraints.add(okButton, 10, 70, 15, 15, false, false);
+        constraints.add(ipAddressTextField.textField, 40, 10, 25, 15, false, false);
+        final JButton okButton = new JButton("OK");
+        constraints.add(okButton, 10, 70, 15, 15, false, false);
 
-		okButton.addActionListener(new ActionListener()
-		{
-			@Override
-            public void actionPerformed(final ActionEvent event)
-			{
-				final NetBlock zero=NetBlockUtility.getZero();
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent event) {
+                final NetBlock zero = NetBlockUtility.getZero();
 
-				final IPAddress ipAddress=ipAddressTextField.getIPAddress();
+                final IPAddress ipAddress = ipAddressTextField.getIPAddress();
 
-				if (isLocallyReachable(computer, ipAddress))
-				{
-					final Route route=new Route(zero, ipAddress);
+                if (isLocallyReachable(computer, ipAddress)) {
+                    final Route route = new Route(zero, ipAddress);
 
-					computer.routingTable.add(Option.some(computer), route, Effect.<IPAddress>throwRuntimeException());
+                    computer.routingTable.add(Option.some(computer), route, Effect.<IPAddress>throwRuntimeException());
 
-					final Network network=Global.getNetworkContext().network;
-					network.log=Collections.add(network.log,addDefaultRoute(computer, ipAddress, network));
+                    final Network network = Global.getNetworkContext().network;
+                    network.log = Collections.add(network.log, addDefaultRoute(computer, ipAddress, network));
 
-					network.modified=true;
+                    network.modified = true;
 
-					dialog.setVisible(false);
-					dialog.dispose();
-				}
-				else
-				{
-					errors("Gateway unreachable");
-					dialog.requestFocus();
-				}
-			}
-		});
+                    dialog.setVisible(false);
+                    dialog.dispose();
+                } else {
+                    errors("Gateway unreachable");
+                    dialog.requestFocus();
+                }
+            }
+        });
 
-		final JButton cancelButton=closeButton("Cancel", dialog);
-		constraints.add(cancelButton, 70, 70, 25, 15, false, false);
+        final JButton cancelButton = closeButton("Cancel", dialog);
+        constraints.add(cancelButton, 70, 70, 25, 15, false, false);
 
-		return dialog;
-	}
+        return dialog;
+    }
 }

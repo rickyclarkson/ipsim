@@ -1,14 +1,13 @@
 package ipsim.network.connectivity;
 
-public interface IPDataVisitor2<T>
-{
-	T visitRequest();
+public interface IPDataVisitor2<T> {
+    T visitRequest();
 
-	T visitReply();
+    T visitReply();
 
-	T visitNetUnreachable();
+    T visitNetUnreachable();
 
-	T visitHostUnreachable();
+    T visitHostUnreachable();
 
-	T visitTimeToLiveExceeded();
+    T visitTimeToLiveExceeded();
 }

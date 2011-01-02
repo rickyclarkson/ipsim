@@ -39,86 +39,76 @@ import static ipsim.lang.Runnables.throwRuntimeException;
 import static ipsim.swing.Buttons.closeButton;
 import static ipsim.swing.Dialogs.createDialogWithEscapeKeyToClose;
 
-public final class TracerouteDialog
-{
-	public static JDialog newTracerouteDialog(final Computer computer)
-	{
-		final JDialog dialog=createDialogWithEscapeKeyToClose(Global.global.get().frame,"Traceroute");
+public final class TracerouteDialog {
+    public static JDialog newTracerouteDialog(final Computer computer) {
+        final JDialog dialog = createDialogWithEscapeKeyToClose(Global.global.get().frame, "Traceroute");
 
-		dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-		dialog.setLocation(200,100);
-		dialog.setSize(400,400);
+        dialog.setLocation(200, 100);
+        dialog.setSize(400, 400);
 
-		final Container pane=dialog.getContentPane();
+        final Container pane = dialog.getContentPane();
 
-		final PercentConstraints constraints=PercentConstraintsUtility.newInstance(pane);
-		AnyLayout.useAnyLayout(pane,0.5f,0.5f,SizeCalculatorUtility.absoluteSize(200,100),typicalDefaultConstraint(throwRuntimeException));
+        final PercentConstraints constraints = PercentConstraintsUtility.newInstance(pane);
+        AnyLayout.useAnyLayout(pane, 0.5f, 0.5f, SizeCalculatorUtility.absoluteSize(200, 100), typicalDefaultConstraint(throwRuntimeException));
 
-		constraints.add(new JLabel("IP Address"),10,5,25,5,false,false);
+        constraints.add(new JLabel("IP Address"), 10, 5, 25, 5, false, false);
 
-		final IPAddressTextField ipAddressTextField=IPAddressTextFieldUtility.newInstance();
+        final IPAddressTextField ipAddressTextField = IPAddressTextFieldUtility.newInstance();
 
-		constraints.add(ipAddressTextField.textField,30,5,25,5,false,false);
+        constraints.add(ipAddressTextField.textField, 30, 5, 25, 5, false, false);
 
-		final JButton button=new JButton("Traceroute");
+        final JButton button = new JButton("Traceroute");
 
-		constraints.add(button,60,5,30,5,false,false);
+        constraints.add(button, 60, 5, 30, 5, false, false);
 
-		constraints.add(new JLabel("Output:"),5,15,30,5,false,false);
+        constraints.add(new JLabel("Output:"), 5, 15, 30, 5, false, false);
 
-		final JTextArea outputArea=new JTextArea(5,5);
+        final JTextArea outputArea = new JTextArea(5, 5);
 
-		final JPanel outputPanel=new JPanel(new BorderLayout());
-		outputPanel.add(outputArea);
+        final JPanel outputPanel = new JPanel(new BorderLayout());
+        outputPanel.add(outputArea);
 
-		constraints.add(new JScrollPane(outputPanel),10,25,80,65,true,true);
+        constraints.add(new JScrollPane(outputPanel), 10, 25, 80, 65, true, true);
 
-		final JButton closeButton=closeButton("Close",dialog);
+        final JButton closeButton = closeButton("Close", dialog);
 
-		constraints.add(closeButton,70,90,20,10,false,false);
+        constraints.add(closeButton, 70, 90, 20, 10, false, false);
 
-		button.addActionListener(new ActionListener()
-		{
-			@Override
-            public void actionPerformed(final ActionEvent event)
-			{
-				outputArea.setText("");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent event) {
+                outputArea.setText("");
 
-				if (0==ipAddressTextField.textField.getText().length())
-				{
-					NetworkContext.errors("Cannot traceroute without an IP address");
+                if (0 == ipAddressTextField.textField.getText().length()) {
+                    NetworkContext.errors("Cannot traceroute without an IP address");
 
-					return;
-				}
+                    return;
+                }
 
-				final IPAddress address;
-				try
-				{
-					address=IPAddressUtility.valueOf(ipAddressTextField.textField.getText());
-				}
-				catch (final CheckedNumberFormatException exception)
-				{
-					NetworkContext.errors(exception.getMessage());
-					return;
-				}
+                final IPAddress address;
+                try {
+                    address = IPAddressUtility.valueOf(ipAddressTextField.textField.getText());
+                } catch (final CheckedNumberFormatException exception) {
+                    NetworkContext.errors(exception.getMessage());
+                    return;
+                }
 
-				final TracerouteResults results=Traceroute.trace(getNetworkContext().network,computer, new DestIPAddress(address),30);
+                final TracerouteResults results = Traceroute.trace(getNetworkContext().network, computer, new DestIPAddress(address), 30);
 
-				IOUtility.withPrintWriter(DocumentWriter.documentWriter(outputArea.getDocument()),new Effect<PrintWriter>()
-				{
-					@Override
-                    public void e(final PrintWriter printWriter)
-					{
-						printWriter.println(results.asString());
-					}
-				});
+                IOUtility.withPrintWriter(DocumentWriter.documentWriter(outputArea.getDocument()), new Effect<PrintWriter>() {
+                    @Override
+                    public void e(final PrintWriter printWriter) {
+                        printWriter.println(results.asString());
+                    }
+                });
 
-				final Network network=getNetworkContext().network;
-				network.log=Collections.add(network.log,CommandUtility.traceroute(computer,address,results.size(),getNetworkContext().network));
-			}
-		});
+                final Network network = getNetworkContext().network;
+                network.log = Collections.add(network.log, CommandUtility.traceroute(computer, address, results.size(), getNetworkContext().network));
+            }
+        });
 
-		return dialog;
-	}
+        return dialog;
+    }
 }

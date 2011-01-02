@@ -1,7 +1,6 @@
 package ipsim.textmetrics;
 
-public enum HorizontalAlignment
-{
-	RIGHT,
-	CENTRE
+public enum HorizontalAlignment {
+    RIGHT,
+    CENTRE
 }

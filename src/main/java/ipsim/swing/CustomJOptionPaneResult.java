@@ -1,7 +1,7 @@
 package ipsim.swing;
 
-public interface CustomJOptionPaneResult
-{
-	String getChoice();
-	boolean confirmationTicked();
+public interface CustomJOptionPaneResult {
+    String getChoice();
+
+    boolean confirmationTicked();
 }

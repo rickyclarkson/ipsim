@@ -4,7 +4,6 @@ import com.rickyclarkson.testsuite.UnitTest;
 import ipsim.Caster;
 import ipsim.awt.Point;
 import ipsim.connectivity.hub.incoming.PacketSourceUtility;
-import static ipsim.gui.PositionUtility.setParent;
 import ipsim.network.Network;
 import ipsim.network.connectivity.OutgoingPacketListener;
 import ipsim.network.connectivity.Packet;
@@ -19,59 +18,55 @@ import ipsim.network.connectivity.computer.ComputerFactory;
 import ipsim.network.connectivity.ethernet.MacAddress;
 import ipsim.network.connectivity.ip.IPAddress;
 
-public class ComputerArpIncomingTest implements UnitTest
-{
-	/**
-	 * Tests that when the Computer receives an ARP request (destination MAC address is zero), it sends an ARP reply.
-	 */
-	@Override
-    public boolean invoke()
-	{
-		final Network network=new Network();
+import static ipsim.gui.PositionUtility.setParent;
 
-		final Card card=network.cardFactory.f(new Point(0, 0));
+public class ComputerArpIncomingTest implements UnitTest {
+    /**
+     * Tests that when the Computer receives an ARP request (destination MAC address is zero), it sends an ARP reply.
+     */
+    @Override
+    public boolean invoke() {
+        final Network network = new Network();
 
-		final Computer computer=ComputerFactory.newComputer(network, 0, 0);
-		computer.computerID=network.generateComputerID();
+        final Card card = network.cardFactory.f(new Point(0, 0));
 
-		setParent(network, card, 0, computer, 0);
+        final Computer computer = ComputerFactory.newComputer(network, 0, 0);
+        computer.computerID = network.generateComputerID();
 
-		card.installDeviceDrivers(network);
+        setParent(network, card, 0, computer, 0);
 
-		final CardDrivers cardDrivers=card.withDrivers;
+        card.installDeviceDrivers(network);
 
-		cardDrivers.ipAddress.set(new IPAddress(10));
+        final CardDrivers cardDrivers = card.withDrivers;
 
-		final PacketQueue queue=network.packetQueue;
+        cardDrivers.ipAddress.set(new IPAddress(10));
 
-		final StringBuilder answer=new StringBuilder();
+        final PacketQueue queue = network.packetQueue;
 
-		computer.getOutgoingPacketListeners().add(new OutgoingPacketListener()
-		{
-			@Override
-            public void packetOutgoing(final Packet packet, final PacketSource source)
-			{
-				if (PacketUtility2.isArpPacket(packet) && PacketSourceUtility.isComputer(source))
-					answer.append("Pass");
-			}
+        final StringBuilder answer = new StringBuilder();
 
-			@Override
-            public boolean canHandle(final Packet packet, final PacketSource source)
-			{
-				return true;
-			}
-		});
+        computer.getOutgoingPacketListeners().add(new OutgoingPacketListener() {
+            @Override
+            public void packetOutgoing(final Packet packet, final PacketSource source) {
+                if (PacketUtility2.isArpPacket(packet) && PacketSourceUtility.isComputer(source))
+                    answer.append("Pass");
+            }
 
-		final ArpPacket packet=new ArpPacket(new IPAddress(10), new MacAddress(0), new IPAddress(5), new MacAddress(6), new Object());
-		queue.enqueueIncomingPacket(packet, card, computer);
+            @Override
+            public boolean canHandle(final Packet packet, final PacketSource source) {
+                return true;
+            }
+        });
 
-		queue.processAll();
+        final ArpPacket packet = new ArpPacket(new IPAddress(10), new MacAddress(0), new IPAddress(5), new MacAddress(6), new Object());
+        queue.enqueueIncomingPacket(packet, card, computer);
 
-		return Caster.equalT(answer.toString(), "Pass");
-	}
+        queue.processAll();
 
-	public String toString()
-	{
-		return "ComputerArpIncomingTest";
-	}
+        return Caster.equalT(answer.toString(), "Pass");
+    }
+
+    public String toString() {
+        return "ComputerArpIncomingTest";
+    }
 }

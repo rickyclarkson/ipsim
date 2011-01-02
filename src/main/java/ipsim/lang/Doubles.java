@@ -7,7 +7,7 @@ public class Doubles {
         return new F<T, Integer>() {
             @Override
             public Integer f(T t) {
-                return first.f(t)+second.f(t);
+                return first.f(t) + second.f(t);
             }
         };
     }

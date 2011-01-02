@@ -14,48 +14,43 @@ import org.jetbrains.annotations.NotNull;
 
 import static ipsim.util.Collections.arrayList;
 
-class PercentOfIPsMatchingProblem extends F<Network,CheckResult>
-{
-	@Override
+class PercentOfIPsMatchingProblem extends F<Network, CheckResult> {
+    @Override
     @NotNull
-	public CheckResult f(@NotNull final Network network)
-	{
-		final F<Problem,CheckResult> func=new F<Problem,CheckResult>()
-		{
-			@Override
+    public CheckResult f(@NotNull final Network network) {
+        final F<Problem, CheckResult> func = new F<Problem, CheckResult>() {
+            @Override
             @NotNull
-			public CheckResult f(@NotNull final Problem problem)
-			{
-				final NetBlock block=new NetBlock(problem.netBlock.networkNumber, problem.netBlock.netMask);
+            public CheckResult f(@NotNull final Problem problem) {
+                final NetBlock block = new NetBlock(problem.netBlock.networkNumber, problem.netBlock.netMask);
 
-				final Collection<CardDrivers> cards=NetworkUtility.getAllCardsWithDrivers(network);
+                final Collection<CardDrivers> cards = NetworkUtility.getAllCardsWithDrivers(network);
 
-				int totalCorrect=0;
-				int total=0;
+                int totalCorrect = 0;
+                int total = 0;
 
-				final List<PacketSource> withWarnings=arrayList();
+                final List<PacketSource> withWarnings = arrayList();
 
-				for (@NotNull final CardDrivers card: cards)
-				{
-					if (card.ipAddress.get().rawValue==0)
-						continue;
+                for (@NotNull final CardDrivers card : cards) {
+                    if (card.ipAddress.get().rawValue == 0)
+                        continue;
 
-					if (block.networkContains(card.ipAddress.get()))
-						totalCorrect++;
-					else
-						withWarnings.add(card.card);
+                    if (block.networkContains(card.ipAddress.get()))
+                        totalCorrect++;
+                    else
+                        withWarnings.add(card.card);
 
-					total++;
-				}
+                    total++;
+                }
 
-				final int percent=0==total ? 0 : totalCorrect*100/total;
+                final int percent = 0 == total ? 0 : totalCorrect * 100 / total;
 
-				final List<PacketSource> errors=arrayList();
+                final List<PacketSource> errors = arrayList();
 
-				return new CheckResult(percent, Collections.asList("IP address that doesn't match the problem given"),withWarnings,errors);
-			}
-		};
+                return new CheckResult(percent, Collections.asList("IP address that doesn't match the problem given"), withWarnings, errors);
+            }
+        };
 
-		return CheckProblemUtility.check(network,func);
-	}
+        return CheckProblemUtility.check(network, func);
+    }
 }

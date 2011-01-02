@@ -1,61 +1,56 @@
 package ipsim.textmetrics;
 
-import static ipsim.Caster.equalT;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 
-public final class TextMetrics
-{
-	private static final FontRenderContext renderContext=new FontRenderContext(null,true,true);
+import static ipsim.Caster.equalT;
 
-	public static int getWidth(final Font font,final String string)
-	{
-		final Rectangle2D stringBounds=font.getStringBounds(string,0,string.length(),renderContext);
+public final class TextMetrics {
+    private static final FontRenderContext renderContext = new FontRenderContext(null, true, true);
 
-		return (int)stringBounds.getWidth();
-	}
+    public static int getWidth(final Font font, final String string) {
+        final Rectangle2D stringBounds = font.getStringBounds(string, 0, string.length(), renderContext);
 
-	public static int getHeight(final Font font,final String string)
-	{
-		final Rectangle2D stringBounds=font.getStringBounds(string,0,string.length(),renderContext);
+        return (int) stringBounds.getWidth();
+    }
 
-		return (int)stringBounds.getHeight();
-	}
+    public static int getHeight(final Font font, final String string) {
+        final Rectangle2D stringBounds = font.getStringBounds(string, 0, string.length(), renderContext);
 
-	public static void drawString(final Graphics graphics,final String string,final int x,final int y,final HorizontalAlignment horizontalAlignment,final VerticalAlignment verticalAlignment,final boolean withYellowBackground)
-	{
-		int resultX=x;
-		int resultY=y;
+        return (int) stringBounds.getHeight();
+    }
 
-		final Font font=graphics.getFont();
+    public static void drawString(final Graphics graphics, final String string, final int x, final int y, final HorizontalAlignment horizontalAlignment, final VerticalAlignment verticalAlignment, final boolean withYellowBackground) {
+        int resultX = x;
+        int resultY = y;
 
-		final int stringWidth=getWidth(font,string);
-		final int stringHeight=getHeight(font,string);
+        final Font font = graphics.getFont();
 
-		if (equalT(horizontalAlignment, HorizontalAlignment.RIGHT))
-			resultX=x-stringWidth;
+        final int stringWidth = getWidth(font, string);
+        final int stringHeight = getHeight(font, string);
 
-		if (equalT(horizontalAlignment, HorizontalAlignment.CENTRE))
-			resultX=x-stringWidth/2;
+        if (equalT(horizontalAlignment, HorizontalAlignment.RIGHT))
+            resultX = x - stringWidth;
 
-		if (equalT(verticalAlignment, VerticalAlignment.BOTTOM))
-			resultY=y-stringHeight;
+        if (equalT(horizontalAlignment, HorizontalAlignment.CENTRE))
+            resultX = x - stringWidth / 2;
 
-		if (equalT(verticalAlignment, VerticalAlignment.CENTRE))
-			resultY=y-stringHeight/2;
+        if (equalT(verticalAlignment, VerticalAlignment.BOTTOM))
+            resultY = y - stringHeight;
 
-		if (withYellowBackground)
-		{
-			final Color previous=graphics.getColor();
-			graphics.setColor(Color.yellow);
-			graphics.fillRect(resultX-2,resultY,stringWidth+4,stringHeight);
-			graphics.setColor(previous);
-		}
+        if (equalT(verticalAlignment, VerticalAlignment.CENTRE))
+            resultY = y - stringHeight / 2;
 
-		graphics.drawString(string,resultX,resultY+stringHeight*3/4);
-	}
+        if (withYellowBackground) {
+            final Color previous = graphics.getColor();
+            graphics.setColor(Color.yellow);
+            graphics.fillRect(resultX - 2, resultY, stringWidth + 4, stringHeight);
+            graphics.setColor(previous);
+        }
+
+        graphics.drawString(string, resultX, resultY + stringHeight * 3 / 4);
+    }
 }

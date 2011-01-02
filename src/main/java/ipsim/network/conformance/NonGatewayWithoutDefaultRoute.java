@@ -13,24 +13,20 @@ import static ipsim.network.conformance.TypicalScores.USUAL;
 import static ipsim.network.connectivity.computer.RoutingTableUtility.getDefaultRoutes;
 import static ipsim.util.Collections.size;
 
-class NonGatewayWithoutDefaultRoute extends F<Network,CheckResult>
-{
-	@Override
+class NonGatewayWithoutDefaultRoute extends F<Network, CheckResult> {
+    @Override
     @NotNull
-	public CheckResult f(@NotNull final Network network)
-	{
-		final F<Computer, Option<String>> isARouter=new F<Computer, Option<String>>()
-		{
-			@Override
+    public CheckResult f(@NotNull final Network network) {
+        final F<Computer, Option<String>> isARouter = new F<Computer, Option<String>>() {
+            @Override
             @NotNull
-			public Option<String> f(@NotNull final Computer computer)
-			{
-				return ConformanceTestsUtility.isARouter().f(computer)||!(0==size(getDefaultRoutes(computer.routingTable))) ? Option.<String>none() : Option.some("Non-gateway computer without a default route");
-			}
-		};
+            public Option<String> f(@NotNull final Computer computer) {
+                return ConformanceTestsUtility.isARouter().f(computer) || !(0 == size(getDefaultRoutes(computer.routingTable))) ? Option.<String>none() : Option.some("Non-gateway computer without a default route");
+            }
+        };
 
-		final F<Computer, Option<String>> noErrors=noErrors();
+        final F<Computer, Option<String>> noErrors = noErrors();
 
-		return customCheck(getAllComputers,isARouter,noErrors,USUAL).f(network);
-	}
+        return customCheck(getAllComputers, isARouter, noErrors, USUAL).f(network);
+    }
 }

@@ -33,7 +33,320 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d56e3007-4b96-4c66-a9f5-eabf360af09f" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IPSim.ipr" afterPath="$PROJECT_DIR$/IPSim.ipr" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IPSim.iws" afterPath="$PROJECT_DIR$/IPSim.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/rickyclarkson/java/lang/Throwables.java" afterPath="$PROJECT_DIR$/src/main/java/com/rickyclarkson/java/lang/Throwables.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/rickyclarkson/javax/swing/ScrollableEditorPaneUtility.java" afterPath="$PROJECT_DIR$/src/main/java/com/rickyclarkson/javax/swing/ScrollableEditorPaneUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/rickyclarkson/testsuite/UnitTest.java" afterPath="$PROJECT_DIR$/src/main/java/com/rickyclarkson/testsuite/UnitTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/rickyclarkson/testsuite/UnitTestUtility.java" afterPath="$PROJECT_DIR$/src/main/java/com/rickyclarkson/testsuite/UnitTestUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/rickyclarkson/xml/DOMSimple.java" afterPath="$PROJECT_DIR$/src/main/java/com/rickyclarkson/xml/DOMSimple.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/rickyclarkson/xml/XMLUtility.java" afterPath="$PROJECT_DIR$/src/main/java/com/rickyclarkson/xml/XMLUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/Caster.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/Caster.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/ContextUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/ContextUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/ExceptionHandler.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/ExceptionHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/Global.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/Global.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/Globals.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/Globals.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/Main.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/NetworkContext.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/NetworkContext.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/awt/ComponentUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/awt/ComponentUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/awt/Point.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/awt/Point.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/awt/PointUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/awt/PointUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/connectivity/BroadcastPingTest.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/connectivity/BroadcastPingTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/connectivity/FullyConnectedFilesTest.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/connectivity/FullyConnectedFilesTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/connectivity/PingTester.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/connectivity/PingTester.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/connectivity/PingerTest.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/connectivity/PingerTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/connectivity/RoutingLoopTest.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/connectivity/RoutingLoopTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/connectivity/UnconnectedFilesTest.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/connectivity/UnconnectedFilesTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/connectivity/computer/arp/incoming/ComputerArpIncomingTest.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/connectivity/computer/arp/incoming/ComputerArpIncomingTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/connectivity/computer/arp/outgoing/ComputerArpOutgoingTest.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/connectivity/computer/arp/outgoing/ComputerArpOutgoingTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/connectivity/hub/incoming/PacketSourceUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/connectivity/hub/incoming/PacketSourceUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/ethernet/ComputerTest.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/ethernet/ComputerTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/ethernet/EthernetCableTest.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/ethernet/EthernetCableTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/ethernet/RoutingTableTest.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/ethernet/RoutingTableTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/ComponentToolBarUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/ComponentToolBarUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/ConnectivityTestDialogUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/ConnectivityTestDialogUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/EventLogDialogUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/EventLogDialogUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/ExceptionReportDialogUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/ExceptionReportDialogUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/GetChildOffset.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/GetChildOffset.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/HelpFrameUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/HelpFrameUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/JOptionPaneUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/JOptionPaneUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/MainFrameUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/MainFrameUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/MenuHandler.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/MenuHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/NetworkComponentIconMouseListenerUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/NetworkComponentIconMouseListenerUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/NetworkView.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/NetworkView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/NetworkViewMouseListenerUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/NetworkViewMouseListenerUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/NetworkViewUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/NetworkViewUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/ObjectRenderer.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/ObjectRenderer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/PacketSourceAndPoints.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/PacketSourceAndPoints.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/PositionUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/PositionUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/PositionUtilityTest.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/PositionUtilityTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/ProgressMonitorUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/ProgressMonitorUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/RenderComponent.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/RenderComponent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/StandardToolBarUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/StandardToolBarUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/Toggle.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/Toggle.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/UserMessages.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/UserMessages.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/UserPermissions.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/UserPermissions.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/AddDefaultRouteDialogUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/AddDefaultRouteDialogUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/ComponentMoved.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/ComponentMoved.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/ComputerHandler.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/ComputerHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/ContextMenuUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/ContextMenuUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/CreateContextMenu.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/CreateContextMenu.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/DocumentWriter.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/DocumentWriter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/EditIPAddressDialogFactory.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/EditIPAddressDialogFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/EthernetCableHandler.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/EthernetCableHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/EthernetCableIcon.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/EthernetCableIcon.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/EthernetCardHandler.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/EthernetCardHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/HubHandler.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/HubHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/InvokeContextMenu.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/InvokeContextMenu.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/NetBlockTextField.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/NetBlockTextField.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/NetworkComponentUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/NetworkComponentUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/PacketSourceVisitor2.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/PacketSourceVisitor2.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/PingDialog.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/PingDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/ProblemDialog.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/ProblemDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/RouteEditDialog.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/RouteEditDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/RouteInfo.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/RouteInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/RoutingTableDialog.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/RoutingTableDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/RoutingTableDialogUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/RoutingTableDialogUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/RoutingTableEntryEditDialog.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/RoutingTableEntryEditDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/ScrapbookDialogUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/ScrapbookDialogUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/ScrapbookElement.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/ScrapbookElement.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/ScrapbookElementUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/ScrapbookElementUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/TracerouteDialog.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/TracerouteDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/WarningGenerator.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/WarningGenerator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/initialdialog/InitialDialog.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/initialdialog/InitialDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/initialdialog/InitialDialogUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/initialdialog/InitialDialogUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/event/CommandUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/event/CommandUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/event/LogUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/event/LogUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/event/MouseTracker.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/event/MouseTracker.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/event/PingCommand.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/event/PingCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/image/ImageLoader.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/image/ImageLoader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/io/IOUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/io/IOUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/lang/Assertion.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/lang/Assertion.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/lang/CheckedIllegalStateException.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/lang/CheckedIllegalStateException.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/lang/Comparators.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/lang/Comparators.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/lang/Doubles.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/lang/Doubles.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/lang/DynamicVariable.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/lang/DynamicVariable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/lang/FunctionUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/lang/FunctionUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/lang/Maths.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/lang/Maths.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/lang/Randoms.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/lang/Randoms.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/lang/Runnables.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/lang/Runnables.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/lang/StringUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/lang/StringUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/lang/Stringable.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/lang/Stringable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/lang/Stringables.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/lang/Stringables.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/InvalidNetMaskException.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/InvalidNetMaskException.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/Network.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/Network.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/NetworkUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/NetworkUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/PacketSourceVisitorUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/PacketSourceVisitorUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/Problem.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/Problem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/ProblemBuilder.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/ProblemBuilder.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/ProblemDifficulty.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/ProblemDifficulty.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/ProblemTest.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/ProblemTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/ProblemUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/ProblemUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/breakage/BreakNetwork.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/breakage/BreakNetwork.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/CheckProblemUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/CheckProblemUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/CheckResult.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/CheckResult.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/CheckResultUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/CheckResultUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/ConformanceTests.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/ConformanceTests.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/ConformanceTestsUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/ConformanceTestsUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/CycleInDefaultRoutes.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/CycleInDefaultRoutes.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/ExplicitRouteOnNonGateway.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/ExplicitRouteOnNonGateway.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/ExplicitRouteToLocalNetwork.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/ExplicitRouteToLocalNetwork.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/HubWithMoreThanOneSubnet.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/HubWithMoreThanOneSubnet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/MultipleRoutesToTheSameSubnet.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/MultipleRoutesToTheSameSubnet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/NonGatewayWithoutDefaultRoute.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/NonGatewayWithoutDefaultRoute.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/NonsensicalArrangement.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/NonsensicalArrangement.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/OneHostNumberUsed.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/OneHostNumberUsed.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/OneSubnetMaskUsed.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/OneSubnetMaskUsed.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/PacketForwardingEnabledOnNonGateway.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/PacketForwardingEnabledOnNonGateway.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/PercentOfIPsMatchingProblem.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/PercentOfIPsMatchingProblem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/PercentOfRequiredSubnets.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/PercentOfRequiredSubnets.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/PercentUniqueIPAddresses.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/PercentUniqueIPAddresses.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/RoutePointsAtNonLocalGateway.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/RoutePointsAtNonLocalGateway.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/SomeHostsHaveABadNetMask.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/SomeHostsHaveABadNetMask.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/SomeHostsHaveMoreThanOneDefaultRoute.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/SomeHostsHaveMoreThanOneDefaultRoute.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/SomeHostsHaveMoreThanOneRouteToTheSamePlace.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/SomeHostsHaveMoreThanOneRouteToTheSamePlace.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/SomeHostsHaveMoreThanThreeCards.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/SomeHostsHaveMoreThanThreeCards.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/SomeHostsHaveRouteToSelf.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/SomeHostsHaveRouteToSelf.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/SomeHostsHaveTwoCardsWithTheSameNetworkNumber.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/SomeHostsHaveTwoCardsWithTheSameNetworkNumber.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/SomeHubsHaveNoStandaloneHost.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/SomeHubsHaveNoStandaloneHost.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/SomeRoutesToNonGateways.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/SomeRoutesToNonGateways.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/TypicalScores.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/TypicalScores.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/ZeroHostNumberUsed.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/ZeroHostNumberUsed.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/ZeroSubnetMaskUsed.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/ZeroSubnetMaskUsed.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ConnectingTo.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ConnectingTo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ConnectivityResults.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ConnectivityResults.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ConnectivityTest.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ConnectivityTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/IPDataUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/IPDataUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/IPDataVisitor2.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/IPDataVisitor2.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/IncomingPacketListener.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/IncomingPacketListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/IncomingPacketListenerVisitor.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/IncomingPacketListenerVisitor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/Listeners.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/Listeners.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/OutgoingPacketListener.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/OutgoingPacketListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/Packet.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/Packet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/PacketIdentifier.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/PacketIdentifier.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/PacketQueue.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/PacketQueue.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/PacketSniffer.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/PacketSniffer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/PacketSnifferUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/PacketSnifferUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/PacketSource.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/PacketSource.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/PacketSourceAndIndex.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/PacketSourceAndIndex.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/PacketSourceVisitor.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/PacketSourceVisitor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/PacketUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/PacketUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/PacketUtility2.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/PacketUtility2.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/PacketVisitor.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/PacketVisitor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/PacketVisitor2.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/PacketVisitor2.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/PacketVisitorUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/PacketVisitorUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/arp/ArpPacket.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/arp/ArpPacket.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/arp/ArpPacketUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/arp/ArpPacketUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/cable/Cable.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/cable/Cable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/cable/CableFactory.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/cable/CableFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/cable/CableTest.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/cable/CableTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/cable/CableType.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/cable/CableType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/cable/incoming/CableIncoming.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/cable/incoming/CableIncoming.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/cable/outgoing/CableOutgoing.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/cable/outgoing/CableOutgoing.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/card/Card.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/card/Card.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/card/CardDrivers.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/card/CardDrivers.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/card/CardFactory.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/card/CardFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/card/NoDeviceDriversException.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/card/NoDeviceDriversException.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/card/incoming/CardIncoming.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/card/incoming/CardIncoming.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/card/outgoing/CardOutgoing.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/card/outgoing/CardOutgoing.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/ArpEntry.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/ArpEntry.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/ArpTable.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/ArpTable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/Computer.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/Computer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/ComputerFactory.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/ComputerFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/NoSuchRouteException.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/NoSuchRouteException.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/Route.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/Route.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/RoutingTable.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/RoutingTable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/RoutingTableUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/RoutingTableUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/arp/incoming/ComputerArpIncoming.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/arp/incoming/ComputerArpIncoming.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/arp/outgoing/ComputerArpOutgoing.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/arp/outgoing/ComputerArpOutgoing.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/ethernet/incoming/ComputerEthernetIncoming.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/ethernet/incoming/ComputerEthernetIncoming.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/ethernet/outgoing/ComputerEthernetOutgoing.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/ethernet/outgoing/ComputerEthernetOutgoing.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/ip/incoming/ComputerIPIncoming.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/ip/incoming/ComputerIPIncoming.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/ip/outgoing/ComputerIPOutgoing.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/ip/outgoing/ComputerIPOutgoing.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/ip/outgoing/ContinueArpPacketListener.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/ip/outgoing/ContinueArpPacketListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/ip/outgoing/ContinueRemover.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/ip/outgoing/ContinueRemover.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ethernet/EthernetPacket.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ethernet/EthernetPacket.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ethernet/MacAddress.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ethernet/MacAddress.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/hub/Hub.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/hub/Hub.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/hub/HubFactory.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/hub/HubFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/hub/ProgressMonitor.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/hub/ProgressMonitor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/hub/incoming/HubIncoming.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/hub/incoming/HubIncoming.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/hub/outgoing/HubOutgoing.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/hub/outgoing/HubOutgoing.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/icmp/IcmpData.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/icmp/IcmpData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/icmp/ping/PingData.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/icmp/ping/PingData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/icmp/ttl/TimeExceededData.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/icmp/ttl/TimeExceededData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/icmp/unreachable/UnreachableData.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/icmp/unreachable/UnreachableData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ip/DestIPAddress.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ip/DestIPAddress.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ip/IPAddress.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ip/IPAddress.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ip/IPDataVisitor.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ip/IPDataVisitor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ip/IPPacket.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ip/IPPacket.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ip/NetMask.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ip/NetMask.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ip/SourceIPAddress.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ip/SourceIPAddress.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ping/PingListener.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ping/PingListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ping/PingResults.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ping/PingResults.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ping/PingResultsUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ping/PingResultsUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ping/Pinger.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ping/Pinger.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/traceroute/Traceroute.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/traceroute/Traceroute.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/traceroute/TracerouteResults.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/traceroute/TracerouteResults.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/traceroute/TracerouteResultsUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/traceroute/TracerouteResultsUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/traceroute/TracerouteTest.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/traceroute/TracerouteTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/ethernet/CableUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/ethernet/CableUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/ethernet/CardComparator.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/ethernet/CardComparator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/ethernet/CardUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/ethernet/CardUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/ethernet/ComputerUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/ethernet/ComputerUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/ethernet/NetBlock.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/ethernet/NetBlock.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/ethernet/NetBlockUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/ethernet/NetBlockUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/ethernet/NetMaskUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/ethernet/NetMaskUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/ethernet/NoCardException.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/ethernet/NoCardException.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/ethernet/OnlyOneEndConnectedException.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/ethernet/OnlyOneEndConnectedException.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/ethernet/RouteTest.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/ethernet/RouteTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/ethernet/RouteUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/ethernet/RouteUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/ip/CheckedNumberFormatException.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/ip/CheckedNumberFormatException.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/ip/IPAddressUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/ip/IPAddressUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/persistence2/Deserialiser.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/persistence2/Deserialiser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/persistence2/Serialiser.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/persistence2/Serialiser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/persistence/LogRetentionTest.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/persistence/LogRetentionTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/persistence/SerialisationDelegate.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/persistence/SerialisationDelegate.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/persistence/XMLDeserialiser.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/persistence/XMLDeserialiser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/persistence/XMLDeserialiserImplementation.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/persistence/XMLDeserialiserImplementation.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/persistence/XMLDeserialiserUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/persistence/XMLDeserialiserUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/persistence/XMLSerialiser.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/persistence/XMLSerialiser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/persistence/delegates/ComputerDelegate.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/persistence/delegates/ComputerDelegate.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/persistence/delegates/DefaultCommandDelegate.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/persistence/delegates/DefaultCommandDelegate.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/persistence/delegates/DelegateHelper.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/persistence/delegates/DelegateHelper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/persistence/delegates/EthernetCableDelegate.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/persistence/delegates/EthernetCableDelegate.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/persistence/delegates/EthernetCardDelegate.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/persistence/delegates/EthernetCardDelegate.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/persistence/delegates/HubDelegate.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/persistence/delegates/HubDelegate.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/persistence/delegates/LogDelegate.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/persistence/delegates/LogDelegate.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/persistence/delegates/NetBlockDelegate.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/persistence/delegates/NetBlockDelegate.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/persistence/delegates/NetworkDelegate.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/persistence/delegates/NetworkDelegate.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/persistence/delegates/PointDelegate.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/persistence/delegates/PointDelegate.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/persistence/delegates/ProblemDelegate.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/persistence/delegates/ProblemDelegate.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/persistence/delegates/RouteDelegate.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/persistence/delegates/RouteDelegate.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/persistence/delegates/RoutingTableDelegate.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/persistence/delegates/RoutingTableDelegate.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/property/Property.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/property/Property.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/property/PropertyListener.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/property/PropertyListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/property/PropertyListenerUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/property/PropertyListenerUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/property/PropertyUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/property/PropertyUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/property/SimpleProperty.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/property/SimpleProperty.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/swing/Buttons.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/swing/Buttons.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/swing/ContainerUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/swing/ContainerUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/swing/CustomJOptionPane.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/swing/CustomJOptionPane.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/swing/CustomJOptionPaneResult.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/swing/CustomJOptionPaneResult.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/swing/Dialogs.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/swing/Dialogs.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/swing/DocumentValidator.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/swing/DocumentValidator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/swing/DragNDropIconCreator.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/swing/DragNDropIconCreator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/swing/ExceptionUploadListener.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/swing/ExceptionUploadListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/swing/HasComponent.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/swing/HasComponent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/swing/IPAddressTextField.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/swing/IPAddressTextField.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/swing/IPAddressTextFieldUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/swing/IPAddressTextFieldUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/swing/IPAddressValidator.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/swing/IPAddressValidator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/swing/JDialogUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/swing/JDialogUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/swing/JFileChooserUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/swing/JFileChooserUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/swing/LabelledTextField.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/swing/LabelledTextField.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/swing/LabelledTextFieldUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/swing/LabelledTextFieldUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/swing/NetBlockTextFieldUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/swing/NetBlockTextFieldUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/swing/NetBlockValidator.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/swing/NetBlockValidator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/swing/SubnetMaskTextField.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/swing/SubnetMaskTextField.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/swing/SwingPropertyChangeSupport.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/swing/SwingPropertyChangeSupport.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/swing/SwingWorker.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/swing/SwingWorker.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/swing/ValidatingDocumentListener.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/swing/ValidatingDocumentListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/swing/WindowUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/swing/WindowUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/tests/ArpStoredFromForeignNetworkBug.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/tests/ArpStoredFromForeignNetworkBug.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/tests/Bugzilla.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/tests/Bugzilla.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/tests/CardAngle.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/tests/CardAngle.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/tests/CardTests.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/tests/CardTests.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/tests/ConformanceTestsTest.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/tests/ConformanceTestsTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/tests/IncompleteArpTest.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/tests/IncompleteArpTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/tests/InfiniteLoopBug.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/tests/InfiniteLoopBug.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/tests/InvalidRouteTest.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/tests/InvalidRouteTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/tests/ManualTests.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/tests/ManualTests.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/tests/NetMaskTest.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/tests/NetMaskTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/tests/RemoteBroadcastBug.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/tests/RemoteBroadcastBug.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/tests/RoutingTableBugs.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/tests/RoutingTableBugs.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/tests/RunTests.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/tests/RunTests.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/tests/SerialisationTest.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/tests/SerialisationTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/tests/XMLSerialisationTest.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/tests/XMLSerialisationTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/textmetrics/HorizontalAlignment.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/textmetrics/HorizontalAlignment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/textmetrics/TextMetrics.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/textmetrics/TextMetrics.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/textmetrics/VerticalAlignment.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/textmetrics/VerticalAlignment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/tree/DepthFirstIterable.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/tree/DepthFirstIterable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/tree/DepthFirstIterator.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/tree/DepthFirstIterator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/tree/TreeNode.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/tree/TreeNode.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/tree/Trees.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/tree/Trees.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/util/Arrays.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/util/Arrays.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/util/Collections.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/util/Collections.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/util/NoSuchValueException.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/util/NoSuchValueException.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/util/Printf.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/util/Printf.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/util/SequenceUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/util/SequenceUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/util/Stack.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/util/Stack.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/util/StackUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/util/StackUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/webinterface/NamedConfiguration.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/webinterface/NamedConfiguration.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/webinterface/NoSuchConfigurationException.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/webinterface/NoSuchConfigurationException.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/webinterface/Web.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/webinterface/Web.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/webinterface/WebInterface.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/webinterface/WebInterface.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/webinterface/WebInterfaceUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/webinterface/WebInterfaceUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/ipsim/util/CollectionsTest.java" afterPath="$PROJECT_DIR$/src/test/java/ipsim/util/CollectionsTest.java" />
     </list>
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -137,7 +450,86 @@
     </subPane>
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="Main.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="70" column="1" selection-start="2467" selection-end="2467" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AdditionCommutes.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/functionaljava/etc/demo/bgga/test/AdditionCommutes.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="18" column="0" selection-start="573" selection-end="573" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TimeExceededData.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/icmp/ttl/TimeExceededData.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="12" selection-start="210" selection-end="210" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UnreachableData.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/icmp/unreachable/UnreachableData.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="12" selection-start="218" selection-end="218" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserPermissions.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/UserPermissions.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="5" column="12" selection-start="60" selection-end="60" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ArpEntry.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/ArpEntry.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="13" column="44" selection-start="412" selection-end="412" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ArpTable.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/ArpTable.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="28" column="26" selection-start="857" selection-end="865" vertical-scroll-proportion="0.45049506">
+              <folding>
+                <element signature="method#asString#0;class#ArpTable#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NetBlockTextFieldUtility.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/swing/NetBlockTextFieldUtility.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="17" column="63" selection-start="500" selection-end="500" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -157,30 +549,23 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/ipsim/network/PacketSourceVisitorUtility.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/PacketVisitorUtility.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/cable/incoming/CableIncoming.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/HubWithMoreThanOneSubnet.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/ExplicitRouteToLocalNetwork.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/CycleInDefaultRoutes.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ipsim/network/breakage/BreakNetwork.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ping/PingListener.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/SomeRoutesToNonGateways.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ipsim/gui/components/EthernetCableHandler.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ipsim/util/SequenceUtility.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ipsim/gui/components/RoutingTableDialogUtility.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/ethernet/outgoing/ComputerEthernetOutgoing.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ping/Pinger.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ipsim/network/ethernet/RouteTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/cable/CableType.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ipsim/lang/AssertionException.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ipsim/ExceptionHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ipsim/swing/NetBlockTextFieldUtility.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ipsim/webinterface/NoSuchConfigurationException.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ipsim/util/NoSuchValueException.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ipsim/swing/SwingPropertyChangeSupport.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ipsim/swing/SubnetMaskTextField.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ipsim/network/ethernet/OnlyOneEndConnectedException.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ipsim/network/ethernet/NoCardException.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/NoSuchRouteException.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/card/NoDeviceDriversException.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ipsim/lang/CheckedIllegalStateException.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ipsim/network/ip/CheckedNumberFormatException.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ipsim/network/InvalidNetMaskException.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ipsim/gui/MenuHandler.java" />
       </list>
-    </option>
-  </component>
-  <component name="MavenImportPreferences">
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="importAutomatically" value="true" />
-      </MavenImportingSettings>
     </option>
   </component>
   <component name="MavenProjectNavigator">
@@ -326,18 +711,42 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IPSim" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ipsim" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IPSim" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ipsim" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="project.structure.last.edited" value="SDKs" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="RunManagerConfig.compileBeforeRunning" value="true" />
     <property name="RunManagerConfig.showSettingsBeforeRunnig" value="false" />
-    <property name="options.lastSelected" value="reference.projectsettings.compiler.javacompiler" />
+    <property name="options.lastSelected" value="preferences.sourceCode.Wrapping and Braces" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="recentsLimit" value="5" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -374,7 +783,7 @@
       <recent name="ipsim.network.breakage" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.IPSim">
+  <component name="RunManager" selected="Application.RunTests">
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
@@ -642,20 +1051,21 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="-4" width="1448" height="874" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2689655" sideWeight="0.5" order="20" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32827586" sideWeight="0.5" order="17" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32827586" sideWeight="0.5" order="17" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32561728" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4386207" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24765626" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3345298" sideWeight="0.73103446" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.48656294" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27494615" sideWeight="0.67171717" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.55709875" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38068965" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2689655" sideWeight="0.5" order="20" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32561728" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24765626" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3345298" sideWeight="0.60275865" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27494615" sideWeight="0.6193103" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.48656294" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.38068965" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39724138" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="DSM" active="false" anchor="right" auto_hide="true" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="100" y="100" width="1080" height="600" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296875" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -678,7 +1088,6 @@
       <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CVS" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="19" side_tool="false" content_ui="tabs" />
       <window_info id="Duplicates" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3283582" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39724138" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VCS.FileViewConfiguration">
@@ -702,7 +1111,7 @@
     <option name="CHANGED_ON_SERVER_INTERVAL" value="60" />
     <option name="SHOW_ONLY_CHANGED_IN_SELECTION_DIFF" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed the functionalpeas dependency." />
+    <option name="LAST_COMMIT_MESSAGE" value="Removing AssertionException." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -718,6 +1127,7 @@
     <MESSAGE value="Moving the images to src/main/resources" />
     <MESSAGE value="Added some convenience effects." />
     <MESSAGE value="Removed the functionalpeas dependency." />
+    <MESSAGE value="Removing AssertionException." />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -795,158 +1205,177 @@
     <option name="myLastEditedConfigurable" value="Default" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/test/java/ipsim/util/CollectionsTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/ip/CheckedNumberFormatException.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="0" selection-start="412" selection-end="412" vertical-scroll-proportion="0.0">
+        <state line="4" column="0" selection-start="95" selection-end="95" vertical-scroll-proportion="0.14285715">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/lang/Assertion.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="26" selection-start="210" selection-end="210" vertical-scroll-proportion="0.32142857">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/InvalidNetMaskException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="5" selection-start="156" selection-end="156" vertical-scroll-proportion="0.17073171">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="70" column="1" selection-start="2467" selection-end="2467" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/functionaljava/etc/demo/bgga/test/AdditionCommutes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="0" selection-start="573" selection-end="573" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/icmp/ttl/TimeExceededData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="12" selection-start="210" selection-end="210" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="method#testSize#0;class#CollectionsTest#0" expanded="true" />
-            <element signature="method#testIterableWFilter#0;class#CollectionsTest#0" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/components/ScrapbookDialogUtility.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/icmp/unreachable/UnreachableData.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="293" column="22" selection-start="9750" selection-end="9750" vertical-scroll-proportion="0.0">
+        <state line="6" column="12" selection-start="218" selection-end="218" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#checkNumbers#0;class#3470:9987" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/PacketSourceVisitorUtility.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/UserPermissions.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="88" selection-start="955" selection-end="955" vertical-scroll-proportion="0.0">
+        <state line="5" column="12" selection-start="60" selection-end="60" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/ArpEntry.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="44" selection-start="412" selection-end="412" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/tests/ConformanceTestsTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="45" selection-start="694" selection-end="694" vertical-scroll-proportion="0.3423913">
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#visitCard#0;class#PacketSourceVisitorUtility#0" expanded="true" />
-            <element signature="method#visit#0;class#992:1439" expanded="true" />
+            <element signature="method#conformanceTest#0;class#ConformanceTestsTest#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/PacketVisitorUtility.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/conformance/ConformanceTests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="83" selection-start="1640" selection-end="1640" vertical-scroll-proportion="0.0">
+        <state line="51" column="1" selection-start="1670" selection-end="1670" vertical-scroll-proportion="0.78238344">
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#visitIPPacket#0;class#PacketVisitorUtility#0" expanded="true" />
-            <element signature="method#visit#0;class#716:1073" expanded="true" />
-            <element signature="method#visitArpPacket#0;class#PacketVisitorUtility#0" expanded="true" />
-            <element signature="method#visit#1;class#1197:1554" expanded="true" />
-            <element signature="method#visitEthernetPacket#0;class#PacketVisitorUtility#0" expanded="true" />
-            <element signature="method#visit#2;class#1687:2044" expanded="true" />
+            <element signature="method#allChecks#0;class#ConformanceTests#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/cable/incoming/CableIncoming.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/MenuHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="89" selection-start="1455" selection-end="1455" vertical-scroll-proportion="0.0">
+        <state line="586" column="57" selection-start="23699" selection-end="23699" vertical-scroll-proportion="0.030690538">
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/conformance/HubWithMoreThanOneSubnet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="93" column="52" selection-start="2830" selection-end="2830" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/conformance/ExplicitRouteToLocalNetwork.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="63" selection-start="1151" selection-end="1151" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/conformance/CycleInDefaultRoutes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="64" selection-start="1807" selection-end="1807" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="docComment;method#networkNew#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#networkNew#0;class#MenuHandler#0" expanded="true" />
+            <element signature="docComment;method#fileOpen#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#fileOpen#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#fileSave#0;class#MenuHandler#0" expanded="true" />
+            <element signature="docComment;method#fileSaveAs#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#fileSaveAs#0;class#MenuHandler#0" expanded="true" />
+            <element signature="docComment;method#fileExit#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#fileExit#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#zoomOut#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#zoomIn#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#zoomToFit#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#zoomOneToOne#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#eventLogView#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#eventLogClear#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#eventLogSave#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#practiceTroubleshootingTest#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#practiceTest#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#e#0;class#13563:13711" expanded="true" />
+            <element signature="method#testConnectivity#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#helpContents#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#helpAbout#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#networkModifiedDialog#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#loadAssessmentProblem#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#testConformance#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#getWidth#0;class#23548:24449" expanded="true" />
+            <element signature="method#downloadConfiguration#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#freeform#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#clearAllArpTables#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#breakNetwork#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#actualTroubleshootingTest#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#setArpCacheTimeout#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#joinWithISP#0;class#MenuHandler#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/breakage/BreakNetwork.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="274" column="15" selection-start="8561" selection-end="8561" vertical-scroll-proportion="0.0">
+        <state line="81" column="49" selection-start="3215" selection-end="3215" vertical-scroll-proportion="0.15345268">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#breakNetwork#0;class#BreakNetwork#0" expanded="true" />
-            <element signature="method#doIt#0;class#2559:5614" expanded="true" />
+            <element signature="method#doInBackground#0;class#2660:6542" expanded="true" />
+            <element signature="method#oneRandomBreakage#0;class#BreakNetwork#0" expanded="true" />
+            <element signature="method#deleteRoute#0;class#BreakNetwork#0" expanded="true" />
+            <element signature="method#changeRoute#0;class#BreakNetwork#0" expanded="true" />
+            <element signature="method#breakRoute#0;class#BreakNetwork#0" expanded="true" />
+            <element signature="method#changeNetMask#0;class#BreakNetwork#0" expanded="true" />
+            <element signature="method#changeIP#0;class#BreakNetwork#0" expanded="true" />
             <element signature="method#swapIPsOnARouter#0;class#BreakNetwork#0" expanded="true" />
+            <element signature="method#randomTwoOf#0;class#BreakNetwork#0" expanded="true" />
             <element signature="method#disconnectCable#0;class#BreakNetwork#0" expanded="true" />
+            <element signature="method#changeCableType#0;class#BreakNetwork#0" expanded="true" />
+            <element signature="method#turnPacketForwardingOffOnARouter#0;class#BreakNetwork#0" expanded="true" />
+            <element signature="method#turnAHubOff#0;class#BreakNetwork#0" expanded="true" />
             <element signature="method#randomOneOf#0;class#BreakNetwork#0" expanded="true" />
+            <element signature="method#randomOneOf#1;class#BreakNetwork#0" expanded="true" />
+            <element signature="method#randomOneOf#2;class#BreakNetwork#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ping/PingListener.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/tests/ArpStoredFromForeignNetworkBug.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="14" selection-start="1905" selection-end="1905" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#getPingResults#0;class#PingListener#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/conformance/SomeRoutesToNonGateways.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="42" selection-start="1261" selection-end="1261" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/persistence/delegates/EthernetCableDelegate.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="67" selection-start="959" selection-end="959" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="method#readXML#0;class#704:1922" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/cable/Cable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="17" selection-start="2102" selection-end="2102" vertical-scroll-proportion="0.54347825">
+        <state line="30" column="31" selection-start="1106" selection-end="1106" vertical-scroll-proportion="0.32178217">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/lang/Stringable.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/components/ComputerHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="1" selection-start="72" selection-end="72" vertical-scroll-proportion="0.1521739">
+        <state line="232" column="26" selection-start="9657" selection-end="9657" vertical-scroll-proportion="2.6342711">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/hub/ProgressMonitor.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/ArpTable.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="303" column="34" selection-start="8843" selection-end="8843" vertical-scroll-proportion="0.28478262">
+        <state line="28" column="26" selection-start="857" selection-end="865" vertical-scroll-proportion="0.45049506">
           <folding>
-            <element signature="class#SharedOwnerFrame#0;class#ProgressMonitor#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/components/EthernetCableHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="85" selection-start="2255" selection-end="2255" vertical-scroll-proportion="0.36086956">
-          <folding>
-            <element signature="imports" expanded="false" />
+            <element signature="method#asString#0;class#ArpTable#0" expanded="true" />
           </folding>
         </state>
       </provider>

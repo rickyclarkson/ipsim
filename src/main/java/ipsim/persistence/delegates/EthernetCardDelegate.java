@@ -1,7 +1,6 @@
 package ipsim.persistence.delegates;
 
 import ipsim.awt.PointUtility;
-import static ipsim.ExceptionHandler.impossible;
 import ipsim.network.Network;
 import ipsim.network.connectivity.card.Card;
 import ipsim.network.connectivity.card.CardDrivers;
@@ -15,91 +14,75 @@ import ipsim.persistence.XMLSerialiser;
 import org.jetbrains.annotations.Nullable;
 import org.w3c.dom.Node;
 
-public final class EthernetCardDelegate
-{
-	public static SerialisationDelegate<Card> cardDelegate(final Network network)
-	{
-		return new SerialisationDelegate<Card>()
-		{
-			@Override
-            public void writeXML(final XMLSerialiser serialiser, final Card card)
-			{
-				@Nullable
-				final CardDrivers drivers=card.withDrivers;
+import static ipsim.ExceptionHandler.impossible;
 
-				if (drivers!=null)
-				{
-					serialiser.writeAttribute("ethNumber", String.valueOf(drivers.ethNumber));
-					serialiser.writeAttribute("ipAddress", IPAddressUtility.toString(card.withDrivers.ipAddress.get().rawValue));
-					serialiser.writeAttribute("netMask", NetMask.asString(card.withDrivers.netMask.get().rawValue));
-				}
+public final class EthernetCardDelegate {
+    public static SerialisationDelegate<Card> cardDelegate(final Network network) {
+        return new SerialisationDelegate<Card>() {
+            @Override
+            public void writeXML(final XMLSerialiser serialiser, final Card card) {
+                @Nullable
+                final CardDrivers drivers = card.withDrivers;
 
-				DelegateHelper.writePositions(network, serialiser, card);
-			}
+                if (drivers != null) {
+                    serialiser.writeAttribute("ethNumber", String.valueOf(drivers.ethNumber));
+                    serialiser.writeAttribute("ipAddress", IPAddressUtility.toString(card.withDrivers.ipAddress.get().rawValue));
+                    serialiser.writeAttribute("netMask", NetMask.asString(card.withDrivers.netMask.get().rawValue));
+                }
 
-			@Override
-            public Card readXML(final XMLDeserialiser deserialiser, final Node node, final Card card)
-			{
-				DelegateHelper.readPositions(network, deserialiser, node, card);
+                DelegateHelper.writePositions(network, serialiser, card);
+            }
 
-				@Nullable
-				final String ethNumber=deserialiser.readAttribute(node, "ethNumber");
+            @Override
+            public Card readXML(final XMLDeserialiser deserialiser, final Node node, final Card card) {
+                DelegateHelper.readPositions(network, deserialiser, node, card);
 
-				if (ethNumber!=null)
-				{
-					final int ethNumber1=Integer.parseInt(ethNumber);
+                @Nullable
+                final String ethNumber = deserialiser.readAttribute(node, "ethNumber");
 
-					//old versions stored ethNumber of -1 for uninstalled card.
-					if (ethNumber1!=-1)
-					{
-						card.installDeviceDrivers(network).ethNumber=ethNumber1;
-					}
-				}
+                if (ethNumber != null) {
+                    final int ethNumber1 = Integer.parseInt(ethNumber);
 
-				if (card.withDrivers!=null)
-				{
-					final String ipAddress=deserialiser.readAttribute(node, "ipAddress");
+                    //old versions stored ethNumber of -1 for uninstalled card.
+                    if (ethNumber1 != -1) {
+                        card.installDeviceDrivers(network).ethNumber = ethNumber1;
+                    }
+                }
 
-					try
-					{
-						card.withDrivers.ipAddress.set(IPAddressUtility.valueOf(ipAddress));
-					}
-					catch (final CheckedNumberFormatException exception)
-					{
-						return impossible();
-					}
+                if (card.withDrivers != null) {
+                    final String ipAddress = deserialiser.readAttribute(node, "ipAddress");
 
-					final String netMask=deserialiser.readAttribute(node, "netMask");
+                    try {
+                        card.withDrivers.ipAddress.set(IPAddressUtility.valueOf(ipAddress));
+                    } catch (final CheckedNumberFormatException exception) {
+                        return impossible();
+                    }
 
-					try
-					{
-						card.withDrivers.netMask.set(NetMaskUtility.valueOf(netMask));
-					}
-					catch (final CheckedNumberFormatException exception)
-					{
-						return impossible();
-					}
-				}
+                    final String netMask = deserialiser.readAttribute(node, "netMask");
 
-				return card;
-			}
+                    try {
+                        card.withDrivers.netMask.set(NetMaskUtility.valueOf(netMask));
+                    } catch (final CheckedNumberFormatException exception) {
+                        return impossible();
+                    }
+                }
 
-			@Override
-            public Card construct()
-			{
-				return network.cardFactory.f(PointUtility.origin);
-			}
+                return card;
+            }
 
-			public boolean canHandle(final Object object)
-			{
-				return object instanceof Card;
-			}
+            @Override
+            public Card construct() {
+                return network.cardFactory.f(PointUtility.origin);
+            }
 
-			@Override
-            public String getIdentifier()
-			{
-				return "ipsim.persistence.delegates.EthernetCardDelegate";
-			}
-		};
-	}
+            public boolean canHandle(final Object object) {
+                return object instanceof Card;
+            }
+
+            @Override
+            public String getIdentifier() {
+                return "ipsim.persistence.delegates.EthernetCardDelegate";
+            }
+        };
+    }
 }

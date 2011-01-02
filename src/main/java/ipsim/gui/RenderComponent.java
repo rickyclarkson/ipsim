@@ -11,38 +11,30 @@ import ipsim.network.connectivity.cable.Cable;
 import ipsim.network.connectivity.card.Card;
 import ipsim.network.connectivity.computer.Computer;
 import ipsim.network.connectivity.hub.Hub;
+import java.awt.Graphics2D;
 
-import java.awt.*;
+public class RenderComponent {
+    public static void renderComponent(final NetworkContext context, final PacketSource component, final Graphics2D graphics) {
+        component.accept(new PacketSourceVisitor2() {
+            @Override
+            public void visit(final Card card) {
+                EthernetCardHandler.render(context, card, graphics);
+            }
 
-public class RenderComponent
-{
-	public static void renderComponent(final NetworkContext context, final PacketSource component, final Graphics2D graphics)
-	{
-		component.accept(new PacketSourceVisitor2()
-		{
-			@Override
-            public void visit(final Card card)
-			{
-				EthernetCardHandler.render(context, card, graphics);
-			}
+            @Override
+            public void visit(final Computer computer) {
+                ComputerHandler.render(context, computer, graphics);
+            }
 
-			@Override
-            public void visit(final Computer computer)
-			{
-				ComputerHandler.render(context,computer,graphics);
-			}
+            @Override
+            public void visit(final Cable cable) {
+                EthernetCableHandler.render(context.network, cable, graphics);
+            }
 
-			@Override
-            public void visit(final Cable cable)
-			{
-				EthernetCableHandler.render(context.network,cable,graphics);
-			}
-
-			@Override
-            public void visit(final Hub hub)
-			{
-				HubHandler.render(context,hub,graphics);
-			}
-		});
-	}
+            @Override
+            public void visit(final Hub hub) {
+                HubHandler.render(context, hub, graphics);
+            }
+        });
+    }
 }

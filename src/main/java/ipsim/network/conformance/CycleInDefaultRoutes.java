@@ -21,54 +21,45 @@ import static ipsim.network.ethernet.RouteUtility.isRouteToSelf;
 import static ipsim.util.Collections.any;
 import static ipsim.util.Collections.arrayList;
 
-class CycleInDefaultRoutes extends F<Network,CheckResult>
-{
-	@Override
+class CycleInDefaultRoutes extends F<Network, CheckResult> {
+    @Override
     @NotNull
-	public CheckResult f(@NotNull final Network network)
-	{
-		final List<PacketSource> empty=arrayList();
+    public CheckResult f(@NotNull final Network network) {
+        final List<PacketSource> empty = arrayList();
 
-		for (final Computer computer: getAllComputers(network))
-			for (final Route route: computer.routingTable.routes())
-				if (isDefaultRoute(route)&&!getComputersByIP(network, route.gateway).contains(computer))
-					if (detectCycle(network, Function.<Computer, Boolean>constant(false),computer,route))
-						return new CheckResult(USUAL, Collections.asList("Cycle in default routes"), empty, empty);
+        for (final Computer computer : getAllComputers(network))
+            for (final Route route : computer.routingTable.routes())
+                if (isDefaultRoute(route) && !getComputersByIP(network, route.gateway).contains(computer))
+                    if (detectCycle(network, Function.<Computer, Boolean>constant(false), computer, route))
+                        return new CheckResult(USUAL, Collections.asList("Cycle in default routes"), empty, empty);
 
-		return fine();
-	}
+        return fine();
+    }
 
-	public static boolean detectCycle(final Network network,final F<Computer,Boolean> containsComputer,final Computer computer,final Route route)
-	{
-		if (isRouteToSelf(computer,route))
-			return false;
+    public static boolean detectCycle(final Network network, final F<Computer, Boolean> containsComputer, final Computer computer, final Route route) {
+        if (isRouteToSelf(computer, route))
+            return false;
 
-		return any(getComputersByIP(network, route.gateway),new F<Computer, Boolean>()
-		{
-			@Override
-            public Boolean f(final Computer computer1)
-			{
-				if (containsComputer.f(computer1))
-					return true;
+        return any(getComputersByIP(network, route.gateway), new F<Computer, Boolean>() {
+            @Override
+            public Boolean f(final Computer computer1) {
+                if (containsComputer.f(computer1))
+                    return true;
 
-				return any(getDefaultRoutes(computer1.routingTable),new F<Route, Boolean>()
-				{
-					@Override
-                    public Boolean f(final Route route2)
-					{
-						return detectCycle(network,new F<Computer,Boolean>()
-						{
-							@Override
+                return any(getDefaultRoutes(computer1.routingTable), new F<Route, Boolean>() {
+                    @Override
+                    public Boolean f(final Route route2) {
+                        return detectCycle(network, new F<Computer, Boolean>() {
+                            @Override
                             @NotNull
-							public Boolean f(@NotNull final Computer aComputer)
-							{
-								return equalT(aComputer,computer1)||containsComputer.f(aComputer);
-							}
-						},computer,route2);
-					}
+                            public Boolean f(@NotNull final Computer aComputer) {
+                                return equalT(aComputer, computer1) || containsComputer.f(aComputer);
+                            }
+                        }, computer, route2);
+                    }
 
-				});
-			}
-		});
-	}
+                });
+            }
+        });
+    }
 }

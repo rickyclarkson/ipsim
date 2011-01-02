@@ -1,14 +1,13 @@
 package ipsim.gui.components;
 
-import javax.swing.*;
+import javax.swing.JDialog;
 
-public interface RoutingTableDialog
-{
-	Runnable populateElements();
+public interface RoutingTableDialog {
+    Runnable populateElements();
 
-	JDialog getJDialog();
+    JDialog getJDialog();
 
-	void editButtonClicked();
+    void editButtonClicked();
 
-	void deleteButtonClicked();
+    void deleteButtonClicked();
 }

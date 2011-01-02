@@ -21,172 +21,152 @@ import static ipsim.gui.PositionUtility.setPosition;
 import static ipsim.gui.PositionUtility.translateAllWhenNecessary;
 import static ipsim.gui.components.CreateContextMenu.createContextMenu;
 
-public final class NetworkViewMouseListenerUtility
-{
-	public static MouseInputListener createNetworkViewMouseListener(final NetworkContext context)
-	{
-		return new MouseInputListener()
-		{
-			public NetworkViewUtility.PointRecordDead startDrag=null;
+public final class NetworkViewMouseListenerUtility {
+    public static MouseInputListener createNetworkViewMouseListener(final NetworkContext context) {
+        return new MouseInputListener() {
+            public NetworkViewUtility.PointRecordDead startDrag = null;
 
-			public int changedX=0;
+            public int changedX = 0;
 
-			public int changedY=0;
+            public int changedY = 0;
 
-			@Override
-            public void mouseClicked(final MouseEvent originalEvent)
-			{
-				final MouseEvent event=zoomMouseEvent(originalEvent);
+            @Override
+            public void mouseClicked(final MouseEvent originalEvent) {
+                final MouseEvent event = zoomMouseEvent(originalEvent);
 
-				context.mouseTracker.mouseEvent(event);
-			}
+                context.mouseTracker.mouseEvent(event);
+            }
 
-			public void popupTriggered(final MouseEvent event)
-			{
-				if (event.isPopupTrigger())
-				{
-					final PacketSource component=NetworkViewUtility.getPointAt(context.network,event.getX(),event.getY());
+            public void popupTriggered(final MouseEvent event) {
+                if (event.isPopupTrigger()) {
+                    final PacketSource component = NetworkViewUtility.getPointAt(context.network, event.getX(), event.getY());
 
-					if (component!=null)
-						InvokeContextMenu.invokeContextMenu(createContextMenu(component), context,component);
-				}
-			}
+                    if (component != null)
+                        InvokeContextMenu.invokeContextMenu(createContextMenu(component), context, component);
+                }
+            }
 
-			MouseEvent zoomMouseEvent(final MouseEvent event)
-			{
-				final double zoomLevel=context.zoomLevel;
+            MouseEvent zoomMouseEvent(final MouseEvent event) {
+                final double zoomLevel = context.zoomLevel;
 
-				return new MouseEvent(event.getComponent(),event.getID(),event.getWhen(),event.getModifiers(),(int)(event.getX()/zoomLevel),(int)(event.getY()/zoomLevel),event.getClickCount(),event.isPopupTrigger(),event.getButton());
-			}
+                return new MouseEvent(event.getComponent(), event.getID(), event.getWhen(), event.getModifiers(), (int) (event.getX() / zoomLevel), (int) (event.getY() / zoomLevel), event.getClickCount(), event.isPopupTrigger(), event.getButton());
+            }
 
-			/**
-			 * Keeps track of where the mouse drag was started from, and renders the object that was closest to the starting position, giving the impression that the object (or part of it) is being dragged across the display.
-			 */
-			@Override
-            public void mouseDragged(MouseEvent originalEvent)
-			{
-				changedX=0;
-				changedY=0;
+            /**
+             * Keeps track of where the mouse drag was started from, and renders the object that was closest to the starting position, giving the impression that the object (or part of it) is being dragged across the display.
+             */
+            @Override
+            public void mouseDragged(MouseEvent originalEvent) {
+                changedX = 0;
+                changedY = 0;
 
-				context.mouseTracker.mouseEvent(originalEvent); //swapped this and the next
-				originalEvent=zoomMouseEvent(originalEvent);
+                context.mouseTracker.mouseEvent(originalEvent); //swapped this and the next
+                originalEvent = zoomMouseEvent(originalEvent);
 
 
-				final JComponent view=context.networkView;
+                final JComponent view = context.networkView;
 
-				if (startDrag==null&& originalEvent.getButton()==MouseEvent.BUTTON1)
-					startDrag=NetworkViewUtility.getTopLevelPointAt(context.network, originalEvent.getX(), originalEvent.getY());
+                if (startDrag == null && originalEvent.getButton() == MouseEvent.BUTTON1)
+                    startDrag = NetworkViewUtility.getTopLevelPointAt(context.network, originalEvent.getX(), originalEvent.getY());
 
-				if (startDrag==null)
-					return;
+                if (startDrag == null)
+                    return;
 
-				setPosition(context.network, startDrag.object, Collections.mapWith(startDrag.index, new Point((double)originalEvent.getX(), (double)originalEvent.getY())));
+                setPosition(context.network, startDrag.object, Collections.mapWith(startDrag.index, new Point((double) originalEvent.getX(), (double) originalEvent.getY())));
 
-				final Rectangle visibleRect=view.getVisibleRect();
+                final Rectangle visibleRect = view.getVisibleRect();
 
-				if (!(changedX==0) ||!(changedY==0))
-				{
-					translateAllWhenNecessary(context,visibleRect);
+                if (!(changedX == 0) || !(changedY == 0)) {
+                    translateAllWhenNecessary(context, visibleRect);
 
-					view.scrollRectToVisible(visibleRect);
-				}
+                    view.scrollRectToVisible(visibleRect);
+                }
 
-				jiggleLayout();
-				view.invalidate();
-				view.validate();
-				view.repaint();
-			}
+                jiggleLayout();
+                view.invalidate();
+                view.validate();
+                view.repaint();
+            }
 
-			@Override
-            public void mouseEntered(final MouseEvent event)
-			{
-				context.mouseTracker.mouseEvent(event);
-			}
+            @Override
+            public void mouseEntered(final MouseEvent event) {
+                context.mouseTracker.mouseEvent(event);
+            }
 
-			@Override
-            public void mouseExited(final MouseEvent event)
-			{
-				context.mouseTracker.mouseEvent(event);
-			}
+            @Override
+            public void mouseExited(final MouseEvent event) {
+                context.mouseTracker.mouseEvent(event);
+            }
 
-			@Override
-            public void mouseMoved(final MouseEvent event)
-			{
-				context.mouseTracker.mouseEvent(event);
-				context.networkView.repaint();
-			}
+            @Override
+            public void mouseMoved(final MouseEvent event) {
+                context.mouseTracker.mouseEvent(event);
+                context.networkView.repaint();
+            }
 
-			@Override
-            public void mousePressed(final MouseEvent originalEvent)
-			{
-				final MouseEvent event=zoomMouseEvent(originalEvent);
+            @Override
+            public void mousePressed(final MouseEvent originalEvent) {
+                final MouseEvent event = zoomMouseEvent(originalEvent);
 
-				context.mouseTracker.mouseEvent(originalEvent);
+                context.mouseTracker.mouseEvent(originalEvent);
 
-				final PointRecordDead point=NetworkViewUtility.getTopLevelPointAt(context.network,event.getX(),event.getY());
+                final PointRecordDead point = NetworkViewUtility.getTopLevelPointAt(context.network, event.getX(), event.getY());
 
-				if (event.isPopupTrigger())
-					popupTriggered(event);
-				else
-					if (event.getButton()==MouseEvent.BUTTON1)
-						startDrag=point;
+                if (event.isPopupTrigger())
+                    popupTriggered(event);
+                else if (event.getButton() == MouseEvent.BUTTON1)
+                    startDrag = point;
 
-				context.networkView.requestFocus();
-			}
+                context.networkView.requestFocus();
+            }
 
-			/**
-			 * Redraws the display, and loses the maintained information about where the drag was started from (to allow a new drag to start).
-			 */
-			@Override
-            public void mouseReleased(final MouseEvent originalEvent)
-			{
-				final MouseEvent event=zoomMouseEvent(originalEvent);
+            /**
+             * Redraws the display, and loses the maintained information about where the drag was started from (to allow a new drag to start).
+             */
+            @Override
+            public void mouseReleased(final MouseEvent originalEvent) {
+                final MouseEvent event = zoomMouseEvent(originalEvent);
 
-				if (event.isPopupTrigger())
-				{
-					popupTriggered(event);
-					return;
-				}
+                if (event.isPopupTrigger()) {
+                    popupTriggered(event);
+                    return;
+                }
 
-				final Option<MouseEvent> maybeMousePressedEvent=context.mouseTracker.getLastMousePressedEvent();
+                final Option<MouseEvent> maybeMousePressedEvent = context.mouseTracker.getLastMousePressedEvent();
 
-				final boolean mouseDragOccurred=maybeMousePressedEvent.map(new F<MouseEvent,Boolean>()
-				{
-					@Override
+                final boolean mouseDragOccurred = maybeMousePressedEvent.map(new F<MouseEvent, Boolean>() {
+                    @Override
                     @NotNull
-					public Boolean f(@NotNull final MouseEvent mousePressedEvent)
-					{
-						return !(mousePressedEvent.getX()==event.getX()) ||!(mousePressedEvent.getY()==event.getY());
-					}
-				}).orSome(false);
+                    public Boolean f(@NotNull final MouseEvent mousePressedEvent) {
+                        return !(mousePressedEvent.getX() == event.getX()) || !(mousePressedEvent.getY() == event.getY());
+                    }
+                }).orSome(false);
 
-				context.mouseTracker.mouseEvent(event);
+                context.mouseTracker.mouseEvent(event);
 
-				if (startDrag!=null && mouseDragOccurred)
-				{
-					final PacketSource component=startDrag.object;
+                if (startDrag != null && mouseDragOccurred) {
+                    final PacketSource component = startDrag.object;
 
-					ComponentMoved.componentMoved(context.network,component, startDrag.index);
-				}
+                    ComponentMoved.componentMoved(context.network, component, startDrag.index);
+                }
 
-				jiggleLayout();
+                jiggleLayout();
 
-				startDrag=null;
-			}
+                startDrag = null;
+            }
 
-			public void jiggleLayout()
-			{
-				final Dimension preferredSize=NetworkViewUtility.getPreferredSize(context);
-				final JComponent networkView=context.networkView;
+            public void jiggleLayout() {
+                final Dimension preferredSize = NetworkViewUtility.getPreferredSize(context);
+                final JComponent networkView = context.networkView;
 
-				networkView.setPreferredSize(preferredSize);
+                networkView.setPreferredSize(preferredSize);
 
-				final Container scrollPane=networkView.getParent().getParent();
-				scrollPane.invalidate();
-				scrollPane.validate();
+                final Container scrollPane = networkView.getParent().getParent();
+                scrollPane.invalidate();
+                scrollPane.validate();
 
-				networkView.repaint();
-			}
-		};
-	}
+                networkView.repaint();
+            }
+        };
+    }
 }

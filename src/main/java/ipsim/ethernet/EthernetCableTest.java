@@ -1,38 +1,33 @@
 package ipsim.ethernet;
 
 import com.rickyclarkson.testsuite.UnitTest;
-import static ipsim.gui.PositionUtility.setParent;
 import ipsim.network.Network;
 import ipsim.network.connectivity.cable.Cable;
 import ipsim.network.connectivity.computer.Computer;
 import ipsim.network.connectivity.computer.ComputerFactory;
 
-public final class EthernetCableTest implements UnitTest
-{
-	@Override
-    public boolean invoke()
-	{
-		final Network network=new Network();
+import static ipsim.gui.PositionUtility.setParent;
 
-		final Computer computer=ComputerFactory.newComputer(network, 0,0);
-		computer.computerID=network.generateComputerID();
+public final class EthernetCableTest implements UnitTest {
+    @Override
+    public boolean invoke() {
+        final Network network = new Network();
 
-		final Cable cable=network.cableFactory.newCable(0, 0, 0+50, 0);
+        final Computer computer = ComputerFactory.newComputer(network, 0, 0);
+        computer.computerID = network.generateComputerID();
 
-		try
-		{
-			setParent(network,cable,0,computer,0);
+        final Cable cable = network.cableFactory.newCable(0, 0, 0 + 50, 0);
 
-			return false;
-		}
-		catch (final IllegalStateException exception)
-		{
-			return true;
-		}
-	}
+        try {
+            setParent(network, cable, 0, computer, 0);
 
-	public String toString()
-	{
-		return "EthernetCableTest";
-	}
+            return false;
+        } catch (final IllegalStateException exception) {
+            return true;
+        }
+    }
+
+    public String toString() {
+        return "EthernetCableTest";
+    }
 }

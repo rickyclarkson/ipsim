@@ -1,80 +1,71 @@
 package ipsim.network.connectivity.computer.ip.outgoing;
 
-import static ipsim.Caster.equalT;
-import static ipsim.lang.Assertion.assertFalse;
 import ipsim.lang.CheckedIllegalStateException;
 import ipsim.network.Network;
 import ipsim.network.connectivity.IncomingPacketListener;
 import ipsim.network.connectivity.Packet;
 import ipsim.network.connectivity.PacketQueue;
 import ipsim.network.connectivity.PacketSource;
-import static ipsim.network.connectivity.PacketUtility.asArpPacket;
 import ipsim.network.connectivity.PacketUtility2;
 import ipsim.network.connectivity.arp.ArpPacket;
 import ipsim.network.connectivity.ethernet.MacAddress;
 
-public final class ContinueArpPacketListener implements IncomingPacketListener
-{
-	private final Network network;
+import static ipsim.Caster.equalT;
+import static ipsim.lang.Assertion.assertFalse;
+import static ipsim.network.connectivity.PacketUtility.asArpPacket;
 
-	private final Packet originalPacket;
+public final class ContinueArpPacketListener implements IncomingPacketListener {
+    private final Network network;
 
-	private boolean dead=false;
+    private final Packet originalPacket;
 
-	private final Object requestId;
+    private boolean dead = false;
 
-	public ContinueArpPacketListener(final Network network,final Packet originalPacket,final Object requestId)
-	{
-		this.network=network;
-		this.originalPacket=originalPacket;
-		this.requestId=requestId;
-	}
+    private final Object requestId;
 
-	@Override
-    public void packetIncoming(final Packet packet,final PacketSource source,final PacketSource destination)
-	{
-		assertFalse(dead);
+    public ContinueArpPacketListener(final Network network, final Packet originalPacket, final Object requestId) {
+        this.network = network;
+        this.originalPacket = originalPacket;
+        this.requestId = requestId;
+    }
 
-		if (!PacketUtility2.isArpPacket(packet))
-			return;
+    @Override
+    public void packetIncoming(final Packet packet, final PacketSource source, final PacketSource destination) {
+        assertFalse(dead);
 
-		final ArpPacket arpPacket;
-		try
-		{
-			arpPacket=asArpPacket(packet);
-		}
-		catch (final CheckedIllegalStateException exception)
-		{
-			throw new RuntimeException(exception);
-		}
+        if (!PacketUtility2.isArpPacket(packet))
+            return;
 
-		if (!equalT(arpPacket.id, requestId))
-			return;
+        final ArpPacket arpPacket;
+        try {
+            arpPacket = asArpPacket(packet);
+        } catch (final CheckedIllegalStateException exception) {
+            throw new RuntimeException(exception);
+        }
 
-		if (equalT(arpPacket.destinationMacAddress, new MacAddress(0)))
-			return;
+        if (!equalT(arpPacket.id, requestId))
+            return;
 
-		final PacketQueue queue=network.packetQueue;
-		destination.getIncomingPacketListeners().remove(this);
+        if (equalT(arpPacket.destinationMacAddress, new MacAddress(0)))
+            return;
 
-		queue.enqueueOutgoingPacket(originalPacket,destination);
-		dead=true;
-	}
+        final PacketQueue queue = network.packetQueue;
+        destination.getIncomingPacketListeners().remove(this);
 
-	@Override
-    public boolean canHandle(final Packet packet, final PacketSource source)
-	{
-		if (dead)
-			return false;
+        queue.enqueueOutgoingPacket(originalPacket, destination);
+        dead = true;
+    }
 
-		try
-		{
-			final ArpPacket arpPacket=asArpPacket(packet);
-			return !(0==arpPacket.destinationMacAddress.rawValue);
-		}
-		catch (final CheckedIllegalStateException exception)
-		{
-			return false;
-		}
-	}
+    @Override
+    public boolean canHandle(final Packet packet, final PacketSource source) {
+        if (dead)
+            return false;
+
+        try {
+            final ArpPacket arpPacket = asArpPacket(packet);
+            return !(0 == arpPacket.destinationMacAddress.rawValue);
+        } catch (final CheckedIllegalStateException exception) {
+            return false;
+        }
+    }
 }

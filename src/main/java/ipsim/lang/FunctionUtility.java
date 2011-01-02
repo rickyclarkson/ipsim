@@ -4,7 +4,7 @@ import fj.F;
 import org.jetbrains.annotations.NotNull;
 
 public class FunctionUtility {
-    public static <T> F<T,Boolean> not(final F<T,Boolean> function) {
+    public static <T> F<T, Boolean> not(final F<T, Boolean> function) {
         return new F<T, Boolean>() {
             @NotNull
             @Override
@@ -14,7 +14,7 @@ public class FunctionUtility {
         };
     }
 
-    public static <T> F<T,Double> minus(final F<T,Double> f, final double amount) {
+    public static <T> F<T, Double> minus(final F<T, Double> f, final double amount) {
         return new F<T, Double>() {
             @Override
             public Double f(T t) {
@@ -41,7 +41,7 @@ public class FunctionUtility {
         };
     }
 
-    public static <T> F<T,Boolean> and(final F<T, Boolean> one, final F<T, Boolean> two) {
+    public static <T> F<T, Boolean> and(final F<T, Boolean> one, final F<T, Boolean> two) {
         return new F<T, Boolean>() {
             @Override
             public Boolean f(T t) {

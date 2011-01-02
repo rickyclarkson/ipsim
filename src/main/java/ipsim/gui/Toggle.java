@@ -1,7 +1,7 @@
 package ipsim.gui;
 
-public interface Toggle
-{
-	void off();
-	void on();
+public interface Toggle {
+    void off();
+
+    void on();
 }

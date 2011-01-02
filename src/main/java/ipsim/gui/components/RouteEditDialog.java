@@ -1,8 +1,7 @@
 package ipsim.gui.components;
 
-import javax.swing.*;
+import javax.swing.JDialog;
 
-public interface RouteEditDialog
-{
-	JDialog getDialog();
+public interface RouteEditDialog {
+    JDialog getDialog();
 }

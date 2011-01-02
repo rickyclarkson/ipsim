@@ -1,96 +1,82 @@
 package ipsim.persistence;
 
-import static ipsim.ExceptionHandler.impossible;
 import ipsim.lang.Assertion;
 import ipsim.util.Collections;
-import org.jetbrains.annotations.NotNull;
-
 import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
-public final class XMLSerialiser
-{
-	private final Writer writer;
+import static ipsim.ExceptionHandler.impossible;
 
-	private final List<Object> alreadyStored=Collections.arrayList();
+public final class XMLSerialiser {
+    private final Writer writer;
 
-	private void write(final String string)
-	{
-		try
-		{
-			writer.write(string);
-		}
-		catch (IOException e)
-		{
-			impossible();
-		}
-	}
+    private final List<Object> alreadyStored = Collections.arrayList();
 
-	public XMLSerialiser(final Writer writer)
-	{
-		this.writer=writer;
+    private void write(final String string) {
+        try {
+            writer.write(string);
+        } catch (IOException e) {
+            impossible();
+        }
+    }
 
-		write("<!DOCTYPE object [\n");
-		write("<!ELEMENT object (object|attribute)*>\n");
+    public XMLSerialiser(final Writer writer) {
+        this.writer = writer;
 
-		write("<!ATTLIST object\n");
-		write("name CDATA #IMPLIED\n");
-		write("id CDATA #REQUIRED\n");
-		write("serialiser CDATA #REQUIRED\n");
-		write(">\n");
+        write("<!DOCTYPE object [\n");
+        write("<!ELEMENT object (object|attribute)*>\n");
 
-		write("<!ELEMENT attribute EMPTY>\n");
+        write("<!ATTLIST object\n");
+        write("name CDATA #IMPLIED\n");
+        write("id CDATA #REQUIRED\n");
+        write("serialiser CDATA #REQUIRED\n");
+        write(">\n");
 
-		write("<!ATTLIST attribute\n");
-		write("name CDATA #REQUIRED\n");
-		write("value CDATA #REQUIRED\n");
-		write(">\n");
+        write("<!ELEMENT attribute EMPTY>\n");
 
-		write("]>\n");
-	}
+        write("<!ATTLIST attribute\n");
+        write("name CDATA #REQUIRED\n");
+        write("value CDATA #REQUIRED\n");
+        write(">\n");
 
-	public <T> void writeObject(@NotNull final T object,@NotNull final String name,final SerialisationDelegate<T> serialisable)
-	{
-		Assertion.assertNotNull(object,name);
+        write("]>\n");
+    }
 
-		int id=alreadyStored.indexOf(object);
+    public <T> void writeObject(@NotNull final T object, @NotNull final String name, final SerialisationDelegate<T> serialisable) {
+        Assertion.assertNotNull(object, name);
 
-		final int x=-1;
-		if (x==id)
-			id=alreadyStored.size();
+        int id = alreadyStored.indexOf(object);
 
-		write("<object name=\""+name+"\" serialiser=\""+serialisable.getIdentifier()+"\" id=\""+id+"\">");
+        final int x = -1;
+        if (x == id)
+            id = alreadyStored.size();
 
-		if (id==alreadyStored.size())
-		{
-			alreadyStored.add(object);
+        write("<object name=\"" + name + "\" serialiser=\"" + serialisable.getIdentifier() + "\" id=\"" + id + "\">");
 
-			serialisable.writeXML(this, object);
-		}
+        if (id == alreadyStored.size()) {
+            alreadyStored.add(object);
 
-		write("</object>");
-	}
+            serialisable.writeXML(this, object);
+        }
 
-	public void writeAttribute(final String name,final String value)
-	{
-		write("<attribute name=\""+xmlEncode(name)+"\" value=\""+xmlEncode(value)+"\"/>");
-	}
+        write("</object>");
+    }
 
-	private static String xmlEncode(final String value)
-	{
-		return value.replaceAll("\"","&quot;");
-	}
+    public void writeAttribute(final String name, final String value) {
+        write("<attribute name=\"" + xmlEncode(name) + "\" value=\"" + xmlEncode(value) + "\"/>");
+    }
 
-	public void close()
-	{
-		try
-		{
-			writer.close();
-		}
-		catch (IOException e)
-		{
-			impossible();
-		}
-	}
+    private static String xmlEncode(final String value) {
+        return value.replaceAll("\"", "&quot;");
+    }
+
+    public void close() {
+        try {
+            writer.close();
+        } catch (IOException e) {
+            impossible();
+        }
+    }
 }

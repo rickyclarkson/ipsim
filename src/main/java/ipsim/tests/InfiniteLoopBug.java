@@ -7,41 +7,32 @@ import ipsim.io.IOUtility;
 import ipsim.network.Network;
 import ipsim.network.NetworkUtility;
 import ipsim.network.ip.CheckedNumberFormatException;
-import static ipsim.network.ip.IPAddressUtility.valueOf;
-
 import java.io.File;
 import java.net.MalformedURLException;
 
-public class InfiniteLoopBug implements UnitTest
-{
-	@Override
-    public boolean invoke()
-	{
-		final Network context=new Network();
+import static ipsim.network.ip.IPAddressUtility.valueOf;
 
-		try
-		{
-			NetworkUtility.loadFromString(context, Caster.asFirst(IOUtility.readWholeResource(new File("datafiles/fullyconnected/101.ipsim").toURI().toURL())));
-		}
-		catch (final MalformedURLException exception)
-		{
-			return false;
-		}
+public class InfiniteLoopBug implements UnitTest {
+    @Override
+    public boolean invoke() {
+        final Network context = new Network();
 
-		try
-		{
-			PingTester.testPing(context,valueOf("146.87.1.1"),valueOf("146.87.1.255"));
-		}
-		catch (final CheckedNumberFormatException exception)
-		{
-			return false;
-		}
+        try {
+            NetworkUtility.loadFromString(context, Caster.asFirst(IOUtility.readWholeResource(new File("datafiles/fullyconnected/101.ipsim").toURI().toURL())));
+        } catch (final MalformedURLException exception) {
+            return false;
+        }
 
-		return true;
-	}
+        try {
+            PingTester.testPing(context, valueOf("146.87.1.1"), valueOf("146.87.1.255"));
+        } catch (final CheckedNumberFormatException exception) {
+            return false;
+        }
 
-	public String toString()
-	{
-		return "InfiniteLoopBug";
-	}
+        return true;
+    }
+
+    public String toString() {
+        return "InfiniteLoopBug";
+    }
 }

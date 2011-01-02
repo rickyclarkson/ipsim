@@ -26,23 +26,21 @@ import static ipsim.Caster.equalT;
 import static ipsim.lang.Runnables.nothing;
 import static ipsim.swing.Buttons.newButton;
 
-public final class HelpFrameUtility
-{
-	public static final URL helpRoot=HelpFrameUtility.class.getResource("/help/index.html");
+public final class HelpFrameUtility {
+    public static final URL helpRoot = HelpFrameUtility.class.getResource("/help/index.html");
 
-	public static JFrame createHelpFrame()
-	{
-		final JFrame frame=new JFrame();
-		frame.setSize(600,600);
-		frame.setTitle("IPSim Help");
-		frame.setLayout(new BorderLayout());
-		final JScrollPane pane=new JScrollPane();
+    public static JFrame createHelpFrame() {
+        final JFrame frame = new JFrame();
+        frame.setSize(600, 600);
+        frame.setTitle("IPSim Help");
+        frame.setLayout(new BorderLayout());
+        final JScrollPane pane = new JScrollPane();
 
-		final Either<JEditorPane,IOException> htmlPane=ScrollableEditorPaneUtility.createScrollableEditorPane(pane,helpRoot);
+        final Either<JEditorPane, IOException> htmlPane = ScrollableEditorPaneUtility.createScrollableEditorPane(pane, helpRoot);
 
-		final F<IOException,Runnable> doNothing= Function.constant(nothing);
+        final F<IOException, Runnable> doNothing = Function.constant(nothing);
 
-		htmlPane.either(new F<JEditorPane, Runnable>() {
+        htmlPane.either(new F<JEditorPane, Runnable>() {
             @Override
             @NotNull
             public Runnable f(@NotNull final JEditorPane pane2) {
@@ -64,145 +62,118 @@ public final class HelpFrameUtility
             }
         }, doNothing).run();
 
-		return frame;
-	}
+        return frame;
+    }
 
-	private static void doStuff(final Hyperactive hyperactive, final Container parent)
-	{
-		final JPanel panel=new JPanel(new FlowLayout(FlowLayout.LEFT));
+    private static void doStuff(final Hyperactive hyperactive, final Container parent) {
+        final JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-		panel.add(newButton("Contents",new Runnable()
-		{
-			@Override
-            public void run()
-			{
-				hyperactive.goHome();
-			}
-		}));
+        panel.add(newButton("Contents", new Runnable() {
+            @Override
+            public void run() {
+                hyperactive.goHome();
+            }
+        }));
 
-		panel.add(newButton("Back",new Runnable()
-		{
-			@Override
-            public void run()
-			{
-				hyperactive.back();
-			}
-		}));
+        panel.add(newButton("Back", new Runnable() {
+            @Override
+            public void run() {
+                hyperactive.back();
+            }
+        }));
 
-		parent.add(panel,BorderLayout.NORTH);
-	}
+        parent.add(panel, BorderLayout.NORTH);
+    }
 
-	public static final Effect<Container> createPane=new Effect<Container>()
-	{
-		@Override
-        public void e(final Container parent)
-		{
-			parent.setLayout(new BorderLayout());
-			final JScrollPane pane=new JScrollPane();
+    public static final Effect<Container> createPane = new Effect<Container>() {
+        @Override
+        public void e(final Container parent) {
+            parent.setLayout(new BorderLayout());
+            final JScrollPane pane = new JScrollPane();
 
-			final Either<JEditorPane,IOException> htmlPane=ScrollableEditorPaneUtility.createScrollableEditorPane(pane,helpRoot);
+            final Either<JEditorPane, IOException> htmlPane = ScrollableEditorPaneUtility.createScrollableEditorPane(pane, helpRoot);
 
-			final F<IOException,Runnable> doNothing=Function.constant(nothing);
+            final F<IOException, Runnable> doNothing = Function.constant(nothing);
 
-			htmlPane.either(new F<JEditorPane,Runnable>()
-			{
-				@Override
+            htmlPane.either(new F<JEditorPane, Runnable>() {
+                @Override
                 @NotNull
-				public Runnable f(@NotNull final JEditorPane pane2)
-				{
-					return new Runnable()
-					{
-						@Override
-                        public void run()
-						{
-							pane2.setEditable(false);
-							pane2.setCaretPosition(0);
-							final Hyperactive hyperactive=new Hyperactive(pane2,helpRoot);
-							pane2.addHyperlinkListener(hyperactive);
-							pane2.setAutoscrolls(true);
-							pane.getViewport().add(pane2);
+                public Runnable f(@NotNull final JEditorPane pane2) {
+                    return new Runnable() {
+                        @Override
+                        public void run() {
+                            pane2.setEditable(false);
+                            pane2.setCaretPosition(0);
+                            final Hyperactive hyperactive = new Hyperactive(pane2, helpRoot);
+                            pane2.addHyperlinkListener(hyperactive);
+                            pane2.setAutoscrolls(true);
+                            pane.getViewport().add(pane2);
 
-							parent.add(pane,BorderLayout.CENTER);
+                            parent.add(pane, BorderLayout.CENTER);
 
-							doStuff(hyperactive,parent);
-						}
-					};
-				}
-			},doNothing).run();
-		}
-	};
+                            doStuff(hyperactive, parent);
+                        }
+                    };
+                }
+            }, doNothing).run();
+        }
+    };
 
 }
 
 /**
  * Code taken almost directly from Sun's Javadocs for JEditorPane.
  */
-final class Hyperactive implements HyperlinkListener
-{
-	public final Stack<URL> history=new Stack<URL>();
+final class Hyperactive implements HyperlinkListener {
+    public final Stack<URL> history = new Stack<URL>();
 
-	public final JEditorPane editorPane;
+    public final JEditorPane editorPane;
 
-	public final URL home;
+    public final URL home;
 
-	Hyperactive(final JEditorPane editorPane,final URL home)
-	{
-		this.editorPane=editorPane;
-		this.home=home;
-	}
+    Hyperactive(final JEditorPane editorPane, final URL home) {
+        this.editorPane = editorPane;
+        this.home = home;
+    }
 
-	public void goHome()
-	{
-		try
-		{
-			editorPane.setPage(home);
-		}
-		catch (final IOException exception)
-		{
-			throw new RuntimeException(exception);
-		}
-	}
+    public void goHome() {
+        try {
+            editorPane.setPage(home);
+        } catch (final IOException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
 
-	public void back()
-	{
-		if (history.empty())
-			return;
+    public void back() {
+        if (history.empty())
+            return;
 
-		try
-		{
-			editorPane.setPage(history.pop());
-		}
-		catch (final IOException exception)
-		{
-			throw new RuntimeException(exception);
-		}
-	}
+        try {
+            editorPane.setPage(history.pop());
+        } catch (final IOException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
 
-	@Override
-    public void hyperlinkUpdate(final HyperlinkEvent event)
-	{
-		if (!equalT(event.getEventType(),HyperlinkEvent.EventType.ACTIVATED))
-			return;
+    @Override
+    public void hyperlinkUpdate(final HyperlinkEvent event) {
+        if (!equalT(event.getEventType(), HyperlinkEvent.EventType.ACTIVATED))
+            return;
 
-		final JEditorPane pane=Caster.asJEditorPane(event.getSource());
+        final JEditorPane pane = Caster.asJEditorPane(event.getSource());
 
-		if (Caster.isHTMLFrameHyperlinkEvent(event))
-		{
-			final HTMLFrameHyperlinkEvent event2=Caster.asHTMLFrameHyperlinkEvent(event);
+        if (Caster.isHTMLFrameHyperlinkEvent(event)) {
+            final HTMLFrameHyperlinkEvent event2 = Caster.asHTMLFrameHyperlinkEvent(event);
 
-			final HTMLDocument document=Caster.asHTMLDocument(pane.getDocument());
+            final HTMLDocument document = Caster.asHTMLDocument(pane.getDocument());
 
-			document.processHTMLFrameHyperlinkEvent(event2);
-		}
-		else
-			try
-			{
-				history.push(pane.getPage());
-				pane.setPage(event.getURL());
-			}
-			catch (final IOException exception)
-			{
-				throw new RuntimeException(exception);
-			}
-	}
+            document.processHTMLFrameHyperlinkEvent(event2);
+        } else
+            try {
+                history.push(pane.getPage());
+                pane.setPage(event.getURL());
+            } catch (final IOException exception) {
+                throw new RuntimeException(exception);
+            }
+    }
 }

@@ -9,31 +9,27 @@ import java.io.File;
 import static ipsim.network.NetworkUtility.loadFromFile;
 import static ipsim.network.connectivity.ConnectivityTest.testConnectivity;
 
-public class UnconnectedFilesTest implements UnitTest
-{
-	@Override
-    public boolean invoke()
-        {
-		final File directory=new File("datafiles/unconnected");
+public class UnconnectedFilesTest implements UnitTest {
+    @Override
+    public boolean invoke() {
+        final File directory = new File("datafiles/unconnected");
 
-		for (final File file: directory.listFiles())
-		{
-			final Network network=new Network();
+        for (final File file : directory.listFiles()) {
+            final Network network = new Network();
 
-			loadFromFile(network,file);
+            loadFromFile(network, file);
 
-			final ConnectivityResults results=testConnectivity(network, Effect.<String>doNothing(), Effect.<Integer>doNothing());
-			final boolean isOneHundred=100==results.getPercentConnected();
+            final ConnectivityResults results = testConnectivity(network, Effect.<String>doNothing(), Effect.<Integer>doNothing());
+            final boolean isOneHundred = 100 == results.getPercentConnected();
 
-			if (isOneHundred)
-				throw new RuntimeException(file.toString());
-		}
-
-		return true;
+            if (isOneHundred)
+                throw new RuntimeException(file.toString());
         }
 
-	public String toString()
-        {
-	        return "UnconnectedFilesTest";
-        }
+        return true;
+    }
+
+    public String toString() {
+        return "UnconnectedFilesTest";
+    }
 }

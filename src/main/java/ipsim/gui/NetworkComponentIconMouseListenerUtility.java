@@ -1,87 +1,78 @@
 package ipsim.gui;
 
-import static ipsim.Global.getNetworkContext;
 import ipsim.awt.Point;
 import ipsim.gui.components.ComponentMoved;
 import ipsim.gui.components.NetworkComponentUtility;
 import ipsim.network.connectivity.PacketSource;
-
-import javax.swing.event.MouseInputListener;
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.event.MouseEvent;
+import javax.swing.event.MouseInputListener;
 
-final class NetworkComponentIconMouseListenerUtility
-{
-	public static MouseInputListener createNetworkComponentIconMouseListener(final Class<?> name)
-	{
-		final Cursor cursor=new Cursor(Cursor.MOVE_CURSOR);
+import static ipsim.Global.getNetworkContext;
 
-		return new MouseInputListener()
-		{
-			@Override
-            public void mouseDragged(final MouseEvent event)
-			{
-				getNetworkContext().networkView.setCursor(cursor);
-			}
+final class NetworkComponentIconMouseListenerUtility {
+    public static MouseInputListener createNetworkComponentIconMouseListener(final Class<?> name) {
+        final Cursor cursor = new Cursor(Cursor.MOVE_CURSOR);
 
-			@Override
-            public void mouseReleased(final MouseEvent event)
-			{
-				final java.awt.Point buttonLocation=event.getComponent().getLocationOnScreen();
+        return new MouseInputListener() {
+            @Override
+            public void mouseDragged(final MouseEvent event) {
+                getNetworkContext().networkView.setCursor(cursor);
+            }
 
-				final Component view=getNetworkContext().networkView;
+            @Override
+            public void mouseReleased(final MouseEvent event) {
+                final java.awt.Point buttonLocation = event.getComponent().getLocationOnScreen();
 
-				if (!view.isShowing())
-					return;
+                final Component view = getNetworkContext().networkView;
 
-				final java.awt.Point viewLocation=view.getLocationOnScreen();
+                if (!view.isShowing())
+                    return;
 
-				int x=event.getX()+buttonLocation.x-viewLocation.x;
-				int y=event.getY()+buttonLocation.y-viewLocation.y;
+                final java.awt.Point viewLocation = view.getLocationOnScreen();
 
-				x=Math.max(x,10);
-				y=Math.max(y,10);
+                int x = event.getX() + buttonLocation.x - viewLocation.x;
+                int y = event.getY() + buttonLocation.y - viewLocation.y;
 
-				x=Math.min(x,view.getWidth()-10);
-				y=Math.min(y,view.getHeight()-10);
+                x = Math.max(x, 10);
+                y = Math.max(y, 10);
 
-				x/=(int)getNetworkContext().zoomLevel;
-				y/=(int)getNetworkContext().zoomLevel;
+                x = Math.min(x, view.getWidth() - 10);
+                y = Math.min(y, view.getHeight() - 10);
 
-				final PacketSource component=NetworkComponentUtility.create(getNetworkContext(),name, new Point((double)x, (double)y), new Point((double)x, (double)y));
+                x /= (int) getNetworkContext().zoomLevel;
+                y /= (int) getNetworkContext().zoomLevel;
 
-				ComponentMoved.componentMoved(getNetworkContext().network,component,0);
+                final PacketSource component = NetworkComponentUtility.create(getNetworkContext(), name, new Point((double) x, (double) y), new Point((double) x, (double) y));
 
-				view.paint(view.getGraphics());
-				view.repaint();
+                ComponentMoved.componentMoved(getNetworkContext().network, component, 0);
 
-				view.setCursor(Cursor.getDefaultCursor());
-			}
+                view.paint(view.getGraphics());
+                view.repaint();
 
-			@Override
-            public void mouseClicked(final MouseEvent e)
-			{
-			}
+                view.setCursor(Cursor.getDefaultCursor());
+            }
 
-			@Override
-            public void mousePressed(final MouseEvent e)
-			{
-			}
+            @Override
+            public void mouseClicked(final MouseEvent e) {
+            }
 
-			@Override
-            public void mouseEntered(final MouseEvent e)
-			{
-			}
+            @Override
+            public void mousePressed(final MouseEvent e) {
+            }
 
-			@Override
-            public void mouseExited(final MouseEvent e)
-			{
-			}
+            @Override
+            public void mouseEntered(final MouseEvent e) {
+            }
 
-			@Override
-            public void mouseMoved(final MouseEvent e)
-			{
-			}
-		};
-	}
+            @Override
+            public void mouseExited(final MouseEvent e) {
+            }
+
+            @Override
+            public void mouseMoved(final MouseEvent e) {
+            }
+        };
+    }
 }

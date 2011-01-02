@@ -19,61 +19,51 @@ import ipsim.network.connectivity.ip.IPAddress;
 
 import static ipsim.network.connectivity.PacketUtility.asEthernetPacket;
 
-public class ComputerArpOutgoingTest implements UnitTest
-{
-	@Override
-    public boolean invoke()
-	{
-		final Network network=new Network();
+public class ComputerArpOutgoingTest implements UnitTest {
+    @Override
+    public boolean invoke() {
+        final Network network = new Network();
 
-		final Computer computer=ComputerFactory.newComputer(network, 0,0);
+        final Computer computer = ComputerFactory.newComputer(network, 0, 0);
 
-		computer.computerID=network.generateComputerID();
+        computer.computerID = network.generateComputerID();
 
-		final PacketQueue queue=network.packetQueue;
+        final PacketQueue queue = network.packetQueue;
 
-		final StringBuilder answer=new StringBuilder();
+        final StringBuilder answer = new StringBuilder();
 
-		computer.getOutgoingPacketListeners().add(new OutgoingPacketListener()
-		{
-			@Override
-            public void packetOutgoing(final Packet packet,final PacketSource source)
-			{
-				if (PacketUtility2.isEthernetPacket(packet)&& PacketSourceUtility.isComputer(source))
-				{
-					final EthernetPacket ethPacket;
-					try
-					{
-						ethPacket=asEthernetPacket(packet);
-					}
-					catch (final CheckedIllegalStateException exception)
-					{
-						throw new RuntimeException(exception);
-					}
+        computer.getOutgoingPacketListeners().add(new OutgoingPacketListener() {
+            @Override
+            public void packetOutgoing(final Packet packet, final PacketSource source) {
+                if (PacketUtility2.isEthernetPacket(packet) && PacketSourceUtility.isComputer(source)) {
+                    final EthernetPacket ethPacket;
+                    try {
+                        ethPacket = asEthernetPacket(packet);
+                    } catch (final CheckedIllegalStateException exception) {
+                        throw new RuntimeException(exception);
+                    }
 
-					if (PacketUtility2.isArpPacket(ethPacket.data) &&null!=PacketUtility2.asArpPacket(ethPacket.data).toNull())
-						answer.append("Pass");
-				}
-			}
+                    if (PacketUtility2.isArpPacket(ethPacket.data) && null != PacketUtility2.asArpPacket(ethPacket.data).toNull())
+                        answer.append("Pass");
+                }
+            }
 
-			@Override
-            public boolean canHandle(final Packet packet,final PacketSource source)
-			{
-				return true;
-			}
-		});
+            @Override
+            public boolean canHandle(final Packet packet, final PacketSource source) {
+                return true;
+            }
+        });
 
-		final ArpPacket arpPacket=new ArpPacket(new IPAddress(0), new MacAddress(5), new IPAddress(0), new MacAddress(10), new Object());
+        final ArpPacket arpPacket = new ArpPacket(new IPAddress(0), new MacAddress(5), new IPAddress(0), new MacAddress(10), new Object());
 
-		queue.enqueueOutgoingPacket(arpPacket,computer);
+        queue.enqueueOutgoingPacket(arpPacket, computer);
 
-		queue.processAll();
+        queue.processAll();
 
-		return Caster.equalT(answer.toString(),"Pass");
-	}
+        return Caster.equalT(answer.toString(), "Pass");
+    }
 
-	public String toString()
-	{
-		return "ComputerArpOutgoingTest";
-	}
+    public String toString() {
+        return "ComputerArpOutgoingTest";
+    }
 }

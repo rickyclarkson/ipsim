@@ -1,10 +1,7 @@
 package ipsim.network.connectivity.computer.arp.incoming;
 
-import ipsim.connectivity.hub.incoming.PacketSourceUtility;
-import static ipsim.connectivity.hub.incoming.PacketSourceUtility.asCard;
-import static ipsim.connectivity.hub.incoming.PacketSourceUtility.asComputer;
 import ipsim.ExceptionHandler;
-import static ipsim.lang.Assertion.assertTrue;
+import ipsim.connectivity.hub.incoming.PacketSourceUtility;
 import ipsim.lang.CheckedIllegalStateException;
 import ipsim.network.Network;
 import ipsim.network.connectivity.IncomingPacketListener;
@@ -20,58 +17,54 @@ import ipsim.network.ethernet.CardUtility;
 import ipsim.network.ethernet.ComputerUtility;
 import org.jetbrains.annotations.Nullable;
 
-public final class ComputerArpIncoming implements IncomingPacketListener
-{
-	private final Network network;
+import static ipsim.connectivity.hub.incoming.PacketSourceUtility.asCard;
+import static ipsim.connectivity.hub.incoming.PacketSourceUtility.asComputer;
+import static ipsim.lang.Assertion.assertTrue;
 
-	public ComputerArpIncoming(final Network network)
-	{
-		this.network=network;
-	}
+public final class ComputerArpIncoming implements IncomingPacketListener {
+    private final Network network;
 
-	@Override
-    public void packetIncoming(final Packet packet, final PacketSource source, final PacketSource destination)
-	{
-		assertTrue(PacketSourceUtility.isCard(source));
+    public ComputerArpIncoming(final Network network) {
+        this.network = network;
+    }
 
-		@Nullable
-		final Computer computer;
-		final ArpPacket arpPacket;
-		final @Nullable Card card;
+    @Override
+    public void packetIncoming(final Packet packet, final PacketSource source, final PacketSource destination) {
+        assertTrue(PacketSourceUtility.isCard(source));
 
-		try
-		{
-			arpPacket=PacketUtility.asArpPacket(packet);
-			computer=asComputer(destination);
-			card=asCard(source);
-		}
-		catch (final CheckedIllegalStateException exception)
-		{
-			ExceptionHandler.impossible();
-			return;
-		}
+        @Nullable
+        final Computer computer;
+        final ArpPacket arpPacket;
+        final @Nullable Card card;
 
-		if (card==null || computer==null)
-		{
-			ExceptionHandler.impossible();
-			return;
-		}
+        try {
+            arpPacket = PacketUtility.asArpPacket(packet);
+            computer = asComputer(destination);
+            card = asCard(source);
+        } catch (final CheckedIllegalStateException exception) {
+            ExceptionHandler.impossible();
+            return;
+        }
 
-		if (!card.hasDeviceDrivers())
-			return;
+        if (card == null || computer == null) {
+            ExceptionHandler.impossible();
+            return;
+        }
 
-		if (CardUtility.isOnSameSubnet(card, arpPacket.sourceIPAddress))
-			computer.arpTable.put(arpPacket.sourceIPAddress, arpPacket.sourceMacAddress, network);
+        if (!card.hasDeviceDrivers())
+            return;
 
-		if (0==arpPacket.destinationMacAddress.rawValue)
-			for (final CardDrivers card2: ComputerUtility.cardsWithDrivers(computer))
-				if (card2.ipAddress.get().rawValue==arpPacket.destinationIPAddress.rawValue)
-					network.packetQueue.enqueueOutgoingPacket(new ArpPacket(arpPacket.sourceIPAddress, arpPacket.sourceMacAddress, card2.ipAddress.get(), card2.card.getMacAddress(network), arpPacket.id), computer);
-	}
+        if (CardUtility.isOnSameSubnet(card, arpPacket.sourceIPAddress))
+            computer.arpTable.put(arpPacket.sourceIPAddress, arpPacket.sourceMacAddress, network);
 
-	@Override
-    public boolean canHandle(final Packet packet, final PacketSource source)
-	{
-		return PacketUtility2.isArpPacket(packet);
-	}
+        if (0 == arpPacket.destinationMacAddress.rawValue)
+            for (final CardDrivers card2 : ComputerUtility.cardsWithDrivers(computer))
+                if (card2.ipAddress.get().rawValue == arpPacket.destinationIPAddress.rawValue)
+                    network.packetQueue.enqueueOutgoingPacket(new ArpPacket(arpPacket.sourceIPAddress, arpPacket.sourceMacAddress, card2.ipAddress.get(), card2.card.getMacAddress(network), arpPacket.id), computer);
+    }
+
+    @Override
+    public boolean canHandle(final Packet packet, final PacketSource source) {
+        return PacketUtility2.isArpPacket(packet);
+    }
 }

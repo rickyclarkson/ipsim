@@ -21,6 +21,7 @@ public class SequenceUtility {
             }
         };
     }
+
     public static <T> Option<Node<T>> reverse(Option<Node<T>> sequence) {
         return foldLeft(sequence, SequenceUtility.<T>cons(), SequenceUtility.<T>empty());
     }

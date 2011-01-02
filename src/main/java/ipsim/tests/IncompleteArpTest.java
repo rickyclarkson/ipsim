@@ -16,55 +16,43 @@ import static ipsim.lang.Assertion.assertTrue;
 import static ipsim.network.ip.IPAddressUtility.valueOf;
 import static ipsim.util.Collections.all;
 
-public class IncompleteArpTest implements UnitTest
-{
-	@Override
-    public boolean invoke()
-	{
-		final Network network=new Network();
+public class IncompleteArpTest implements UnitTest {
+    @Override
+    public boolean invoke() {
+        final Network network = new Network();
 
-		NetworkUtility.loadFromFile(network,new File("datafiles/unconnected/hubdisabled.ipsim"));
+        NetworkUtility.loadFromFile(network, new File("datafiles/unconnected/hubdisabled.ipsim"));
 
-		try
-		{
-			if (!all(testPing(network,valueOf("146.87.1.1"),valueOf("146.87.1.2")),new F<List<PingResults>,Boolean>()
-			{
-				@Override
+        try {
+            if (!all(testPing(network, valueOf("146.87.1.1"), valueOf("146.87.1.2")), new F<List<PingResults>, Boolean>() {
+                @Override
                 @NotNull
-				public Boolean f(@NotNull final List<PingResults> results)
-				{
-					return 1==results.size() && results.iterator().next().hostUnreachable();
-				}
-			}))
-				return false;
-		}
-		catch (final CheckedNumberFormatException exception)
-		{
-			return false;
-		}
+                public Boolean f(@NotNull final List<PingResults> results) {
+                    return 1 == results.size() && results.iterator().next().hostUnreachable();
+                }
+            }))
+                return false;
+        } catch (final CheckedNumberFormatException exception) {
+            return false;
+        }
 
-		final Hub hub=NetworkUtility.getAllHubs(network).iterator().next();
+        final Hub hub = NetworkUtility.getAllHubs(network).iterator().next();
 
-		hub.setPower(true);
+        hub.setPower(true);
 
-		try
-		{
-			for (final List<PingResults> results: testPing(network,valueOf("146.87.1.1"),valueOf("146.87.1.2")))
-			{
-				assertTrue(1==results.size());
-				assertTrue(results.iterator().next().hostUnreachable());
-			}
-		}
-		catch (final CheckedNumberFormatException exception)
-		{
-			return false;
-		}
+        try {
+            for (final List<PingResults> results : testPing(network, valueOf("146.87.1.1"), valueOf("146.87.1.2"))) {
+                assertTrue(1 == results.size());
+                assertTrue(results.iterator().next().hostUnreachable());
+            }
+        } catch (final CheckedNumberFormatException exception) {
+            return false;
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	public String toString()
-	{
-		return "IncompleteArpTest";
-	}
+    public String toString() {
+        return "IncompleteArpTest";
+    }
 }

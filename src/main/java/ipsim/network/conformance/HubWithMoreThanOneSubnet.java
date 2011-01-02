@@ -26,85 +26,71 @@ import static ipsim.network.NetworkUtility.loadFromFile;
 import static ipsim.network.ethernet.CableUtility.getOtherEnd;
 import static ipsim.util.Collections.arrayList;
 
-public class HubWithMoreThanOneSubnet extends F<Network,CheckResult>
-{
-	public static final String errorMessage="Hub with more than one subnet connected to it";
+public class HubWithMoreThanOneSubnet extends F<Network, CheckResult> {
+    public static final String errorMessage = "Hub with more than one subnet connected to it";
 
-	@Override
+    @Override
     @NotNull
-	public CheckResult f(@NotNull final Network network)
-	{
-		final List<PacketSource> empty=arrayList();
-		final List<PacketSource> warnings=arrayList();
+    public CheckResult f(@NotNull final Network network) {
+        final List<PacketSource> empty = arrayList();
+        final List<PacketSource> warnings = arrayList();
 
-		for (final Hub hub: NetworkUtility.getAllHubs(network))
-		{
-			NetBlock netBlock=null;
+        for (final Hub hub : NetworkUtility.getAllHubs(network)) {
+            NetBlock netBlock = null;
 
-			for (final Cable cable: hub.getCables())
-			{
-				final @Nullable Card maybeCard;
-				try
-				{
-					maybeCard=asCard(getOtherEnd(network,cable,hub));
-				}
-				catch (final OnlyOneEndConnectedException exception)
-				{
-					continue;
-				}
+            for (final Cable cable : hub.getCables()) {
+                final @Nullable Card maybeCard;
+                try {
+                    maybeCard = asCard(getOtherEnd(network, cable, hub));
+                } catch (final OnlyOneEndConnectedException exception) {
+                    continue;
+                }
 
-				if (maybeCard==null)
-					continue;
+                if (maybeCard == null)
+                    continue;
 
-				final @Nullable CardDrivers cardWithDrivers=maybeCard.withDrivers;
+                final @Nullable CardDrivers cardWithDrivers = maybeCard.withDrivers;
 
-				if (cardWithDrivers==null || cardWithDrivers.ipAddress.get().rawValue==0)
-					continue;
+                if (cardWithDrivers == null || cardWithDrivers.ipAddress.get().rawValue == 0)
+                    continue;
 
-				final NetBlock temp=CardUtility.getNetBlock(cardWithDrivers);
+                final NetBlock temp = CardUtility.getNetBlock(cardWithDrivers);
 
-				if (netBlock==null)
-					netBlock=temp;
-				else
-					if (!equalT(netBlock,temp))
-						warnings.add(hub);
-			}
-		}
+                if (netBlock == null)
+                    netBlock = temp;
+                else if (!equalT(netBlock, temp))
+                    warnings.add(hub);
+            }
+        }
 
-		if (warnings.isEmpty())
-			return CheckResultUtility.fine();
+        if (warnings.isEmpty())
+            return CheckResultUtility.fine();
 
-		return new CheckResult(TypicalScores.SEVERE, Collections.asList(errorMessage), warnings, empty);
-	}
+        return new CheckResult(TypicalScores.SEVERE, Collections.asList(errorMessage), warnings, empty);
+    }
 
-	public static UnitTest testFalsePositiveWithZeroIP()
-	{
-		return new UnitTest()
-		{
-			@Override
-            public boolean invoke()
-			{
-				final Network network=new Network();
-				loadFromFile(network,new File("datafiles/unconnected/hubwithmorethanonesubnet-zerotest.ipsim"));
+    public static UnitTest testFalsePositiveWithZeroIP() {
+        return new UnitTest() {
+            @Override
+            public boolean invoke() {
+                final Network network = new Network();
+                loadFromFile(network, new File("datafiles/unconnected/hubwithmorethanonesubnet-zerotest.ipsim"));
 
-				final ResultsAndSummaryAndPercent allChecks=ConformanceTests.allChecks(network);
+                final ResultsAndSummaryAndPercent allChecks = ConformanceTests.allChecks(network);
 
-				final List<CheckResult> results=allChecks.results;
+                final List<CheckResult> results = allChecks.results;
 
-				return !Collections.any(results,new F<CheckResult, Boolean>()
-				{
-					@Override
-                    public Boolean f(final CheckResult checkResult)
-					{
-						return Collections.any(checkResult.withWarnings,isHub);
-					}
-				});
-			}
+                return !Collections.any(results, new F<CheckResult, Boolean>() {
+                    @Override
+                    public Boolean f(final CheckResult checkResult) {
+                        return Collections.any(checkResult.withWarnings, isHub);
+                    }
+                });
+            }
 
-			public String toString()
-			{
-				return "testFalsePositiveWithZeroIP";
-			}
-		};
-	}
+            public String toString() {
+                return "testFalsePositiveWithZeroIP";
+            }
+        };
+    }
 }

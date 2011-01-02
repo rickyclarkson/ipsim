@@ -1,8 +1,7 @@
 package ipsim.swing;
 
-import java.awt.*;
+import java.awt.Component;
 
-public interface LabelledTextField
-{
-	Component getPanel();
+public interface LabelledTextField {
+    Component getPanel();
 }

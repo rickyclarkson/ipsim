@@ -12,31 +12,26 @@ import static ipsim.network.conformance.NonsensicalArrangement.noErrors;
 import static ipsim.network.conformance.TypicalScores.USUAL;
 import static ipsim.network.ethernet.ComputerUtility.isLocallyReachable;
 
-public class RoutePointsAtNonLocalGateway
-{
-	public static final F<Network, CheckResult> routePointsAtNonLocalGateway=new F<Network, CheckResult>()
-	{
-		@Override
+public class RoutePointsAtNonLocalGateway {
+    public static final F<Network, CheckResult> routePointsAtNonLocalGateway = new F<Network, CheckResult>() {
+        @Override
         @NotNull
-		public CheckResult f(@NotNull final Network network)
-		{
-			final F<Computer, Option<String>> warning=new F<Computer, Option<String>>()
-			{
-				@Override
+        public CheckResult f(@NotNull final Network network) {
+            final F<Computer, Option<String>> warning = new F<Computer, Option<String>>() {
+                @Override
                 @NotNull
-				public Option<String> f(@NotNull final Computer computer)
-				{
-					for (final Route route : computer.routingTable.routes())
-						if (!isLocallyReachable(computer, route.gateway))
-							return Option.some("Route with a non-local gateway (this is a bug if it isn't from an old saved file)");
+                public Option<String> f(@NotNull final Computer computer) {
+                    for (final Route route : computer.routingTable.routes())
+                        if (!isLocallyReachable(computer, route.gateway))
+                            return Option.some("Route with a non-local gateway (this is a bug if it isn't from an old saved file)");
 
-					return Option.none();
-				}
-			};
+                    return Option.none();
+                }
+            };
 
-			final F<Computer, Option<String>> noErrors=noErrors();
+            final F<Computer, Option<String>> noErrors = noErrors();
 
-			return NonsensicalArrangement.customCheck(getAllComputers, warning, noErrors, USUAL).f(network);
-		}
-	};
+            return NonsensicalArrangement.customCheck(getAllComputers, warning, noErrors, USUAL).f(network);
+        }
+    };
 }

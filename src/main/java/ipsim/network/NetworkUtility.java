@@ -48,327 +48,267 @@ import static ipsim.persistence.delegates.NetworkDelegate.networkDelegate;
 import static ipsim.util.Collections.add;
 import static ipsim.util.Collections.hashSet;
 
-public class NetworkUtility
-{
-	public static void loadFromFile(final Network network, final File file)
-	{
-		loadFromFile(network, file, Effect.<IOException>throwRuntimeException());
-	}
+public class NetworkUtility {
+    public static void loadFromFile(final Network network, final File file) {
+        loadFromFile(network, file, Effect.<IOException>throwRuntimeException());
+    }
 
-	public static void loadFromString(final Network network, final String xmlString)
-	{
-		network.topLevelComponents.clear();
+    public static void loadFromString(final Network network, final String xmlString) {
+        network.topLevelComponents.clear();
 
-		final XMLDeserialiser deserialiser=XMLDeserialiserUtility.createXMLDeserialiser(network.domSimple, xmlString);
+        final XMLDeserialiser deserialiser = XMLDeserialiserUtility.createXMLDeserialiser(network.domSimple, xmlString);
 
-		network.computerIDs.clear();
+        network.computerIDs.clear();
 
-		deserialiser.readObject(networkDelegate(network), Caster.asFunction(Network.class));
-	}
+        deserialiser.readObject(networkDelegate(network), Caster.asFunction(Network.class));
+    }
 
-	public static void placeholderForWhenNetworkChanges(final Problem problem)
-	{
-		if (problem==null)
-				Global.global.get().statusBar.setText("");
-			else
-				Global.global.get().statusBar.setText(problem.asString());
-	}
+    public static void placeholderForWhenNetworkChanges(final Problem problem) {
+        if (problem == null)
+            Global.global.get().statusBar.setText("");
+        else
+            Global.global.get().statusBar.setText(problem.asString());
+    }
 
-	public static void saveToFile(final Network network, @NotNull final File filename) throws IOException
-	{
-		Assertion.assertNotNull(filename);
+    public static void saveToFile(final Network network, @NotNull final File filename) throws IOException {
+        Assertion.assertNotNull(filename);
 
-		if (filename.getName().startsWith("@"))
-		{
-			final StringWriter stringWriter=new StringWriter();
+        if (filename.getName().startsWith("@")) {
+            final StringWriter stringWriter = new StringWriter();
 
-			final boolean tempModified=network.modified;
-			saveToWriter(network, stringWriter);
-			network.modified=tempModified;
+            final boolean tempModified = network.modified;
+            saveToWriter(network, stringWriter);
+            network.modified = tempModified;
 
-			try
-			{
-				final String output=WebInterface.putNamedConfiguration(filename.getName(), stringWriter.toString());
-				if (!output.startsWith("102"))
-					NetworkContext.errors(output);
-			}
-			catch (final IOException exception)
-			{
-				NetworkContext.errors(exception.getMessage());
-			}
-		}
-		else
-		{
-			final Writer bufferedWriter=new BufferedWriter(new FileWriter(filename));
-			try
-			{
-				saveToWriter(network, bufferedWriter);
-			}
-			finally
-			{
-				try
-				{
-					bufferedWriter.close();
-				}
-				catch (IOException exception)
-				{
-					exception.printStackTrace();
-				}
-			}
-		}
-	}
+            try {
+                final String output = WebInterface.putNamedConfiguration(filename.getName(), stringWriter.toString());
+                if (!output.startsWith("102"))
+                    NetworkContext.errors(output);
+            } catch (final IOException exception) {
+                NetworkContext.errors(exception.getMessage());
+            }
+        } else {
+            final Writer bufferedWriter = new BufferedWriter(new FileWriter(filename));
+            try {
+                saveToWriter(network, bufferedWriter);
+            } finally {
+                try {
+                    bufferedWriter.close();
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+            }
+        }
+    }
 
-	public static void saveToWriter(final Network network, final Writer writer)
-	{
-		saveObjectToWriter(writer, network, "network", networkDelegate(network));
-		network.modified=false;
-	}
+    public static void saveToWriter(final Network network, final Writer writer) {
+        saveObjectToWriter(writer, network, "network", networkDelegate(network));
+        network.modified = false;
+    }
 
-	public static String saveToString(final Network network)
-	{
-		final StringWriter writer=new StringWriter();
-		saveToWriter(network, writer);
-		return writer.toString();
-	}
+    public static String saveToString(final Network network) {
+        final StringWriter writer = new StringWriter();
+        saveToWriter(network, writer);
+        return writer.toString();
+    }
 
-	public static Iterable<PacketSource> getDepthFirstIterable(final Network network)
-	{
-		return Trees.getDepthFirstIterable(Trees.nodify(network, Collections.map(PositionUtility.getRootComponents(network), PacketSourceAndIndex.getPacketSource)));
-	}
+    public static Iterable<PacketSource> getDepthFirstIterable(final Network network) {
+        return Trees.getDepthFirstIterable(Trees.nodify(network, Collections.map(PositionUtility.getRootComponents(network), PacketSourceAndIndex.getPacketSource)));
+    }
 
-	public static int getNumberOfSubnets(final Network network)
-	{
-		final Iterable<Computer> computers=getAllComputers(network);
+    public static int getNumberOfSubnets(final Network network) {
+        final Iterable<Computer> computers = getAllComputers(network);
 
-		final Collection<Integer> subnets=hashSet();
+        final Collection<Integer> subnets = hashSet();
 
-		for (final Computer computer : computers)
-			for (final CardDrivers cardWithDrivers: cardsWithDrivers(computer))
-			{
-				final int mask=cardWithDrivers.netMask.get().rawValue;
-				final int ip=cardWithDrivers.ipAddress.get().rawValue;
+        for (final Computer computer : computers)
+            for (final CardDrivers cardWithDrivers : cardsWithDrivers(computer)) {
+                final int mask = cardWithDrivers.netMask.get().rawValue;
+                final int ip = cardWithDrivers.ipAddress.get().rawValue;
 
-				subnets.add(mask&ip);
-			}
+                subnets.add(mask & ip);
+            }
 
-		return subnets.size();
-	}
+        return subnets.size();
+    }
 
-	public static Collection<Computer> getComputersByIP(final Network network, final IPAddress ipAddress)
-	{
-		final Collection<Computer> computers=new HashSet<Computer>();
+    public static Collection<Computer> getComputersByIP(final Network network, final IPAddress ipAddress) {
+        final Collection<Computer> computers = new HashSet<Computer>();
 
-		for (final PacketSource component : getDepthFirstIterable(network))
-		{
-			@Nullable
-			final Computer computer=asComputer(component);
+        for (final PacketSource component : getDepthFirstIterable(network)) {
+            @Nullable
+            final Computer computer = asComputer(component);
 
-			if (computer!=null)
-			{
-				for (final CardDrivers card: cardsWithDrivers(computer))
-					if (equalT(card.ipAddress.get(), ipAddress))
-						computers.add(computer);
-			}
-		}
+            if (computer != null) {
+                for (final CardDrivers card : cardsWithDrivers(computer))
+                    if (equalT(card.ipAddress.get(), ipAddress))
+                        computers.add(computer);
+            }
+        }
 
-		return computers;
-	}
+        return computers;
+    }
 
-	public static final F<Network, Iterable<Hub>> getAllHubs=new F<Network, Iterable<Hub>>()
-	{
-		@Override
+    public static final F<Network, Iterable<Hub>> getAllHubs = new F<Network, Iterable<Hub>>() {
+        @Override
         @NotNull
-		public Iterable<Hub> f(@NotNull final Network network)
-		{
-			return getAllHubs(network);
-		}
-	};
+        public Iterable<Hub> f(@NotNull final Network network) {
+            return getAllHubs(network);
+        }
+    };
 
-	public static List<Hub> getAllHubs(final Network network)
-	{
-		final Iterable<PacketSource> components=getDepthFirstIterable(network);
+    public static List<Hub> getAllHubs(final Network network) {
+        final Iterable<PacketSource> components = getDepthFirstIterable(network);
 
-		final List<Hub> hubs=new ArrayList<Hub>();
+        final List<Hub> hubs = new ArrayList<Hub>();
 
-		for (final PacketSource component : components)
-		{
-			@Nullable final Hub hub=PacketSourceUtility.asHub(component);
+        for (final PacketSource component : components) {
+            @Nullable final Hub hub = PacketSourceUtility.asHub(component);
 
-			if (hub!=null)
-				hubs.add(hub);
-		}
+            if (hub != null)
+                hubs.add(hub);
+        }
 
-		return hubs;
-	}
+        return hubs;
+    }
 
-	public static void loadFromFile(final Network network, final File file, final Effect<IOException> ioException)
-	{
-		try
-		{
-			IOUtility.readWholeResource(file.toURI().toURL()).either(new F<String, Runnable>()
-			{
-				@Override
+    public static void loadFromFile(final Network network, final File file, final Effect<IOException> ioException) {
+        try {
+            IOUtility.readWholeResource(file.toURI().toURL()).either(new F<String, Runnable>() {
+                @Override
                 @NotNull
-				public Runnable f(@NotNull final String input)
-				{
-					return new Runnable()
-					{
-						@Override
-                        public void run()
-						{
-							loadFromString(network, input);
-						}
-					};
-				}
-			}, new F<IOException, Runnable>()
-			{
-				@Override
+                public Runnable f(@NotNull final String input) {
+                    return new Runnable() {
+                        @Override
+                        public void run() {
+                            loadFromString(network, input);
+                        }
+                    };
+                }
+            }, new F<IOException, Runnable>() {
+                @Override
                 @NotNull
-				public Runnable f(@NotNull final IOException exception)
-				{
-					return new Runnable()
-					{
-						@Override
-                        public void run()
-						{
-							ioException.e(exception);
-						}
-					};
-				}
-			}).run();
-		}
-		catch (final MalformedURLException exception)
-		{
-			throw new RuntimeException(exception);
-		}
-	}
+                public Runnable f(@NotNull final IOException exception) {
+                    return new Runnable() {
+                        @Override
+                        public void run() {
+                            ioException.e(exception);
+                        }
+                    };
+                }
+            }).run();
+        } catch (final MalformedURLException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
 
-	public static final F<Network, Iterable<Computer>> getAllComputers=new F<Network, Iterable<Computer>>()
-	{
-		@Override
+    public static final F<Network, Iterable<Computer>> getAllComputers = new F<Network, Iterable<Computer>>() {
+        @Override
         @NotNull
-		public Iterable<Computer> f(@NotNull final Network network)
-		{
-			return getAllComputers(network);
-		}
-	};
+        public Iterable<Computer> f(@NotNull final Network network) {
+            return getAllComputers(network);
+        }
+    };
 
-	public static Collection<Computer> getAllComputers(final Network network, final F<Computer, Boolean> condition)
-	{
-		final Iterable<PacketSource> allComponents=getDepthFirstIterable(network);
+    public static Collection<Computer> getAllComputers(final Network network, final F<Computer, Boolean> condition) {
+        final Iterable<PacketSource> allComponents = getDepthFirstIterable(network);
 
-		final Collection<Computer> computers=new HashSet<Computer>();
+        final Collection<Computer> computers = new HashSet<Computer>();
 
-		for (final PacketSource component : allComponents)
-		{
-			@Nullable
-			final Computer computer=asComputer(component);
+        for (final PacketSource component : allComponents) {
+            @Nullable
+            final Computer computer = asComputer(component);
 
-			if (computer!=null && condition.f(computer))
-				computers.add(computer);
-		}
+            if (computer != null && condition.f(computer))
+                computers.add(computer);
+        }
 
-		return computers;
-	}
+        return computers;
+    }
 
-	public static final F<Network, Iterable<Card>> getAllCards=new F<Network, Iterable<Card>>()
-	{
-		@Override
+    public static final F<Network, Iterable<Card>> getAllCards = new F<Network, Iterable<Card>>() {
+        @Override
         @NotNull
-		public Iterable<Card> f(@NotNull final Network context)
-		{
-			return getAllCards(context);
-		}
-	};
+        public Iterable<Card> f(@NotNull final Network context) {
+            return getAllCards(context);
+        }
+    };
 
-	public static Collection<Card> getAllCards(final Network network)
-	{
-		final Iterable<PacketSource> allComponents=getDepthFirstIterable(network);
+    public static Collection<Card> getAllCards(final Network network) {
+        final Iterable<PacketSource> allComponents = getDepthFirstIterable(network);
 
-		final Collection<Card> cards=new HashSet<Card>();
+        final Collection<Card> cards = new HashSet<Card>();
 
-		for (final PacketSource component : allComponents)
-		{
-			final Card card=asCard(component);
+        for (final PacketSource component : allComponents) {
+            final Card card = asCard(component);
 
-			if (card!=null)
-				cards.add(card);
-		}
+            if (card != null)
+                cards.add(card);
+        }
 
-		return cards;
-	}
+        return cards;
+    }
 
-	public static Collection<CardDrivers> getAllCardsWithDrivers(final Network network)
-	{
-		final Iterable<PacketSource> allComponents=getDepthFirstIterable(network);
+    public static Collection<CardDrivers> getAllCardsWithDrivers(final Network network) {
+        final Iterable<PacketSource> allComponents = getDepthFirstIterable(network);
 
-		final Collection<CardDrivers> cards=new HashSet<CardDrivers>();
+        final Collection<CardDrivers> cards = new HashSet<CardDrivers>();
 
-		for (final PacketSource component : allComponents)
-		{
-			@Nullable final Card card=asCard(component);
+        for (final PacketSource component : allComponents) {
+            @Nullable final Card card = asCard(component);
 
-			if (card!=null)
-			{
-				@Nullable
-				final CardDrivers withDrivers=card.withDrivers;
+            if (card != null) {
+                @Nullable
+                final CardDrivers withDrivers = card.withDrivers;
 
-				if (withDrivers!=null)
-					add(cards).e(withDrivers);
-			}
-		}
+                if (withDrivers != null)
+                    add(cards).e(withDrivers);
+            }
+        }
 
-		return cards;
-	}
+        return cards;
+    }
 
-	public static F<Network, Iterable<Cable>> getAllCables()
-	{
-		return new F<Network, Iterable<Cable>>()
-		{
-			@Override
+    public static F<Network, Iterable<Cable>> getAllCables() {
+        return new F<Network, Iterable<Cable>>() {
+            @Override
             @NotNull
-			public Iterable<Cable> f(@NotNull final Network context)
-			{
-				return getAllCables(context);
-			}
-		};
-	}
+            public Iterable<Cable> f(@NotNull final Network context) {
+                return getAllCables(context);
+            }
+        };
+    }
 
-	public static Collection<Cable> getAllCables(final Network network)
-	{
-		final F<Cable, Boolean> filter= Function.constant(true);
-		return getAllCables(network, filter);
-	}
+    public static Collection<Cable> getAllCables(final Network network) {
+        final F<Cable, Boolean> filter = Function.constant(true);
+        return getAllCables(network, filter);
+    }
 
-	public static Collection<Cable> getAllCables(final Network network, final F<Cable, Boolean> filter)
-	{
-		final Iterable<PacketSource> allComponents=getDepthFirstIterable(network);
+    public static Collection<Cable> getAllCables(final Network network, final F<Cable, Boolean> filter) {
+        final Iterable<PacketSource> allComponents = getDepthFirstIterable(network);
 
-		final Collection<Cable> cables=hashSet();
+        final Collection<Cable> cables = hashSet();
 
-		for (final PacketSource component : allComponents)
-		{
-			@Nullable final Cable cable=asCable(component);
+        for (final PacketSource component : allComponents) {
+            @Nullable final Cable cable = asCable(component);
 
-			if (cable!=null && filter.f(cable))
-				cables.add(cable);
-		}
+            if (cable != null && filter.f(cable))
+                cables.add(cable);
+        }
 
-		return cables;
-	}
+        return cables;
+    }
 
-	public static <T> void saveObjectToWriter(final Writer writer, final T object, final String name, final SerialisationDelegate<T> delegate)
-	{
-		final XMLSerialiser serialiser=new XMLSerialiser(writer);
+    public static <T> void saveObjectToWriter(final Writer writer, final T object, final String name, final SerialisationDelegate<T> delegate) {
+        final XMLSerialiser serialiser = new XMLSerialiser(writer);
 
-		serialiser.writeObject(object, name, delegate);
+        serialiser.writeObject(object, name, delegate);
 
-		serialiser.close();
-	}
+        serialiser.close();
+    }
 
-	public static Collection<Computer> getAllComputers(final Network network)
-	{
-		final F<Computer, Boolean> condition=Function.constant(true);
-		return getAllComputers(network, condition);
-	}
+    public static Collection<Computer> getAllComputers(final Network network) {
+        final F<Computer, Boolean> condition = Function.constant(true);
+        return getAllComputers(network, condition);
+    }
 }

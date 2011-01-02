@@ -15,42 +15,36 @@ import static ipsim.Caster.equalT;
 import static ipsim.connectivity.hub.incoming.PacketSourceUtility.asCable;
 import static ipsim.network.connectivity.PacketUtility2.asEthernetPacket;
 
-public class CableIncoming implements IncomingPacketListener
-{
-	private final Network network;
+public class CableIncoming implements IncomingPacketListener {
+    private final Network network;
 
-	public CableIncoming(final Network network)
-	{
-		this.network=network;
-	}
+    public CableIncoming(final Network network) {
+        this.network = network;
+    }
 
-	@Override
-    public void packetIncoming(final Packet packet, final PacketSource source, final PacketSource destination)
-	{
-		packetIncomingImpl(network,asNotNull(asEthernetPacket(packet)),source,asNotNull(asCable(destination)));
-	}
+    @Override
+    public void packetIncoming(final Packet packet, final PacketSource source, final PacketSource destination) {
+        packetIncomingImpl(network, asNotNull(asEthernetPacket(packet)), source, asNotNull(asCable(destination)));
+    }
 
-	public static void packetIncomingImpl(@NotNull final Network network,@NotNull final EthernetPacket packet, @NotNull final PacketSource source, @NotNull final Cable destination)
-	{
-		final boolean canTransferPackets=destination.canTransferPackets(network);
+    public static void packetIncomingImpl(@NotNull final Network network, @NotNull final EthernetPacket packet, @NotNull final PacketSource source, @NotNull final Cable destination) {
+        final boolean canTransferPackets = destination.canTransferPackets(network);
 
-		if (!canTransferPackets)
-			return;
+        if (!canTransferPackets)
+            return;
 
-		final Iterable<PacketSource> ends=Collections.only(destination.getEnds(network), FunctionUtility.not(equalT(source)));
+        final Iterable<PacketSource> ends = Collections.only(destination.getEnds(network), FunctionUtility.not(equalT(source)));
 
-		network.packetQueue.enqueueIncomingPacket(packet,destination, ends.iterator().next());
-	}
+        network.packetQueue.enqueueIncomingPacket(packet, destination, ends.iterator().next());
+    }
 
-	@Override
-	public String toString()
-	{
-		throw new UnsupportedOperationException();
-	}
+    @Override
+    public String toString() {
+        throw new UnsupportedOperationException();
+    }
 
-	@Override
-    public boolean canHandle(final Packet packet, final PacketSource source)
-	{
-		return true;
-	}
+    @Override
+    public boolean canHandle(final Packet packet, final PacketSource source) {
+        return true;
+    }
 }

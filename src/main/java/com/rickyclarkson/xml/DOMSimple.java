@@ -11,63 +11,56 @@ import static ipsim.Caster.asElement;
 import static ipsim.Caster.equalT;
 import static ipsim.Caster.isElement;
 
-public final class DOMSimple
-{
-	private final P1<Element> expectElement;
-	private final P1<String> expectString;
+public final class DOMSimple {
+    private final P1<Element> expectElement;
+    private final P1<String> expectString;
 
-	public DOMSimple(final P1<String> expectString,final P1<Element> expectElement)
-	{
-		this.expectString=expectString;
-		this.expectElement=expectElement;
-	}
+    public DOMSimple(final P1<String> expectString, final P1<Element> expectElement) {
+        this.expectString = expectString;
+        this.expectElement = expectElement;
+    }
 
-	public static Node[] getChildNodes(final Node root,final String name)
-	{
-		final List<Node> nodes=new ArrayList<Node>();
+    public static Node[] getChildNodes(final Node root, final String name) {
+        final List<Node> nodes = new ArrayList<Node>();
 
-		final NodeList children=root.getChildNodes();
+        final NodeList children = root.getChildNodes();
 
-		for (int a=0;a<children.getLength();a++)
-		{
-			final Node node=children.item(a);
+        for (int a = 0; a < children.getLength(); a++) {
+            final Node node = children.item(a);
 
-			if (equalT(node.getNodeName(),name))
-				nodes.add(node);
-		}
+            if (equalT(node.getNodeName(), name))
+                nodes.add(node);
+        }
 
-		final Node[] answer=new Node[nodes.size()];
+        final Node[] answer = new Node[nodes.size()];
 
-		nodes.toArray(answer);
+        nodes.toArray(answer);
 
-		return answer;
-	}
+        return answer;
+    }
 
-	public Element getChildElementNode(final Node root,final String name)
-	{
-		final NodeList children=root.getChildNodes();
+    public Element getChildElementNode(final Node root, final String name) {
+        final NodeList children = root.getChildNodes();
 
-		for (int a=0;a<children.getLength();a++)
-		{
-			final Node node=children.item(a);
+        for (int a = 0; a < children.getLength(); a++) {
+            final Node node = children.item(a);
 
-			if (isElement(node)&&equalT(node.getNodeName(),name))
-				return asElement(node);
-		}
+            if (isElement(node) && equalT(node.getNodeName(), name))
+                return asElement(node);
+        }
 
-		return expectElement._1();
-	}
+        return expectElement._1();
+    }
 
-	public String getAttribute(final Node node,final String name)
-	{
-		if (!node.hasAttributes())
-			throw new IllegalArgumentException();
+    public String getAttribute(final Node node, final String name) {
+        if (!node.hasAttributes())
+            throw new IllegalArgumentException();
 
-		final Node item=node.getAttributes().getNamedItem(name);
+        final Node item = node.getAttributes().getNamedItem(name);
 
-		if (item==null)
-			return expectString._1();
+        if (item == null)
+            return expectString._1();
 
-		return item.getNodeValue();
-	}
+        return item.getNodeValue();
+    }
 }

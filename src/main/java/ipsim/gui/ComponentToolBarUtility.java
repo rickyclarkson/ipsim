@@ -30,77 +30,68 @@ import static ipsim.gui.NetworkComponentIconMouseListenerUtility.createNetworkCo
 import static ipsim.swing.DragNDropIconCreator.newInstance;
 import static ipsim.util.Collections.max;
 
-public final class ComponentToolBarUtility
-{
-	public static Container newBar()
-	{
-		final JPanel panel=new JPanel();
-		final JLabel label=new JLabel("<html><body><h3>Components:</h3></body></html>");
-		final JToggleButton cable=EthernetCableIcon.newButton();
+public final class ComponentToolBarUtility {
+    public static Container newBar() {
+        final JPanel panel = new JPanel();
+        final JLabel label = new JLabel("<html><body><h3>Components:</h3></body></html>");
+        final JToggleButton cable = EthernetCableIcon.newButton();
 
-		final Container computer=newInstance(ComputerHandler.icon,"Computer");
-		final Container card=newInstance(EthernetCardHandler.icon,"Ethernet Card");
-		final Container hub=newInstance(HubHandler.icon,"Hub");
+        final Container computer = newInstance(ComputerHandler.icon, "Computer");
+        final Container card = newInstance(EthernetCardHandler.icon, "Ethernet Card");
+        final Container hub = newInstance(HubHandler.icon, "Hub");
 
-		AnyLayout.useAnyLayout(panel,0.5f,0.5f,new SizeCalculator()
-		{
-			@Override
-            public int getHeight()
-			{
-                return Collections.<Component>sum(getPreferredHeight(), (Component)label, (Component)computer, (Component)cable, (Component)card, (Component)hub);
-			}
+        AnyLayout.useAnyLayout(panel, 0.5f, 0.5f, new SizeCalculator() {
+            @Override
+            public int getHeight() {
+                return Collections.<Component>sum(getPreferredHeight(), (Component) label, (Component) computer, (Component) cable, (Component) card, (Component) hub);
+            }
 
-			@Override
-            public int getWidth()
-			{
-				return max(getPreferredWidth(),label,computer,cable,card,hub);
-			}
-		},new F<Component,Constraint>()
-		{
-			@Override
+            @Override
+            public int getWidth() {
+                return max(getPreferredWidth(), label, computer, cable, card, hub);
+            }
+        }, new F<Component, Constraint>() {
+            @Override
             @NotNull
-			public Constraint f(@NotNull final Component component)
-			{
-				throw new IllegalStateException();
-			}
-		});
+            public Constraint f(@NotNull final Component component) {
+                throw new IllegalStateException();
+            }
+        });
 
-		final F<LayoutContext,Integer> maxPreferredHeight=new F<LayoutContext,Integer>()
-		{
-			@Override
+        final F<LayoutContext, Integer> maxPreferredHeight = new F<LayoutContext, Integer>() {
+            @Override
             @NotNull
-			public Integer f(@NotNull final LayoutContext layoutContext)
-			{
-				final Component[] components={label,computer,cable,card,hub};
+            public Integer f(@NotNull final LayoutContext layoutContext) {
+                final Component[] components = {label, computer, cable, card, hub};
 
-				return Math.min(layoutContext.getParentSize()/components.length,max(getPreferredHeight(),components));
-			}
-		};
+                return Math.min(layoutContext.getParentSize() / components.length, max(getPreferredHeight(), components));
+            }
+        };
 
-		final F<LayoutContext,Integer> zero=fj.Function.constant(0);
+        final F<LayoutContext, Integer> zero = fj.Function.constant(0);
 
-		panel.add(label,buildConstraint().setLeft(zero).setTop(zero).setWidth(fill()).setHeight(maxPreferredHeight));
-		panel.add(cable,buildConstraint().setLeft(zero).setTop(after(label)).setWidth(fill()).setHeight(maxPreferredHeight));
-		panel.add(computer,buildConstraint().setLeft(zero).setTop(after(cable)).setWidth(fill()).setHeight(maxPreferredHeight));
-		panel.add(card,buildConstraint().setLeft(zero).setTop(after(computer)).setWidth(fill()).setHeight(maxPreferredHeight));
-		panel.add(hub,buildConstraint().setLeft(zero).setTop(after(card)).setWidth(fill()).setHeight(maxPreferredHeight));
+        panel.add(label, buildConstraint().setLeft(zero).setTop(zero).setWidth(fill()).setHeight(maxPreferredHeight));
+        panel.add(cable, buildConstraint().setLeft(zero).setTop(after(label)).setWidth(fill()).setHeight(maxPreferredHeight));
+        panel.add(computer, buildConstraint().setLeft(zero).setTop(after(cable)).setWidth(fill()).setHeight(maxPreferredHeight));
+        panel.add(card, buildConstraint().setLeft(zero).setTop(after(computer)).setWidth(fill()).setHeight(maxPreferredHeight));
+        panel.add(hub, buildConstraint().setLeft(zero).setTop(after(card)).setWidth(fill()).setHeight(maxPreferredHeight));
 
-		final MouseInputListener computerListener=createNetworkComponentIconMouseListener(Computer.class);
+        final MouseInputListener computerListener = createNetworkComponentIconMouseListener(Computer.class);
 
-		final MouseInputListener cardListener=createNetworkComponentIconMouseListener(Card.class);
+        final MouseInputListener cardListener = createNetworkComponentIconMouseListener(Card.class);
 
-		final MouseInputListener hubListener=createNetworkComponentIconMouseListener(Hub.class);
+        final MouseInputListener hubListener = createNetworkComponentIconMouseListener(Hub.class);
 
-		computer.addMouseListener(computerListener);
-		computer.addMouseMotionListener(computerListener);
+        computer.addMouseListener(computerListener);
+        computer.addMouseMotionListener(computerListener);
 
-		card.addMouseListener(cardListener);
-		card.addMouseMotionListener(cardListener);
+        card.addMouseListener(cardListener);
+        card.addMouseMotionListener(cardListener);
 
-		hub.addMouseListener(hubListener);
-		hub.addMouseMotionListener(hubListener);
-		hub.setPreferredSize(card.getPreferredSize());
+        hub.addMouseListener(hubListener);
+        hub.addMouseMotionListener(hubListener);
+        hub.setPreferredSize(card.getPreferredSize());
 
-		return panel;
-	}
+        return panel;
+    }
 }

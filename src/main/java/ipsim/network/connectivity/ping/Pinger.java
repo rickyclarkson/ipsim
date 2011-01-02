@@ -28,96 +28,78 @@ import static ipsim.network.ethernet.ComputerUtility.getCardFor;
 import static ipsim.network.ethernet.ComputerUtility.getTheFirstIPAddressYouCanFind;
 import static java.util.Collections.singletonList;
 
-public final class Pinger
-{
-	public static List<PingResults> ping(final Network network,final Computer computer,final DestIPAddress ipAddress,final int ttl)
-	{
-		final boolean hasRoute=hasRouteFor(computer,ipAddress);
+public final class Pinger {
+    public static List<PingResults> ping(final Network network, final Computer computer, final DestIPAddress ipAddress, final int ttl) {
+        final boolean hasRoute = hasRouteFor(computer, ipAddress);
 
-		final Object identifier=new Object();
+        final Object identifier = new Object();
 
-		final PingListener pingListener=new PingListener(identifier);
+        final PingListener pingListener = new PingListener(identifier);
 
-		computer.getIncomingPacketListeners().add(pingListener);
+        computer.getIncomingPacketListeners().add(pingListener);
 
-		try
-		{
-			@Nullable
-			final IPAddress ipAddress1=getTheFirstIPAddressYouCanFind(computer);
+        try {
+            @Nullable
+            final IPAddress ipAddress1 = getTheFirstIPAddressYouCanFind(computer);
 
-			if (ipAddress1==null)
-				try
-				{
-					return singletonList(netUnreachable(new SourceIPAddress(IPAddressUtility.valueOf("127.0.0.1"))));
-				}
-				catch (final CheckedNumberFormatException exception)
-				{
-					throw new RuntimeException(exception);
-				}
+            if (ipAddress1 == null)
+                try {
+                    return singletonList(netUnreachable(new SourceIPAddress(IPAddressUtility.valueOf("127.0.0.1"))));
+                } catch (final CheckedNumberFormatException exception) {
+                    throw new RuntimeException(exception);
+                }
 
-			final SourceIPAddress aRandomSourceIP=new SourceIPAddress(ipAddress1);
+            final SourceIPAddress aRandomSourceIP = new SourceIPAddress(ipAddress1);
 
-			if (!hasRoute)
-				return singletonList(netUnreachable(aRandomSourceIP));
+            if (!hasRoute)
+                return singletonList(netUnreachable(aRandomSourceIP));
 
-			final Route route;
-			try
-			{
-				route=getRouteFor(computer,ipAddress);
-			}
-			catch (final NoSuchRouteException exception)
-			{
-				throw new RuntimeException(exception);
-			}
+            final Route route;
+            try {
+                route = getRouteFor(computer, ipAddress);
+            } catch (final NoSuchRouteException exception) {
+                throw new RuntimeException(exception);
+            }
 
-			@Nullable
-			final CardDrivers card=getCardFor(computer,route);
+            @Nullable
+            final CardDrivers card = getCardFor(computer, route);
 
-			if (card==null)
-				return singletonList(netUnreachable(aRandomSourceIP));
+            if (card == null)
+                return singletonList(netUnreachable(aRandomSourceIP));
 
-			assertFalse(0==card.ipAddress.get().rawValue);
+            assertFalse(0 == card.ipAddress.get().rawValue);
 
-			final IPPacket packet=new IPPacket(new SourceIPAddress(card.ipAddress.get()), ipAddress, ttl, identifier,PingData.REQUEST);
+            final IPPacket packet = new IPPacket(new SourceIPAddress(card.ipAddress.get()), ipAddress, ttl, identifier, PingData.REQUEST);
 
-			final PacketQueue packetQueue=network.packetQueue;
-			packetQueue.enqueueOutgoingPacket(packet,computer);
+            final PacketQueue packetQueue = network.packetQueue;
+            packetQueue.enqueueOutgoingPacket(packet, computer);
 
-			packetQueue.processAll();
+            packetQueue.processAll();
 
-			try
-			{
-				pingListener.getPingResults();
-			}
-			catch (final CheckedIllegalStateException exception)
-			{
-				pingListener.timedOut(new SourceIPAddress(card.ipAddress.get()));
-			}
+            try {
+                pingListener.getPingResults();
+            } catch (final CheckedIllegalStateException exception) {
+                pingListener.timedOut(new SourceIPAddress(card.ipAddress.get()));
+            }
 
-			final List<PingResults> pingResults=Collections.arrayList();
+            final List<PingResults> pingResults = Collections.arrayList();
 
-			try
-			{
-				pingResults.addAll(pingListener.getPingResults());
-			}
-			catch (final CheckedIllegalStateException exception)
-			{
-				throw new RuntimeException(exception);
-			}
+            try {
+                pingResults.addAll(pingListener.getPingResults());
+            } catch (final CheckedIllegalStateException exception) {
+                throw new RuntimeException(exception);
+            }
 
-			for (int a=0;a<pingResults.size();a++)
-			{
-				final PingResults result=pingResults.get(a);
+            for (int a = 0; a < pingResults.size(); a++) {
+                final PingResults result = pingResults.get(a);
 
-				if (result.timedOut()&& Caster.equalT(route.gateway).f(card.ipAddress.get()))
-					pingResults.set(a,hostUnreachable(result.getReplyingHost()));
-			}
+                if (result.timedOut() && Caster.equalT(route.gateway).f(card.ipAddress.get()))
+                    pingResults.set(a, hostUnreachable(result.getReplyingHost()));
+            }
 
-			return pingResults;
-		}
-		finally
-		{
-			computer.getIncomingPacketListeners().remove(pingListener);
-		}
-	}
+            return pingResults;
+        } finally {
+            computer.getIncomingPacketListeners().remove(pingListener);
+        }
+    }
 }

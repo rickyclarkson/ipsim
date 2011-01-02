@@ -27,87 +27,77 @@ import org.w3c.dom.Node;
 import static ipsim.Caster.asFunction;
 import static ipsim.util.Collections.mapWith;
 
-public class ComputerDelegate
-{
-	public static final UnitTest testSerialisationOfForwarding=new UnitTest()
-	{
-		@Override
-        public boolean invoke()
-		{
-			final Computer computer=new Computer();
-			computer.ipForwardingEnabled=true;
+public class ComputerDelegate {
+    public static final UnitTest testSerialisationOfForwarding = new UnitTest() {
+        @Override
+        public boolean invoke() {
+            final Computer computer = new Computer();
+            computer.ipForwardingEnabled = true;
 
-			final StringWriter stringWriter=new StringWriter();
+            final StringWriter stringWriter = new StringWriter();
 
-			final Network network=new Network();
-			PositionUtility.setPosition(network, computer, mapWith(0, new Point(100, 100)));
+            final Network network = new Network();
+            PositionUtility.setPosition(network, computer, mapWith(0, new Point(100, 100)));
 
-			final XMLSerialiser serialiser=new XMLSerialiser(stringWriter);
+            final XMLSerialiser serialiser = new XMLSerialiser(stringWriter);
 
-			serialiser.writeObject(computer, "computer", computerDelegate(network));
+            serialiser.writeObject(computer, "computer", computerDelegate(network));
 
-			final Computer another=XMLDeserialiserUtility.createXMLDeserialiser(new DOMSimple(ExceptionHandler.<String>impossibleRef(), ExceptionHandler.<Element>impossibleRef()),stringWriter.getBuffer().toString()).readObject(computerDelegate(network), asFunction(Computer.class));
+            final Computer another = XMLDeserialiserUtility.createXMLDeserialiser(new DOMSimple(ExceptionHandler.<String>impossibleRef(), ExceptionHandler.<Element>impossibleRef()), stringWriter.getBuffer().toString()).readObject(computerDelegate(network), asFunction(Computer.class));
 
-			return another.ipForwardingEnabled;
-		}
+            return another.ipForwardingEnabled;
+        }
 
-		@Override
-		public String toString()
-		{
-			return "testSerialisationOfForwarding";
-		}
-	};
+        @Override
+        public String toString() {
+            return "testSerialisationOfForwarding";
+        }
+    };
 
-	public static SerialisationDelegate<Computer> computerDelegate(final Network network)
-	{
-		return new SerialisationDelegate<Computer>()
-		{
-			@Override
-            public void writeXML(final XMLSerialiser serialiser, final Computer computer)
-			{
-				serialiser.writeAttribute("ipForwardingEnabled", String.valueOf(computer.ipForwardingEnabled));
-				final Stringable computerId=computer.computerID;
+    public static SerialisationDelegate<Computer> computerDelegate(final Network network) {
+        return new SerialisationDelegate<Computer>() {
+            @Override
+            public void writeXML(final XMLSerialiser serialiser, final Computer computer) {
+                serialiser.writeAttribute("ipForwardingEnabled", String.valueOf(computer.ipForwardingEnabled));
+                final Stringable computerId = computer.computerID;
 
-				if (computerId!=null)
-					serialiser.writeAttribute("computerId", computerId.asString());
+                if (computerId != null)
+                    serialiser.writeAttribute("computerId", computerId.asString());
 
-				DelegateHelper.writePositions(network, serialiser, computer);
+                DelegateHelper.writePositions(network, serialiser, computer);
 
-				serialiser.writeObject(computer.routingTable, "routingTable", RoutingTableDelegate.routingTableDelegate);
-			}
+                serialiser.writeObject(computer.routingTable, "routingTable", RoutingTableDelegate.routingTableDelegate);
+            }
 
-			@Override
-            public Computer readXML(final XMLDeserialiser deserialiser, final Node node, final Computer computer)
-			{
-				computer.ipForwardingEnabled=Boolean.valueOf(Caster.asNotNull(deserialiser.readAttribute(node, "ipForwardingEnabled")));
+            @Override
+            public Computer readXML(final XMLDeserialiser deserialiser, final Node node, final Computer computer) {
+                computer.ipForwardingEnabled = Boolean.valueOf(Caster.asNotNull(deserialiser.readAttribute(node, "ipForwardingEnabled")));
 
-				@Nullable
-				final String idString=deserialiser.readAttribute(node, "computerId");
+                @Nullable
+                final String idString = deserialiser.readAttribute(node, "computerId");
 
-				computer.computerID=idString==null ? network.generateComputerID() : network.createComputerID(idString);
+                computer.computerID = idString == null ? network.generateComputerID() : network.createComputerID(idString);
 
-				DelegateHelper.readPositions(network, deserialiser, node, computer);
+                DelegateHelper.readPositions(network, deserialiser, node, computer);
 
-				final RoutingTable routingTable=deserialiser.readObject(node, "routingTable",RoutingTableDelegate.routingTableDelegate, asFunction(RoutingTable.class));
-				final RoutingTable originalRoutingTable=computer.routingTable;
+                final RoutingTable routingTable = deserialiser.readObject(node, "routingTable", RoutingTableDelegate.routingTableDelegate, asFunction(RoutingTable.class));
+                final RoutingTable originalRoutingTable = computer.routingTable;
 
-				for (final Route route : routingTable.routes())
-					originalRoutingTable.add(Option.<Computer>none(), route, Effect.<IPAddress>throwRuntimeException());
+                for (final Route route : routingTable.routes())
+                    originalRoutingTable.add(Option.<Computer>none(), route, Effect.<IPAddress>throwRuntimeException());
 
-				return computer;
-			}
+                return computer;
+            }
 
-			@Override
-            public Computer construct()
-			{
-				return ComputerFactory.newComputer(network, 0, 0);
-			}
+            @Override
+            public Computer construct() {
+                return ComputerFactory.newComputer(network, 0, 0);
+            }
 
-			@Override
-            public String getIdentifier()
-			{
-				return "ipsim.persistence.delegates.ComputerDelegate";
-			}
-		};
-	}
+            @Override
+            public String getIdentifier() {
+                return "ipsim.persistence.delegates.ComputerDelegate";
+            }
+        };
+    }
 }

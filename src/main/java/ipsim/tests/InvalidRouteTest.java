@@ -20,75 +20,63 @@ import ipsim.util.Collections;
 
 import static ipsim.gui.PositionUtility.setParent;
 
-public class InvalidRouteTest implements UnitTest
-{
-	@Override
-    public boolean invoke()
-	{
-		try
-		{
-			return testChangingIPToMakeRouteInvalid()&&testProgrammaticallyAddingInvalidRoute();
-		}
-		catch (final CheckedNumberFormatException exception)
-		{
-			return false;
-		}
-	}
+public class InvalidRouteTest implements UnitTest {
+    @Override
+    public boolean invoke() {
+        try {
+            return testChangingIPToMakeRouteInvalid() && testProgrammaticallyAddingInvalidRoute();
+        } catch (final CheckedNumberFormatException exception) {
+            return false;
+        }
+    }
 
-	private static boolean testProgrammaticallyAddingInvalidRoute() throws CheckedNumberFormatException
-	{
-		final Network network=new Network();
-		final Computer computer=ComputerFactory.newComputer(network, 200,200);
-		computer.computerID=network.generateComputerID();
-		final Route route=new Route(NetBlockUtility.getZero(), IPAddressUtility.valueOf("146.87.1.1"));
+    private static boolean testProgrammaticallyAddingInvalidRoute() throws CheckedNumberFormatException {
+        final Network network = new Network();
+        final Computer computer = ComputerFactory.newComputer(network, 200, 200);
+        computer.computerID = network.generateComputerID();
+        final Route route = new Route(NetBlockUtility.getZero(), IPAddressUtility.valueOf("146.87.1.1"));
 
-		final boolean[] passed={false};
+        final boolean[] passed = {false};
 
-		computer.routingTable.add(Option.some(computer),route,new Effect<IPAddress>()
-		{
-			@Override
-            public void e(final IPAddress input)
-			{
-				passed[0]=true;
-			}
-		});
+        computer.routingTable.add(Option.some(computer), route, new Effect<IPAddress>() {
+            @Override
+            public void e(final IPAddress input) {
+                passed[0] = true;
+            }
+        });
 
-		return passed[0];
-	}
+        return passed[0];
+    }
 
-	public static boolean testChangingIPToMakeRouteInvalid() throws CheckedNumberFormatException
-	{
-		final Network network=new Network();
-		final Computer computer=ComputerFactory.newComputer(network, 200,200);
-		computer.computerID=network.generateComputerID();
-		final Card card=network.cardFactory.f(new Point(300, 300));
-		setParent(network,card,0,computer,0);
-		card.installDeviceDrivers(network);
-		final CardDrivers withDrivers=card.withDrivers;
-		withDrivers.ipAddress.set(IPAddressUtility.valueOf("146.87.1.1"));
-		withDrivers.netMask.set(NetMaskUtility.valueOf("255.255.255.0"));
-		final Route route=new Route(NetBlockUtility.getZero(), IPAddressUtility.valueOf("146.87.1.2"));
+    public static boolean testChangingIPToMakeRouteInvalid() throws CheckedNumberFormatException {
+        final Network network = new Network();
+        final Computer computer = ComputerFactory.newComputer(network, 200, 200);
+        computer.computerID = network.generateComputerID();
+        final Card card = network.cardFactory.f(new Point(300, 300));
+        setParent(network, card, 0, computer, 0);
+        card.installDeviceDrivers(network);
+        final CardDrivers withDrivers = card.withDrivers;
+        withDrivers.ipAddress.set(IPAddressUtility.valueOf("146.87.1.1"));
+        withDrivers.netMask.set(NetMaskUtility.valueOf("255.255.255.0"));
+        final Route route = new Route(NetBlockUtility.getZero(), IPAddressUtility.valueOf("146.87.1.2"));
 
-		final boolean[] passed={true};
+        final boolean[] passed = {true};
 
-		computer.routingTable.add(Option.some(computer),route,new Effect<IPAddress>()
-		{
-			@Override
-            public void e(final IPAddress input)
-			{
-				passed[0]=false;
-			}
-		});
+        computer.routingTable.add(Option.some(computer), route, new Effect<IPAddress>() {
+            @Override
+            public void e(final IPAddress input) {
+                passed[0] = false;
+            }
+        });
 
-		if (!passed[0])
-			return false;
+        if (!passed[0])
+            return false;
 
-		withDrivers.ipAddress.set(IPAddressUtility.valueOf("146.87.2.1"));
-		return Collections.size(RoutingTableUtility.getDefaultRoutes(computer.routingTable))==0;
-	}
+        withDrivers.ipAddress.set(IPAddressUtility.valueOf("146.87.2.1"));
+        return Collections.size(RoutingTableUtility.getDefaultRoutes(computer.routingTable)) == 0;
+    }
 
-	public String toString()
-	{
-		return "InvalidRouteTest";
-	}
+    public String toString() {
+        return "InvalidRouteTest";
+    }
 }

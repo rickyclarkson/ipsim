@@ -19,44 +19,36 @@ import static ipsim.network.conformance.NonsensicalArrangement.noErrors;
 import static ipsim.network.conformance.TypicalScores.USUAL;
 import static ipsim.network.ethernet.CableUtility.getOtherEnd;
 
-class SomeHubsHaveNoStandaloneHost extends F<Network,CheckResult>
-{
-	@Override
+class SomeHubsHaveNoStandaloneHost extends F<Network, CheckResult> {
+    @Override
     @NotNull
-	public CheckResult f(@NotNull final Network network)
-	{
-		final F<Hub, Option<String>> warning=new F<Hub, Option<String>>()
-		{
-			@Override
+    public CheckResult f(@NotNull final Network network) {
+        final F<Hub, Option<String>> warning = new F<Hub, Option<String>>() {
+            @Override
             @NotNull
-			public Option<String> f(@NotNull final Hub hub)
-			{
-				boolean foundOne=false;
+            public Option<String> f(@NotNull final Hub hub) {
+                boolean foundOne = false;
 
-				for (final Cable cable: hub.getCables())
-					try
-					{
-						final @Nullable Card card=asCard(getOtherEnd(network,cable,hub));
+                for (final Cable cable : hub.getCables())
+                    try {
+                        final @Nullable Card card = asCard(getOtherEnd(network, cable, hub));
 
-						if (card!=null)
-						{
-							final @Nullable PacketSource computer=PositionUtility.getParent(network,card,0);
+                        if (card != null) {
+                            final @Nullable PacketSource computer = PositionUtility.getParent(network, card, 0);
 
-							if (computer!=null && 1==computer.children().size())
-								foundOne=true;
-						}
-					}
-					catch (OnlyOneEndConnectedException exception)
-					{
-					}
+                            if (computer != null && 1 == computer.children().size())
+                                foundOne = true;
+                        }
+                    } catch (OnlyOneEndConnectedException exception) {
+                    }
 
-				return foundOne ? Option.<String>none() : Option.some("Hub with no standalone (non-gateway) computer");
-			}
+                return foundOne ? Option.<String>none() : Option.some("Hub with no standalone (non-gateway) computer");
+            }
 
-		};
+        };
 
-		final F<Hub, Option<String>> noErrors=noErrors();
+        final F<Hub, Option<String>> noErrors = noErrors();
 
-		return customCheck(getAllHubs,warning,noErrors,USUAL).f(network);
-	}
+        return customCheck(getAllHubs, warning, noErrors, USUAL).f(network);
+    }
 }

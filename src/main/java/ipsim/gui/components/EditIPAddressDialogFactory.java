@@ -1,107 +1,102 @@
 package ipsim.gui.components;
 
-import static anylayout.AnyLayout.useAnyLayout;
-import static anylayout.extras.ConstraintUtility.typicalDefaultConstraint;
 import anylayout.extras.PercentConstraints;
 import anylayout.extras.PercentConstraintsUtility;
 import ipsim.Global;
-import ipsim.util.Collections;
-import static ipsim.NetworkContext.errors;
 import ipsim.awt.ComponentUtility;
 import ipsim.connectivity.hub.incoming.PacketSourceUtility;
 import ipsim.gui.event.CommandUtility;
-import static ipsim.lang.Runnables.throwRuntimeException;
+import ipsim.network.Network;
 import ipsim.network.connectivity.card.CardDrivers;
 import ipsim.network.connectivity.computer.Computer;
 import ipsim.network.connectivity.ip.IPAddress;
 import ipsim.network.connectivity.ip.NetMask;
-import static ipsim.network.ethernet.ComputerUtility.getEth;
 import ipsim.network.ethernet.NetMaskUtility;
 import ipsim.network.ip.CheckedNumberFormatException;
-import ipsim.network.Network;
-import static ipsim.swing.Buttons.closeButton;
 import ipsim.swing.Dialogs;
 import ipsim.swing.IPAddressTextField;
 import ipsim.swing.IPAddressTextFieldUtility;
 import ipsim.swing.SubnetMaskTextField;
-
-import javax.swing.*;
+import ipsim.util.Collections;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 
-public class EditIPAddressDialogFactory
-{
-	public static JDialog newInstance(final Computer computer, final int ethNo)
-	{
-		final JDialog dialog=Dialogs.createDialogWithEscapeKeyToClose(Global.global.get().frame, "Edit IP Address");
+import static anylayout.AnyLayout.useAnyLayout;
+import static anylayout.extras.ConstraintUtility.typicalDefaultConstraint;
+import static ipsim.NetworkContext.errors;
+import static ipsim.lang.Runnables.throwRuntimeException;
+import static ipsim.network.ethernet.ComputerUtility.getEth;
+import static ipsim.swing.Buttons.closeButton;
 
-		dialog.setSize(400, 200);
+public class EditIPAddressDialogFactory {
+    public static JDialog newInstance(final Computer computer, final int ethNo) {
+        final JDialog dialog = Dialogs.createDialogWithEscapeKeyToClose(Global.global.get().frame, "Edit IP Address");
 
-		ComponentUtility.centreOnParent(dialog, Global.global.get().frame);
+        dialog.setSize(400, 200);
 
-		final PercentConstraints constraints=PercentConstraintsUtility.newInstance(dialog.getContentPane());
-		useAnyLayout(dialog.getContentPane(), 0.5f, 0.5f, constraints.getSizeCalculator(), typicalDefaultConstraint(throwRuntimeException));
+        ComponentUtility.centreOnParent(dialog, Global.global.get().frame);
 
-		constraints.add(new JLabel("IP Address"), 10, 5, 25, 15, false, false);
+        final PercentConstraints constraints = PercentConstraintsUtility.newInstance(dialog.getContentPane());
+        useAnyLayout(dialog.getContentPane(), 0.5f, 0.5f, constraints.getSizeCalculator(), typicalDefaultConstraint(throwRuntimeException));
 
-		final IPAddressTextField ipAddressTextField=IPAddressTextFieldUtility.newInstance();
+        constraints.add(new JLabel("IP Address"), 10, 5, 25, 15, false, false);
 
-		final CardDrivers card=getEth(computer, ethNo);
+        final IPAddressTextField ipAddressTextField = IPAddressTextFieldUtility.newInstance();
 
-		ipAddressTextField.setIPAddress(card.ipAddress.get());
+        final CardDrivers card = getEth(computer, ethNo);
 
-		constraints.add(ipAddressTextField.textField, 40, 5, 25, 15, false, false);
+        ipAddressTextField.setIPAddress(card.ipAddress.get());
 
-		constraints.add(new JLabel("Subnet Mask"), 10, 45, 25, 15, false, false);
+        constraints.add(ipAddressTextField.textField, 40, 5, 25, 15, false, false);
 
-		final SubnetMaskTextField subnetMaskTextField=new SubnetMaskTextField();
+        constraints.add(new JLabel("Subnet Mask"), 10, 45, 25, 15, false, false);
 
-		final CardDrivers card2=getEth(computer, ethNo);
+        final SubnetMaskTextField subnetMaskTextField = new SubnetMaskTextField();
 
-		subnetMaskTextField.setNetMask(card2.netMask.get());
+        final CardDrivers card2 = getEth(computer, ethNo);
 
-		constraints.add(subnetMaskTextField, 40, 45, 25, 15, false, false);
+        subnetMaskTextField.setNetMask(card2.netMask.get());
 
-		final JButton okButton=new JButton("Ok");
-		okButton.addActionListener(new ActionListener()
-		{
-			@Override
-            public void actionPerformed(final ActionEvent e)
-			{
-				final CardDrivers cardWithDrivers=getEth(computer, ethNo);
+        constraints.add(subnetMaskTextField, 40, 45, 25, 15, false, false);
 
-				final IPAddress before=cardWithDrivers.ipAddress.get();
-				final NetMask beforeNetMask=cardWithDrivers.netMask.get();
+        final JButton okButton = new JButton("Ok");
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                final CardDrivers cardWithDrivers = getEth(computer, ethNo);
 
-				final String cardBefore=PacketSourceUtility.asString(Global.getNetworkContext().network, cardWithDrivers.card);
+                final IPAddress before = cardWithDrivers.ipAddress.get();
+                final NetMask beforeNetMask = cardWithDrivers.netMask.get();
 
-				cardWithDrivers.ipAddress.set(ipAddressTextField.getIPAddress());
+                final String cardBefore = PacketSourceUtility.asString(Global.getNetworkContext().network, cardWithDrivers.card);
 
-				try
-				{
-					cardWithDrivers.netMask.set(NetMaskUtility.valueOf(subnetMaskTextField.getText()));
-				}
-				catch (final CheckedNumberFormatException exception)
-				{
-					errors(exception.getMessage());
-					return;
-				}
+                cardWithDrivers.ipAddress.set(ipAddressTextField.getIPAddress());
 
-				final Network network=Global.getNetworkContext().network;
-				network.log=Collections.add(network.log,CommandUtility.ipChange(cardWithDrivers, before, beforeNetMask, cardBefore, Global.getNetworkContext().network));
+                try {
+                    cardWithDrivers.netMask.set(NetMaskUtility.valueOf(subnetMaskTextField.getText()));
+                } catch (final CheckedNumberFormatException exception) {
+                    errors(exception.getMessage());
+                    return;
+                }
 
-				Global.getNetworkContext().network.modified=true;
-				dialog.setVisible(false);
-				dialog.dispose();
+                final Network network = Global.getNetworkContext().network;
+                network.log = Collections.add(network.log, CommandUtility.ipChange(cardWithDrivers, before, beforeNetMask, cardBefore, Global.getNetworkContext().network));
 
-			}
-		});
+                Global.getNetworkContext().network.modified = true;
+                dialog.setVisible(false);
+                dialog.dispose();
 
-		constraints.add(okButton, 10, 80, 25, 15, false, false);
+            }
+        });
 
-		constraints.add(closeButton("Cancel", dialog), 60, 80, 25, 15, false, false);
+        constraints.add(okButton, 10, 80, 25, 15, false, false);
 
-		return dialog;
+        constraints.add(closeButton("Cancel", dialog), 60, 80, 25, 15, false, false);
 
-	}
+        return dialog;
+
+    }
 }

@@ -2,13 +2,12 @@ package ipsim.persistence;
 
 import org.w3c.dom.Node;
 
-public interface SerialisationDelegate<T>
-{
-	void writeXML(XMLSerialiser serialiser,T object);
+public interface SerialisationDelegate<T> {
+    void writeXML(XMLSerialiser serialiser, T object);
 
-	T readXML(XMLDeserialiser deserialiser,Node node,T object);
+    T readXML(XMLDeserialiser deserialiser, Node node, T object);
 
-	T construct();
+    T construct();
 
-	String getIdentifier();
+    String getIdentifier();
 }

@@ -17,73 +17,63 @@ import org.w3c.dom.Node;
 
 import static ipsim.gui.PositionUtility.hasParent;
 
-public class NetworkDelegate
-{
-	public static SerialisationDelegate<Network> networkDelegate(final Network network)
-	{
-		return new SerialisationDelegate<Network>()
-		{
-			@Override
-            public void writeXML(final XMLSerialiser serialiser, final Network object)
-			{
-				serialiser.writeAttribute("version", Globals.fileFormatVersion);
+public class NetworkDelegate {
+    public static SerialisationDelegate<Network> networkDelegate(final Network network) {
+        return new SerialisationDelegate<Network>() {
+            @Override
+            public void writeXML(final XMLSerialiser serialiser, final Network object) {
+                serialiser.writeAttribute("version", Globals.fileFormatVersion);
 
-				if (network.problem!=null)
-					serialiser.writeObject(network.problem, "problem", ProblemDelegate.problemDelegate);
+                if (network.problem != null)
+                    serialiser.writeObject(network.problem, "problem", ProblemDelegate.problemDelegate);
 
-				int a=0;
+                int a = 0;
 
-				final Iterable<PacketSource> components=NetworkUtility.getDepthFirstIterable(network);
+                final Iterable<PacketSource> components = NetworkUtility.getDepthFirstIterable(network);
 
-				for (final PacketSource component : components)
-				{
-					if (hasParent(network, component, 0))
-						continue;
+                for (final PacketSource component : components) {
+                    if (hasParent(network, component, 0))
+                        continue;
 
-					if (PacketSourceUtility.isCard(component) && hasParent(network, component, 1))
-						continue;
+                    if (PacketSourceUtility.isCard(component) && hasParent(network, component, 1))
+                        continue;
 
-					PacketSourceUtility.writePacketSource(serialiser, component, "child "+a, network);
-					a++;
-				}
+                    PacketSourceUtility.writePacketSource(serialiser, component, "child " + a, network);
+                    a++;
+                }
 
-				serialiser.writeObject(network.log, "log", LogDelegate.logDelegate(network));
-			}
+                serialiser.writeObject(network.log, "log", LogDelegate.logDelegate(network));
+            }
 
-			@Override
-            public Network readXML(final XMLDeserialiser deserialiser, final Node node, final Network object)
-			{
-				for (final String name : deserialiser.getObjectNames(node))
-					if (name.startsWith("child "))
-						PacketSourceUtility.readFromDeserialiser(deserialiser,node, name,network);
+            @Override
+            public Network readXML(final XMLDeserialiser deserialiser, final Node node, final Network object) {
+                for (final String name : deserialiser.getObjectNames(node))
+                    if (name.startsWith("child "))
+                        PacketSourceUtility.readFromDeserialiser(deserialiser, node, name, network);
 
-				network.log=deserialiser.readObject(node, "log",LogDelegate.logDelegate(network), new F<Object, List<? extends String>>()
-				{
-					@Override
+                network.log = deserialiser.readObject(node, "log", LogDelegate.logDelegate(network), new F<Object, List<? extends String>>() {
+                    @Override
                     @NotNull
-					public List<? extends String> f(@NotNull final Object o)
-					{
-						return (List<? extends String>)o;
-					}
-				});
+                    public List<? extends String> f(@NotNull final Object o) {
+                        return (List<? extends String>) o;
+                    }
+                });
 
-				network.problem=deserialiser.readObject(node, "problem",ProblemDelegate.problemDelegate, Caster.asFunction(Problem.class));
-				network.modified=false;
+                network.problem = deserialiser.readObject(node, "problem", ProblemDelegate.problemDelegate, Caster.asFunction(Problem.class));
+                network.modified = false;
 
-				return network;
-			}
+                return network;
+            }
 
-			@Override
-            public Network construct()
-			{
-				return network;
-			}
+            @Override
+            public Network construct() {
+                return network;
+            }
 
-			@Override
-            public String getIdentifier()
-			{
-				return "ipsim.persistence.delegates.NetworkDelegate";
-			}
-		};
-	}
+            @Override
+            public String getIdentifier() {
+                return "ipsim.persistence.delegates.NetworkDelegate";
+            }
+        };
+    }
 }

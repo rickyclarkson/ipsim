@@ -18,32 +18,27 @@ import static ipsim.network.NetworkUtility.getAllComputers;
 import static ipsim.network.conformance.TypicalScores.USUAL;
 import static ipsim.util.Collections.hashSet;
 
-class SomeHostsHaveTwoCardsWithTheSameNetworkNumber extends F<Network,CheckResult>
-{
-	@Override
+class SomeHostsHaveTwoCardsWithTheSameNetworkNumber extends F<Network, CheckResult> {
+    @Override
     @NotNull
-	public CheckResult f(@NotNull final Network network)
-	{
-		return NonsensicalArrangement.customCheck(getAllComputers,new F<Computer, Option<String>>()
-		{
-			@Override
+    public CheckResult f(@NotNull final Network network) {
+        return NonsensicalArrangement.customCheck(getAllComputers, new F<Computer, Option<String>>() {
+            @Override
             @NotNull
-			public Option<String> f(@NotNull final Computer computer)
-			{
-				final Collection<IPAddress> netNumbers=hashSet();
+            public Option<String> f(@NotNull final Computer computer) {
+                final Collection<IPAddress> netNumbers = hashSet();
 
-				for (final CardDrivers card: ComputerUtility.cardsWithDrivers(computer))
-				{
-					final IPAddress netNum=CardUtility.getNetBlock(card).networkNumber;
+                for (final CardDrivers card : ComputerUtility.cardsWithDrivers(computer)) {
+                    final IPAddress netNum = CardUtility.getNetBlock(card).networkNumber;
 
-					if (netNumbers.contains(netNum))
-						return Option.some("Computer that has multiple cards with the same subnet number");
+                    if (netNumbers.contains(netNum))
+                        return Option.some("Computer that has multiple cards with the same subnet number");
 
-					netNumbers.add(netNum);
-				}
+                    netNumbers.add(netNum);
+                }
 
-				return Option.none();
-			}
-		},NonsensicalArrangement.<Computer>noErrors(),USUAL).f(network);
-	}
+                return Option.none();
+            }
+        }, NonsensicalArrangement.<Computer>noErrors(), USUAL).f(network);
+    }
 }

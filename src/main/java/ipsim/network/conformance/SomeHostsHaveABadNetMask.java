@@ -13,26 +13,22 @@ import org.jetbrains.annotations.Nullable;
 import static ipsim.network.conformance.NonsensicalArrangement.customCheck;
 import static ipsim.network.conformance.TypicalScores.USUAL;
 
-class SomeHostsHaveABadNetMask extends F<Network,CheckResult>
-{
-	@Override
+class SomeHostsHaveABadNetMask extends F<Network, CheckResult> {
+    @Override
     @NotNull
-	public CheckResult f(@NotNull final Network network)
-	{
-		final F<Card, Option<String>> warning=new F<Card, Option<String>>()
-		{
-			@Override
+    public CheckResult f(@NotNull final Network network) {
+        final F<Card, Option<String>> warning = new F<Card, Option<String>>() {
+            @Override
             @NotNull
-			public Option<String> f(@NotNull final Card card)
-			{
-				@Nullable
-				final CardDrivers drivers=card.withDrivers;
-				return drivers==null || NetMaskUtility.isValid(drivers.netMask.get()) ? Option.<String>none() : Option.some("Card with a non-standard netmask");
-			}
-		};
+            public Option<String> f(@NotNull final Card card) {
+                @Nullable
+                final CardDrivers drivers = card.withDrivers;
+                return drivers == null || NetMaskUtility.isValid(drivers.netMask.get()) ? Option.<String>none() : Option.some("Card with a non-standard netmask");
+            }
+        };
 
-		final F<Card, Option<String>> noErrors=NonsensicalArrangement.noErrors();
+        final F<Card, Option<String>> noErrors = NonsensicalArrangement.noErrors();
 
-		return customCheck(NetworkUtility.getAllCards,warning,noErrors,USUAL).f(network);
-	}
+        return customCheck(NetworkUtility.getAllCards, warning, noErrors, USUAL).f(network);
+    }
 }

@@ -1,42 +1,38 @@
 package ipsim.tests;
 
 import com.rickyclarkson.testsuite.UnitTest;
-import static ipsim.gui.PositionUtility.setParent;
+import ipsim.awt.Point;
 import ipsim.network.Network;
 import ipsim.network.NetworkUtility;
 import ipsim.network.connectivity.card.Card;
 import ipsim.network.connectivity.computer.Computer;
 import ipsim.network.connectivity.computer.ComputerFactory;
-import ipsim.awt.Point;
 
-public class CardTests
-{
-	public static UnitTest testDrivers()
-	{
-		return new UnitTest()
-		{
-			@Override
-            public boolean invoke()
-			{
-				final Network network=new Network();
+import static ipsim.gui.PositionUtility.setParent;
 
-				final Card card=network.cardFactory.f(new Point(200, 200));
-				final Computer computer=ComputerFactory.newComputer(network,300,300);
-				setParent(network,card,0,computer,0);
+public class CardTests {
+    public static UnitTest testDrivers() {
+        return new UnitTest() {
+            @Override
+            public boolean invoke() {
+                final Network network = new Network();
 
-				card.installDeviceDrivers(network);
+                final Card card = network.cardFactory.f(new Point(200, 200));
+                final Computer computer = ComputerFactory.newComputer(network, 300, 300);
+                setParent(network, card, 0, computer, 0);
 
-				final String saved=NetworkUtility.saveToString(network);
-				NetworkUtility.loadFromString(network, saved);
-				return !NetworkUtility.getAllCardsWithDrivers(network).isEmpty();
-			}
+                card.installDeviceDrivers(network);
 
-			public String toString()
-			{
-				return "CardTest.testDrivers";
-			}
-		};
-	}
+                final String saved = NetworkUtility.saveToString(network);
+                NetworkUtility.loadFromString(network, saved);
+                return !NetworkUtility.getAllCardsWithDrivers(network).isEmpty();
+            }
+
+            public String toString() {
+                return "CardTest.testDrivers";
+            }
+        };
+    }
 }
 
 /*

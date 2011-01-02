@@ -1,7 +1,7 @@
 package ipsim.network.connectivity.computer;
 
-import static ipsim.connectivity.hub.incoming.PacketSourceUtility.asCard;
 import ipsim.gui.components.PacketSourceVisitor2;
+import ipsim.lang.Stringable;
 import ipsim.network.connectivity.IncomingPacketListener;
 import ipsim.network.connectivity.Listeners;
 import ipsim.network.connectivity.OutgoingPacketListener;
@@ -10,131 +10,115 @@ import ipsim.network.connectivity.PacketSourceAndIndex;
 import ipsim.network.connectivity.PacketSourceVisitor;
 import ipsim.network.connectivity.card.Card;
 import ipsim.network.connectivity.card.CardDrivers;
-import static ipsim.network.connectivity.computer.RoutingTableUtility.createRoutingTable;
 import ipsim.network.ethernet.CardComparator;
 import ipsim.util.Collections;
-import static ipsim.util.Collections.arrayList;
-import ipsim.lang.Stringable;
+import java.util.List;
 import org.jetbrains.annotations.Nullable;
 
+import static ipsim.connectivity.hub.incoming.PacketSourceUtility.asCard;
+import static ipsim.network.connectivity.computer.RoutingTableUtility.createRoutingTable;
+import static ipsim.util.Collections.arrayList;
 import static java.util.Collections.sort;
-import java.util.List;
 
-public final class Computer implements PacketSource
-{
-	public boolean ipForwardingEnabled=false;
+public final class Computer implements PacketSource {
+    public boolean ipForwardingEnabled = false;
 
-	public final ArpTable arpTable;
+    public final ArpTable arpTable;
 
-	public final RoutingTable routingTable;
+    public final RoutingTable routingTable;
 
-	private final Listeners<IncomingPacketListener> incomingPacketListeners=new Listeners<IncomingPacketListener>();
+    private final Listeners<IncomingPacketListener> incomingPacketListeners = new Listeners<IncomingPacketListener>();
 
-	private final Listeners<OutgoingPacketListener> outgoingPacketListeners=new Listeners<OutgoingPacketListener>();
+    private final Listeners<OutgoingPacketListener> outgoingPacketListeners = new Listeners<OutgoingPacketListener>();
 
-	@Nullable
-	public Stringable computerID=null;
+    @Nullable
+    public Stringable computerID = null;
 
-	private final List<PacketSourceAndIndex> children=arrayList();
+    private final List<PacketSourceAndIndex> children = arrayList();
 
-	public Computer()
-	{
-		arpTable=new ArpTable();
+    public Computer() {
+        arpTable = new ArpTable();
 
-		routingTable=createRoutingTable();
-	}
+        routingTable = createRoutingTable();
+    }
 
-	public List<CardDrivers> getSortedCards()
-	{
-		final List<CardDrivers> list=Collections.arrayList();
+    public List<CardDrivers> getSortedCards() {
+        final List<CardDrivers> list = Collections.arrayList();
 
-		for (final PacketSourceAndIndex child: children)
-		{
-			final Card card=asCard(child.packetSource);
+        for (final PacketSourceAndIndex child : children) {
+            final Card card = asCard(child.packetSource);
 
-			if (card!=null)
-			{
-				final CardDrivers withDrivers=card.withDrivers;
-				if (withDrivers!=null)
-					list.add(withDrivers);
-			}
-		}
+            if (card != null) {
+                final CardDrivers withDrivers = card.withDrivers;
+                if (withDrivers != null)
+                    list.add(withDrivers);
+            }
+        }
 
-		sort(list,new CardComparator());
+        sort(list, new CardComparator());
 
-		return java.util.Collections.unmodifiableList(list);
-	}
+        return java.util.Collections.unmodifiableList(list);
+    }
 
-	public List<Card> getCards()
-	{
-		final List<PacketSourceAndIndex> handlers=children();
+    public List<Card> getCards() {
+        final List<PacketSourceAndIndex> handlers = children();
 
-		final List<Card> cards=Collections.arrayList();
+        final List<Card> cards = Collections.arrayList();
 
-		for (final PacketSourceAndIndex component: handlers)
-		{
-			final Card card=asCard(component.packetSource);
-			cards.add(card);
-		}
+        for (final PacketSourceAndIndex component : handlers) {
+            final Card card = asCard(component.packetSource);
+            cards.add(card);
+        }
 
-		return cards;
-	}
+        return cards;
+    }
 
-	public int getFirstAvailableEthNumber()
-	{
-		final List<CardDrivers> cards=getSortedCards();
+    public int getFirstAvailableEthNumber() {
+        final List<CardDrivers> cards = getSortedCards();
 
-		for (int a=0;;a++)
-		{
-			boolean foundConflict=false;
+        for (int a = 0; ; a++) {
+            boolean foundConflict = false;
 
-			for (final CardDrivers card: cards)
-				if (a==card.ethNumber)
-				{
-					foundConflict=true;
-					break;
-				}
+            for (final CardDrivers card : cards)
+                if (a == card.ethNumber) {
+                    foundConflict = true;
+                    break;
+                }
 
-			if (!foundConflict)
-				return a;
-		}
-	}
+            if (!foundConflict)
+                return a;
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		throw new UnsupportedOperationException();
-	}
+    @Override
+    public String toString() {
+        throw new UnsupportedOperationException();
+    }
 
-	@Override
-    public List<PacketSourceAndIndex> children()
-	{
-		return children;
-	}
+    @Override
+    public List<PacketSourceAndIndex> children() {
+        return children;
+    }
 
-	@Override
-    public Listeners<IncomingPacketListener> getIncomingPacketListeners()
-	{
-		return incomingPacketListeners;
-	}
+    @Override
+    public Listeners<IncomingPacketListener> getIncomingPacketListeners() {
+        return incomingPacketListeners;
+    }
 
-	@Override
-    public Listeners<OutgoingPacketListener> getOutgoingPacketListeners()
-	{
-		return outgoingPacketListeners;
-	}
+    @Override
+    public Listeners<OutgoingPacketListener> getOutgoingPacketListeners() {
+        return outgoingPacketListeners;
+    }
 
-	@Override
-    public void accept(final PacketSourceVisitor2 visitor)
-	{
-		visitor.visit(this);
-	}
+    @Override
+    public void accept(final PacketSourceVisitor2 visitor) {
+        visitor.visit(this);
+    }
 
-	@Override
-    public <R> R accept(final PacketSourceVisitor<R> visitor)
-	{
-		return visitor.visit(this);
-	}
+    @Override
+    public <R> R accept(final PacketSourceVisitor<R> visitor) {
+        return visitor.visit(this);
+    }
 
-	public boolean isISP=false;
+    public boolean isISP = false;
 }

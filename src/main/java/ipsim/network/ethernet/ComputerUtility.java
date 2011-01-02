@@ -22,145 +22,124 @@ import static ipsim.util.Collections.arrayList;
 import static ipsim.util.Collections.asString;
 import static java.util.Collections.sort;
 
-public final class ComputerUtility
-{
-	/**
-	 * Flawed because it only returns one card if there are more than one.
-	 */
-	@Nullable
-	public static CardDrivers getCardFor(final Computer computer, final Route route)
-	{
-		final Iterable<CardDrivers> result=Collections.only(cardsWithDrivers(computer), new F<CardDrivers, Boolean>()
-		{
-			@Override
-            public Boolean f(final CardDrivers card)
-			{
-				final NetBlock netBlock=CardUtility.getNetBlock(card);
+public final class ComputerUtility {
+    /**
+     * Flawed because it only returns one card if there are more than one.
+     */
+    @Nullable
+    public static CardDrivers getCardFor(final Computer computer, final Route route) {
+        final Iterable<CardDrivers> result = Collections.only(cardsWithDrivers(computer), new F<CardDrivers, Boolean>() {
+            @Override
+            public Boolean f(final CardDrivers card) {
+                final NetBlock netBlock = CardUtility.getNetBlock(card);
 
-				return !(0==netBlock.networkNumber.rawValue) && netBlock.networkContains(route.gateway);
-			}
-		});
+                return !(0 == netBlock.networkNumber.rawValue) && netBlock.networkContains(route.gateway);
+            }
+        });
 
-		final Iterator<CardDrivers> iterator=result.iterator();
-		return iterator.hasNext() ? iterator.next() : null;
-	}
+        final Iterator<CardDrivers> iterator = result.iterator();
+        return iterator.hasNext() ? iterator.next() : null;
+    }
 
-	public static Iterable<CardDrivers> getSortedCards(final Computer computer)
-	{
-		final List<CardDrivers> list=new ArrayList<CardDrivers>();
+    public static Iterable<CardDrivers> getSortedCards(final Computer computer) {
+        final List<CardDrivers> list = new ArrayList<CardDrivers>();
 
-		for (final Card card: computer.getCards())
-		{
-			final CardDrivers withDrivers=card.withDrivers;
+        for (final Card card : computer.getCards()) {
+            final CardDrivers withDrivers = card.withDrivers;
 
-			if (withDrivers==null)
-				continue;
+            if (withDrivers == null)
+                continue;
 
-			list.add(card.withDrivers);
-		}
+            list.add(card.withDrivers);
+        }
 
-		sort(list, new CardComparator());
+        sort(list, new CardComparator());
 
-		return list;
-	}
+        return list;
+    }
 
-	public static String ipAddressesToString(final Computer computer)
-	{
-		final List<CardDrivers> set=cardsWithDrivers(computer);
+    public static String ipAddressesToString(final Computer computer) {
+        final List<CardDrivers> set = cardsWithDrivers(computer);
 
-		final Collection<Stringable> strings=new HashSet<Stringable>();
+        final Collection<Stringable> strings = new HashSet<Stringable>();
 
-		final boolean[] foundOneNonZero={false};
+        final boolean[] foundOneNonZero = {false};
 
-		for (final CardDrivers card: set)
-		{
-			final NetBlock netBlock=CardUtility.getNetBlock(card);
-			if (!(0==netBlock.networkNumber.rawValue) || !(0==netBlock.netMask.rawValue))
-			foundOneNonZero[0]=true;
+        for (final CardDrivers card : set) {
+            final NetBlock netBlock = CardUtility.getNetBlock(card);
+            if (!(0 == netBlock.networkNumber.rawValue) || !(0 == netBlock.netMask.rawValue))
+                foundOneNonZero[0] = true;
 
-			final String string=card.ipAddress.get().asString()+'/'+NetMask.asCustomString(card.netMask.get());
+            final String string = card.ipAddress.get().asString() + '/' + NetMask.asCustomString(card.netMask.get());
 
-			strings.add(new Stringable()
-			{
-				@Override
-                public String asString()
-				{
-					return string;
-				}
-			});
-		}
+            strings.add(new Stringable() {
+                @Override
+                public String asString() {
+                    return string;
+                }
+            });
+        }
 
-		if (!foundOneNonZero[0])
-			return "";
+        if (!foundOneNonZero[0])
+            return "";
 
-		return asString(strings);
-	}
+        return asString(strings);
+    }
 
-	public static boolean isLocallyReachable(final Computer computer, final IPAddress ipAddress)
-	{
-		return Collections.any(computer.getCards(), new F<Card, Boolean>()
-		{
-			@Override
-            public Boolean f(final Card card)
-			{
-				try
-				{
-					return getNetBlock(card).networkContains(ipAddress);
-				}
-				catch (final NoDeviceDriversException exception)
-				{
-					return false;
-				}
-			}
-		});
-	}
+    public static boolean isLocallyReachable(final Computer computer, final IPAddress ipAddress) {
+        return Collections.any(computer.getCards(), new F<Card, Boolean>() {
+            @Override
+            public Boolean f(final Card card) {
+                try {
+                    return getNetBlock(card).networkContains(ipAddress);
+                } catch (final NoDeviceDriversException exception) {
+                    return false;
+                }
+            }
+        });
+    }
 
-	public static Collection<IPAddress> getIPAddresses(final Computer computer)
-	{
-		final Collection<IPAddress> set=new HashSet<IPAddress>();
+    public static Collection<IPAddress> getIPAddresses(final Computer computer) {
+        final Collection<IPAddress> set = new HashSet<IPAddress>();
 
-		for (final CardDrivers card: cardsWithDrivers(computer))
-			set.add(card.ipAddress.get());
+        for (final CardDrivers card : cardsWithDrivers(computer))
+            set.add(card.ipAddress.get());
 
-		return set;
-	}
+        return set;
+    }
 
-	public static CardDrivers getEth(final Computer computer, final int cardNo)
-	{
-		final Iterable<CardDrivers> cards=getSortedCards(computer);
+    public static CardDrivers getEth(final Computer computer, final int cardNo) {
+        final Iterable<CardDrivers> cards = getSortedCards(computer);
 
-		for (final CardDrivers card : cards)
-			if (cardNo==card.ethNumber)
-				return card;
+        for (final CardDrivers card : cards)
+            if (cardNo == card.ethNumber)
+                return card;
 
-		throw new IllegalArgumentException("There is no installed card "+cardNo);
-	}
+        throw new IllegalArgumentException("There is no installed card " + cardNo);
+    }
 
-	@Nullable
-	public static IPAddress getTheFirstIPAddressYouCanFind(final Computer computer)
-	{
-		final Iterator<CardDrivers> iterator=cardsWithDrivers(computer).iterator();
-		if (iterator.hasNext())
-			return iterator.next().ipAddress.get();
+    @Nullable
+    public static IPAddress getTheFirstIPAddressYouCanFind(final Computer computer) {
+        final Iterator<CardDrivers> iterator = cardsWithDrivers(computer).iterator();
+        if (iterator.hasNext())
+            return iterator.next().ipAddress.get();
 
-		return null;
-	}
+        return null;
+    }
 
-	public static List<CardDrivers> cardsWithDrivers(final Computer computer)
-	{
-		final List<Card> cards=computer.getCards();
-		final List<CardDrivers> results=arrayList();
+    public static List<CardDrivers> cardsWithDrivers(final Computer computer) {
+        final List<Card> cards = computer.getCards();
+        final List<CardDrivers> results = arrayList();
 
-		for (final Card card: cards)
-		{
-			final CardDrivers withDrivers=card.withDrivers;
+        for (final Card card : cards) {
+            final CardDrivers withDrivers = card.withDrivers;
 
-			if (withDrivers==null)
-				continue;
+            if (withDrivers == null)
+                continue;
 
-			results.add(withDrivers);
-		}
+            results.add(withDrivers);
+        }
 
-		return results;
-	}
+        return results;
+    }
 }

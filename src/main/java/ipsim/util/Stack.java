@@ -1,10 +1,9 @@
 package ipsim.util;
 
-public interface Stack<T>
-{
-	void push(T object);
+public interface Stack<T> {
+    void push(T object);
 
-	boolean isEmpty();
+    boolean isEmpty();
 
-	T pop();
+    T pop();
 }

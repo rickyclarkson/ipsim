@@ -6,22 +6,18 @@ import org.jetbrains.annotations.NotNull;
 
 import static ipsim.network.conformance.ConformanceTestsUtility.someHostsHaveThisManyCards;
 
-final class SomeHostsHaveMoreThanThreeCards extends F<Network,CheckResult>
-{
-	@Override
+final class SomeHostsHaveMoreThanThreeCards extends F<Network, CheckResult> {
+    @Override
     @NotNull
-	public CheckResult f(@NotNull final Network network)
-	{
-		final F<Integer,Boolean> check1=new F<Integer,Boolean>()
-		{
-			@Override
+    public CheckResult f(@NotNull final Network network) {
+        final F<Integer, Boolean> check1 = new F<Integer, Boolean>() {
+            @Override
             @NotNull
-			public Boolean f(@NotNull final Integer value)
-			{
-				return value>3;
-			}
-		};
+            public Boolean f(@NotNull final Integer value) {
+                return value > 3;
+            }
+        };
 
-		return someHostsHaveThisManyCards(network,"3 or more",check1);
-	}
+        return someHostsHaveThisManyCards(network, "3 or more", check1);
+    }
 }

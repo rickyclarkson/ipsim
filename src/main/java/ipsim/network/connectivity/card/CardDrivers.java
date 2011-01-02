@@ -1,62 +1,58 @@
 package ipsim.network.connectivity.card;
 
-import static ipsim.Caster.asNotNull;
-import static ipsim.connectivity.hub.incoming.PacketSourceUtility.asComputer;
-import static ipsim.gui.PositionUtility.getParent;
 import ipsim.network.Network;
 import ipsim.network.connectivity.PacketSource;
 import ipsim.network.connectivity.computer.Computer;
 import ipsim.network.connectivity.computer.Route;
 import ipsim.network.connectivity.ip.IPAddress;
 import ipsim.network.connectivity.ip.NetMask;
-import static ipsim.network.ethernet.ComputerUtility.isLocallyReachable;
 import ipsim.property.Property;
 import ipsim.property.PropertyListenerUtility;
-import static ipsim.property.PropertyUtility.newProperty;
-import org.jetbrains.annotations.Nullable;
-
 import java.util.Collection;
 import java.util.HashSet;
+import org.jetbrains.annotations.Nullable;
 
-public final class CardDrivers
-{
-	public int ethNumber;
-	public final Property<IPAddress> ipAddress;
-	public final Property<NetMask> netMask;
-	public final Card card;
+import static ipsim.Caster.asNotNull;
+import static ipsim.connectivity.hub.incoming.PacketSourceUtility.asComputer;
+import static ipsim.gui.PositionUtility.getParent;
+import static ipsim.network.ethernet.ComputerUtility.isLocallyReachable;
+import static ipsim.property.PropertyUtility.newProperty;
 
-	public CardDrivers(final Network network, final IPAddress ipAddress, final NetMask netMask, final int ethNumber, final Card card)
-	{
-		this.ipAddress=newProperty(ipAddress);
-		final Runnable runnable=new Runnable()
-		{
-			@Override
-            public void run()
-			{
-				@Nullable
-				final PacketSource parent=getParent(network, card, 0);
+public final class CardDrivers {
+    public int ethNumber;
+    public final Property<IPAddress> ipAddress;
+    public final Property<NetMask> netMask;
+    public final Card card;
 
-				final Collection<Route> toDelete=new HashSet<Route>();
+    public CardDrivers(final Network network, final IPAddress ipAddress, final NetMask netMask, final int ethNumber, final Card card) {
+        this.ipAddress = newProperty(ipAddress);
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                @Nullable
+                final PacketSource parent = getParent(network, card, 0);
 
-				final Computer computer=asNotNull(asComputer(parent));
+                final Collection<Route> toDelete = new HashSet<Route>();
 
-				for (final Route route : computer.routingTable.routes())
-					if (!isLocallyReachable(computer, route.gateway))
-						toDelete.add(route);
+                final Computer computer = asNotNull(asComputer(parent));
 
-				for (final Route route : toDelete)
-					computer.routingTable.remove(route);
+                for (final Route route : computer.routingTable.routes())
+                    if (!isLocallyReachable(computer, route.gateway))
+                        toDelete.add(route);
 
-				network.modified=true;
-			}
-		};
+                for (final Route route : toDelete)
+                    computer.routingTable.remove(route);
 
-		this.ipAddress.addPropertyListener(PropertyListenerUtility.<IPAddress>fromRunnable(runnable));
+                network.modified = true;
+            }
+        };
 
-		this.netMask=newProperty(netMask);
-		this.netMask.addPropertyListener(PropertyListenerUtility.<NetMask>fromRunnable(runnable));
+        this.ipAddress.addPropertyListener(PropertyListenerUtility.<IPAddress>fromRunnable(runnable));
 
-		this.ethNumber=ethNumber;
-		this.card=card;
-	}
+        this.netMask = newProperty(netMask);
+        this.netMask.addPropertyListener(PropertyListenerUtility.<NetMask>fromRunnable(runnable));
+
+        this.ethNumber = ethNumber;
+        this.card = card;
+    }
 }

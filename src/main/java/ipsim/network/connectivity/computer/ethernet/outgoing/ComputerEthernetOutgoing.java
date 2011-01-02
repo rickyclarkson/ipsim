@@ -15,48 +15,39 @@ import static ipsim.Caster.asNotNull;
 import static ipsim.connectivity.hub.incoming.PacketSourceUtility.asComputer;
 import static ipsim.network.connectivity.PacketUtility2.asEthernetPacket;
 
-public final class ComputerEthernetOutgoing implements OutgoingPacketListener
-{
-	private final Network network;
+public final class ComputerEthernetOutgoing implements OutgoingPacketListener {
+    private final Network network;
 
-	public ComputerEthernetOutgoing(final Network network)
-	{
-		this.network=network;
-	}
+    public ComputerEthernetOutgoing(final Network network) {
+        this.network = network;
+    }
 
-	@Override
-    public void packetOutgoing(final Packet packet,final PacketSource source)
-	{
-		packetOutgoingImpl(asNotNull(asEthernetPacket(packet)), asNotNull(asComputer(source)));
-	}
+    @Override
+    public void packetOutgoing(final Packet packet, final PacketSource source) {
+        packetOutgoingImpl(asNotNull(asEthernetPacket(packet)), asNotNull(asComputer(source)));
+    }
 
-	private void packetOutgoingImpl(@NotNull final EthernetPacket packet,@NotNull final Computer computer)
-	{
-		final boolean[] sane={true};
+    private void packetOutgoingImpl(@NotNull final EthernetPacket packet, @NotNull final Computer computer) {
+        final boolean[] sane = {true};
 
-		for (final Card card: computer.getCards())
-		{
-			if (Caster.equalT(card.getMacAddress(network)).f(packet.sourceAddress))
-				if (sane[0])
-				{
-					network.packetQueue.enqueueOutgoingPacket(packet,card);
+        for (final Card card : computer.getCards()) {
+            if (Caster.equalT(card.getMacAddress(network)).f(packet.sourceAddress))
+                if (sane[0]) {
+                    network.packetQueue.enqueueOutgoingPacket(packet, card);
 
-					sane[0]=false;
-				}
-				else
-					throw new RuntimeException();
-		}
-	}
+                    sane[0] = false;
+                } else
+                    throw new RuntimeException();
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ComputerEthernetOutgoing";
-	}
+    @Override
+    public String toString() {
+        return "ComputerEthernetOutgoing";
+    }
 
-	@Override
-    public boolean canHandle(final Packet packet,final PacketSource source)
-	{
-		return PacketUtility2.isEthernetPacket(packet);
-	}
+    @Override
+    public boolean canHandle(final Packet packet, final PacketSource source) {
+        return PacketUtility2.isEthernetPacket(packet);
+    }
 }

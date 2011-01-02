@@ -38,150 +38,126 @@ import static ipsim.network.connectivity.computer.RoutingTableUtility.getRouteFo
 import static ipsim.network.connectivity.computer.RoutingTableUtility.hasRouteFor;
 import static ipsim.network.ethernet.ComputerUtility.getCardFor;
 
-public final class ComputerIPOutgoing implements OutgoingPacketListener
-{
-	private final Network network;
+public final class ComputerIPOutgoing implements OutgoingPacketListener {
+    private final Network network;
 
-	public ComputerIPOutgoing(final Network network)
-	{
-		this.network=network;
-	}
+    public ComputerIPOutgoing(final Network network) {
+        this.network = network;
+    }
 
-	@Override
-    public void packetOutgoing(final Packet packet,final PacketSource source)
-	{
-		@NotNull
-		final Computer computer=asNotNull(asComputer(source));
+    @Override
+    public void packetOutgoing(final Packet packet, final PacketSource source) {
+        @NotNull
+        final Computer computer = asNotNull(asComputer(source));
 
-		final IPPacket ipPacket=asIPPacket(packet).toNull();
+        final IPPacket ipPacket = asIPPacket(packet).toNull();
 
-		final DestIPAddress destinationIPAddress=ipPacket.destinationIPAddress;
+        final DestIPAddress destinationIPAddress = ipPacket.destinationIPAddress;
 
-		final SourceIPAddress sourceIPAddress=ipPacket.sourceIPAddress;
+        final SourceIPAddress sourceIPAddress = ipPacket.sourceIPAddress;
 
-		final boolean hasRouteFor=hasRouteFor(computer,destinationIPAddress);
+        final boolean hasRouteFor = hasRouteFor(computer, destinationIPAddress);
 
-		if (!hasRouteFor)
-		{
-			dropPacket(computer,destinationIPAddress,sourceIPAddress);
-			return;
-		}
+        if (!hasRouteFor) {
+            dropPacket(computer, destinationIPAddress, sourceIPAddress);
+            return;
+        }
 
-		final Route route;
-		try
-		{
-			route=getRouteFor(computer,destinationIPAddress);
-		}
-		catch (final NoSuchRouteException exception)
-		{
-			throw new RuntimeException(exception);
-		}
+        final Route route;
+        try {
+            route = getRouteFor(computer, destinationIPAddress);
+        } catch (final NoSuchRouteException exception) {
+            throw new RuntimeException(exception);
+        }
 
-		final @Nullable CardDrivers card=getCardFor(computer,route);
+        final @Nullable CardDrivers card = getCardFor(computer, route);
 
-		if (card==null)
-		{
-			dropPacket(computer,destinationIPAddress,sourceIPAddress);
+        if (card == null) {
+            dropPacket(computer, destinationIPAddress, sourceIPAddress);
 
-			return;
-		}
+            return;
+        }
 
-		final IPAddress gatewayIP;
+        final IPAddress gatewayIP;
 
-		if (Caster.equalT(route.gateway, card.ipAddress.get()))
-			gatewayIP=destinationIPAddress.getIPAddress();
-		else
-			gatewayIP=route.gateway;
+        if (Caster.equalT(route.gateway, card.ipAddress.get()))
+            gatewayIP = destinationIPAddress.getIPAddress();
+        else
+            gatewayIP = route.gateway;
 
-		final PacketQueue queue=network.packetQueue;
+        final PacketQueue queue = network.packetQueue;
 
-		final int rawDestIP=destinationIPAddress.getIPAddress().rawValue;
-		if (equalT(card.ipAddress.get(),destinationIPAddress.getIPAddress()))
-		{
-			queue.enqueueIncomingPacket(packet, card.card,computer);
-			return;
-		}
+        final int rawDestIP = destinationIPAddress.getIPAddress().rawValue;
+        if (equalT(card.ipAddress.get(), destinationIPAddress.getIPAddress())) {
+            queue.enqueueIncomingPacket(packet, card.card, computer);
+            return;
+        }
 
-		if (CardUtility.getBroadcastAddress(card).rawValue==rawDestIP)
-		{
-			queue.enqueueIncomingPacket(packet, card.card, computer);
-			queue.enqueueOutgoingPacket(new EthernetPacket(card.card.getMacAddress(network), new MacAddress(0), ipPacket), card.card);
+        if (CardUtility.getBroadcastAddress(card).rawValue == rawDestIP) {
+            queue.enqueueIncomingPacket(packet, card.card, computer);
+            queue.enqueueOutgoingPacket(new EthernetPacket(card.card.getMacAddress(network), new MacAddress(0), ipPacket), card.card);
 
-			return;
-		}
+            return;
+        }
 
-		@Nullable
-		final MacAddress arpMac=computer.arpTable.getMacAddress(gatewayIP);
+        @Nullable
+        final MacAddress arpMac = computer.arpTable.getMacAddress(gatewayIP);
 
-		if (arpMac==null)
-		{
-			final Object object=new Object();
+        if (arpMac == null) {
+            final Object object = new Object();
 
-			final IncomingPacketListener continueListener=new ContinueArpPacketListener(network,ipPacket,object);
+            final IncomingPacketListener continueListener = new ContinueArpPacketListener(network, ipPacket, object);
 
-			computer.getIncomingPacketListeners().add(continueListener);
+            computer.getIncomingPacketListeners().add(continueListener);
 
-			queue.addEmptyQueueListener(new ContinueRemover(continueListener,computer));
+            queue.addEmptyQueueListener(new ContinueRemover(continueListener, computer));
 
-			queue.addEmptyQueueListener(new Runnable()
-			{
-				@Override
-                public void run()
-				{
-					final boolean exceptionHappened=computer.arpTable.getMacAddress(gatewayIP)==null;
+            queue.addEmptyQueueListener(new Runnable() {
+                @Override
+                public void run() {
+                    final boolean exceptionHappened = computer.arpTable.getMacAddress(gatewayIP) == null;
 
-					final Runnable packetDropper=new Runnable()
-					{
-						@Override
-                        public void run()
-						{
-							queue.enqueueOutgoingPacket(new IPPacket(new SourceIPAddress(asNotNull(card).ipAddress.get()),new DestIPAddress(ipPacket.sourceIPAddress.getIPAddress()), Globals.DEFAULT_TIME_TO_LIVE,ipPacket.identifier,UnreachableData.HOST_UNREACHABLE),computer);
-						}
-					};
+                    final Runnable packetDropper = new Runnable() {
+                        @Override
+                        public void run() {
+                            queue.enqueueOutgoingPacket(new IPPacket(new SourceIPAddress(asNotNull(card).ipAddress.get()), new DestIPAddress(ipPacket.sourceIPAddress.getIPAddress()), Globals.DEFAULT_TIME_TO_LIVE, ipPacket.identifier, UnreachableData.HOST_UNREACHABLE), computer);
+                        }
+                    };
 
-					if (exceptionHappened)
-						ipPacket.data.accept(new IPDataVisitor()
-						{
-							@Override
-                            public void visit(final PingData pingData)
-							{
-								packetDropper.run();
-							}
+                    if (exceptionHappened)
+                        ipPacket.data.accept(new IPDataVisitor() {
+                            @Override
+                            public void visit(final PingData pingData) {
+                                packetDropper.run();
+                            }
 
-							@Override
-                            public void visit(final UnreachableData unreachableData)
-							{
-							}
+                            @Override
+                            public void visit(final UnreachableData unreachableData) {
+                            }
 
-							@Override
-                            public void visit(final TimeExceededData data)
-							{
-							}
-						});
-				}
-			});
+                            @Override
+                            public void visit(final TimeExceededData data) {
+                            }
+                        });
+                }
+            });
 
-			if (!computer.arpTable.hasEntryFor(gatewayIP))
-			{
-				queue.enqueueOutgoingPacket(new ArpPacket(gatewayIP, new MacAddress(0), card.ipAddress.get(), card.card.getMacAddress(network), object),computer);
-			}
-		}
-		else
-		{
-			queue.enqueueOutgoingPacket(new EthernetPacket(card.card.getMacAddress(network), arpMac, ipPacket),computer);
-		}
-	}
+            if (!computer.arpTable.hasEntryFor(gatewayIP)) {
+                queue.enqueueOutgoingPacket(new ArpPacket(gatewayIP, new MacAddress(0), card.ipAddress.get(), card.card.getMacAddress(network), object), computer);
+            }
+        } else {
+            queue.enqueueOutgoingPacket(new EthernetPacket(card.card.getMacAddress(network), arpMac, ipPacket), computer);
+        }
+    }
 
-	void dropPacket(final Computer computer,final DestIPAddress destinationIPAddress,final SourceIPAddress sourceIPAddress)
-	{
-		final IPPacket dropPacket=new IPPacket(IPAddressUtility.destToSource(destinationIPAddress),IPAddressUtility.sourceToDest(sourceIPAddress), Globals.DEFAULT_TIME_TO_LIVE,new Object(),UnreachableData.NET_UNREACHABLE);
+    void dropPacket(final Computer computer, final DestIPAddress destinationIPAddress, final SourceIPAddress sourceIPAddress) {
+        final IPPacket dropPacket = new IPPacket(IPAddressUtility.destToSource(destinationIPAddress), IPAddressUtility.sourceToDest(sourceIPAddress), Globals.DEFAULT_TIME_TO_LIVE, new Object(), UnreachableData.NET_UNREACHABLE);
 
-		network.packetQueue.enqueueIncomingPacket(dropPacket,computer,computer);
-	}
+        network.packetQueue.enqueueIncomingPacket(dropPacket, computer, computer);
+    }
 
-	@Override
-    public boolean canHandle(final Packet packet,final PacketSource source)
-	{
-		return PacketUtility2.isIPPacket(packet)&& PacketSourceUtility.isComputer(source);
-	}
+    @Override
+    public boolean canHandle(final Packet packet, final PacketSource source) {
+        return PacketUtility2.isIPPacket(packet) && PacketSourceUtility.isComputer(source);
+    }
 }

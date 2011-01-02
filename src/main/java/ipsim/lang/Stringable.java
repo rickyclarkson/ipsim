@@ -1,6 +1,5 @@
 package ipsim.lang;
 
-public interface Stringable
-{
-	String asString();
+public interface Stringable {
+    String asString();
 }

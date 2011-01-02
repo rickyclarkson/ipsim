@@ -15,34 +15,32 @@ import org.jetbrains.annotations.Nullable;
 
 import static ipsim.util.Collections.arrayList;
 
-class OneHostNumberUsed extends F<Network,CheckResult> {
+class OneHostNumberUsed extends F<Network, CheckResult> {
     @Override
     @NotNull
-	public CheckResult f(@NotNull final Network network)
-	{
-		final List<PacketSource> empty=arrayList();
-		final List<PacketSource> warnings=arrayList();
+    public CheckResult f(@NotNull final Network network) {
+        final List<PacketSource> empty = arrayList();
+        final List<PacketSource> warnings = arrayList();
 
-		for (final Card card: NetworkUtility.getAllCards(network))
-		{
-			@Nullable
-			final CardDrivers cardWithDrivers=card.withDrivers;
+        for (final Card card : NetworkUtility.getAllCards(network)) {
+            @Nullable
+            final CardDrivers cardWithDrivers = card.withDrivers;
 
-			if (cardWithDrivers==null)
-				continue;
+            if (cardWithDrivers == null)
+                continue;
 
-			final IPAddress ipAddress=cardWithDrivers.ipAddress.get();
-			final NetMask netMask=cardWithDrivers.netMask.get();
+            final IPAddress ipAddress = cardWithDrivers.ipAddress.get();
+            final NetMask netMask = cardWithDrivers.netMask.get();
 
-			final int x=ipAddress.rawValue&~netMask.rawValue;
-			final int y=~netMask.rawValue;
-			if (x==y)
-				warnings.add(card);
-		}
+            final int x = ipAddress.rawValue & ~netMask.rawValue;
+            final int y = ~netMask.rawValue;
+            if (x == y)
+                warnings.add(card);
+        }
 
-		if (warnings.isEmpty())
-			return CheckResultUtility.fine();
+        if (warnings.isEmpty())
+            return CheckResultUtility.fine();
 
-		return new CheckResult(TypicalScores.USUAL, Collections.asList("All-1s host number"), warnings, empty);
-	}
+        return new CheckResult(TypicalScores.USUAL, Collections.asList("All-1s host number"), warnings, empty);
+    }
 }

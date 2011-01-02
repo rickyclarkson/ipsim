@@ -37,9 +37,8 @@ import org.jetbrains.annotations.NotNull;
 import static anylayout.extras.ConstraintBuilder.preferredSize;
 import static ipsim.awt.ComponentUtility.centreOnParent;
 
-public class InitialDialogUtility
-{
-	public static final String version;
+public class InitialDialogUtility {
+    public static final String version;
 
     static {
         final InputStream is = InitialDialogUtility.class.getResourceAsStream("/META-INF/maven/ipsim/ipsim/pom.properties");
@@ -57,226 +56,200 @@ public class InitialDialogUtility
         }
         version = tempVersion;
     }
-	public static InitialDialog createInitialDialog()
-	{
-		final JDialog maybeDialog=Dialogs.createDialogWithEscapeKeyToClose(Global.global.get().frame, "Welcome to IPSim");
 
-		return impl(maybeDialog);
-	}
+    public static InitialDialog createInitialDialog() {
+        final JDialog maybeDialog = Dialogs.createDialogWithEscapeKeyToClose(Global.global.get().frame, "Welcome to IPSim");
 
-	public static InitialDialog impl(final JDialog dialog)
-	{
-		final ImageIcon icon=ImageLoader.loadImage(InitialDialogUtility.class.getResource("/images/initial-dialog-background.jpg"));
+        return impl(maybeDialog);
+    }
 
-		final JLabel jLabel=new JLabel(icon);
+    public static InitialDialog impl(final JDialog dialog) {
+        final ImageIcon icon = ImageLoader.loadImage(InitialDialogUtility.class.getResource("/images/initial-dialog-background.jpg"));
 
-		dialog.setContentPane(jLabel);
+        final JLabel jLabel = new JLabel(icon);
 
-		final Container contentPane=dialog.getContentPane();
+        dialog.setContentPane(jLabel);
 
-		final JLabel introLabel=new JLabel("<html><body><center><h1>Welcome to IPSim "+Globals.appVersion+"</h1><p>IPSim is Copyright 2010 University of Salford and Ricky Clarkson and is BSD-Licenced.<br>Please choose from the following options, or click on the Help button.<br>Build-date "+version+"</center></p></body></html>", SwingConstants.CENTER);
-		introLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        final Container contentPane = dialog.getContentPane();
 
-		final JRadioButton freeformRadioButton=new JRadioButton("Practice");
-		freeformRadioButton.setMnemonic(KeyEvent.VK_P);
-		freeformRadioButton.setOpaque(false);
-		freeformRadioButton.setSelected(true);
+        final JLabel introLabel = new JLabel("<html><body><center><h1>Welcome to IPSim " + Globals.appVersion + "</h1><p>IPSim is Copyright 2010 University of Salford and Ricky Clarkson and is BSD-Licenced.<br>Please choose from the following options, or click on the Help button.<br>Build-date " + version + "</center></p></body></html>", SwingConstants.CENTER);
+        introLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-		final Font font=freeformRadioButton.getFont().deriveFont(14.0F);
-		freeformRadioButton.setFont(font);
+        final JRadioButton freeformRadioButton = new JRadioButton("Practice");
+        freeformRadioButton.setMnemonic(KeyEvent.VK_P);
+        freeformRadioButton.setOpaque(false);
+        freeformRadioButton.setSelected(true);
 
-		final JRadioButton takeTestRadioButton=new JRadioButton("Actual Setup Test");
-		takeTestRadioButton.setMnemonic(KeyEvent.VK_T);
-		takeTestRadioButton.setFont(font);
-		takeTestRadioButton.setOpaque(false);
+        final Font font = freeformRadioButton.getFont().deriveFont(14.0F);
+        freeformRadioButton.setFont(font);
 
-		final JRadioButton practiceTroubleshootingTest=new JRadioButton("Practice Troubleshooting Test");
-		practiceTroubleshootingTest.setOpaque(false);
-		practiceTroubleshootingTest.setFont(font);
+        final JRadioButton takeTestRadioButton = new JRadioButton("Actual Setup Test");
+        takeTestRadioButton.setMnemonic(KeyEvent.VK_T);
+        takeTestRadioButton.setFont(font);
+        takeTestRadioButton.setOpaque(false);
 
-		final JRadioButton actualTroubleshootingTest=new JRadioButton("Actual Troubleshooting Test");
-		actualTroubleshootingTest.setOpaque(false);
-		actualTroubleshootingTest.setFont(font);
+        final JRadioButton practiceTroubleshootingTest = new JRadioButton("Practice Troubleshooting Test");
+        practiceTroubleshootingTest.setOpaque(false);
+        practiceTroubleshootingTest.setFont(font);
 
-		final JRadioButton practiceTestRadioButton=new JRadioButton("Practice Setup Test");
-		practiceTestRadioButton.setFont(font);
-		practiceTestRadioButton.setMnemonic(KeyEvent.VK_C);
-		practiceTestRadioButton.setOpaque(false);
+        final JRadioButton actualTroubleshootingTest = new JRadioButton("Actual Troubleshooting Test");
+        actualTroubleshootingTest.setOpaque(false);
+        actualTroubleshootingTest.setFont(font);
 
-		final JButton okButton=new JButton(" OK ");
-		okButton.setMnemonic(KeyEvent.VK_O);
+        final JRadioButton practiceTestRadioButton = new JRadioButton("Practice Setup Test");
+        practiceTestRadioButton.setFont(font);
+        practiceTestRadioButton.setMnemonic(KeyEvent.VK_C);
+        practiceTestRadioButton.setOpaque(false);
 
-		final JButton helpButton=new JButton("Help");
-		helpButton.setMnemonic(KeyEvent.VK_H);
+        final JButton okButton = new JButton(" OK ");
+        okButton.setMnemonic(KeyEvent.VK_O);
 
-		final JButton cancelButton=new JButton("Exit");
-		cancelButton.setMnemonic(KeyEvent.VK_X);
+        final JButton helpButton = new JButton("Help");
+        helpButton.setMnemonic(KeyEvent.VK_H);
 
-		cancelButton.addActionListener(new ActionListener()
-		{
-			@Override
-            public void actionPerformed(final ActionEvent event)
-			{
-				MenuHandler.fileExit().run();
-			}
-		});
+        final JButton cancelButton = new JButton("Exit");
+        cancelButton.setMnemonic(KeyEvent.VK_X);
 
-		final int PADDING=10;
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent event) {
+                MenuHandler.fileExit().run();
+            }
+        });
 
-		AnyLayout.useAnyLayout(contentPane, 0.5f, 0.5f, new SizeCalculator()
-		{
-			@Override
-            public int getHeight()
-			{
-				return introLabel.getPreferredSize().height+freeformRadioButton.getPreferredSize().height+practiceTestRadioButton.getPreferredSize().height+takeTestRadioButton.getPreferredSize().height+okButton.getPreferredSize().height+PADDING*5;
-			}
+        final int PADDING = 10;
 
-			@Override
-            public int getWidth()
-			{
-				final int widestRadioButtonOnLeft=Maths.max(freeformRadioButton.getPreferredSize().width, practiceTestRadioButton.getPreferredSize().width, takeTestRadioButton.getPreferredSize().width);
-				final int widestRadioButtonOnRight=Maths.max(practiceTroubleshootingTest.getPreferredSize().width+practiceTroubleshootingTest.getPreferredSize().height);
+        AnyLayout.useAnyLayout(contentPane, 0.5f, 0.5f, new SizeCalculator() {
+            @Override
+            public int getHeight() {
+                return introLabel.getPreferredSize().height + freeformRadioButton.getPreferredSize().height + practiceTestRadioButton.getPreferredSize().height + takeTestRadioButton.getPreferredSize().height + okButton.getPreferredSize().height + PADDING * 5;
+            }
 
-				return Maths.max(PADDING*2+introLabel.getPreferredSize().width, PADDING*3+widestRadioButtonOnLeft+widestRadioButtonOnRight, PADDING*4+okButton.getPreferredSize().width+helpButton.getPreferredSize().width+cancelButton.getPreferredSize().width);
-			}
+            @Override
+            public int getWidth() {
+                final int widestRadioButtonOnLeft = Maths.max(freeformRadioButton.getPreferredSize().width, practiceTestRadioButton.getPreferredSize().width, takeTestRadioButton.getPreferredSize().width);
+                final int widestRadioButtonOnRight = Maths.max(practiceTroubleshootingTest.getPreferredSize().width + practiceTroubleshootingTest.getPreferredSize().height);
 
-		}, ConstraintUtility.typicalDefaultConstraint(new Runnable()
-		{
-			@Override
-            public void run()
-			{
-				throw new RuntimeException();
-			}
-		}));
+                return Maths.max(PADDING * 2 + introLabel.getPreferredSize().width, PADDING * 3 + widestRadioButtonOnLeft + widestRadioButtonOnRight, PADDING * 4 + okButton.getPreferredSize().width + helpButton.getPreferredSize().width + cancelButton.getPreferredSize().width);
+            }
 
-		final PercentConstraints constraints=PercentConstraintsUtility.newInstance(contentPane);
+        }, ConstraintUtility.typicalDefaultConstraint(new Runnable() {
+            @Override
+            public void run() {
+                throw new RuntimeException();
+            }
+        }));
 
-		final Constraint introLabelConstraint=ConstraintUtility.topCentre(PADDING);
-		contentPane.add(introLabel, introLabelConstraint);
+        final PercentConstraints constraints = PercentConstraintsUtility.newInstance(contentPane);
 
-		final F<LayoutContext, Integer> paddingFunction= Function.constant(PADDING);
+        final Constraint introLabelConstraint = ConstraintUtility.topCentre(PADDING);
+        contentPane.add(introLabel, introLabelConstraint);
 
-		final Constraint freeformConstraint=ConstraintBuilder.buildConstraint().setLeft(paddingFunction).setTop(new F<LayoutContext, Integer>()
-		{
-			@Override
+        final F<LayoutContext, Integer> paddingFunction = Function.constant(PADDING);
+
+        final Constraint freeformConstraint = ConstraintBuilder.buildConstraint().setLeft(paddingFunction).setTop(new F<LayoutContext, Integer>() {
+            @Override
             @NotNull
-			public Integer f(@NotNull final LayoutContext layoutContext)
-			{
-				return layoutContext.getLayoutInfo(introLabel).getFarOffset()+PADDING*3;
-			}
-		}).setWidth(preferredSize).setHeight(preferredSize);
+            public Integer f(@NotNull final LayoutContext layoutContext) {
+                return layoutContext.getLayoutInfo(introLabel).getFarOffset() + PADDING * 3;
+            }
+        }).setWidth(preferredSize).setHeight(preferredSize);
 
-		contentPane.add(freeformRadioButton, freeformConstraint);
+        contentPane.add(freeformRadioButton, freeformConstraint);
 
-		final Constraint practiceTestConstraints=RelativeConstraints.below(freeformRadioButton, PADDING);
+        final Constraint practiceTestConstraints = RelativeConstraints.below(freeformRadioButton, PADDING);
 
-		contentPane.add(practiceTestRadioButton, practiceTestConstraints);
+        contentPane.add(practiceTestRadioButton, practiceTestConstraints);
 
-		contentPane.add(takeTestRadioButton, RelativeConstraints.below(practiceTestRadioButton, PADDING));
+        contentPane.add(takeTestRadioButton, RelativeConstraints.below(practiceTestRadioButton, PADDING));
 
-		final Constraint takeTestConstraints=ConstraintBuilder.buildConstraint().setLeft(new F<LayoutContext, Integer>()
-		{
-			@Override
+        final Constraint takeTestConstraints = ConstraintBuilder.buildConstraint().setLeft(new F<LayoutContext, Integer>() {
+            @Override
             @NotNull
-			public Integer f(@NotNull final LayoutContext layoutContext)
-			{
-				return layoutContext.getParentSize()-10-layoutContext.getPreferredSize();
-			}
-		}).setTop(new F<LayoutContext, Integer>()
-		{
-			@Override
+            public Integer f(@NotNull final LayoutContext layoutContext) {
+                return layoutContext.getParentSize() - 10 - layoutContext.getPreferredSize();
+            }
+        }).setTop(new F<LayoutContext, Integer>() {
+            @Override
             @NotNull
-			public Integer f(@NotNull final LayoutContext layoutContext)
-			{
-				return layoutContext.getLayoutInfo(practiceTestRadioButton).getOffset();
-			}
-		}).setWidth(preferredSize).setHeight(preferredSize);
+            public Integer f(@NotNull final LayoutContext layoutContext) {
+                return layoutContext.getLayoutInfo(practiceTestRadioButton).getOffset();
+            }
+        }).setWidth(preferredSize).setHeight(preferredSize);
 
-		contentPane.add(practiceTroubleshootingTest, takeTestConstraints);
+        contentPane.add(practiceTroubleshootingTest, takeTestConstraints);
 
-		contentPane.add(actualTroubleshootingTest, RelativeConstraints.below(practiceTroubleshootingTest, PADDING));
+        contentPane.add(actualTroubleshootingTest, RelativeConstraints.below(practiceTroubleshootingTest, PADDING));
 
-		final ButtonGroup group=new ButtonGroup();
-		group.add(freeformRadioButton);
-		group.add(practiceTestRadioButton);
-		group.add(takeTestRadioButton);
+        final ButtonGroup group = new ButtonGroup();
+        group.add(freeformRadioButton);
+        group.add(practiceTestRadioButton);
+        group.add(takeTestRadioButton);
 
-		constraints.add(okButton, 10, 85, 15, 10, false, false);
+        constraints.add(okButton, 10, 85, 15, 10, false, false);
 
-		okButton.addActionListener(new ActionListener()
-		{
-			@Override
-            public void actionPerformed(final ActionEvent e)
-			{
-				Runnable doLater=MenuHandler.freeform();
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                Runnable doLater = MenuHandler.freeform();
 
-				if (practiceTestRadioButton.isSelected())
-					doLater=new Runnable()
-					{
-						@Override
-                        public void run()
-						{
-							MenuHandler.practiceTest().run();
-						}
-					};
+                if (practiceTestRadioButton.isSelected())
+                    doLater = new Runnable() {
+                        @Override
+                        public void run() {
+                            MenuHandler.practiceTest().run();
+                        }
+                    };
 
-				if (takeTestRadioButton.isSelected())
-					doLater=new Runnable()
-					{
-						@Override
-                        public void run()
-						{
-							MenuHandler.loadAssessmentProblem();
-						}
-					};
+                if (takeTestRadioButton.isSelected())
+                    doLater = new Runnable() {
+                        @Override
+                        public void run() {
+                            MenuHandler.loadAssessmentProblem();
+                        }
+                    };
 
-				if (practiceTroubleshootingTest.isSelected())
-					doLater=new Runnable()
-					{
-						@Override
-                        public void run()
-						{
-							MenuHandler.practiceTroubleshootingTest();
-						}
-					};
+                if (practiceTroubleshootingTest.isSelected())
+                    doLater = new Runnable() {
+                        @Override
+                        public void run() {
+                            MenuHandler.practiceTroubleshootingTest();
+                        }
+                    };
 
-				if (actualTroubleshootingTest.isSelected())
-					doLater=new Runnable()
-					{
-						@Override
-                        public void run()
-						{
-							MenuHandler.actualTroubleshootingTest();
-						}
-					};
+                if (actualTroubleshootingTest.isSelected())
+                    doLater = new Runnable() {
+                        @Override
+                        public void run() {
+                            MenuHandler.actualTroubleshootingTest();
+                        }
+                    };
 
-				dialog.setVisible(false);
-				dialog.dispose();
+                dialog.setVisible(false);
+                dialog.dispose();
 
-				doLater.run();
-			}
-		});
+                doLater.run();
+            }
+        });
 
-		constraints.add(helpButton, 40, 85, 20, 10, false, false);
+        constraints.add(helpButton, 40, 85, 20, 10, false, false);
 
-		helpButton.addActionListener(new ActionListener()
-		{
-			@Override
-            public void actionPerformed(final ActionEvent event)
-			{
-				dialog.dispose();
-				MenuHandler.freeform().run();
-				MenuHandler.helpContents().run();
-			}
-		});
+        helpButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent event) {
+                dialog.dispose();
+                MenuHandler.freeform().run();
+                MenuHandler.helpContents().run();
+            }
+        });
 
-		constraints.add(cancelButton, 70, 85, 20, 10, false, false);
+        constraints.add(cancelButton, 70, 85, 20, 10, false, false);
 
-		dialog.setResizable(false);
+        dialog.setResizable(false);
 
-		dialog.pack();
-		centreOnParent(dialog, Global.global.get().frame);
+        dialog.pack();
+        centreOnParent(dialog, Global.global.get().frame);
 
-		return new InitialDialog(dialog, okButton, practiceTestRadioButton);
-	}
+        return new InitialDialog(dialog, okButton, practiceTestRadioButton);
+    }
 }

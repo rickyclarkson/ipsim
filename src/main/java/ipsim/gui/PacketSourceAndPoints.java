@@ -9,49 +9,40 @@ import java.util.Map;
 import static ipsim.util.Collections.mapValues;
 import static ipsim.util.Collections.mapWith;
 
-public final class PacketSourceAndPoints
-{
-	public final PacketSource packetSource;
-	private final Map<? extends Integer,? extends Point> points;
+public final class PacketSourceAndPoints {
+    public final PacketSource packetSource;
+    private final Map<? extends Integer, ? extends Point> points;
 
-	public PacketSourceAndPoints(final PacketSource packetSource, final Map<? extends Integer,? extends Point> points)
-	{
-		this.packetSource=packetSource;
-		this.points=points;
-	}
+    public PacketSourceAndPoints(final PacketSource packetSource, final Map<? extends Integer, ? extends Point> points) {
+        this.packetSource = packetSource;
+        this.points = points;
+    }
 
-	public boolean pointsContainsKey(final int index)
-	{
-		return points.containsKey(index);
-	}
+    public boolean pointsContainsKey(final int index) {
+        return points.containsKey(index);
+    }
 
-	public Point pointsGet(final int index)
-	{
-		return points.get(index);
-	}
+    public Point pointsGet(final int index) {
+        return points.get(index);
+    }
 
-	public boolean pointsIsEmpty()
-	{
-		return points.isEmpty();
-	}
+    public boolean pointsIsEmpty() {
+        return points.isEmpty();
+    }
 
-	public Map<? extends Integer, ? extends Point> pointsMapWith(final int index, final Point position)
-	{
-		return mapWith(points,index,position);
-	}
+    public Map<? extends Integer, ? extends Point> pointsMapWith(final int index, final Point position) {
+        return mapWith(points, index, position);
+    }
 
-	public Map<? extends Integer, ? extends Point> pointsMapValues(final F<Point, Point> function)
-	{
-		return mapValues(points,function);
-	}
+    public Map<? extends Integer, ? extends Point> pointsMapValues(final F<Point, Point> function) {
+        return mapValues(points, function);
+    }
 
-	public Iterable<Integer> pointsKeys()
-	{
-		return Collections.copyOf(points.keySet(),Collections.<Integer>arrayListRef());
-	}
+    public Iterable<Integer> pointsKeys() {
+        return Collections.copyOf(points.keySet(), Collections.<Integer>arrayListRef());
+    }
 
-	public int pointsSize()
-	{
-		return points.size();
-	}
+    public int pointsSize() {
+        return points.size();
+    }
 }

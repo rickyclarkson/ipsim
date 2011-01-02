@@ -11,87 +11,75 @@ import ipsim.network.connectivity.PacketSourceAndIndex;
 import ipsim.network.connectivity.PacketSourceVisitor;
 import ipsim.network.connectivity.cable.Cable;
 import ipsim.util.Collections;
-import static ipsim.util.Collections.arrayList;
-import org.jetbrains.annotations.Nullable;
-
 import java.util.Collection;
 import java.util.List;
+import org.jetbrains.annotations.Nullable;
 
-public class Hub implements PacketSource
-{
-	private boolean powerStatus=false;
+import static ipsim.util.Collections.arrayList;
 
-	private final Listeners<IncomingPacketListener> incomingPacketListeners=new Listeners<IncomingPacketListener>();
+public class Hub implements PacketSource {
+    private boolean powerStatus = false;
 
-	private final Listeners<OutgoingPacketListener> outgoingPacketListeners=new Listeners<OutgoingPacketListener>();
-	private final Network network;
-	private final List<PacketSourceAndIndex> children=arrayList();
+    private final Listeners<IncomingPacketListener> incomingPacketListeners = new Listeners<IncomingPacketListener>();
 
-	public Hub(final Network network)
-	{
-		this.network=network;
-	}
+    private final Listeners<OutgoingPacketListener> outgoingPacketListeners = new Listeners<OutgoingPacketListener>();
+    private final Network network;
+    private final List<PacketSourceAndIndex> children = arrayList();
 
-	public void setPower(final boolean status)
-	{
-		powerStatus=status;
+    public Hub(final Network network) {
+        this.network = network;
+    }
 
-		network.modified=true;
-	}
+    public void setPower(final boolean status) {
+        powerStatus = status;
 
-	public boolean isPowerOn()
-	{
-		return powerStatus;
-	}
+        network.modified = true;
+    }
 
-	@Override
-    public void accept(final PacketSourceVisitor2 visitor)
-	{
-		visitor.visit(this);
-	}
+    public boolean isPowerOn() {
+        return powerStatus;
+    }
 
-	@Override
-    public List<PacketSourceAndIndex> children()
-	{
-		return children;
-	}
+    @Override
+    public void accept(final PacketSourceVisitor2 visitor) {
+        visitor.visit(this);
+    }
 
-	public Collection<Cable> getCables()
-	{
-		final Collection<Cable> cables=Collections.hashSet();
+    @Override
+    public List<PacketSourceAndIndex> children() {
+        return children;
+    }
 
-		for (final PacketSourceAndIndex element: children)
-		{
-			@Nullable final Cable cable=PacketSourceUtility.asCable(element.packetSource);
+    public Collection<Cable> getCables() {
+        final Collection<Cable> cables = Collections.hashSet();
 
-			if (cable!=null)
-				cables.add(cable);
-		}
+        for (final PacketSourceAndIndex element : children) {
+            @Nullable final Cable cable = PacketSourceUtility.asCable(element.packetSource);
 
-		return cables;
-	}
+            if (cable != null)
+                cables.add(cable);
+        }
 
-	@Override
-	public String toString()
-	{
-		throw new UnsupportedOperationException();
-	}
+        return cables;
+    }
 
-	@Override
-    public Listeners<IncomingPacketListener> getIncomingPacketListeners()
-	{
-		return incomingPacketListeners;
-	}
+    @Override
+    public String toString() {
+        throw new UnsupportedOperationException();
+    }
 
-	@Override
-    public Listeners<OutgoingPacketListener> getOutgoingPacketListeners()
-	{
-		return outgoingPacketListeners;
-	}
+    @Override
+    public Listeners<IncomingPacketListener> getIncomingPacketListeners() {
+        return incomingPacketListeners;
+    }
 
-	@Override
-    public <R> R accept(final PacketSourceVisitor<R> visitor)
-	{
-		return visitor.visit(this);
-	}
+    @Override
+    public Listeners<OutgoingPacketListener> getOutgoingPacketListeners() {
+        return outgoingPacketListeners;
+    }
+
+    @Override
+    public <R> R accept(final PacketSourceVisitor<R> visitor) {
+        return visitor.visit(this);
+    }
 }
