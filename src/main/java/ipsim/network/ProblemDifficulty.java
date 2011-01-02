@@ -1,7 +1,6 @@
 package ipsim.network;
 
 import com.rickyclarkson.testsuite.UnitTest;
-import ipsim.lang.AssertionException;
 import ipsim.network.ProblemBuilder.Stage2;
 import ipsim.network.connectivity.ip.IPAddress;
 import ipsim.network.connectivity.ip.NetMask;
@@ -32,7 +31,7 @@ public enum ProblemDifficulty
 				}
 			}
 
-			throw new AssertionException();
+			throw new RuntimeException();
 		}
 	},
 	MEDIUM
@@ -97,7 +96,7 @@ public enum ProblemDifficulty
 				}
 			}
 
-			throw new AssertionException();
+			throw new RuntimeException();
 	}
 
 	static final Random random=new Random();

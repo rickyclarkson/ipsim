@@ -3,7 +3,6 @@ package ipsim;
 import com.rickyclarkson.java.lang.Throwables;
 import fj.P1;
 import ipsim.gui.ExceptionReportDialogUtility;
-import ipsim.lang.AssertionException;
 import ipsim.lang.DynamicVariable;
 import ipsim.network.connectivity.ip.NetMask;
 import java.lang.Thread.UncaughtExceptionHandler;
@@ -27,7 +26,7 @@ public class ExceptionHandler
 
 	public static <T> T impossible()
 	{
-		throw new AssertionException();
+		throw new RuntimeException();
 	}
 
 	public static NetMask expectNetMask(final Object s)

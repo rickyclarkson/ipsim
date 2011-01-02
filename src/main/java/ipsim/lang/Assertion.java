@@ -9,14 +9,14 @@ public final class Assertion
 	{
 		for (final boolean value: values)
 			if (!value)
-				throw new AssertionException();
+				throw new RuntimeException();
 	}
 
 	public static void assertFalse(final boolean... values)
 	{
 		for (final boolean value: values)
 			if (value)
-				throw new AssertionException();
+				throw new RuntimeException();
 	}
 
 	public static void assertNotNull(final Object... objects)
