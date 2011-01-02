@@ -48,7 +48,6 @@ final class NetworkComponentIconMouseListenerUtility {
 
                 ComponentMoved.componentMoved(getNetworkContext().network, component, 0);
 
-                view.paint(view.getGraphics());
                 view.repaint();
 
                 view.setCursor(Cursor.getDefaultCursor());
