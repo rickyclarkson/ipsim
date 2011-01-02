@@ -205,7 +205,7 @@
       <file leaf-file-name="MenuHandler.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/MenuHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="600" column="71" selection-start="24563" selection-end="24563" vertical-scroll-proportion="0.33333334">
+            <state line="605" column="43" selection-start="24989" selection-end="24989" vertical-scroll-proportion="0.4899329">
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="docComment;method#networkNew#0;class#MenuHandler#0" expanded="true" />
@@ -756,7 +756,7 @@
     <frame x="-4" y="-4" width="1448" height="874" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32827586" sideWeight="0.5" order="17" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32827586" sideWeight="0.5" order="17" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4386207" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5040431" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -814,7 +814,7 @@
     <option name="CHANGED_ON_SERVER_INTERVAL" value="60" />
     <option name="SHOW_ONLY_CHANGED_IN_SELECTION_DIFF" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Inlined JFileChooserUtility." />
+    <option name="LAST_COMMIT_MESSAGE" value="Project file changes." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -839,6 +839,7 @@
     <MESSAGE value="#2 - Removed a spurious call to paint." />
     <MESSAGE value="Removing some irrelevant documentation." />
     <MESSAGE value="Inlined JFileChooserUtility." />
+    <MESSAGE value="Project file changes." />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -1039,7 +1040,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/MenuHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="600" column="71" selection-start="24563" selection-end="24563" vertical-scroll-proportion="0.33333334">
+        <state line="605" column="43" selection-start="24989" selection-end="24989" vertical-scroll-proportion="0.4899329">
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;method#networkNew#0;class#MenuHandler#0" expanded="true" />
