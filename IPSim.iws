@@ -34,9 +34,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d56e3007-4b96-4c66-a9f5-eabf360af09f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IPSim.iws" afterPath="$PROJECT_DIR$/IPSim.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/rickyclarkson/xml/DOMSimple.java" afterPath="$PROJECT_DIR$/src/main/java/com/rickyclarkson/xml/DOMSimple.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/Caster.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/Caster.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/ProblemDialog.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/ProblemDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/HelpFrameUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/HelpFrameUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/NetworkView.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/NetworkView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/NetworkViewUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/NetworkViewUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/EthernetCableHandler.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/components/EthernetCableHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ethernet/MacAddress.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ethernet/MacAddress.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ip/IPAddress.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ip/IPAddress.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ip/NetMask.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ip/NetMask.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/network/ethernet/NetBlock.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/network/ethernet/NetBlock.java" />
     </list>
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -169,10 +176,67 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ProblemDialog.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="ProblemDialog.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/components/ProblemDialog.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="137" column="64" selection-start="6057" selection-end="6057" vertical-scroll-proportion="0.45232275">
+            <state line="139" column="23" selection-start="6083" selection-end="6083" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Caster.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/Caster.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="40" column="15" selection-start="1254" selection-end="1254" vertical-scroll-proportion="0.70526314">
+              <folding>
+                <element signature="method#isHTMLFrameHyperlinkEvent#0;class#Caster#0" expanded="true" />
+                <element signature="method#equalT#0;class#Caster#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PacketSourceUtility.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/connectivity/hub/incoming/PacketSourceUtility.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="296" column="77" selection-start="9868" selection-end="9868" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RoutingTableTest.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/ethernet/RoutingTableTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="96" column="17" selection-start="3992" selection-end="3992" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NetworkView.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/NetworkView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="48" column="46" selection-start="1605" selection-end="1605" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DOMSimple.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/rickyclarkson/xml/DOMSimple.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="46" column="23" selection-start="1364" selection-end="1364" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NetBlock.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/ethernet/NetBlock.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="24" column="41" selection-start="725" selection-end="725" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -198,22 +262,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/ipsim/gui/ConnectivityTestDialogUtility.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ipsim/gui/MainFrameUtility.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ipsim/network/breakage/BreakNetwork.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ipsim/gui/components/RoutingTableEntryEditDialog.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/PacketUtility.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ipsim/util/Collections.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ipsim/NetworkContext.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ipsim/gui/MenuHandler.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/ExplicitRouteToLocalNetwork.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ipsim/network/conformance/SomeHubsHaveNoStandaloneHost.java" />
         <option value="$PROJECT_DIR$/src/main/java/ipsim/network/ethernet/NetMaskUtility.java" />
         <option value="$PROJECT_DIR$/src/main/java/ipsim/network/ip/CheckedNumberFormatException.java" />
         <option value="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/ArpEntry.java" />
         <option value="$PROJECT_DIR$/src/main/java/ipsim/swing/DragNDropIconCreator.java" />
         <option value="$PROJECT_DIR$/src/main/java/ipsim/Caster.java" />
         <option value="$PROJECT_DIR$/src/main/java/ipsim/gui/components/ProblemDialog.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ipsim/network/ethernet/NetBlock.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/rickyclarkson/xml/DOMSimple.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ipsim/gui/NetworkView.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ipsim/gui/HelpFrameUtility.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ipsim/gui/NetworkViewUtility.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ipsim/tests/InfiniteLoopBug.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ip/IPAddress.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ethernet/MacAddress.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ip/NetMask.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ipsim/gui/components/EthernetCableHandler.java" />
       </list>
     </option>
   </component>
@@ -704,16 +768,16 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32827586" sideWeight="0.5" order="17" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4386207" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4386207" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.55586207" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2689655" sideWeight="0.5" order="20" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32561728" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24765626" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3345298" sideWeight="0.60275865" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27494615" sideWeight="0.6193103" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27494615" sideWeight="0.5613793" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.48656294" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.38068965" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38068965" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39724138" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="DSM" active="false" anchor="right" auto_hide="true" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="100" y="100" width="1080" height="600" />
@@ -760,7 +824,7 @@
     <option name="CHANGED_ON_SERVER_INTERVAL" value="60" />
     <option name="SHOW_ONLY_CHANGED_IN_SELECTION_DIFF" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Code cleanups." />
+    <option name="LAST_COMMIT_MESSAGE" value="#1 - Removed the cast and use of Option.some." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -780,6 +844,7 @@
     <MESSAGE value="Reformatting." />
     <MESSAGE value="Removed SwingWorker." />
     <MESSAGE value="Code cleanups." />
+    <MESSAGE value="#1 - Removed the cast and use of Option.some." />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -857,92 +922,6 @@
     <option name="myLastEditedConfigurable" value="Default" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/persistence/delegates/DelegateHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="80" selection-start="1297" selection-end="1297" vertical-scroll-proportion="0.33962265">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/connectivity/hub/incoming/PacketSourceUtility.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="240" column="20" selection-start="7590" selection-end="7590" vertical-scroll-proportion="0.3207547">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/hub/ProgressMonitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="162" column="34" selection-start="6512" selection-end="6512" vertical-scroll-proportion="0.30769232">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ip/IPAddress.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="20" selection-start="569" selection-end="569" vertical-scroll-proportion="0.46153846">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/ip/IPAddressUtility.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="22" selection-start="794" selection-end="794" vertical-scroll-proportion="0.36651585">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/webinterface/WebInterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="96" column="4" selection-start="3847" selection-end="3847" vertical-scroll-proportion="0.48951048">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/components/EthernetCableHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="101" column="37" selection-start="4194" selection-end="4194" vertical-scroll-proportion="0.280543">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/tests/RunTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="8" selection-start="1584" selection-end="1584" vertical-scroll-proportion="0.25055927">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/util/Collections.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="328" column="30" selection-start="9792" selection-end="9792" vertical-scroll-proportion="0.28635347">
-          <folding>
-            <element signature="method#invoke#0;class#10557:11028" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/Global.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="89" column="28" selection-start="3714" selection-end="3714" vertical-scroll-proportion="0.75652176">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/NetworkContext.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="114" column="14" selection-start="3600" selection-end="3600" vertical-scroll-proportion="0.4826087">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/rickyclarkson/xml/DOMSimple.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="11" selection-start="423" selection-end="423" vertical-scroll-proportion="0.24347825">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/components/RoutingTableEntryEditDialog.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="82" column="32" selection-start="3914" selection-end="3914" vertical-scroll-proportion="0.25503355">
@@ -957,20 +936,104 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/Caster.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/components/ProblemDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="28" selection-start="1734" selection-end="1734" vertical-scroll-proportion="0.2985782">
-          <folding>
-            <element signature="method#isHTMLFrameHyperlinkEvent#0;class#Caster#0" expanded="true" />
-            <element signature="method#isIPAddress#0;class#Caster#0" expanded="true" />
-          </folding>
+        <state line="139" column="23" selection-start="6083" selection-end="6083" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/components/ProblemDialog.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/ethernet/NetBlock.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="137" column="64" selection-start="6057" selection-end="6057" vertical-scroll-proportion="0.45232275">
+        <state line="24" column="41" selection-start="725" selection-end="725" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/rickyclarkson/xml/DOMSimple.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="23" selection-start="1364" selection-end="1364" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/NetworkView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="46" selection-start="1605" selection-end="1605" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/HelpFrameUtility.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="167" column="49" selection-start="5528" selection-end="5528" vertical-scroll-proportion="0.3736842">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/NetworkViewUtility.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="171" column="40" selection-start="5909" selection-end="5909" vertical-scroll-proportion="0.48421052">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/tests/InfiniteLoopBug.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="0" selection-start="550" selection-end="550" vertical-scroll-proportion="0.33242506">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ip/IPAddress.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="20" selection-start="548" selection-end="548" vertical-scroll-proportion="0.3736842">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ethernet/MacAddress.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="34" selection-start="467" selection-end="467" vertical-scroll-proportion="0.55263156">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ip/NetMask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="34" selection-start="965" selection-end="965" vertical-scroll-proportion="0.5947368">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/components/EthernetCableHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="109" column="51" selection-start="4663" selection-end="4663" vertical-scroll-proportion="0.48421052">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/ethernet/RoutingTableTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="96" column="17" selection-start="3992" selection-end="3992" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/connectivity/hub/incoming/PacketSourceUtility.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="296" column="77" selection-start="9868" selection-end="9868" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/Caster.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="15" selection-start="1254" selection-end="1254" vertical-scroll-proportion="0.70526314">
+          <folding>
+            <element signature="method#isHTMLFrameHyperlinkEvent#0;class#Caster#0" expanded="true" />
+            <element signature="method#equalT#0;class#Caster#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

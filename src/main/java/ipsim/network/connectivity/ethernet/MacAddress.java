@@ -1,7 +1,5 @@
 package ipsim.network.connectivity.ethernet;
 
-import ipsim.Caster;
-
 public final class MacAddress {
     public final int rawValue;
 
@@ -16,10 +14,10 @@ public final class MacAddress {
 
     @Override
     public boolean equals(final Object object) {
-        if (!Caster.isMacAddress(object))
+        if (!(object instanceof MacAddress))
             return false;
 
-        return rawValue == Caster.asMacAddress(object).rawValue;
+        return rawValue == ((MacAddress) object).rawValue;
     }
 
     @Override

@@ -1,6 +1,5 @@
 package ipsim.gui.components;
 
-import ipsim.Caster;
 import ipsim.Global;
 import ipsim.NetworkContext;
 import ipsim.awt.Point;
@@ -108,7 +107,7 @@ public class EthernetCableHandler {
 
                 final int result = JOptionPaneUtility.showConfirmDialog(Global.global.get().frame, list, "Cable Type", JOptionPane.OK_CANCEL_OPTION);
 
-                final CableType cableType = Caster.asCableType(list.getSelectedValue());
+                final CableType cableType = (CableType) list.getSelectedValue();
                 if (result == JOptionPane.OK_OPTION && cableType != null)
                     cable.setCableType(cableType);
             }

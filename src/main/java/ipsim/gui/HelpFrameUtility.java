@@ -160,12 +160,12 @@ final class Hyperactive implements HyperlinkListener {
         if (!equalT(event.getEventType(), HyperlinkEvent.EventType.ACTIVATED))
             return;
 
-        final JEditorPane pane = Caster.asJEditorPane(event.getSource());
+        final JEditorPane pane = (JEditorPane) event.getSource();
 
         if (Caster.isHTMLFrameHyperlinkEvent(event)) {
-            final HTMLFrameHyperlinkEvent event2 = Caster.asHTMLFrameHyperlinkEvent(event);
+            final HTMLFrameHyperlinkEvent event2 = (HTMLFrameHyperlinkEvent) event;
 
-            final HTMLDocument document = Caster.asHTMLDocument(pane.getDocument());
+            final HTMLDocument document = (HTMLDocument) pane.getDocument();
 
             document.processHTMLFrameHyperlinkEvent(event2);
         } else

@@ -3,7 +3,6 @@ package ipsim.gui;
 import com.rickyclarkson.testsuite.UnitTest;
 import fj.Effect;
 import fj.F;
-import ipsim.Caster;
 import ipsim.NetworkContext;
 import ipsim.awt.Point;
 import ipsim.connectivity.hub.incoming.PacketSourceUtility;
@@ -47,7 +46,7 @@ public class NetworkView extends JPanel {
 
                 final Graphics graphics = originalGraphics.create();
 
-                final Graphics2D g2d = Caster.asGraphics2D(graphics);
+                final Graphics2D g2d = (Graphics2D) graphics;
 
                 final AffineTransform transform = g2d.getTransform();
                 final double zoomLevel = context.zoomLevel;

@@ -1,6 +1,5 @@
 package ipsim.network.connectivity.ip;
 
-import ipsim.Caster;
 import ipsim.lang.Stringable;
 import ipsim.network.ip.IPAddressUtility;
 
@@ -23,10 +22,10 @@ public final class IPAddress implements Stringable {
 
     @Override
     public boolean equals(final Object object) {
-        if (!Caster.isIPAddress(object))
+        if (!(object instanceof IPAddress))
             return false;
 
-        final IPAddress address = Caster.asIPAddress(object);
+        final IPAddress address = (IPAddress) object;
         return rawValue == address.rawValue;
     }
 

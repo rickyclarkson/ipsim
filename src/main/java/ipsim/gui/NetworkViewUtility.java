@@ -1,6 +1,5 @@
 package ipsim.gui;
 
-import ipsim.Caster;
 import ipsim.NetworkContext;
 import ipsim.awt.Point;
 import ipsim.network.Network;
@@ -170,7 +169,7 @@ public final class NetworkViewUtility {
         final Component view = context.networkView;
         view.setPreferredSize(getPreferredSize(context));
         view.invalidate();
-        final JScrollPane pane = Caster.asJScrollPane(SwingUtilities.getAncestorOfClass(JScrollPane.class, view));
+        final JScrollPane pane = (JScrollPane) SwingUtilities.getAncestorOfClass(JScrollPane.class, view);
 
         if (pane != null)
             pane.validate();

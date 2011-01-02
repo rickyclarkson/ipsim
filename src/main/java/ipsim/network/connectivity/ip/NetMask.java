@@ -1,6 +1,5 @@
 package ipsim.network.connectivity.ip;
 
-import ipsim.Caster;
 import ipsim.network.InvalidNetMaskException;
 import ipsim.network.ethernet.NetMaskUtility;
 import ipsim.network.ip.IPAddressUtility;
@@ -31,10 +30,10 @@ public final class NetMask {
 
     @Override
     public boolean equals(final Object object) {
-        if (!Caster.isNetMask(object))
+        if (!(object instanceof NetMask))
             return false;
 
-        return rawValue == Caster.asNetMask(object).rawValue;
+        return rawValue == ((NetMask) object).rawValue;
     }
 
     @Override

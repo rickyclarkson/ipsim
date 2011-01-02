@@ -7,9 +7,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import static ipsim.Caster.asElement;
 import static ipsim.Caster.equalT;
-import static ipsim.Caster.isElement;
 
 public final class DOMSimple {
     private final P1<Element> expectElement;
@@ -45,8 +43,8 @@ public final class DOMSimple {
         for (int a = 0; a < children.getLength(); a++) {
             final Node node = children.item(a);
 
-            if (isElement(node) && equalT(node.getNodeName(), name))
-                return asElement(node);
+            if (node instanceof Element && equalT(node.getNodeName(), name))
+                return (Element) node;
         }
 
         return expectElement._1();

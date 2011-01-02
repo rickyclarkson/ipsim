@@ -1,6 +1,5 @@
 package ipsim.network.ethernet;
 
-import ipsim.Caster;
 import ipsim.lang.Assertion;
 import ipsim.lang.Stringable;
 import ipsim.network.connectivity.ip.IPAddress;
@@ -23,7 +22,7 @@ public final class NetBlock implements Stringable {
         if (!(other instanceof NetBlock))
             return false;
 
-        final NetBlock netBlock = Caster.asNetBlock(other);
+        final NetBlock netBlock = (NetBlock) other;
         final Boolean equalMasks = equalT(netBlock.netMask, netMask);
         final Boolean equalNumbers = equalT(netBlock.networkNumber, networkNumber);
 
