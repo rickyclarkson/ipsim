@@ -34,8 +34,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d56e3007-4b96-4c66-a9f5-eabf360af09f" name="Default" comment="">
+      <change type="DELETED" beforePath="C:\Documents and Settings\Craig\ipsim\src\main\java\ipsim\swing\JFileChooserUtility.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IPSim.iws" afterPath="$PROJECT_DIR$/IPSim.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/NetworkComponentIconMouseListenerUtility.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/NetworkComponentIconMouseListenerUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ipsim/gui/MenuHandler.java" afterPath="$PROJECT_DIR$/src/main/java/ipsim/gui/MenuHandler.java" />
     </list>
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -181,56 +182,77 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Main.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/Main.java">
+      <file leaf-file-name="NetworkContext.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/NetworkContext.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="65" column="53" selection-start="2360" selection-end="2360" vertical-scroll-proportion="0.0">
+            <state line="61" column="6" selection-start="1900" selection-end="1900" vertical-scroll-proportion="0.0">
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="docComment;class#Main#0" expanded="true" />
-                <element signature="method#main#0;class#Main#0" expanded="true" />
+                <element signature="method#NetworkContext#0;class#NetworkContext#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainFrameUtility.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/MainFrameUtility.java">
+      <file leaf-file-name="PositionUtility.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/PositionUtility.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="90" column="74" selection-start="3142" selection-end="3142" vertical-scroll-proportion="0.0">
+            <state line="179" column="0" selection-start="7294" selection-end="7294" vertical-scroll-proportion="0.0">
               <folding>
-                <element signature="method#createMainFrame#0;class#MainFrameUtility#0" expanded="true" />
+                <element signature="method#getPosition#0;class#PositionUtility#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ComponentToolBarUtility.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/ComponentToolBarUtility.java">
+      <file leaf-file-name="MenuHandler.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/MenuHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="78" column="60" selection-start="3708" selection-end="3708" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NetworkComponentIconMouseListenerUtility.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/NetworkComponentIconMouseListenerUtility.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="53" column="13" selection-start="2027" selection-end="2027" vertical-scroll-proportion="0.7494407">
+            <state line="43" column="0" selection-start="1554" selection-end="1554" vertical-scroll-proportion="0.36465323">
               <folding>
-                <element signature="method#mouseReleased#0;class#604:2514" expanded="true" />
+                <element signature="docComment;method#networkNew#0;class#MenuHandler#0" expanded="true" />
+                <element signature="method#networkNew#0;class#MenuHandler#0" expanded="true" />
+                <element signature="docComment;method#fileOpen#0;class#MenuHandler#0" expanded="true" />
+                <element signature="method#fileOpen#0;class#MenuHandler#0" expanded="true" />
+                <element signature="method#fileSave#0;class#MenuHandler#0" expanded="true" />
+                <element signature="docComment;method#fileSaveAs#0;class#MenuHandler#0" expanded="true" />
+                <element signature="method#fileSaveAs#0;class#MenuHandler#0" expanded="true" />
+                <element signature="docComment;method#fileExit#0;class#MenuHandler#0" expanded="true" />
+                <element signature="method#fileExit#0;class#MenuHandler#0" expanded="true" />
+                <element signature="method#zoomOut#0;class#MenuHandler#0" expanded="true" />
+                <element signature="method#zoomIn#0;class#MenuHandler#0" expanded="true" />
+                <element signature="method#zoomToFit#0;class#MenuHandler#0" expanded="true" />
+                <element signature="method#zoomOneToOne#0;class#MenuHandler#0" expanded="true" />
+                <element signature="method#eventLogView#0;class#MenuHandler#0" expanded="true" />
+                <element signature="method#eventLogClear#0;class#MenuHandler#0" expanded="true" />
+                <element signature="method#eventLogSave#0;class#MenuHandler#0" expanded="true" />
+                <element signature="method#practiceTroubleshootingTest#0;class#MenuHandler#0" expanded="true" />
+                <element signature="method#practiceTest#0;class#MenuHandler#0" expanded="true" />
+                <element signature="method#e#0;class#13502:13650" expanded="true" />
+                <element signature="method#testConnectivity#0;class#MenuHandler#0" expanded="true" />
+                <element signature="method#helpContents#0;class#MenuHandler#0" expanded="true" />
+                <element signature="method#helpAbout#0;class#MenuHandler#0" expanded="true" />
+                <element signature="method#networkModifiedDialog#0;class#MenuHandler#0" expanded="true" />
+                <element signature="method#loadAssessmentProblem#0;class#MenuHandler#0" expanded="true" />
+                <element signature="method#testConformance#0;class#MenuHandler#0" expanded="true" />
+                <element signature="method#operationsCheckSolution#0;class#MenuHandler#0" expanded="true" />
+                <element signature="method#getWidth#0;class#23487:24388" expanded="true" />
+                <element signature="method#downloadConfiguration#0;class#MenuHandler#0" expanded="true" />
+                <element signature="method#freeform#0;class#MenuHandler#0" expanded="true" />
+                <element signature="method#clearAllArpTables#0;class#MenuHandler#0" expanded="true" />
+                <element signature="method#breakNetwork#0;class#MenuHandler#0" expanded="true" />
+                <element signature="method#actualTroubleshootingTest#0;class#MenuHandler#0" expanded="true" />
+                <element signature="method#joinWithISP#0;class#MenuHandler#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DragNDropIconCreator.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/swing/DragNDropIconCreator.java">
+      <file leaf-file-name="NetworkView.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/NetworkView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="39" selection-start="237" selection-end="248" vertical-scroll-proportion="0.0">
+            <state line="115" column="47" selection-start="4255" selection-end="4255" vertical-scroll-proportion="0.0">
               <folding>
-                <element signature="method#newInstance#0;class#DragNDropIconCreator#0" expanded="true" />
+                <element signature="method#NetworkView#0;class#NetworkView#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -256,8 +278,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/ipsim/network/ip/CheckedNumberFormatException.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/computer/ArpEntry.java" />
         <option value="$PROJECT_DIR$/src/main/java/ipsim/swing/DragNDropIconCreator.java" />
         <option value="$PROJECT_DIR$/src/main/java/ipsim/Caster.java" />
         <option value="$PROJECT_DIR$/src/main/java/ipsim/gui/components/ProblemDialog.java" />
@@ -272,6 +292,8 @@
         <option value="$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ip/NetMask.java" />
         <option value="$PROJECT_DIR$/src/main/java/ipsim/gui/components/EthernetCableHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/ipsim/gui/NetworkComponentIconMouseListenerUtility.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ipsim/swing/JFileChooserUtility.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ipsim/gui/MenuHandler.java" />
       </list>
     </option>
   </component>
@@ -416,30 +438,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="IPSim" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="IPSim" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ipsim" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="IPSim" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ipsim" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -758,9 +756,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="-4" width="1448" height="874" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32827586" sideWeight="0.5" order="17" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32827586" sideWeight="0.5" order="17" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4386207" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5040431" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -818,7 +816,7 @@
     <option name="CHANGED_ON_SERVER_INTERVAL" value="60" />
     <option name="SHOW_ONLY_CHANGED_IN_SELECTION_DIFF" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removing indirect casts and instanceofs." />
+    <option name="LAST_COMMIT_MESSAGE" value="Removing some irrelevant documentation." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -840,6 +838,8 @@
     <MESSAGE value="Code cleanups." />
     <MESSAGE value="#1 - Removed the cast and use of Option.some." />
     <MESSAGE value="Removing indirect casts and instanceofs." />
+    <MESSAGE value="#2 - Removed a spurious call to paint." />
+    <MESSAGE value="Removing some irrelevant documentation." />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -917,45 +917,6 @@
     <option name="myLastEditedConfigurable" value="Default" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ip/IPAddress.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="20" selection-start="548" selection-end="548" vertical-scroll-proportion="0.3736842">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ethernet/MacAddress.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="34" selection-start="467" selection-end="467" vertical-scroll-proportion="0.55263156">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/network/connectivity/ip/NetMask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="34" selection-start="965" selection-end="965" vertical-scroll-proportion="0.5947368">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/components/EthernetCableHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="109" column="51" selection-start="4663" selection-end="4663" vertical-scroll-proportion="0.48421052">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/Caster.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="0" selection-start="701" selection-end="701" vertical-scroll-proportion="0.39810428">
-          <folding>
-            <element signature="method#isHTMLFrameHyperlinkEvent#0;class#Caster#0" expanded="true" />
-            <element signature="method#equalT#0;class#Caster#0" expanded="true" />
-            <element signature="method#asFunction#0;class#Caster#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/components/ProblemDialog.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="139" column="23" selection-start="6083" selection-end="6083" vertical-scroll-proportion="0.5207824">
@@ -977,13 +938,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/NetworkView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="46" selection-start="1605" selection-end="1605" vertical-scroll-proportion="0.2985782">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/rickyclarkson/xml/DOMSimple.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="46" column="23" selection-start="1364" selection-end="1364" vertical-scroll-proportion="0.5687204">
@@ -998,9 +952,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/ComponentToolBarUtility.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="50" selection-start="1974" selection-end="1974" vertical-scroll-proportion="0.34228188">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/MainFrameUtility.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="90" column="74" selection-start="3142" selection-end="3142" vertical-scroll-proportion="0.66442955">
+          <folding>
+            <element signature="method#createMainFrame#0;class#MainFrameUtility#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="53" selection-start="2360" selection-end="2360" vertical-scroll-proportion="0.0">
+        <state line="65" column="53" selection-start="2360" selection-end="2360" vertical-scroll-proportion="0.70434785">
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;class#Main#0" expanded="true" />
@@ -1009,36 +979,102 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/MainFrameUtility.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/NetworkComponentIconMouseListenerUtility.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="90" column="74" selection-start="3142" selection-end="3142" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="method#createMainFrame#0;class#MainFrameUtility#0" expanded="true" />
-          </folding>
+        <state line="43" column="23" selection-start="1560" selection-end="1560" vertical-scroll-proportion="0.4362416">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/swing/DragNDropIconCreator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="39" selection-start="237" selection-end="248" vertical-scroll-proportion="0.0">
+        <state line="9" column="39" selection-start="237" selection-end="248" vertical-scroll-proportion="0.1521739">
           <folding>
             <element signature="method#newInstance#0;class#DragNDropIconCreator#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/ComponentToolBarUtility.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.6.0_21/src.zip!/javax/swing/JFileChooser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="78" column="60" selection-start="3708" selection-end="3708" vertical-scroll-proportion="0.0">
+        <state line="628" column="4" selection-start="20475" selection-end="20475" vertical-scroll-proportion="0.3021739">
+          <folding>
+            <element signature="docComment;method#showSaveDialog#0;class#JFileChooser#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/NetworkView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="115" column="47" selection-start="4255" selection-end="4255" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="method#NetworkView#0;class#NetworkView#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.6.0_21/src.zip!/javax/swing/filechooser/FileNameExtensionFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="56" column="11" selection-start="2009" selection-end="2009" vertical-scroll-proportion="0.3364929">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/NetworkComponentIconMouseListenerUtility.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/NetworkContext.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="13" selection-start="2027" selection-end="2027" vertical-scroll-proportion="0.7494407">
+        <state line="61" column="6" selection-start="1900" selection-end="1900" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="method#mouseReleased#0;class#604:2514" expanded="true" />
+            <element signature="method#NetworkContext#0;class#NetworkContext#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/PositionUtility.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="179" column="0" selection-start="7294" selection-end="7294" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="method#getPosition#0;class#PositionUtility#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ipsim/gui/MenuHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="0" selection-start="1554" selection-end="1554" vertical-scroll-proportion="0.36465323">
+          <folding>
+            <element signature="docComment;method#networkNew#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#networkNew#0;class#MenuHandler#0" expanded="true" />
+            <element signature="docComment;method#fileOpen#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#fileOpen#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#fileSave#0;class#MenuHandler#0" expanded="true" />
+            <element signature="docComment;method#fileSaveAs#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#fileSaveAs#0;class#MenuHandler#0" expanded="true" />
+            <element signature="docComment;method#fileExit#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#fileExit#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#zoomOut#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#zoomIn#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#zoomToFit#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#zoomOneToOne#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#eventLogView#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#eventLogClear#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#eventLogSave#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#practiceTroubleshootingTest#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#practiceTest#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#e#0;class#13502:13650" expanded="true" />
+            <element signature="method#testConnectivity#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#helpContents#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#helpAbout#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#networkModifiedDialog#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#loadAssessmentProblem#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#testConformance#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#operationsCheckSolution#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#getWidth#0;class#23487:24388" expanded="true" />
+            <element signature="method#downloadConfiguration#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#freeform#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#clearAllArpTables#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#breakNetwork#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#actualTroubleshootingTest#0;class#MenuHandler#0" expanded="true" />
+            <element signature="method#joinWithISP#0;class#MenuHandler#0" expanded="true" />
           </folding>
         </state>
       </provider>

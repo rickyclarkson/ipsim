@@ -40,7 +40,6 @@ import ipsim.property.Property;
 import ipsim.property.PropertyListener;
 import ipsim.swing.CustomJOptionPane;
 import ipsim.swing.CustomJOptionPaneResult;
-import ipsim.swing.JFileChooserUtility;
 import ipsim.util.Arrays;
 import ipsim.util.Collections;
 import ipsim.webinterface.NamedConfiguration;
@@ -323,7 +322,7 @@ public class MenuHandler {
         return new Runnable() {
             @Override
             public void run() {
-                final int result = JFileChooserUtility.showSaveDialog(getNetworkContext().fileChooser, global.get().frame);
+                final int result = getNetworkContext().fileChooser.showSaveDialog(global.get().frame);
 
                 if (result == JFileChooser.APPROVE_OPTION) {
                     final File filename = getNetworkContext().fileChooser.getSelectedFile();
