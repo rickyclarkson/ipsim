@@ -32,17 +32,14 @@ public class SequenceUtility {
             public Integer f(T t, Integer integer) {
                 return integer + 1;
             }
-        }, 1);
+        }, 0);
     }
 
     public static <T, R> R foldLeft(Option<Node<T>> sequence, F2<T, R, R> operator, R defaultValue) {
-        while (true) {
-            if (sequence.isNone())
-                return defaultValue;
+        if (sequence.isNone())
+            return defaultValue;
 
-            sequence = sequence.some().cdr;
-            defaultValue = operator.f(sequence.some().car, defaultValue);
-        }
+        return foldLeft(sequence.some().cdr, operator, operator.f(sequence.some().car, defaultValue));
     }
 
     public static <T> Iterable<T> iterable(final Option<Node<T>> sequence) {

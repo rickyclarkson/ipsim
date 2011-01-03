@@ -21,7 +21,28 @@
   </component>
   <component name="CodeStyleSettingsManager">
     <option name="PER_PROJECT_SETTINGS">
-      <value />
+      <value>
+        <ADDITIONAL_INDENT_OPTIONS fileType="java">
+          <option name="INDENT_SIZE" value="4" />
+          <option name="CONTINUATION_INDENT_SIZE" value="8" />
+          <option name="TAB_SIZE" value="4" />
+          <option name="USE_TAB_CHARACTER" value="false" />
+          <option name="SMART_TABS" value="false" />
+          <option name="LABEL_INDENT_SIZE" value="0" />
+          <option name="LABEL_INDENT_ABSOLUTE" value="false" />
+          <option name="USE_RELATIVE_INDENTS" value="false" />
+        </ADDITIONAL_INDENT_OPTIONS>
+        <ADDITIONAL_INDENT_OPTIONS fileType="xml">
+          <option name="INDENT_SIZE" value="4" />
+          <option name="CONTINUATION_INDENT_SIZE" value="8" />
+          <option name="TAB_SIZE" value="4" />
+          <option name="USE_TAB_CHARACTER" value="false" />
+          <option name="SMART_TABS" value="false" />
+          <option name="LABEL_INDENT_SIZE" value="0" />
+          <option name="LABEL_INDENT_ABSOLUTE" value="false" />
+          <option name="USE_RELATIVE_INDENTS" value="false" />
+        </ADDITIONAL_INDENT_OPTIONS>
+      </value>
     </option>
   </component>
   <component name="CompilerConfiguration">
@@ -856,7 +877,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/IPSim.iml" filepath="$PROJECT_DIR$/IPSim.iml" />
-      <module fileurl="file://$USER_HOME$/functionaljava/fj.iml" filepath="$USER_HOME$/functionaljava/fj.iml" />
     </modules>
   </component>
   <component name="ProjectResources">
@@ -881,7 +901,6 @@
   </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
-    <mapping directory="$USER_HOME$/functionaljava" vcs="Git" />
   </component>
   <component name="ZipTo(G)mail">
     <option name="userID_X" />
@@ -957,6 +976,17 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.4/junit-4.4-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.functionaljava:fj:3.0-RickyC-2-SNAPSHOT">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/functionaljava/fj/3.0-RickyC-2-SNAPSHOT/fj-3.0-RickyC-2-SNAPSHOT.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/functionaljava/fj/3.0-RickyC-2-SNAPSHOT/fj-3.0-RickyC-2-SNAPSHOT-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/functionaljava/fj/3.0-RickyC-2-SNAPSHOT/fj-3.0-RickyC-2-SNAPSHOT-sources.jar!/" />
       </SOURCES>
     </library>
   </component>
